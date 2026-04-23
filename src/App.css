@@ -1,38 +1,283 @@
-.App {
+/*HEADER==========================================================================================================================================================================================================================*/
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vw 3vw;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-info-left {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 20px);
+  flex: 1;
+}
+
+#page-name {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+  font-weight: 600;
+  color: #333333;
+  white-space: nowrap;
+}
+
+#store-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: clamp(1.1rem, 1.4vw, 1.8rem);
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.header-info-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(15px, 2vw, 40px);
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.date-time-text {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.1vw, 1.3rem);
+  font-weight: 500;
+  color: #444444;
+  white-space: nowrap;
+}
+
+.header img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+
+/*DASHBOARD==========================================================================================================================================================================================================================*/
+.page-buttons-row {
+  display: flex;
+  gap: 16px;
+}
+
+.large-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  border: 30px solid #ddd;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  transition: all 0.2s ease-in-out;
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.large-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.05);
+}
+
+.large-button:active {
+  transform: translateY(0);
+}
+
+#large-button-text {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.button-icon{
+  margin-right: 10px;
+}
+
+.record-sale-btn {
+  background-color: #ff9124;
+  color: white;
+  border: none;
+}
+
+.page-btn {
+  background-color: white;
+  color: #ff9124;
+  border: 1px solid #ddd;
+}
+
+.ai-insights-btn {
+  background-color: #2e9aff;
+  color: white;
+  border: none;
+}
+
+.btn-full {
+  grid-column: span 2;
+}
+
+.btn-half {
+  width: calc(50% - 8px);
+  box-sizing: border-box;
+}
+
+/*SALES BOARD==========================================================================================================================================================================================================================*/
+
+.sales-board-container {
+  width: 100%;
+  margin-top: 20px;
+  font-family: 'Inter', sans-serif; /* Or your preferred sans-serif */
+}
+
+.board-label {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.sales-card {
+  background: white;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.sales-data {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.data-column {
+  flex: 1;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.total-sales-amount {
+  color: #ff9124; /* Your theme orange */
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  margin: 0;
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.transaction-count {
+  color: #000;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  margin: 0;
+  font-weight: 500;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.data-label {
+  font-size: 12px;
+  color: #444;
+  margin: 4px 0 0 0;
+  font-weight: 600;
+}
+
+.vertical-divider {
+  width: 1px;
+  height: 60px;
+  background-color: #d1d1d1;
+}
+
+.sales-footer {
+  border-top: 1px solid #d1d1d1;
+  padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-product {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2fb344; /* Success Green */
+  font-weight: 700;
+  font-size: clamp(1rem, 1.2vw, 1.3rem);
+}
+
+.trend-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/*STOCK ALERT==========================================================================================================================================================================================================================*/
+.alerts-section {
+  width: 100%;
+  margin-top: 25px;
+  font-family: 'Inter', sans-serif;
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.alerts-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #000;
+  margin: 0;
+}
+
+.see-all-btn {
+  background: none;
+  border: none;
+  color: #ff9124; /* Theme orange */
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.alerts-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.alert-card {
+  background: white;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.alert-card:hover {
+  border-color: #ff9124;
+  transform: translateX(5px);
+}
+
+.item-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.stock-status {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #444;
+}
+
+.count {
+  font-weight: 400;
 }
