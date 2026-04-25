@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+//ICONS
 import { IoAdd } from "react-icons/io5";
 import { BsBoxSeam } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -8,6 +9,7 @@ import { VscHistory } from "react-icons/vsc";
 import { GrAnalytics } from "react-icons/gr";
 import { WiStars } from "react-icons/wi";
 
+//COMPONENTS
 import HeaderDashboard from '../component/headerDashboard.jsx';
 import LargeButton from '../component/largePageButton.jsx';
 import SaleBoard from '../component/saleBoard.jsx';

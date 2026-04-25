@@ -12,36 +12,25 @@ import CartItem from '../component/cartItem.jsx';
 import { GiShoppingCart } from "react-icons/gi";
 import { IoCashOutline } from "react-icons/io5";
 
+//SERVICES
+import productsData from '../services/productsData.json';
+import productCategories from '../services/productCategories.json';
+
 export default function RecordSale() {
 
   //PRODUCT LIST
-  const [products, setProducts] = useState([
-    { id: 1, name: "Corn Beef", price: 20, stock: 26, quantity: 4, category: "Canned" },
-    { id: 2, name: "Pancit Canton", price: 18, stock: 26, quantity: 0, category: "Noodles" },
-    { id: 3, name: "Fita", price: 8, stock: 26, quantity: 3, category: "Snacks" },
-    { id: 4, name: "Century Tuna", price: 43, stock: 26, quantity: 8, category: "Canned" },
-    { id: 5, name: "Sky Flakes", price: 7, stock: 26, quantity: 0, category: "Snacks" },
-    { id: 6, name: "Sky Flakes", price: 7, stock: 26, quantity: 0, category: "Snacks" },
-    { id: 7, name: "Lucky Me", price: 15, stock: 50, quantity: 0, category: "Noodles" },
-    { id: 8, name: "Mega Sardines", price: 22, stock: 30, quantity: 0, category: "Canned" },
-    { id: 9, name: "Bear Brand", price: 12, stock: 40, quantity: 0, category: "Beverages" },
-    { id: 10, name: "Milo", price: 12, stock: 40, quantity: 0, category: "Beverages" },
-    { id: 11, name: "Coffee Mate", price: 5, stock: 100, quantity: 0 },
-    { id: 12, name: "Nescafe", price: 8, stock: 100, quantity: 0 },
-    { id: 13, name: "Silver Swan", price: 18, stock: 15, quantity: 0 },
-    { id: 14, name: "Datu Puti", price: 18, stock: 15, quantity: 0 },
-    { id: 15, name: "Magic Sarap", price: 5, stock: 200, quantity: 0 },
-    { id: 16, name: "Knorr Cubes", price: 6, stock: 150, quantity: 0 },
-  ]);
+  const [products, setProducts] = useState(
+    productsData.map(item => ({ ...item, quantity: 0 }))
+  );
 
-  //SEARCH
+  //SEARCH FILTER
   const [searchQuery, setSearchQuery] = useState("");
   const cartItems = products.filter(p => p.quantity > 0);
 
 
   //CATEGORY FILTER
   const [activeCategory, setActiveCategory] = useState("All");
-const categories = ["All", "Canned", "Snacks", "Noodles", "Sauce"];
+  const categories = ["All", ...productCategories.map(cat => cat.name)];
   const handleFilter = (cat) => console.log("Filtering by:", cat);
 
   const filteredProducts = products.filter(product => {
@@ -51,13 +40,21 @@ const categories = ["All", "Canned", "Snacks", "Noodles", "Sauce"];
   });
 
   //PRODUCTS HANDLE
-  const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const totalAmount = cartItems.reduce((sum, item) => sum + (item.cost_price * item.quantity), 0);
 
 
   const handleIncrease = (id) => {
-    setProducts(products.map(p =>
-      p.id === id ? { ...p, quantity: p.quantity + 1 } : p
-    ));
+    setProducts(products.map(p => {
+      if (p.id === id) {
+        if (p.quantity < p.stock_quantity) {
+          return { ...p, quantity: p.quantity + 1 };
+        } else {
+          alert(`Cannot exceed stock for ${p.name}`);
+          return p;
+        }
+      }
+      return p;
+    }));
   };
 
   const handleDecrease = (id) => {
@@ -110,10 +107,10 @@ const categories = ["All", "Canned", "Snacks", "Noodles", "Sauce"];
 
           <div className="cart-list-container">
             <div className="cart-items-scroll-area">
-              {cartItems.map(item => (
+              {cartItems.map(product => (
                 <CartItem
-                  key={item.id}
-                  item={item}
+                  key={product.id}
+                  product={product}
                   onIncrease={handleIncrease}
                   onDecrease={handleDecrease}
                 />
