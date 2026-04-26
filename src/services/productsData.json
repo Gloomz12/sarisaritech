@@ -1,0 +1,202 @@
+[
+    {
+        "id": "p1",
+        "name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "cost_price": 15,
+        "selling_price": 20,
+        "stock_quantity": 26,
+        "quantity": 0,
+        "min_stock_level": 10
+    },
+    {
+        "id": "p2",
+        "name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "cost_price": 35,
+        "selling_price": 43,
+        "stock_quantity": 15,
+        "quantity": 0,
+        "min_stock_level": 8
+    },
+    {
+        "id": "p3",
+        "name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "cost_price": 18,
+        "selling_price": 22,
+        "stock_quantity": 30,
+        "quantity": 0,
+        "min_stock_level": 12
+    },
+    {
+        "id": "p4",
+        "name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "cost_price": 17,
+        "selling_price": 21,
+        "stock_quantity": 20,
+        "quantity": 0,
+        "min_stock_level": 10
+    },
+    {
+        "id": "p5",
+        "name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "cost_price": 95,
+        "selling_price": 110,
+        "stock_quantity": 10,
+        "quantity": 0,
+        "min_stock_level": 5
+    },
+    {
+        "id": "p6",
+        "name": "Fita Crackers",
+        "category": "Snacks",
+        "cost_price": 6,
+        "selling_price": 8,
+        "stock_quantity": 40,
+        "quantity": 0,
+        "min_stock_level": 15
+    },
+    {
+        "id": "p7",
+        "name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "cost_price": 5,
+        "selling_price": 7,
+        "stock_quantity": 50,
+        "quantity": 0,
+        "min_stock_level": 20
+    },
+    {
+        "id": "p8",
+        "name": "Piattos Cheese",
+        "category": "Snacks",
+        "cost_price": 12,
+        "selling_price": 16,
+        "stock_quantity": 25,
+        "quantity": 0,
+        "min_stock_level": 10
+    },
+    {
+        "id": "p9",
+        "name": "Chippy BBQ",
+        "category": "Snacks",
+        "cost_price": 10,
+        "selling_price": 14,
+        "stock_quantity": 20,
+        "quantity": 0,
+        "min_stock_level": 10
+    },
+    {
+        "id": "p10",
+        "name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "cost_price": 8,
+        "selling_price": 12,
+        "stock_quantity": 15,
+        "quantity": 0,
+        "min_stock_level": 8
+    },
+    {
+        "id": "p11",
+        "name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "cost_price": 6,
+        "selling_price": 9,
+        "stock_quantity": 30,
+        "quantity": 0,
+        "min_stock_level": 12
+    },
+    {
+        "id": "p12",
+        "name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "cost_price": 14,
+        "selling_price": 18,
+        "stock_quantity": 45,
+        "quantity": 0,
+        "min_stock_level": 20
+    },
+    {
+        "id": "p13",
+        "name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "cost_price": 10,
+        "selling_price": 14,
+        "stock_quantity": 30,
+        "quantity": 0,
+        "min_stock_level": 15
+    },
+    {
+        "id": "p14",
+        "name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "cost_price": 18,
+        "selling_price": 25,
+        "stock_quantity": 20,
+        "quantity": 0,
+        "min_stock_level": 10
+    },
+    {
+        "id": "p15",
+        "name": "Payless Xtra Big",
+        "category": "Noodles",
+        "cost_price": 12,
+        "selling_price": 16,
+        "stock_quantity": 22,
+        "quantity": 0,
+        "min_stock_level": 10
+    },
+    {
+        "id": "p16",
+        "name": "Yakiss Soba",
+        "category": "Noodles",
+        "cost_price": 15,
+        "selling_price": 20,
+        "stock_quantity": 18,
+        "quantity": 0,
+        "min_stock_level": 8
+    },
+    {
+        "id": "p17",
+        "name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "cost_price": 15,
+        "selling_price": 20,
+        "stock_quantity": 12,
+        "quantity": 0,
+        "min_stock_level": 5
+    },
+    {
+        "id": "p18",
+        "name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "cost_price": 10,
+        "selling_price": 15,
+        "stock_quantity": 12,
+        "quantity": 0,
+        "min_stock_level": 15
+    },
+    {
+        "id": "p19",
+        "name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "cost_price": 16,
+        "selling_price": 22,
+        "stock_quantity": 10,
+        "quantity": 0,
+        "min_stock_level": 22
+    },
+    {
+        "id": "p20",
+        "name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "cost_price": 3.5,
+        "selling_price": 5,
+        "stock_quantity": 100,
+        "quantity": 0,
+        "min_stock_level": 30
+    }
+]

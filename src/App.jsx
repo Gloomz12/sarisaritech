@@ -8,7 +8,7 @@ import RecordSale from "./pages/recordSale.jsx";
 import Restock from "./pages/restock.jsx";
 import Analytics from "./pages/analytics.jsx";
 import History from "./pages/history.jsx";
-import AiInsight from "./pages/aiInsight.jsx";
+import AiInsight from "./pages/aiInsight";
 
 export default function App() {
   return (

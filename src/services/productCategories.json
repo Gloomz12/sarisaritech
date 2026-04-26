@@ -1,0 +1,18 @@
+[
+    { "id": 1, "name": "Canned" },
+    { "id": 2, "name": "Noodles" },
+    { "id": 3, "name": "Snacks" },
+    { "id": 4, "name": "Beverages" },
+    { "id": 5, "name": "Coffee" },
+    { "id": 6, "name": "Seasoning" },
+    { "id": 7, "name": "Sauce" },
+    { "id": 8, "name": "Spices" },
+    { "id": 9, "name": "Rice" },
+    { "id": 10, "name": "Liquor" },
+    { "id": 11, "name": "Tobacco" },
+    { "id": 12, "name": "Hygiene" },
+    { "id": 13, "name": "Laundry" },
+    { "id": 14, "name": "Bakery" },
+    { "id": 15, "name": "Dairy" },
+    { "id": 16, "name": "Household" }
+]
