@@ -7,7 +7,7 @@ export default function CategoryFilter({ categories, activeCategory, onCategoryC
                 <button
                     key={index}
                     className={`category-item ${activeCategory === cat ? "active" : ""}`}
-                    onClick={() => onCategoryChange(cat)} // Call the parent function
+                    onClick={() => onCategoryChange(cat)}
                 >
                     {cat}
                 </button>
