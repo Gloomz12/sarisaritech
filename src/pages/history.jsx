@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // COMPONENTS
 import Header from '../component/header.jsx';
@@ -10,39 +10,61 @@ import TransactionItem from '../component/transactionItem.jsx';
 import { BsCashStack } from "react-icons/bs";
 import { FaCashRegister } from "react-icons/fa";
 
-// SERVICES
-import Transactions from '../services/transactionHistory.json';
+// API
+import api from '../services/api.js';
 
 export default function History() {
 
+  const [transactions, setTransactions] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMethod, setActiveMethod] = useState("All Payments");
 
-  const totalSales = Transactions.reduce((acc, curr) => acc + curr.total_amount, 0);
-  const totalCount = Transactions.length;
+  // 🔥 FETCH DATA
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const res = await api.get("/transactions");
+        setTransactions(res.data);
+      } catch (err) {
+        console.error("Error fetching transactions:", err);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
+
+  // TOTALS
+  const totalSales = transactions.reduce((acc, curr) => acc + curr.total_amount, 0);
+  const totalCount = transactions.length;
+
   const formattedSales = new Intl.NumberFormat('en-PH', {
     style: 'currency',
     currency: 'PHP',
   }).format(totalSales);
 
-  const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya", "Bank Transfer"];
+  // PAYMENT METHODS
+  const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya"];
 
+  // FILTER
+  const filteredTransactions = transactions.filter(t => {
+    const matchesMethod =
+      activeMethod === "All Payments" || t.payment_method === activeMethod;
 
-
-  const filteredTransactions = Transactions.filter(t => {
-    const matchesMethod = activeMethod === "All Payments" || t.payment_method === activeMethod;
     const matchesSearch = t.items.some(item =>
       item.product_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return matchesMethod && matchesSearch;
   });
+
   const methodTotal = filteredTransactions.reduce((acc, curr) => acc + curr.total_amount, 0);
 
+  // SORT
   const sortedTransactions = [...filteredTransactions].sort((a, b) =>
     new Date(b.created_at) - new Date(a.created_at)
   );
 
+  // FORMAT TIME
   const formatTime = (isoString) => {
     return new Date(isoString).toLocaleTimeString('en-US', {
       hour: '2-digit',
@@ -51,6 +73,7 @@ export default function History() {
     });
   };
 
+  // GROUP BY DATE
   const groupedTransactions = sortedTransactions.reduce((groups, trans) => {
     const dateStr = new Date(trans.created_at).toLocaleDateString('en-US', {
       weekday: 'long',
@@ -61,6 +84,7 @@ export default function History() {
     if (!groups[dateStr]) {
       groups[dateStr] = [];
     }
+
     groups[dateStr].push(trans);
     return groups;
   }, {});
@@ -69,6 +93,7 @@ export default function History() {
     <div className="history-page-container">
       <Header currentPage="History" />
 
+      {/* SUMMARY */}
       <div className="transactions-summary-grid">
         <div className="stat-card">
           <div className="stat-icon sales-bg"><BsCashStack /></div>
@@ -87,17 +112,20 @@ export default function History() {
         </div>
       </div>
 
+      {/* SEARCH */}
       <SearchBar
         value={searchQuery}
         onSearchChange={setSearchQuery}
       />
 
+      {/* FILTER */}
       <CategoryFilter
         categories={paymentMethods}
         activeCategory={activeMethod}
         onCategoryChange={setActiveMethod}
       />
 
+      {/* FILTER INFO */}
       <div className="filter-stats-container">
         <div className="filter-text-group">
           <h3 className="filter-period-label">Recent Activity</h3>
@@ -109,6 +137,7 @@ export default function History() {
         </div>
       </div>
 
+      {/* LIST */}
       <div className="transactions-list-scroll">
         {Object.keys(groupedTransactions).map((dateKey) => {
           const dayTransactions = groupedTransactions[dateKey];
@@ -122,9 +151,6 @@ export default function History() {
                   <span className="header-stats">
                     {dayTransactions.length} transactions • ₱{dayTotal.toLocaleString()}
                   </span>
-                </div>
-                <div className="header-trend-icon">
-
                 </div>
               </div>
 
