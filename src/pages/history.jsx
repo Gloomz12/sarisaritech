@@ -56,7 +56,6 @@ export default function History() {
 
     return matchesMethod && matchesSearch;
   });
-
   const methodTotal = filteredTransactions.reduce((acc, curr) => acc + curr.total_amount, 0);
 
   // SORT
