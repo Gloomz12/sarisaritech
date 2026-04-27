@@ -33,8 +33,8 @@ export default function Dashboard() {
                     <div className="page-buttons-row">
                         { /* History button */}
                         <LargeButton pageIcon={<VscHistory />} pageName="History" variant="page-btn" isFullWidth={false} path="/history" />
-                        { /* Analytics button */}
-                        <LargeButton pageIcon={<GrAnalytics />} pageName="Analytics" variant="page-btn" isFullWidth={false} path="/analytics" />
+                        { /* Statistics button */}
+                        <LargeButton pageIcon={<GrAnalytics />} pageName="Statistics" variant="page-btn" isFullWidth={false} path="/statistics" />
                     </div>
                     { /* AI Insight button */}
                     <LargeButton pageIcon={<WiStars size={50} />} pageName="AI Insight" variant="ai-insights-btn" isFullWidth={true} path="/ai-insight" />

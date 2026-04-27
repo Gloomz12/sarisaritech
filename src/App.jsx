@@ -6,7 +6,7 @@ import Dashboard from "./pages/dashboard.jsx";
 import Inventory from "./pages/inventory.jsx";
 import RecordSale from "./pages/recordSale.jsx";
 import Restock from "./pages/restock.jsx";
-import Analytics from "./pages/analytics.jsx";
+import Statistics from "./pages/statistics.jsx";
 import History from "./pages/history.jsx";
 import AiInsight from "./pages/aiInsight";
 
@@ -19,7 +19,7 @@ export default function App() {
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/record-sale" element={<RecordSale />} />
           <Route path="/restock" element={<Restock />} />
-          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/statistics" element={<Statistics />} />
           <Route path="/history" element={<History />} />
           <Route path="/ai-insight" element={<AiInsight />} />
         </Routes>
