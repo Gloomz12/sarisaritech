@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useMemo } from 'react';
 
-//ICONS
-import { CiFolderOn } from "react-icons/ci";
+// ICONS
 import { IoAddOutline } from "react-icons/io5";
 
-//COMPONENTS
+// COMPONENTS
 import Header from '../component/header.jsx';
 import SearchBar from '../component/searchBar.jsx';
 import CategoryFilter from '../component/categoryFilter.jsx';
@@ -14,40 +12,32 @@ import EditProductModal from '../component/editProductModal.jsx';
 import RestockProductModal from '../component/restockModal.jsx';
 import DeleteProductModal from '../component/deleteProductModal.jsx';
 import AddProductModal from '../component/addProductModal.jsx';
-//import CategoryManageModal from '../component/categoryManageModal.jsx';
 
-
-//SERVICES
+// SERVICES
 import productsData from '../services/productsData.json';
 import productCategories from '../services/productCategories.json';
 
-
 export default function Inventory() {
-
-  //PRODUCT LIST
-  const [products, setProducts] = useState(
-    productsData.map(item => ({ ...item, quantity: 0 }))
-  );
-
-
-  //SEARCH FILTER
-  const [searchQuery, setSearchQuery] = useState("");
-  const cartItems = products.filter(p => p.quantity > 0);
-
-
-  //CATEGORY FILTER
-  const [activeCategory, setActiveCategory] = useState("All");
-  const categories = ["All", ...productCategories.map(cat => cat.name)];
-  const handleFilter = (cat) => console.log("Filtering by:", cat);
-
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = activeCategory === "All" || product.category === activeCategory;
-    return matchesSearch && matchesCategory;
+  const [products, setProducts] = useState(() => {
+    const savedData = localStorage.getItem('sarisari_inventory');
+    return savedData ? JSON.parse(savedData) : productsData;
   });
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  //SORTING BY STOCK STATUS
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isRestockOpen, setRestockOpen] = useState(false);
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('sarisari_inventory', JSON.stringify(products));
+  }, [products]);
+
+  const categories = ["All", ...productCategories.map(cat => cat.name)];
+
   const getStatus = (product) => {
     if (product.stock_quantity <= product.min_stock_level / 2) return "CRITICAL";
     if (product.stock_quantity <= product.min_stock_level) return "LOW";
@@ -56,41 +46,38 @@ export default function Inventory() {
 
   const statusPriority = { "CRITICAL": 1, "LOW": 2, "OK": 3 };
 
-  const sortedProducts = [...productsData].sort((a, b) => {
-    return statusPriority[getStatus(a)] - statusPriority[getStatus(b)];
-  });
+  const displayProducts = useMemo(() => {
+    return products
+      .filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = activeCategory === "All" || product.category === activeCategory;
+        return matchesSearch && matchesCategory;
+      })
+      .sort((a, b) => statusPriority[getStatus(a)] - statusPriority[getStatus(b)]);
+  }, [products, searchQuery, activeCategory]);
 
-  const displayProducts = [...filteredProducts].sort((a, b) => {
-    return statusPriority[getStatus(a)] - statusPriority[getStatus(b)];
-  });
-
-  //EDIT CATEGORIES
-  const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
-
-  //ADD NEW PRODUCTS
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
 
   const handleAddProduct = (newProduct) => {
-    setProducts(prev => [newProduct, ...prev]);
+    const productWithDefaults = {
+        ...newProduct,
+        id: newProduct.id || `p${Date.now()}`,
+        quantity: 0 
+    };
+    setProducts(prev => [productWithDefaults, ...prev]);
     setAddModalOpen(false);
   };
-
-  //EDIT PRODUCT MODAL
-  const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleEditClick = (product) => {
     setSelectedProduct(product);
     setEditModalOpen(true);
   };
 
-  const handleSave = (updatedProduct) => {
-    setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
+  const handleSaveEdit = (updatedProduct) => {
+    setProducts(prev => 
+        prev.map(p => p.id === updatedProduct.id ? { ...updatedProduct } : p)
+    );
     setEditModalOpen(false);
   };
-
-  //RESTOCK PRODUCT MODAL
-  const [isRestockOpen, setRestockOpen] = useState(false);
 
   const handleRestockClick = (product) => {
     setSelectedProduct(product);
@@ -98,25 +85,18 @@ export default function Inventory() {
   };
 
   const handleRestock = (productId, amountToAdd) => {
-    setProducts(prevProducts =>
-      prevProducts.map(product => {
+    setProducts(prev => prev.map(product => {
         if (product.id === productId) {
-          const newStock = product.stock_quantity + parseInt(amountToAdd);
-
           return {
             ...product,
-            stock_quantity: newStock
+            stock_quantity: product.stock_quantity + parseInt(amountToAdd)
           };
         }
         return product;
       })
     );
     setRestockOpen(false);
-    console.log(`Restocked ID: ${productId} with ${amountToAdd} units.`);
   };
-
-  //DELETE PRODUCT MODAL
-  const [isDeleteOpen, setDeleteOpen] = useState(false);
 
   const handleDeleteClick = (product) => {
     setSelectedProduct(product);
@@ -126,14 +106,12 @@ export default function Inventory() {
   const handleConfirmDelete = (productId) => {
     setProducts(prev => prev.filter(p => p.id !== productId));
     setDeleteOpen(false);
-    console.log("Deleted product:", productId);
   };
 
   return (
-
     <div className="inventory-body">
-
       <Header currentPage="Inventory" />
+      
       <SearchBar
         placeholder="Search for products..."
         value={searchQuery}
@@ -147,50 +125,42 @@ export default function Inventory() {
       />
 
       <div className="inventory-actions-bar">
-        
-        {/*   
-        <button
-          className="action-icon-btn"
-          onClick={() => setCategoryModalOpen(true)}
-          title="Manage Categories"
-        >
-          <CiFolderOn />
-        </button>
-        */}
-
         <button
           className="action-icon-btn"
           onClick={() => setAddModalOpen(true)}
           title="Add New Product"
         >
-          <IoAddOutline />
+          <IoAddOutline size={24} />
         </button>
-
-        <AddProductModal
-          isOpen={isAddModalOpen}
-          onClose={() => setAddModalOpen(false)}
-          onAdd={handleAddProduct}
-          categories={categories}
-        />
-
       </div>
-
 
       <div className="products-cards-list">
         <div className="inventory-grid">
           {displayProducts.map(product => (
-            <InventoryCard key={product.id} product={product} onEdit={handleEditClick} onRestock={handleRestockClick} onDelete={handleDeleteClick} />
+            <InventoryCard 
+                key={product.id} 
+                product={product} 
+                onEdit={handleEditClick} 
+                onRestock={handleRestockClick} 
+                onDelete={handleDeleteClick} 
+            />
           ))}
         </div>
 
+        
+        <AddProductModal
+          isOpen={isAddModalOpen}
+          onClose={() => setAddModalOpen(false)}
+          onAdd={handleAddProduct}
+          categories={categories.filter(c => c !== "All")}
+        />
 
-        {/*MODALS */}
         <EditProductModal
           isOpen={isEditModalOpen}
           product={selectedProduct}
           onClose={() => setEditModalOpen(false)}
-          onSave={handleSave}
-          categories={categories}
+          onSave={handleSaveEdit}
+          categories={categories.filter(c => c !== "All")}
         />
 
         <RestockProductModal

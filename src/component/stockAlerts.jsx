@@ -1,13 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
-const stockAlerts = [
-    { id: 1, name: 'Item A', remaining: 5 },
-    { id: 2, name: 'Item B', remaining: 3 },
-    { id: 3, name: 'Item C', remaining: 2 },
-];
-
-export default function StockAlerts() {
+export default function StockAlerts({ items = [] }) {
     const navigate = useNavigate();
 
     return (
@@ -18,15 +12,21 @@ export default function StockAlerts() {
             </div>
 
             <div className="alerts-list">
-                {stockAlerts.map((item) => (
-                    <div key={item.id} className="alert-card">
-                        <h4 className="item-name">{item.name}</h4>
-                        <p className="stock-status">
-                            Stock Low: <span className="count">{item.remaining} remaining</span>
-                        </p>
+                {items.length > 0 ? (
+                    items.map((item) => (
+                        <div key={item.id} className="alert-card">
+                            <h4 className="item-name">{item.name}</h4>
+                            <p className="stock-status">
+                                Stock Low: <span className="count">{item.stock_quantity} remaining</span>
+                            </p>
+                        </div>
+                    ))
+                ) : (
+                    <div className="alert-card healthy">
+                        <p>All stock levels are OK</p>
                     </div>
-                ))}
+                )}
             </div>
         </div>
-    )
+    );
 }

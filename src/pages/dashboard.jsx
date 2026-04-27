@@ -101,7 +101,7 @@ export default function Dashboard() {
 
                     <div className="page-buttons-row">
                         <LargeButton pageIcon={<VscHistory />} pageName="History" variant="page-btn" isFullWidth={false} path="/history" />
-                        <LargeButton pageIcon={<GrAnalytics />} pageName="Analytics" variant="page-btn" isFullWidth={false} path="/analytics" />
+                        <LargeButton pageIcon={<GrAnalytics />} pageName="Statistics" variant="page-btn" isFullWidth={false} path="/statistics" />
                     </div>
 
                     <LargeButton pageIcon={<WiStars size={50} />} pageName="AI Insight" variant="ai-insights-btn" isFullWidth={true} path="/ai-insight" />
