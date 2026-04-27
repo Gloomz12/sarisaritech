@@ -12,7 +12,7 @@ import {
 import TimeFilter from '../component/timeFilter.jsx';
 import Header from '../component/header.jsx';
 
-// SERVICES (Only pulling TransactionHistory now)
+// SERVICES
 import TransactionHistory from '../services/transactionHistory.json';
 
 // ICONS
