@@ -25,7 +25,7 @@ export default function History() {
     currency: 'PHP',
   }).format(totalSales);
 
-  const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya", "Bank Transfer"];
+  const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya"];
 
 
 

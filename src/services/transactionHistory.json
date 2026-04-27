@@ -2,24 +2,27 @@
   {
     "id": "t1001-uuid",
     "total_amount": 110.0,
-    "payment_method": "Bank Transfer",
+    "payment_method": "GCash",
     "created_at": "2026-04-12T07:30:35Z",
     "items": [
       {
         "product_id": "p009-uuid",
         "product_name": "Magic Sarap",
+        "category": "Seasoning",
         "quantity": 1,
         "subtotal": 5.0
       },
       {
         "product_id": "p004-uuid",
         "product_name": "Coca-Cola 290ml",
+        "category": "Beverage",
         "quantity": 1,
         "subtotal": 20.0
       },
       {
         "product_id": "p005-uuid",
         "product_name": "Gardenia Loaf Bread",
+        "category": "Bread",
         "quantity": 1,
         "subtotal": 85.0
       }
@@ -33,3233 +36,10 @@
     "items": [
       {
         "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 2,
-        "subtotal": 18.0
-      }
-    ]
-  },
-  {
-    "id": "t1003-uuid",
-    "total_amount": 350.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-12T15:45:09Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      }
-    ]
-  },
-  {
-    "id": "t1004-uuid",
-    "total_amount": 75.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-12T13:20:01Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
         "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1005-uuid",
-    "total_amount": 50.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-12T11:31:16Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1006-uuid",
-    "total_amount": 546.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-12T20:09:32Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 2,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 4,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      }
-    ]
-  },
-  {
-    "id": "t1007-uuid",
-    "total_amount": 294.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-12T21:09:39Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 5,
-        "subtotal": 225.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1008-uuid",
-    "total_amount": 255.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-12T17:35:34Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      }
-    ]
-  },
-  {
-    "id": "t1009-uuid",
-    "total_amount": 30.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-12T10:24:53Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1010-uuid",
-    "total_amount": 482.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-12T16:17:34Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      }
-    ]
-  },
-  {
-    "id": "t1011-uuid",
-    "total_amount": 75.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-13T14:38:14Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      }
-    ]
-  },
-  {
-    "id": "t1012-uuid",
-    "total_amount": 114.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-13T10:43:49Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 5,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1013-uuid",
-    "total_amount": 78.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-13T11:16:58Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 4,
-        "subtotal": 48.0
-      }
-    ]
-  },
-  {
-    "id": "t1014-uuid",
-    "total_amount": 185.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-13T06:34:56Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1015-uuid",
-    "total_amount": 215.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-13T15:33:43Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 5,
-        "subtotal": 125.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1016-uuid",
-    "total_amount": 48.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-13T19:39:16Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 4,
-        "subtotal": 48.0
-      }
-    ]
-  },
-  {
-    "id": "t1017-uuid",
-    "total_amount": 195.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-13T06:48:05Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      }
-    ]
-  },
-  {
-    "id": "t1018-uuid",
-    "total_amount": 45.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-13T11:49:14Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1019-uuid",
-    "total_amount": 143.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-13T17:18:11Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 2,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1020-uuid",
-    "total_amount": 48.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-13T18:40:02Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 4,
-        "subtotal": 48.0
-      }
-    ]
-  },
-  {
-    "id": "t1021-uuid",
-    "total_amount": 18.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T20:49:07Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 2,
-        "subtotal": 18.0
-      }
-    ]
-  },
-  {
-    "id": "t1022-uuid",
-    "total_amount": 101.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T08:45:41Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1023-uuid",
-    "total_amount": 100.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T10:44:11Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      }
-    ]
-  },
-  {
-    "id": "t1024-uuid",
-    "total_amount": 15.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T20:17:44Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1025-uuid",
-    "total_amount": 43.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T15:11:29Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 1,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1026-uuid",
-    "total_amount": 110.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-14T09:02:25Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1027-uuid",
-    "total_amount": 135.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-14T19:56:05Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 3,
-        "subtotal": 135.0
-      }
-    ]
-  },
-  {
-    "id": "t1028-uuid",
-    "total_amount": 100.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T20:30:09Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 4,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1029-uuid",
-    "total_amount": 410.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-14T12:29:01Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 5,
-        "subtotal": 125.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 3,
-        "subtotal": 255.0
-      }
-    ]
-  },
-  {
-    "id": "t1030-uuid",
-    "total_amount": 30.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-14T10:41:59Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1031-uuid",
-    "total_amount": 525.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-15T10:15:07Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1032-uuid",
-    "total_amount": 197.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-15T11:31:34Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 5,
-        "subtotal": 125.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      }
-    ]
-  },
-  {
-    "id": "t1033-uuid",
-    "total_amount": 85.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-15T16:58:20Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      }
-    ]
-  },
-  {
-    "id": "t1034-uuid",
-    "total_amount": 188.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-15T13:47:12Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 4,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      }
-    ]
-  },
-  {
-    "id": "t1035-uuid",
-    "total_amount": 60.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-15T17:10:41Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1036-uuid",
-    "total_amount": 130.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-15T06:58:45Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 4,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1037-uuid",
-    "total_amount": 40.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-15T16:27:31Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      }
-    ]
-  },
-  {
-    "id": "t1038-uuid",
-    "total_amount": 60.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-15T13:34:28Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 4,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1039-uuid",
-    "total_amount": 205.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-15T15:28:03Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 5,
-        "subtotal": 100.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1040-uuid",
-    "total_amount": 87.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-15T07:14:00Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 1,
-        "subtotal": 18.0
-      }
-    ]
-  },
-  {
-    "id": "t1041-uuid",
-    "total_amount": 145.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-16T14:29:12Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 5,
-        "subtotal": 100.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1042-uuid",
-    "total_amount": 232.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-16T17:03:50Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 5,
-        "subtotal": 100.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 5,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1043-uuid",
-    "total_amount": 300.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-16T19:03:33Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1044-uuid",
-    "total_amount": 90.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-16T09:39:22Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1045-uuid",
-    "total_amount": 260.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-16T09:33:12Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 3,
-        "subtotal": 135.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 4,
-        "subtotal": 100.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1046-uuid",
-    "total_amount": 30.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-16T16:45:01Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1047-uuid",
-    "total_amount": 105.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-16T09:21:23Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      }
-    ]
-  },
-  {
-    "id": "t1048-uuid",
-    "total_amount": 210.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-16T13:00:01Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      }
-    ]
-  },
-  {
-    "id": "t1049-uuid",
-    "total_amount": 170.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-16T19:45:32Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 4,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1050-uuid",
-    "total_amount": 390.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-16T17:52:37Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1051-uuid",
-    "total_amount": 20.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-17T13:43:38Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 4,
-        "subtotal": 20.0
-      }
-    ]
-  },
-  {
-    "id": "t1052-uuid",
-    "total_amount": 157.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-17T18:31:29Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      }
-    ]
-  },
-  {
-    "id": "t1053-uuid",
-    "total_amount": 15.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-17T17:43:11Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1054-uuid",
-    "total_amount": 397.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-17T21:18:54Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 5,
-        "subtotal": 225.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      }
-    ]
-  },
-  {
-    "id": "t1055-uuid",
-    "total_amount": 91.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-17T21:38:33Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1056-uuid",
-    "total_amount": 61.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-17T08:34:56Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 3,
-        "subtotal": 36.0
-      }
-    ]
-  },
-  {
-    "id": "t1057-uuid",
-    "total_amount": 75.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-17T21:07:48Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      }
-    ]
-  },
-  {
-    "id": "t1058-uuid",
-    "total_amount": 330.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-17T07:56:25Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1059-uuid",
-    "total_amount": 400.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-17T08:57:33Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1060-uuid",
-    "total_amount": 362.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-17T08:41:08Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 5,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      }
-    ]
-  },
-  {
-    "id": "t1061-uuid",
-    "total_amount": 315.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-18T06:39:41Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1062-uuid",
-    "total_amount": 452.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-18T19:24:09Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      }
-    ]
-  },
-  {
-    "id": "t1063-uuid",
-    "total_amount": 49.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-18T21:58:39Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1064-uuid",
-    "total_amount": 170.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-18T19:44:35Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      }
-    ]
-  },
-  {
-    "id": "t1065-uuid",
-    "total_amount": 142.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-18T11:06:34Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1066-uuid",
-    "total_amount": 255.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-18T19:49:20Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      }
-    ]
-  },
-  {
-    "id": "t1067-uuid",
-    "total_amount": 25.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-18T06:37:54Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1068-uuid",
-    "total_amount": 216.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-18T11:49:12Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 3,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1069-uuid",
-    "total_amount": 42.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-18T11:17:23Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1070-uuid",
-    "total_amount": 345.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-18T18:57:12Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 5,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      }
-    ]
-  },
-  {
-    "id": "t1071-uuid",
-    "total_amount": 510.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-19T15:12:05Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      }
-    ]
-  },
-  {
-    "id": "t1072-uuid",
-    "total_amount": 424.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-19T07:20:30Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 4,
-        "subtotal": 100.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 5,
-        "subtotal": 225.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      }
-    ]
-  },
-  {
-    "id": "t1073-uuid",
-    "total_amount": 96.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-19T21:03:03Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 2,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1074-uuid",
-    "total_amount": 99.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-19T11:05:42Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1075-uuid",
-    "total_amount": 134.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-19T06:04:09Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 2,
-        "subtotal": 20.0
-      }
-    ]
-  },
-  {
-    "id": "t1076-uuid",
-    "total_amount": 167.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-19T16:34:43Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 4,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      }
-    ]
-  },
-  {
-    "id": "t1077-uuid",
-    "total_amount": 185.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-19T16:15:12Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1078-uuid",
-    "total_amount": 55.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-19T19:46:51Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      }
-    ]
-  },
-  {
-    "id": "t1079-uuid",
-    "total_amount": 389.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-19T06:23:38Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 2,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 3,
-        "subtotal": 255.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1080-uuid",
-    "total_amount": 520.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-19T15:33:27Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1081-uuid",
-    "total_amount": 149.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-20T19:39:55Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1082-uuid",
-    "total_amount": 179.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-20T13:17:14Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      }
-    ]
-  },
-  {
-    "id": "t1083-uuid",
-    "total_amount": 540.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-20T08:56:19Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1084-uuid",
-    "total_amount": 141.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-20T13:55:02Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      }
-    ]
-  },
-  {
-    "id": "t1085-uuid",
-    "total_amount": 463.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-20T21:20:53Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      }
-    ]
-  },
-  {
-    "id": "t1086-uuid",
-    "total_amount": 118.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-20T14:09:14Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 2,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 4,
-        "subtotal": 100.0
-      }
-    ]
-  },
-  {
-    "id": "t1087-uuid",
-    "total_amount": 36.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-20T07:56:06Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      }
-    ]
-  },
-  {
-    "id": "t1088-uuid",
-    "total_amount": 45.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-20T18:17:39Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1089-uuid",
-    "total_amount": 123.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-20T18:20:49Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1090-uuid",
-    "total_amount": 154.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-20T07:41:07Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 4,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1091-uuid",
-    "total_amount": 111.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-21T20:44:25Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      }
-    ]
-  },
-  {
-    "id": "t1092-uuid",
-    "total_amount": 72.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-21T19:41:32Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      }
-    ]
-  },
-  {
-    "id": "t1093-uuid",
-    "total_amount": 94.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-21T17:17:09Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      }
-    ]
-  },
-  {
-    "id": "t1094-uuid",
-    "total_amount": 5.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-21T15:47:51Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      }
-    ]
-  },
-  {
-    "id": "t1095-uuid",
-    "total_amount": 120.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-21T13:41:15Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 4,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 4,
-        "subtotal": 100.0
-      }
-    ]
-  },
-  {
-    "id": "t1096-uuid",
-    "total_amount": 131.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-21T08:25:27Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 2,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 2,
-        "subtotal": 20.0
-      }
-    ]
-  },
-  {
-    "id": "t1097-uuid",
-    "total_amount": 81.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-21T08:27:29Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1098-uuid",
-    "total_amount": 139.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-21T07:09:16Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 5,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 2,
-        "subtotal": 40.0
-      }
-    ]
-  },
-  {
-    "id": "t1099-uuid",
-    "total_amount": 157.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-21T19:03:06Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1100-uuid",
-    "total_amount": 34.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-21T10:47:17Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 1,
-        "subtotal": 9.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1101-uuid",
-    "total_amount": 105.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-22T19:02:43Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 4,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1102-uuid",
-    "total_amount": 128.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-22T08:31:08Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 1,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1103-uuid",
-    "total_amount": 45.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-22T15:17:54Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1104-uuid",
-    "total_amount": 75.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-22T12:20:22Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1105-uuid",
-    "total_amount": 155.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-22T18:04:51Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 2,
-        "subtotal": 24.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1106-uuid",
-    "total_amount": 121.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-22T06:57:54Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 1,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      }
-    ]
-  },
-  {
-    "id": "t1107-uuid",
-    "total_amount": 235.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-22T11:38:21Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 4,
-        "subtotal": 48.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1108-uuid",
-    "total_amount": 40.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-22T16:12:05Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 4,
-        "subtotal": 40.0
-      }
-    ]
-  },
-  {
-    "id": "t1109-uuid",
-    "total_amount": 144.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-22T21:20:10Z",
-    "items": [
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      }
-    ]
-  },
-  {
-    "id": "t1110-uuid",
-    "total_amount": 20.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-22T10:20:42Z",
-    "items": [
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      }
-    ]
-  },
-  {
-    "id": "t1111-uuid",
-    "total_amount": 45.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-23T08:35:38Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1112-uuid",
-    "total_amount": 475.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-23T06:49:54Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 4,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1113-uuid",
-    "total_amount": 191.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-23T13:56:15Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 5,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 3,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1114-uuid",
-    "total_amount": 64.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-23T19:20:31Z",
-    "items": [
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 2,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      }
-    ]
-  },
-  {
-    "id": "t1115-uuid",
-    "total_amount": 272.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-23T11:32:40Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      }
-    ]
-  },
-  {
-    "id": "t1116-uuid",
-    "total_amount": 180.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-23T21:37:26Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 3,
-        "subtotal": 27.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 1,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 3,
-        "subtotal": 135.0
-      }
-    ]
-  },
-  {
-    "id": "t1117-uuid",
-    "total_amount": 131.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-23T09:14:13Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      }
-    ]
-  },
-  {
-    "id": "t1118-uuid",
-    "total_amount": 460.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-23T10:29:11Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 5,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      }
-    ]
-  },
-  {
-    "id": "t1119-uuid",
-    "total_amount": 148.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-23T16:38:56Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 1,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1120-uuid",
-    "total_amount": 198.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-23T11:21:15Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 2,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1121-uuid",
-    "total_amount": 165.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-24T12:53:02Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 1,
-        "subtotal": 85.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      }
-    ]
-  },
-  {
-    "id": "t1122-uuid",
-    "total_amount": 390.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-24T21:40:27Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 3,
-        "subtotal": 30.0
-      }
-    ]
-  },
-  {
-    "id": "t1123-uuid",
-    "total_amount": 79.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-24T07:24:12Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1124-uuid",
-    "total_amount": 215.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-24T10:49:43Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1125-uuid",
-    "total_amount": 10.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-24T20:57:14Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      }
-    ]
-  },
-  {
-    "id": "t1126-uuid",
-    "total_amount": 600.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-24T17:57:18Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 5,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 4,
-        "subtotal": 80.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 3,
-        "subtotal": 135.0
-      }
-    ]
-  },
-  {
-    "id": "t1127-uuid",
-    "total_amount": 90.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-24T21:02:37Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 3,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 1,
-        "subtotal": 15.0
-      }
-    ]
-  },
-  {
-    "id": "t1128-uuid",
-    "total_amount": 45.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-24T11:41:26Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 3,
-        "subtotal": 45.0
-      }
-    ]
-  },
-  {
-    "id": "t1129-uuid",
-    "total_amount": 144.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-24T21:25:58Z",
-    "items": [
-      {
-        "product_id": "p008-uuid",
-        "product_name": "Silver Swan Soy Sauce",
-        "quantity": 2,
-        "subtotal": 50.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 1,
-        "subtotal": 12.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 4,
-        "subtotal": 72.0
-      }
-    ]
-  },
-  {
-    "id": "t1130-uuid",
-    "total_amount": 254.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-24T06:05:23Z",
-    "items": [
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 1,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 3,
-        "subtotal": 54.0
-      }
-    ]
-  },
-  {
-    "id": "t1131-uuid",
-    "total_amount": 115.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-25T07:12:42Z",
-    "items": [
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 5,
-        "subtotal": 90.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 5,
-        "subtotal": 25.0
-      }
-    ]
-  },
-  {
-    "id": "t1132-uuid",
-    "total_amount": 111.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-25T11:12:14Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 4,
-        "subtotal": 48.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 1,
-        "subtotal": 45.0
-      },
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 2,
-        "subtotal": 18.0
-      }
-    ]
-  },
-  {
-    "id": "t1133-uuid",
-    "total_amount": 230.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-25T19:23:26Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 2,
-        "subtotal": 170.0
-      },
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 4,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1134-uuid",
-    "total_amount": 435.0,
-    "payment_method": "Cash",
-    "created_at": "2026-04-25T13:43:29Z",
-    "items": [
-      {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 2,
-        "subtotal": 30.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 1,
-        "subtotal": 5.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 4,
-        "subtotal": 340.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 3,
-        "subtotal": 60.0
-      }
-    ]
-  },
-  {
-    "id": "t1135-uuid",
-    "total_amount": 530.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-25T13:10:16Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 2,
-        "subtotal": 90.0
-      }
-    ]
-  },
-  {
-    "id": "t1136-uuid",
-    "total_amount": 681.0,
-    "payment_method": "Bank Transfer",
-    "created_at": "2026-04-25T19:56:28Z",
-    "items": [
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 3,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 4,
-        "subtotal": 40.0
-      },
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 5,
-        "subtotal": 425.0
-      },
-      {
-        "product_id": "p001-uuid",
-        "product_name": "Argentina Corned Beef",
-        "quantity": 4,
-        "subtotal": 180.0
-      }
-    ]
-  },
-  {
-    "id": "t1137-uuid",
-    "total_amount": 421.0,
-    "payment_method": "Paymaya",
-    "created_at": "2026-04-25T10:13:08Z",
-    "items": [
-      {
-        "product_id": "p005-uuid",
-        "product_name": "Gardenia Loaf Bread",
-        "quantity": 3,
-        "subtotal": 255.0
-      },
-      {
-        "product_id": "p006-uuid",
-        "product_name": "Bear Brand Milk 33g",
-        "quantity": 1,
-        "subtotal": 18.0
-      },
-      {
-        "product_id": "p007-uuid",
-        "product_name": "Surf Powder Sachet",
-        "quantity": 4,
-        "subtotal": 48.0
-      },
-      {
-        "product_id": "p004-uuid",
-        "product_name": "Coca-Cola 290ml",
-        "quantity": 5,
-        "subtotal": 100.0
-      }
-    ]
-  },
-  {
-    "id": "t1138-uuid",
-    "total_amount": 66.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-25T14:25:11Z",
-    "items": [
-      {
-        "product_id": "p010-uuid",
-        "product_name": "Egg (Extra Large)",
-        "quantity": 4,
-        "subtotal": 36.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 4,
-        "subtotal": 20.0
-      },
-      {
-        "product_id": "p003-uuid",
-        "product_name": "3-in-1 Coffee Sachet",
-        "quantity": 1,
-        "subtotal": 10.0
+        "subtotal": 43.0
       }
     ]
   },
@@ -3272,46 +52,3671 @@
       {
         "product_id": "p006-uuid",
         "product_name": "Bear Brand Milk 33g",
+        "category": "Dairy",
         "quantity": 3,
         "subtotal": 54.0
       },
       {
         "product_id": "p007-uuid",
         "product_name": "Surf Powder Sachet",
+        "category": "Laundry",
         "quantity": 4,
         "subtotal": 48.0
       },
       {
         "product_id": "p009-uuid",
         "product_name": "Magic Sarap",
+        "category": "Seasoning",
         "quantity": 4,
         "subtotal": 20.0
       },
       {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
+        "product_id": "p003-uuid",
+        "product_name": "3-in-1 Coffee Sachet",
+        "category": "Beverage",
+        "quantity": 1,
+        "subtotal": 10.0
+      }
+    ]
+  },
+  {
+    "id": "t1001-uuid",
+    "total_amount": 189.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-12T18:27:17Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 35.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      }
+    ]
+  },
+  {
+    "id": "t1001-uuid",
+    "total_amount": 189.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-12T18:27:17Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 35.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 60.0
+      }
+    ]
+  },
+  {
+    "id": "t1002-uuid",
+    "total_amount": 202.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-12T08:21:46Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 72.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 80.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 14.0
+      }
+    ]
+  },
+  {
+    "id": "t1003-uuid",
+    "total_amount": 252.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-12T15:41:09Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 80.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 50.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 36.0
+      }
+    ]
+  },
+  {
+    "id": "t1004-uuid",
+    "total_amount": 189.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-12T20:00:57Z",
+    "items": [
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 15.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 64.0
+      }
+    ]
+  },
+  {
+    "id": "t1005-uuid",
+    "total_amount": 140.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-12T08:36:14Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 20.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1006-uuid",
+    "total_amount": 186.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-12T19:01:10Z",
+    "items": [
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 36.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 24.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 110.0
+      }
+    ]
+  },
+  {
+    "id": "t1007-uuid",
+    "total_amount": 600.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-12T13:11:32Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 440.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 60.0
+      }
+    ]
+  },
+  {
+    "id": "t1008-uuid",
+    "total_amount": 103.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-12T16:44:18Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 3,
+        "subtotal": 15.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 88.0
+      }
+    ]
+  },
+  {
+    "id": "t1009-uuid",
+    "total_amount": 239.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-12T18:18:18Z",
+    "items": [
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 21.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 32.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1010-uuid",
+    "total_amount": 115.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-12T13:18:38Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 56.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 27.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 32.0
+      }
+    ]
+  },
+  {
+    "id": "t1011-uuid",
+    "total_amount": 21.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-13T19:39:28Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 21.0
+      }
+    ]
+  },
+  {
+    "id": "t1012-uuid",
+    "total_amount": 330.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-13T08:45:10Z",
+    "items": [
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 3,
+        "subtotal": 330.0
+      }
+    ]
+  },
+  {
+    "id": "t1013-uuid",
+    "total_amount": 32.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-13T20:45:24Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 32.0
+      }
+    ]
+  },
+  {
+    "id": "t1014-uuid",
+    "total_amount": 98.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-13T08:49:56Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 70.0
+      }
+    ]
+  },
+  {
+    "id": "t1015-uuid",
+    "total_amount": 201.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-13T17:11:27Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 80.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 5,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1016-uuid",
+    "total_amount": 60.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-13T08:01:38Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 42.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 18.0
+      }
+    ]
+  },
+  {
+    "id": "t1017-uuid",
+    "total_amount": 140.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-13T16:00:42Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 84.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 56.0
+      }
+    ]
+  },
+  {
+    "id": "t1018-uuid",
+    "total_amount": 8.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-13T09:25:20Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 8.0
+      }
+    ]
+  },
+  {
+    "id": "t1019-uuid",
+    "total_amount": 14.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-13T09:50:20Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 14.0
+      }
+    ]
+  },
+  {
+    "id": "t1020-uuid",
+    "total_amount": 149.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-13T17:29:49Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 42.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 7.0
+      }
+    ]
+  },
+  {
+    "id": "t1021-uuid",
+    "total_amount": 134.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-14T18:11:25Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 44.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 42.0
+      }
+    ]
+  },
+  {
+    "id": "t1022-uuid",
+    "total_amount": 69.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-14T11:54:24Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 1,
+        "subtotal": 5.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 44.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 20.0
+      }
+    ]
+  },
+  {
+    "id": "t1023-uuid",
+    "total_amount": 158.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-14T08:56:17Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 14.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
+      }
+    ]
+  },
+  {
+    "id": "t1024-uuid",
+    "total_amount": 333.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-14T11:13:17Z",
+    "items": [
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 43.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1025-uuid",
+    "total_amount": 128.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-14T10:58:09Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 1,
+        "subtotal": 5.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      }
+    ]
+  },
+  {
+    "id": "t1026-uuid",
+    "total_amount": 131.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-14T16:04:16Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 32.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 24.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 27.0
+      }
+    ]
+  },
+  {
+    "id": "t1027-uuid",
+    "total_amount": 160.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-14T19:38:43Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 32.0
+      }
+    ]
+  },
+  {
+    "id": "t1028-uuid",
+    "total_amount": 36.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-14T19:29:26Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
+      }
+    ]
+  },
+  {
+    "id": "t1029-uuid",
+    "total_amount": 138.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-14T20:33:08Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 66.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 72.0
+      }
+    ]
+  },
+  {
+    "id": "t1030-uuid",
+    "total_amount": 7.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-14T15:57:10Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 7.0
+      }
+    ]
+  },
+  {
+    "id": "t1031-uuid",
+    "total_amount": 44.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-15T09:18:32Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 8.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 20.0
+      }
+    ]
+  },
+  {
+    "id": "t1032-uuid",
+    "total_amount": 104.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-15T09:07:22Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 80.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 24.0
+      }
+    ]
+  },
+  {
+    "id": "t1033-uuid",
+    "total_amount": 35.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-15T11:46:27Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 35.0
+      }
+    ]
+  },
+  {
+    "id": "t1034-uuid",
+    "total_amount": 252.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-15T14:58:35Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 18.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 22.0
+      }
+    ]
+  },
+  {
+    "id": "t1035-uuid",
+    "total_amount": 75.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-15T13:59:01Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 75.0
+      }
+    ]
+  },
+  {
+    "id": "t1036-uuid",
+    "total_amount": 56.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-15T15:30:24Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 8.0
+      },
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 20.0
+      }
+    ]
+  },
+  {
+    "id": "t1037-uuid",
+    "total_amount": 84.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-15T10:02:53Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 84.0
+      }
+    ]
+  },
+  {
+    "id": "t1038-uuid",
+    "total_amount": 172.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-15T09:13:39Z",
+    "items": [
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 44.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 40.0
+      }
+    ]
+  },
+  {
+    "id": "t1039-uuid",
+    "total_amount": 234.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-15T19:33:37Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 105.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 3,
+        "subtotal": 129.0
+      }
+    ]
+  },
+  {
+    "id": "t1040-uuid",
+    "total_amount": 57.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-15T20:57:57Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 32.0
+      }
+    ]
+  },
+  {
+    "id": "t1041-uuid",
+    "total_amount": 120.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-16T19:29:58Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 20.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 60.0
+      }
+    ]
+  },
+  {
+    "id": "t1042-uuid",
+    "total_amount": 212.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-16T15:07:05Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 75.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 21.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1043-uuid",
+    "total_amount": 216.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-16T10:59:26Z",
+    "items": [
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 44.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      }
+    ]
+  },
+  {
+    "id": "t1044-uuid",
+    "total_amount": 154.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-16T19:56:38Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 64.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      }
+    ]
+  },
+  {
+    "id": "t1045-uuid",
+    "total_amount": 186.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-16T10:12:35Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      }
+    ]
+  },
+  {
+    "id": "t1046-uuid",
+    "total_amount": 733.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-16T20:08:58Z",
+    "items": [
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 440.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 105.0
+      }
+    ]
+  },
+  {
+    "id": "t1047-uuid",
+    "total_amount": 27.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-16T15:47:04Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 27.0
+      }
+    ]
+  },
+  {
+    "id": "t1048-uuid",
+    "total_amount": 203.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-16T14:26:09Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 42.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 90.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 21.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 50.0
+      }
+    ]
+  },
+  {
+    "id": "t1049-uuid",
+    "total_amount": 214.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-16T18:21:31Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 20.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 48.0
+      }
+    ]
+  },
+  {
+    "id": "t1050-uuid",
+    "total_amount": 80.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-16T10:32:17Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 40.0
+      }
+    ]
+  },
+  {
+    "id": "t1051-uuid",
+    "total_amount": 100.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-17T09:50:45Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1052-uuid",
+    "total_amount": 213.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-17T09:37:31Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 90.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 43.0
+      }
+    ]
+  },
+  {
+    "id": "t1053-uuid",
+    "total_amount": 194.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-17T19:32:31Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 3,
+        "subtotal": 63.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 66.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
         "quantity": 3,
         "subtotal": 45.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 20.0
+      }
+    ]
+  },
+  {
+    "id": "t1054-uuid",
+    "total_amount": 84.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-17T09:59:59Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 84.0
+      }
+    ]
+  },
+  {
+    "id": "t1055-uuid",
+    "total_amount": 405.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-17T17:05:57Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 27.0
+      },
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 3,
+        "subtotal": 330.0
+      }
+    ]
+  },
+  {
+    "id": "t1056-uuid",
+    "total_amount": 94.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-17T11:44:31Z",
+    "items": [
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 12.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 5,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 50.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 7.0
+      }
+    ]
+  },
+  {
+    "id": "t1057-uuid",
+    "total_amount": 112.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-17T18:59:01Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 22.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 50.0
+      }
+    ]
+  },
+  {
+    "id": "t1058-uuid",
+    "total_amount": 203.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-17T19:37:46Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 75.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 5,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 75.0
+      }
+    ]
+  },
+  {
+    "id": "t1059-uuid",
+    "total_amount": 181.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-17T11:31:09Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 84.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      }
+    ]
+  },
+  {
+    "id": "t1060-uuid",
+    "total_amount": 248.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-17T14:39:04Z",
+    "items": [
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      }
+    ]
+  },
+  {
+    "id": "t1061-uuid",
+    "total_amount": 159.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-18T09:45:26Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 24.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 110.0
+      }
+    ]
+  },
+  {
+    "id": "t1062-uuid",
+    "total_amount": 164.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-18T14:58:25Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 64.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1063-uuid",
+    "total_amount": 166.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-18T08:53:51Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 56.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 1,
+        "subtotal": 22.0
+      }
+    ]
+  },
+  {
+    "id": "t1064-uuid",
+    "total_amount": 10.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-18T17:15:40Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 2,
+        "subtotal": 10.0
+      }
+    ]
+  },
+  {
+    "id": "t1065-uuid",
+    "total_amount": 84.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-18T10:58:43Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 44.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 40.0
+      }
+    ]
+  },
+  {
+    "id": "t1066-uuid",
+    "total_amount": 102.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-18T11:09:33Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 42.0
+      }
+    ]
+  },
+  {
+    "id": "t1067-uuid",
+    "total_amount": 151.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-18T15:29:52Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 70.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 8.0
+      }
+    ]
+  },
+  {
+    "id": "t1068-uuid",
+    "total_amount": 229.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-18T17:15:36Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 3,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 44.0
+      }
+    ]
+  },
+  {
+    "id": "t1069-uuid",
+    "total_amount": 192.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-18T14:52:01Z",
+    "items": [
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 84.0
+      }
+    ]
+  },
+  {
+    "id": "t1070-uuid",
+    "total_amount": 134.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-18T17:57:13Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 27.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 35.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 56.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 16.0
+      }
+    ]
+  },
+  {
+    "id": "t1071-uuid",
+    "total_amount": 57.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-19T17:53:00Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 48.0
+      }
+    ]
+  },
+  {
+    "id": "t1072-uuid",
+    "total_amount": 5.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-19T15:02:17Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 1,
+        "subtotal": 5.0
+      }
+    ]
+  },
+  {
+    "id": "t1073-uuid",
+    "total_amount": 171.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-19T15:33:56Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 75.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 20.0
+      }
+    ]
+  },
+  {
+    "id": "t1074-uuid",
+    "total_amount": 309.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-19T08:03:53Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 45.0
+      },
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 220.0
+      }
+    ]
+  },
+  {
+    "id": "t1075-uuid",
+    "total_amount": 100.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-19T15:14:03Z",
+    "items": [
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1076-uuid",
+    "total_amount": 146.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-19T11:58:17Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
+      }
+    ]
+  },
+  {
+    "id": "t1077-uuid",
+    "total_amount": 7.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-19T10:00:10Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 7.0
+      }
+    ]
+  },
+  {
+    "id": "t1078-uuid",
+    "total_amount": 218.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-19T14:42:25Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      }
+    ]
+  },
+  {
+    "id": "t1079-uuid",
+    "total_amount": 105.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-19T15:20:12Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 105.0
+      }
+    ]
+  },
+  {
+    "id": "t1080-uuid",
+    "total_amount": 66.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-19T16:25:40Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 66.0
+      }
+    ]
+  },
+  {
+    "id": "t1081-uuid",
+    "total_amount": 145.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-20T18:59:46Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 1,
+        "subtotal": 5.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 12.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 18.0
+      }
+    ]
+  },
+  {
+    "id": "t1082-uuid",
+    "total_amount": 7.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-20T20:58:06Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 7.0
+      }
+    ]
+  },
+  {
+    "id": "t1083-uuid",
+    "total_amount": 65.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-20T16:02:30Z",
+    "items": [
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 43.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 22.0
+      }
+    ]
+  },
+  {
+    "id": "t1084-uuid",
+    "total_amount": 248.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-20T12:48:52Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      }
+    ]
+  },
+  {
+    "id": "t1085-uuid",
+    "total_amount": 206.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-20T10:03:41Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1086-uuid",
+    "total_amount": 46.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-20T15:59:05Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 21.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 25.0
+      }
+    ]
+  },
+  {
+    "id": "t1087-uuid",
+    "total_amount": 44.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-20T13:43:00Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 35.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      }
+    ]
+  },
+  {
+    "id": "t1088-uuid",
+    "total_amount": 164.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-20T10:35:59Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 60.0
+      }
+    ]
+  },
+  {
+    "id": "t1089-uuid",
+    "total_amount": 228.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-20T18:40:07Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 64.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 24.0
+      }
+    ]
+  },
+  {
+    "id": "t1090-uuid",
+    "total_amount": 110.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-20T14:53:07Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 2,
+        "subtotal": 10.0
+      }
+    ]
+  },
+  {
+    "id": "t1091-uuid",
+    "total_amount": 60.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-21T08:08:13Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 45.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 3,
+        "subtotal": 15.0
+      }
+    ]
+  },
+  {
+    "id": "t1092-uuid",
+    "total_amount": 143.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-21T14:57:10Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 1,
+        "subtotal": 5.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 14.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 36.0
+      }
+    ]
+  },
+  {
+    "id": "t1093-uuid",
+    "total_amount": 42.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-21T09:30:28Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 42.0
+      }
+    ]
+  },
+  {
+    "id": "t1094-uuid",
+    "total_amount": 39.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-21T11:46:28Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 5,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 14.0
+      }
+    ]
+  },
+  {
+    "id": "t1095-uuid",
+    "total_amount": 124.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-21T12:07:28Z",
+    "items": [
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 80.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 44.0
+      }
+    ]
+  },
+  {
+    "id": "t1096-uuid",
+    "total_amount": 128.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-21T10:11:41Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      }
+    ]
+  },
+  {
+    "id": "t1097-uuid",
+    "total_amount": 123.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-21T17:15:36Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 32.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 43.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 48.0
+      }
+    ]
+  },
+  {
+    "id": "t1098-uuid",
+    "total_amount": 128.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-21T17:06:23Z",
+    "items": [
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      }
+    ]
+  },
+  {
+    "id": "t1099-uuid",
+    "total_amount": 190.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-21T15:19:27Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 2,
+        "subtotal": 10.0
+      }
+    ]
+  },
+  {
+    "id": "t1100-uuid",
+    "total_amount": 87.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-21T18:39:25Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 18.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 3,
+        "subtotal": 15.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      }
+    ]
+  },
+  {
+    "id": "t1101-uuid",
+    "total_amount": 182.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-22T10:50:01Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 32.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 40.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 110.0
+      }
+    ]
+  },
+  {
+    "id": "t1102-uuid",
+    "total_amount": 147.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-22T19:46:03Z",
+    "items": [
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 43.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      }
+    ]
+  },
+  {
+    "id": "t1103-uuid",
+    "total_amount": 105.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-22T15:51:11Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 105.0
+      }
+    ]
+  },
+  {
+    "id": "t1104-uuid",
+    "total_amount": 10.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-22T14:21:59Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 2,
+        "subtotal": 10.0
+      }
+    ]
+  },
+  {
+    "id": "t1105-uuid",
+    "total_amount": 36.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-22T13:48:50Z",
+    "items": [
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 36.0
+      }
+    ]
+  },
+  {
+    "id": "t1106-uuid",
+    "total_amount": 660.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-22T12:55:10Z",
+    "items": [
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 550.0
+      }
+    ]
+  },
+  {
+    "id": "t1107-uuid",
+    "total_amount": 296.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-22T18:31:18Z",
+    "items": [
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 3,
+        "subtotal": 15.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 125.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 56.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1108-uuid",
+    "total_amount": 80.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-22T17:44:03Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1109-uuid",
+    "total_amount": 748.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-22T08:50:34Z",
+    "items": [
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 550.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 2,
+        "subtotal": 10.0
+      },
+      {
+        "product_id": "p17",
+        "product_name": "Silver Swan Soy Sauce",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 100.0
+      }
+    ]
+  },
+  {
+    "id": "t1110-uuid",
+    "total_amount": 398.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-22T16:12:06Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 42.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 3,
+        "subtotal": 66.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 215.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 75.0
+      }
+    ]
+  },
+  {
+    "id": "t1111-uuid",
+    "total_amount": 564.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-23T16:25:12Z",
+    "items": [
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 440.0
+      },
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 70.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      }
+    ]
+  },
+  {
+    "id": "t1112-uuid",
+    "total_amount": 312.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-23T13:56:30Z",
+    "items": [
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 215.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      }
+    ]
+  },
+  {
+    "id": "t1113-uuid",
+    "total_amount": 120.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-23T09:34:58Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 56.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 64.0
+      }
+    ]
+  },
+  {
+    "id": "t1114-uuid",
+    "total_amount": 97.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-23T13:45:44Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 32.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 21.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 44.0
+      }
+    ]
+  },
+  {
+    "id": "t1115-uuid",
+    "total_amount": 142.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-23T20:50:07Z",
+    "items": [
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 54.0
+      },
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      }
+    ]
+  },
+  {
+    "id": "t1116-uuid",
+    "total_amount": 284.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-23T20:59:21Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 3,
+        "subtotal": 24.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 5,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 5,
+        "subtotal": 110.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 125.0
+      }
+    ]
+  },
+  {
+    "id": "t1117-uuid",
+    "total_amount": 122.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-23T12:32:56Z",
+    "items": [
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 42.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1118-uuid",
+    "total_amount": 28.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-23T08:36:36Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 28.0
+      }
+    ]
+  },
+  {
+    "id": "t1119-uuid",
+    "total_amount": 340.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-23T17:29:35Z",
+    "items": [
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 80.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      }
+    ]
+  },
+  {
+    "id": "t1120-uuid",
+    "total_amount": 126.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-23T15:02:08Z",
+    "items": [
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 110.0
+      }
+    ]
+  },
+  {
+    "id": "t1121-uuid",
+    "total_amount": 22.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-24T19:31:12Z",
+    "items": [
+      {
+        "product_id": "p3",
+        "product_name": "Mega Sardines (Tomato)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 22.0
+      }
+    ]
+  },
+  {
+    "id": "t1122-uuid",
+    "total_amount": 178.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-24T11:33:55Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 60.0
+      },
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 70.0
+      }
+    ]
+  },
+  {
+    "id": "t1123-uuid",
+    "total_amount": 25.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-24T08:48:40Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      },
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 16.0
+      }
+    ]
+  },
+  {
+    "id": "t1124-uuid",
+    "total_amount": 92.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-24T11:28:02Z",
+    "items": [
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 12.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 80.0
+      }
+    ]
+  },
+  {
+    "id": "t1125-uuid",
+    "total_amount": 40.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-24T11:39:05Z",
+    "items": [
+      {
+        "product_id": "p1",
+        "product_name": "Corn Beef (Argentina)",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 40.0
+      }
+    ]
+  },
+  {
+    "id": "t1126-uuid",
+    "total_amount": 95.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-24T16:49:55Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 70.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 5,
+        "subtotal": 25.0
+      }
+    ]
+  },
+  {
+    "id": "t1127-uuid",
+    "total_amount": 286.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-24T10:28:25Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 70.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 44.0
+      }
+    ]
+  },
+  {
+    "id": "t1128-uuid",
+    "total_amount": 86.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-24T20:05:08Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 70.0
+      },
+      {
+        "product_id": "p8",
+        "product_name": "Piattos Cheese",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 16.0
+      }
+    ]
+  },
+  {
+    "id": "t1129-uuid",
+    "total_amount": 259.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-24T15:16:26Z",
+    "items": [
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 4,
+        "subtotal": 172.0
+      },
+      {
+        "product_id": "p12",
+        "product_name": "Lucky Me Pancit Canton",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 36.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 2,
+        "subtotal": 30.0
+      },
+      {
+        "product_id": "p4",
+        "product_name": "Ligo Sardines (Green)",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 21.0
+      }
+    ]
+  },
+  {
+    "id": "t1130-uuid",
+    "total_amount": 102.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-24T12:40:44Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 24.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 2,
+        "subtotal": 50.0
+      }
+    ]
+  },
+  {
+    "id": "t1131-uuid",
+    "total_amount": 32.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-25T12:34:30Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 32.0
+      }
+    ]
+  },
+  {
+    "id": "t1132-uuid",
+    "total_amount": 189.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-25T12:05:52Z",
+    "items": [
+      {
+        "product_id": "p13",
+        "product_name": "Lucky Me Beef Mami",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 14.0
+      },
+      {
+        "product_id": "p16",
+        "product_name": "Yakiss Soba",
+        "category": "Noodles",
+        "quantity": 5,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p18",
+        "product_name": "Datu Puti Vinegar",
+        "category": "Sauce",
+        "quantity": 5,
+        "subtotal": 75.0
+      }
+    ]
+  },
+  {
+    "id": "t1133-uuid",
+    "total_amount": 174.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-25T08:54:40Z",
+    "items": [
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p2",
+        "product_name": "Century Tuna Hot & Spicy",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 86.0
+      }
+    ]
+  },
+  {
+    "id": "t1134-uuid",
+    "total_amount": 133.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-25T14:15:17Z",
+    "items": [
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 1,
+        "subtotal": 9.0
+      },
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 4,
+        "subtotal": 100.0
+      },
+      {
+        "product_id": "p10",
+        "product_name": "Oishi Prawn Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 24.0
+      }
+    ]
+  },
+  {
+    "id": "t1135-uuid",
+    "total_amount": 245.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-25T19:30:27Z",
+    "items": [
+      {
+        "product_id": "p14",
+        "product_name": "Nissin Cup Noodles (Seafood)",
+        "category": "Noodles",
+        "quantity": 1,
+        "subtotal": 25.0
+      },
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 2,
+        "subtotal": 220.0
+      }
+    ]
+  },
+  {
+    "id": "t1136-uuid",
+    "total_amount": 226.0,
+    "payment_method": "Cash",
+    "created_at": "2026-04-25T12:28:31Z",
+    "items": [
+      {
+        "product_id": "p7",
+        "product_name": "Sky Flakes (Plain)",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 28.0
+      },
+      {
+        "product_id": "p19",
+        "product_name": "UFC Banana Ketchup",
+        "category": "Sauce",
+        "quantity": 4,
+        "subtotal": 88.0
+      },
+      {
+        "product_id": "p5",
+        "product_name": "Spam Luncheon Meat",
+        "category": "Canned",
+        "quantity": 1,
+        "subtotal": 110.0
+      }
+    ]
+  },
+  {
+    "id": "t1137-uuid",
+    "total_amount": 70.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-25T20:39:41Z",
+    "items": [
+      {
+        "product_id": "p9",
+        "product_name": "Chippy BBQ",
+        "category": "Snacks",
+        "quantity": 5,
+        "subtotal": 70.0
+      }
+    ]
+  },
+  {
+    "id": "t1138-uuid",
+    "total_amount": 34.0,
+    "payment_method": "GCash",
+    "created_at": "2026-04-25T13:29:20Z",
+    "items": [
+      {
+        "product_id": "p6",
+        "product_name": "Fita Crackers",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 16.0
+      },
+      {
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 2,
+        "subtotal": 18.0
+      }
+    ]
+  },
+  {
+    "id": "t1139-uuid",
+    "total_amount": 58.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-25T14:06:05Z",
+    "items": [
+      {
+        "product_id": "p15",
+        "product_name": "Payless Xtra Big",
+        "category": "Noodles",
+        "quantity": 3,
+        "subtotal": 48.0
+      },
+      {
+        "product_id": "p20",
+        "product_name": "Magic Sarap Sachet",
+        "category": "Seasoning",
+        "quantity": 2,
+        "subtotal": 10.0
       }
     ]
   },
   {
     "id": "t1140-uuid",
-    "total_amount": 90.0,
-    "payment_method": "GCash",
-    "created_at": "2026-04-25T20:48:13Z",
+    "total_amount": 36.0,
+    "payment_method": "Paymaya",
+    "created_at": "2026-04-25T10:19:27Z",
     "items": [
       {
-        "product_id": "p002-uuid",
-        "product_name": "Lucky Me Instant Noodles",
-        "quantity": 5,
-        "subtotal": 75.0
-      },
-      {
-        "product_id": "p009-uuid",
-        "product_name": "Magic Sarap",
-        "quantity": 3,
-        "subtotal": 15.0
+        "product_id": "p11",
+        "product_name": "Hansel Mocha Sandwich",
+        "category": "Snacks",
+        "quantity": 4,
+        "subtotal": 36.0
       }
     ]
   }
