@@ -19,7 +19,7 @@ export default function History() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMethod, setActiveMethod] = useState("All Payments");
 
-  // 🔥 FETCH DATA
+  // FETCH DATA
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
