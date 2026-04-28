@@ -24,11 +24,11 @@ export default function Statistics() {
 
   const [timeRange, setTimeRange] = useState('1week');
 
-  // 🔥 NEW (BACKEND DATA)
+  // NEW
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 FETCH DATA FROM FASTAPI
+  //FETCH DATA FROM FASTAPI
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -191,7 +191,7 @@ export default function Statistics() {
 
   }, [timeRange, transactions]);
 
-  //LOADING FIX (important para hindi mawala UI)
+  //LOADING
   if (loading) {
     return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
   }
