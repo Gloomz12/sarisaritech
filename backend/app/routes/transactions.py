@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from database import get_connection
+from app.db.database import get_connection
 import uuid
 from datetime import datetime, timezone
 

@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import products, transactions
+from app.routes import products
+from app.routes import transactions
 
 app = FastAPI()
 
@@ -18,5 +19,5 @@ def home():
     return {"message": "Backend working"}
 
 # REGISTER ROUTES
-app.include_router(products.router, prefix="/api")
-app.include_router(transactions.router, prefix="/api")
+app.include_router(products.router, prefix="/api/products", tags=["Products"])
+app.include_router(transactions.router, prefix="/api/transactions", tags=["Transactions"])
