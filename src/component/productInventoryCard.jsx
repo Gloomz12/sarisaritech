@@ -1,12 +1,19 @@
-import react from "react";
+import React from "react";
 
-//ICONS
+// ICONS
 import { LuPencilLine } from "react-icons/lu";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { GiCardboardBoxClosed } from "react-icons/gi";
 
-export default function InventoryCard({ product, onEdit, onRestock, onDelete}) {
-    const { name, category, selling_price, stock_quantity, min_stock_level } = product;
+export default function InventoryCard({ product, onEdit, onRestock, onDelete }) {
+    const { 
+        name, 
+        category, 
+        selling_price, 
+        stock_quantity, 
+        min_stock_level, 
+        unit 
+    } = product;
 
     let statusText = "OK";
     let statusColor = "status-ok";
@@ -26,6 +33,7 @@ export default function InventoryCard({ product, onEdit, onRestock, onDelete}) {
                     <h3 className="inv-product-name">{name}</h3>
                     <p className="inv-category-name">{category}</p>
                 </div>
+
                 <div className={`status-badge ${statusColor}`}>
                     <span className="dot"></span>
                     {statusText}
@@ -37,10 +45,12 @@ export default function InventoryCard({ product, onEdit, onRestock, onDelete}) {
                     <label>Price</label>
                     <p>₱{selling_price}</p>
                 </div>
+
                 <div className="metric-item">
                     <label>Stock</label>
-                    <p>{stock_quantity} units</p>
+                    <p>{stock_quantity} {unit || "units"}</p>
                 </div>
+
                 <div className="metric-item">
                     <label>Min Level</label>
                     <p>{min_stock_level}</p>
@@ -48,25 +58,26 @@ export default function InventoryCard({ product, onEdit, onRestock, onDelete}) {
             </div>
 
             <div className="action-row">
-
                 <button
                     className="action-btn edit-btn"
-                    onClick={() => onEdit(product)}>
+                    onClick={() => onEdit(product)}
+                >
                     <LuPencilLine /> Edit
                 </button>
 
                 <button
                     className="action-btn restock-btn"
-                    onClick={() => onRestock(product)}>
+                    onClick={() => onRestock(product)}
+                >
                     <GiCardboardBoxClosed /> Restock
                 </button>
 
                 <button
                     className="action-btn delete-btn"
-                    onClick={() => onDelete(product)}>
+                    onClick={() => onDelete(product)}
+                >
                     <FaRegTrashAlt /> Delete
                 </button>
-
             </div>
         </div>
     );

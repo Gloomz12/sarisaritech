@@ -13,15 +13,13 @@ import RestockProductModal from '../component/restockModal.jsx';
 import DeleteProductModal from '../component/deleteProductModal.jsx';
 import AddProductModal from '../component/addProductModal.jsx';
 
-// SERVICES
-import productsData from '../services/productsData.json';
-import productCategories from '../services/productCategories.json';
+// API
+import api from '../services/api';
 
 export default function Inventory() {
-  const [products, setProducts] = useState(() => {
-    const savedData = localStorage.getItem('sarisari_inventory');
-    return savedData ? JSON.parse(savedData) : productsData;
-  });
+
+  // PRODUCTS FROM DATABASE
+  const [products, setProducts] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -32,11 +30,22 @@ export default function Inventory() {
   const [isRestockOpen, setRestockOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
 
+  // FETCH PRODUCTS FROM BACKEND
   useEffect(() => {
-    localStorage.setItem('sarisari_inventory', JSON.stringify(products));
-  }, [products]);
+    fetchProducts();
+  }, []);
 
-  const categories = ["All", ...productCategories.map(cat => cat.name)];
+  const fetchProducts = async () => {
+    try {
+      const res = await api.get('/products');
+      setProducts(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // DYNAMIC CATEGORIES 
+  const categories = ["All", ...new Set(products.map(p => p.category))];
 
   const getStatus = (product) => {
     if (product.stock_quantity <= product.min_stock_level / 2) return "CRITICAL";
@@ -56,55 +65,48 @@ export default function Inventory() {
       .sort((a, b) => statusPriority[getStatus(a)] - statusPriority[getStatus(b)]);
   }, [products, searchQuery, activeCategory]);
 
+  // ADD 
+  const handleAddProduct = async (newProduct) => {
+  try {
+    console.log("SENDING:", newProduct); 
 
-  const handleAddProduct = (newProduct) => {
-    const productWithDefaults = {
-        ...newProduct,
-        id: newProduct.id || `p${Date.now()}`,
-        quantity: 0 
-    };
-    setProducts(prev => [productWithDefaults, ...prev]);
+    await api.post('/products', newProduct);
+
+    console.log("SUCCESS ADD");
+
+    fetchProducts();
     setAddModalOpen(false);
+
+  } catch (err) {
+    console.error("ADD ERROR:", err.response?.data || err.message);
+    alert("Error adding product. Check console.");
+  }
   };
 
-  const handleEditClick = (product) => {
-    setSelectedProduct(product);
-    setEditModalOpen(true);
-  };
-
-  const handleSaveEdit = (updatedProduct) => {
-    setProducts(prev => 
-        prev.map(p => p.id === updatedProduct.id ? { ...updatedProduct } : p)
-    );
+  // EDIT 
+  const handleSaveEdit = async (updatedProduct) => {
+    await api.put(`/products/${updatedProduct.id}`, updatedProduct);
+    fetchProducts();
     setEditModalOpen(false);
   };
 
-  const handleRestockClick = (product) => {
-    setSelectedProduct(product);
-    setRestockOpen(true);
-  };
+  // RESTOCK 
+  const handleRestock = async (productId, amountToAdd) => {
+    const product = products.find(p => p.id === productId);
 
-  const handleRestock = (productId, amountToAdd) => {
-    setProducts(prev => prev.map(product => {
-        if (product.id === productId) {
-          return {
-            ...product,
-            stock_quantity: product.stock_quantity + parseInt(amountToAdd)
-          };
-        }
-        return product;
-      })
-    );
+    await api.put(`/products/${productId}`, {
+      ...product,
+      stock_quantity: product.stock_quantity + parseInt(amountToAdd)
+    });
+
+    fetchProducts();
     setRestockOpen(false);
   };
 
-  const handleDeleteClick = (product) => {
-    setSelectedProduct(product);
-    setDeleteOpen(true);
-  };
-
-  const handleConfirmDelete = (productId) => {
-    setProducts(prev => prev.filter(p => p.id !== productId));
+  // DELETE
+  const handleConfirmDelete = async (productId) => {
+    await api.delete(`/products/${productId}`);
+    fetchProducts();
     setDeleteOpen(false);
   };
 
@@ -137,22 +139,32 @@ export default function Inventory() {
       <div className="products-cards-list">
         <div className="inventory-grid">
           {displayProducts.map(product => (
-            <InventoryCard 
-                key={product.id} 
-                product={product} 
-                onEdit={handleEditClick} 
-                onRestock={handleRestockClick} 
-                onDelete={handleDeleteClick} 
-            />
-          ))}
+         <InventoryCard 
+          key={product.id} 
+          product={product} 
+
+      onEdit={(p) => {
+        setSelectedProduct(p);
+        setEditModalOpen(true);
+      }}
+
+      onRestock={(p) => {
+        setSelectedProduct(p);
+        setRestockOpen(true);
+      }}
+
+      onDelete={(p) => {
+        setSelectedProduct(p);
+        setDeleteOpen(true);
+      }}
+  />
+      ))}
         </div>
 
-        
         <AddProductModal
           isOpen={isAddModalOpen}
           onClose={() => setAddModalOpen(false)}
           onAdd={handleAddProduct}
-          categories={categories.filter(c => c !== "All")}
         />
 
         <EditProductModal
@@ -160,7 +172,6 @@ export default function Inventory() {
           product={selectedProduct}
           onClose={() => setEditModalOpen(false)}
           onSave={handleSaveEdit}
-          categories={categories.filter(c => c !== "All")}
         />
 
         <RestockProductModal
