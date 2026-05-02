@@ -1,36 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
-//COMPONENTS
+// COMPONENTS
 import Header from '../component/header.jsx';
 import SearchBar from '../component/searchBar.jsx';
 import StockSummary from '../component/stockSummary.jsx';
 import RestockProductModal from '../component/restockModal.jsx';
 import RestockCard from '../component/restockCard.jsx';
 
-//SERVICES
-import productsData from '../services/productsData.json';
-
+// SERVICE
+import productService from '../services/productService';
 
 export default function Restock() {
 
-  //STOCK SUMMARY
   const getStatus = (product) => {
     if (product.stock_quantity <= product.min_stock_level / 2) return "CRITICAL";
     if (product.stock_quantity <= product.min_stock_level) return "LOW";
     return "OK";
   };
 
-  //PRODUCT LIST
-  const [products, setProducts] = useState(
-    productsData.map(item => ({ ...item, quantity: 0 }))
-  );
-
-  //SEARCH FILTER
+  const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const cartItems = products.filter(p => p.quantity > 0);
 
-  //SORTING
+  const [isRestockOpen, setRestockOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // FETCH PRODUCTS
+  const fetchProducts = async () => {
+    try {
+      const data = await productService.getAllProducts();
+      setProducts(data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load products");
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   const sortedProducts = [...products].sort((a, b) => {
     const priority = { CRITICAL: 1, LOW: 2, OK: 3 };
     return priority[getStatus(a)] - priority[getStatus(b)];
@@ -40,30 +48,21 @@ export default function Restock() {
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  //RESTOCK
-  const [isRestockOpen, setRestockOpen] = useState(false);
-
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
   const handleRestockClick = (product) => {
     setSelectedProduct(product);
     setRestockOpen(true);
   };
 
-
-  const handleRestockAction = (productId, amountToAdd) => {
-    setProducts(prevProducts =>
-      prevProducts.map(product => {
-        if (product.id === productId) {
-          return {
-            ...product,
-            stock_quantity: product.stock_quantity + parseInt(amountToAdd)
-          };
-        }
-        return product;
-      })
-    );
-    setRestockOpen(false);
+  // RESTOCK ACTION
+  const handleRestockAction = async (productId, amountToAdd) => {
+    try {
+      await productService.restockProduct(productId, parseInt(amountToAdd));
+      await fetchProducts();
+      setRestockOpen(false);
+    } catch (err) {
+      console.error(err);
+      alert("Restock failed");
+    }
   };
 
   return (
@@ -77,7 +76,7 @@ export default function Restock() {
         value={searchQuery}
         onSearchChange={setSearchQuery}
       />
-      
+
       <div className="restock-grid">
         {filteredAndSorted.map(product => (
           <RestockCard

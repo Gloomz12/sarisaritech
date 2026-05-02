@@ -7,8 +7,20 @@ router = APIRouter()
 
 @router.post("/transactions")
 async def create_transaction(request: Request):
+    conn = None
+    cursor = None
+
     try:
         data = await request.json()
+
+        total_amount = data["total_amount"]
+        amount_paid = data["amount_paid"]
+
+        # VALIDATION
+        if amount_paid < total_amount:
+            return {"error": "Insufficient payment"}
+
+        change_amount = amount_paid - total_amount
 
         conn = get_connection()
         cursor = conn.cursor()
@@ -16,21 +28,42 @@ async def create_transaction(request: Request):
         transaction_id = str(uuid.uuid4())
         created_at = datetime.now(timezone.utc)
 
-        # Insert transaction
+        # INSERT TRANSACTION (with payment)
         cursor.execute("""
-            INSERT INTO transactions (id, total_amount, payment_method, created_at)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO transactions 
+            (id, total_amount, payment_method, created_at, amount_paid, change_amount)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """, (
             transaction_id,
-            data["total_amount"],
+            total_amount,
             data["payment_method"],
-            created_at
+            created_at,
+            amount_paid,
+            change_amount
         ))
 
-        # Insert items + update stock + stock movement
+        # ITEMS + STOCK
         for item in data["items"]:
-            price = item["subtotal"] / item["quantity"]
+            quantity = item["quantity"]
 
+            cursor.execute("""
+                SELECT selling_price, stock_quantity 
+                FROM products 
+                WHERE id = %s
+            """, (item["product_id"],))
+
+            product = cursor.fetchone()
+
+            if not product:
+                raise Exception("Product not found")
+
+            price, stock = product
+
+            # STOCK CHECK
+            if stock < quantity:
+                raise Exception("Not enough stock")
+
+            # insert item
             cursor.execute("""
                 INSERT INTO transaction_items (
                     id, transaction_id, product_id, quantity, price
@@ -40,18 +73,18 @@ async def create_transaction(request: Request):
                 str(uuid.uuid4()),
                 transaction_id,
                 item["product_id"],
-                item["quantity"],
+                quantity,
                 price
             ))
 
-            # bawas stock
+            # update stock
             cursor.execute("""
                 UPDATE products
                 SET stock_quantity = stock_quantity - %s
                 WHERE id = %s
-            """, (item["quantity"], item["product_id"]))
+            """, (quantity, item["product_id"]))
 
-            # stock movement log
+            # stock movement
             cursor.execute("""
                 INSERT INTO stock_movements (
                     id, product_id, change_quantity, type
@@ -60,17 +93,27 @@ async def create_transaction(request: Request):
             """, (
                 str(uuid.uuid4()),
                 item["product_id"],
-                -item["quantity"]
+                -quantity
             ))
 
         conn.commit()
-        cursor.close()
-        conn.close()
 
-        return {"message": "Transaction recorded successfully"}
+        return {
+            "message": "Transaction recorded successfully",
+            "transaction_id": transaction_id,
+            "change": float(change_amount)
+        }
 
     except Exception as e:
+        if conn:
+            conn.rollback()
         return {"error": str(e)}
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 @router.get("/transactions")
@@ -81,7 +124,7 @@ def get_transactions():
 
         # Get transactions
         cursor.execute("""
-            SELECT id, total_amount, payment_method, created_at
+            SELECT id, total_amount, payment_method, created_at, amount_paid, change_amount
             FROM transactions
             ORDER BY created_at DESC
         """)
@@ -111,6 +154,8 @@ def get_transactions():
                 "total_amount": float(t[1]),
                 "payment_method": t[2],
                 "created_at": t[3].isoformat(),
+                "amount_paid": float(t[4]) if t[4] else 0,
+                "change_amount": float(t[5]) if t[5] else 0,
                 "items": [
                     {
                         "product_id": str(i[0]),
