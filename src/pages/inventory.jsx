@@ -13,12 +13,11 @@ import RestockProductModal from '../component/restockModal.jsx';
 import DeleteProductModal from '../component/deleteProductModal.jsx';
 import AddProductModal from '../component/addProductModal.jsx';
 
-// API
-import api from '../services/api';
+// SERVICE
+import productService from '../services/productService';
 
 export default function Inventory() {
 
-  // PRODUCTS FROM DATABASE
   const [products, setProducts] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,21 +29,21 @@ export default function Inventory() {
   const [isRestockOpen, setRestockOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
 
-  // FETCH PRODUCTS FROM BACKEND
+  // FETCH
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
     try {
-      const res = await api.get('/products');
-      setProducts(res.data);
+      const data = await productService.getAllProducts();
+      setProducts(data);
     } catch (err) {
       console.error(err);
     }
   };
 
-  // DYNAMIC CATEGORIES 
+  // CATEGORY
   const categories = ["All", ...new Set(products.map(p => p.category))];
 
   const getStatus = (product) => {
@@ -53,7 +52,7 @@ export default function Inventory() {
     return "OK";
   };
 
-  const statusPriority = { "CRITICAL": 1, "LOW": 2, "OK": 3 };
+  const statusPriority = { CRITICAL: 1, LOW: 2, OK: 3 };
 
   const displayProducts = useMemo(() => {
     return products
@@ -65,36 +64,30 @@ export default function Inventory() {
       .sort((a, b) => statusPriority[getStatus(a)] - statusPriority[getStatus(b)]);
   }, [products, searchQuery, activeCategory]);
 
-  // ADD 
+  // ADD
   const handleAddProduct = async (newProduct) => {
-  try {
-    console.log("SENDING:", newProduct); 
-
-    await api.post('/products', newProduct);
-
-    console.log("SUCCESS ADD");
-
-    fetchProducts();
-    setAddModalOpen(false);
-
-  } catch (err) {
-    console.error("ADD ERROR:", err.response?.data || err.message);
-    alert("Error adding product. Check console.");
-  }
+    try {
+      await productService.createProduct(newProduct);
+      fetchProducts();
+      setAddModalOpen(false);
+    } catch (err) {
+      console.error(err);
+      alert("Error adding product");
+    }
   };
 
-  // EDIT 
+  // EDIT
   const handleSaveEdit = async (updatedProduct) => {
-    await api.put(`/products/${updatedProduct.id}`, updatedProduct);
+    await productService.updateProduct(updatedProduct.id, updatedProduct);
     fetchProducts();
     setEditModalOpen(false);
   };
 
-  // RESTOCK 
+  // RESTOCK
   const handleRestock = async (productId, amountToAdd) => {
     const product = products.find(p => p.id === productId);
 
-    await api.put(`/products/${productId}`, {
+    await productService.updateProduct(productId, {
       ...product,
       stock_quantity: product.stock_quantity + parseInt(amountToAdd)
     });
@@ -105,7 +98,7 @@ export default function Inventory() {
 
   // DELETE
   const handleConfirmDelete = async (productId) => {
-    await api.delete(`/products/${productId}`);
+    await productService.deleteProduct(productId);
     fetchProducts();
     setDeleteOpen(false);
   };
@@ -130,7 +123,6 @@ export default function Inventory() {
         <button
           className="action-icon-btn"
           onClick={() => setAddModalOpen(true)}
-          title="Add New Product"
         >
           <IoAddOutline size={24} />
         </button>
@@ -139,26 +131,26 @@ export default function Inventory() {
       <div className="products-cards-list">
         <div className="inventory-grid">
           {displayProducts.map(product => (
-         <InventoryCard 
-          key={product.id} 
-          product={product} 
+            <InventoryCard 
+              key={product.id} 
+              product={product} 
 
-      onEdit={(p) => {
-        setSelectedProduct(p);
-        setEditModalOpen(true);
-      }}
+              onEdit={(p) => {
+                setSelectedProduct(p);
+                setEditModalOpen(true);
+              }}
 
-      onRestock={(p) => {
-        setSelectedProduct(p);
-        setRestockOpen(true);
-      }}
+              onRestock={(p) => {
+                setSelectedProduct(p);
+                setRestockOpen(true);
+              }}
 
-      onDelete={(p) => {
-        setSelectedProduct(p);
-        setDeleteOpen(true);
-      }}
-  />
-      ))}
+              onDelete={(p) => {
+                setSelectedProduct(p);
+                setDeleteOpen(true);
+              }}
+            />
+          ))}
         </div>
 
         <AddProductModal

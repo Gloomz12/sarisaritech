@@ -20,4 +20,4 @@ def home():
 
 # REGISTER ROUTES
 app.include_router(products.router, prefix="/api/products", tags=["Products"])
-app.include_router(transactions.router, prefix="/api/transactions", tags=["Transactions"])
+app.include_router(transactions.router, prefix="/api", tags=["Transactions"])

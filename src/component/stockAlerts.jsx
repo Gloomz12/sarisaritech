@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
-export default function StockAlerts({ items = [] }) {
+export default function StockAlerts() {
     const navigate = useNavigate();
+
+    const [items, setItems] = useState([]);
+
+    const fetchProducts = async () => {
+        try {
+            const res = await api.get("/products");
+
+            // FILTER LOW STOCK
+            const lowStock = res.data.filter(p =>
+                p.stock_quantity <= p.min_stock_level
+            );
+
+            setItems(lowStock);
+
+        } catch (err) {
+            console.error("Stock alert error:", err);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+
+        const interval = setInterval(fetchProducts, 3000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="alerts-section">
             <div className="alerts-header">
                 <p className="alerts-title">Stock Alerts</p>
-                <button className="see-all-btn" onClick={() => navigate('/restock')}>See All</button>
+                <button className="see-all-btn" onClick={() => navigate('/restock')}>
+                    See All
+                </button>
             </div>
 
             <div className="alerts-list">
@@ -17,7 +46,9 @@ export default function StockAlerts({ items = [] }) {
                         <div key={item.id} className="alert-card">
                             <h4 className="item-name">{item.name}</h4>
                             <p className="stock-status">
-                                Stock Low: <span className="count">{item.stock_quantity} remaining</span>
+                                Stock Low: <span className="count">
+                                    {item.stock_quantity} remaining
+                                </span>
                             </p>
                         </div>
                     ))

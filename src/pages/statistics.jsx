@@ -12,8 +12,8 @@ import {
 import TimeFilter from '../component/timeFilter.jsx';
 import Header from '../component/header.jsx';
 
-// API
-import api from '../services/api';
+// SERVICE
+import transactionService from '../services/transactionService';
 
 // ICONS
 import { TbPresentationAnalyticsFilled, TbShoppingCartFilled } from "react-icons/tb";
@@ -32,8 +32,8 @@ export default function Statistics() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get('/transactions');
-        setTransactions(res.data);
+        const data = await transactionService.getAllTransactions();
+        setTransactions(data);
       } catch (err) {
         console.error(err);
       } finally {

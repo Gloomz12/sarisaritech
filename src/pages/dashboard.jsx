@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import api from '../services/api';
+
+// SERVICES
+import transactionService from '../services/transactionService';
 
 // ICONS
 import { IoAdd } from "react-icons/io5";
@@ -19,19 +21,19 @@ export default function Dashboard() {
 
     const [transactions, setTransactions] = useState([]);
 
-    // FETCH DATA FROM BACKEND
+    // FETCH TRANSACTIONS
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await api.get("/transactions");
-                setTransactions(res.data);
-            } catch (err) {
-                console.error("Error fetching transactions:", err);
-            }
-        };
+    const fetchData = async () => {
+        try {
+            const data = await transactionService.getAllTransactions();
+            setTransactions(data);
+        } catch (err) {
+            console.error("Error fetching transactions:", err);
+        }
+    };
 
-        fetchData();
-    }, []);
+    fetchData();
+}, []);
 
     // TODAY FILTER
     const today = new Date();
@@ -81,8 +83,12 @@ export default function Dashboard() {
         });
     });
 
-    const topProductEntry = Object.entries(productMap).sort((a, b) => b[1] - a[1])[0];
-    const topProduct = topProductEntry ? topProductEntry[0] : "No data";
+    const topProductEntry = Object.entries(productMap)
+        .sort((a, b) => b[1] - a[1])[0];
+
+    const topProduct = topProductEntry
+        ? topProductEntry[0]
+        : "No data";
 
     return (
         <div>
@@ -92,19 +98,51 @@ export default function Dashboard() {
 
                 {/* BUTTONS */}
                 <div className="dashboard-buttons">
-                    <LargeButton pageIcon={<IoAdd size={30} />} pageName="Record Sale" variant="record-sale-btn" isFullWidth={true} path="/record-sale" />
+                    <LargeButton
+                        pageIcon={<IoAdd size={30} />}
+                        pageName="Record Sale"
+                        variant="record-sale-btn"
+                        isFullWidth={true}
+                        path="/record-sale"
+                    />
 
                     <div className="page-buttons-row">
-                        <LargeButton pageIcon={<BsBoxSeam />} pageName="Inventory" variant="page-btn" isFullWidth={false} path="/inventory" />
-                        <LargeButton pageIcon={<AiOutlineShoppingCart />} pageName="Restock" variant="page-btn" isFullWidth={false} path="/restock" />
+                        <LargeButton
+                            pageIcon={<BsBoxSeam />}
+                            pageName="Inventory"
+                            variant="page-btn"
+                            path="/inventory"
+                        />
+                        <LargeButton
+                            pageIcon={<AiOutlineShoppingCart />}
+                            pageName="Restock"
+                            variant="page-btn"
+                            path="/restock"
+                        />
                     </div>
 
                     <div className="page-buttons-row">
-                        <LargeButton pageIcon={<VscHistory />} pageName="History" variant="page-btn" isFullWidth={false} path="/history" />
-                        <LargeButton pageIcon={<GrAnalytics />} pageName="Statistics" variant="page-btn" isFullWidth={false} path="/statistics" />
+                        <LargeButton
+                            pageIcon={<VscHistory />}
+                            pageName="History"
+                            variant="page-btn"
+                            path="/history"
+                        />
+                        <LargeButton
+                            pageIcon={<GrAnalytics />}
+                            pageName="Statistics"
+                            variant="page-btn"
+                            path="/statistics"
+                        />
                     </div>
 
-                    <LargeButton pageIcon={<WiStars size={50} />} pageName="AI Insight" variant="ai-insights-btn" isFullWidth={true} path="/ai-insight" />
+                    <LargeButton
+                        pageIcon={<WiStars size={50} />}
+                        pageName="AI Insight"
+                        variant="ai-insights-btn"
+                        isFullWidth={true}
+                        path="/ai-insight"
+                    />
                 </div>
 
                 {/* TODAY SALES */}
