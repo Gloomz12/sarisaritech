@@ -10,8 +10,8 @@ import TransactionItem from '../component/transactionItem.jsx';
 import { BsCashStack } from "react-icons/bs";
 import { FaCashRegister } from "react-icons/fa";
 
-// API
-import api from '../services/api.js';
+// SERVICES 
+import transactionService from '../services/transactionService';
 
 export default function History() {
 
@@ -19,22 +19,27 @@ export default function History() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMethod, setActiveMethod] = useState("All Payments");
 
-  // FETCH DATA
+  // FETCH TRANSACTIONS
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await api.get("/transactions");
-        setTransactions(res.data);
+        const data = await transactionService.getAllTransactions();
+        setTransactions(data);
       } catch (err) {
         console.error("Error fetching transactions:", err);
       }
     };
 
     fetchTransactions();
+
   }, []);
 
   // TOTALS
-  const totalSales = transactions.reduce((acc, curr) => acc + curr.total_amount, 0);
+  const totalSales = transactions.reduce(
+    (acc, curr) => acc + curr.total_amount,
+    0
+  );
+
   const totalCount = transactions.length;
 
   const formattedSales = new Intl.NumberFormat('en-PH', {
@@ -48,19 +53,26 @@ export default function History() {
   // FILTER
   const filteredTransactions = transactions.filter(t => {
     const matchesMethod =
-      activeMethod === "All Payments" || t.payment_method === activeMethod;
+      activeMethod === "All Payments" ||
+      t.payment_method === activeMethod;
 
     const matchesSearch = t.items.some(item =>
-      item.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+      item.product_name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
     );
 
     return matchesMethod && matchesSearch;
   });
-  const methodTotal = filteredTransactions.reduce((acc, curr) => acc + curr.total_amount, 0);
+
+  const methodTotal = filteredTransactions.reduce(
+    (acc, curr) => acc + curr.total_amount,
+    0
+  );
 
   // SORT
-  const sortedTransactions = [...filteredTransactions].sort((a, b) =>
-    new Date(b.created_at) - new Date(a.created_at)
+  const sortedTransactions = [...filteredTransactions].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
   );
 
   // FORMAT TIME
@@ -95,7 +107,9 @@ export default function History() {
       {/* SUMMARY */}
       <div className="transactions-summary-grid">
         <div className="stat-card">
-          <div className="stat-icon sales-bg"><BsCashStack /></div>
+          <div className="stat-icon sales-bg">
+            <BsCashStack />
+          </div>
           <div className="stat-info">
             <span className="stat-title">TOTAL SALES</span>
             <h2 className="stat-number">{formattedSales}</h2>
@@ -103,7 +117,9 @@ export default function History() {
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon trans-bg"><FaCashRegister /></div>
+          <div className="stat-icon trans-bg">
+            <FaCashRegister />
+          </div>
           <div className="stat-info">
             <span className="stat-title">TRANSACTIONS</span>
             <h2 className="stat-number">{totalCount}</h2>
@@ -131,7 +147,9 @@ export default function History() {
           <div className="filter-info">
             <span>{filteredTransactions.length} transactions</span>
             <span className="divider-dot">•</span>
-            <span className="amount-label">₱{methodTotal.toLocaleString()}</span>
+            <span className="amount-label">
+              ₱{methodTotal.toLocaleString()}
+            </span>
           </div>
         </div>
       </div>
@@ -140,7 +158,11 @@ export default function History() {
       <div className="transactions-list-scroll">
         {Object.keys(groupedTransactions).map((dateKey) => {
           const dayTransactions = groupedTransactions[dateKey];
-          const dayTotal = dayTransactions.reduce((sum, t) => sum + t.total_amount, 0);
+
+          const dayTotal = dayTransactions.reduce(
+            (sum, t) => sum + t.total_amount,
+            0
+          );
 
           return (
             <div key={dateKey} className="date-group">
