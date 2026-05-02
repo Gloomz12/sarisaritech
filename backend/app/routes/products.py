@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, HTTPException
 from app.db.database import get_connection
 
@@ -154,3 +156,64 @@ def delete_product(product_id: str):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# RESTOCK PRODUCT
+@router.put("/restock/{product_id}")
+def restock_product(product_id: str, data: dict):
+    conn = None
+    cursor = None
+
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        amount = int(data["amount"])
+
+        if amount <= 0:
+            raise Exception("Invalid restock amount")
+
+        # update stock
+        cursor.execute("""
+            UPDATE products
+            SET stock_quantity = stock_quantity + %s
+            WHERE id = %s
+            RETURNING stock_quantity
+        """, (amount, product_id))
+
+        result = cursor.fetchone()
+
+        if not result:
+            raise Exception("Product not found")
+
+        new_stock = result[0]
+
+        # log stock movement
+        cursor.execute("""
+            INSERT INTO stock_movements (
+                id, product_id, change_quantity, type
+            )
+            VALUES (%s, %s, %s, 'RESTOCK')
+        """, (
+            str(uuid.uuid4()),
+            product_id,
+            amount
+        ))
+
+        conn.commit()
+
+        return {
+            "message": "Restocked successfully",
+            "new_stock": new_stock
+        }
+
+    except Exception as e:
+        if conn:
+            conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
