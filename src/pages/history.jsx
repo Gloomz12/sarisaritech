@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 // COMPONENTS
-import Header from '../component/header.jsx';
-import SearchBar from '../component/searchBar.jsx';
-import CategoryFilter from '../component/categoryFilter.jsx';
-import TransactionItem from '../component/transactionItem.jsx';
+import Header from '../component/common/Header.jsx';
+import SearchBar from '../component/common/SearchBar.jsx';
+import CategoryFilter from '../component/inventory/CategoryFilter.jsx';
+import TransactionItem from '../component/sales/TransactionItem.jsx';
 
 // ICONS
 import { BsCashStack } from "react-icons/bs";
 import { FaCashRegister } from "react-icons/fa";
 
 // SERVICES 
-import transactionService from '../services/transactionService';
+import transactionService from '../services/transactionService.js';
 
 export default function History() {
 

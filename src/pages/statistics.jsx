@@ -9,11 +9,11 @@ import {
 } from 'chart.js';
 
 // COMPONENTS 
-import TimeFilter from '../component/timeFilter.jsx';
-import Header from '../component/header.jsx';
+import TimeFilter from '../component/dashboard/TimeFilter.jsx';
+import Header from '../component/common/Header.jsx';
 
 // SERVICE
-import transactionService from '../services/transactionService';
+import transactionService from '../services/transactionService.js';
 
 // ICONS
 import { TbPresentationAnalyticsFilled, TbShoppingCartFilled } from "react-icons/tb";
