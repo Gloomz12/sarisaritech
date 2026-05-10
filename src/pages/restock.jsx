@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 // COMPONENTS
-import Header from '../component/header.jsx';
-import SearchBar from '../component/searchBar.jsx';
-import StockSummary from '../component/stockSummary.jsx';
-import RestockProductModal from '../component/restockModal.jsx';
-import RestockCard from '../component/restockCard.jsx';
+import Header from '../component/common/Header.jsx';
+import SearchBar from '../component/common/SearchBar.jsx';
+import StockSummary from '../component/inventory/StockSummary.jsx';
+import RestockProductModal from '../component/restock/RestockModal.jsx';
+import RestockCard from '../component/restock/RestockCard.jsx';
 
 // SERVICE
-import productService from '../services/productService';
+import productService from '../services/productService.js';
 
 export default function Restock() {
 

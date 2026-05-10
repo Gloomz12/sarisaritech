@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CategoryInput from './categoryInput';
+import CategoryInput from './CategoryInput';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function AddProductModal({ isOpen, onClose, onAdd }) {

@@ -4,17 +4,17 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { IoAddOutline } from "react-icons/io5";
 
 // COMPONENTS
-import Header from '../component/header.jsx';
-import SearchBar from '../component/searchBar.jsx';
-import CategoryFilter from '../component/categoryFilter.jsx';
-import InventoryCard from '../component/productInventoryCard.jsx';
-import EditProductModal from '../component/editProductModal.jsx';
-import RestockProductModal from '../component/restockModal.jsx';
-import DeleteProductModal from '../component/deleteProductModal.jsx';
-import AddProductModal from '../component/addProductModal.jsx';
+import Header from '../component/common/Header.jsx';
+import SearchBar from '../component/common/SearchBar.jsx';
+import CategoryFilter from '../component/inventory/CategoryFilter.jsx';
+import InventoryCard from '../component/inventory/ProductInventoryCard.jsx';
+import EditProductModal from '../component/inventory/EditProductModal.jsx';
+import RestockProductModal from '../component/restock/RestockModal.jsx';
+import DeleteProductModal from '../component/inventory/DeleteProductModal.jsx';
+import AddProductModal from '../component/inventory/AddProductModal.jsx';
 
 // SERVICE
-import productService from '../services/productService';
+import productService from '../services/productService.js';
 
 export default function Inventory() {
 
