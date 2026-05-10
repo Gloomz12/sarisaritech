@@ -6,7 +6,7 @@ import { HiOutlineTrendingUp, HiOutlineTrendingDown } from "react-icons/hi";
 import { MdOutlineInventory2, MdAttachMoney } from "react-icons/md";
 
 // COMPONENTS
-import Header from '../component/header.jsx';
+import Header from '../component/common/Header.jsx';
 
 // SERVICES
 import productsData from '../services/productsData.json';
