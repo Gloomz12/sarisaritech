@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
 // COMPONENTS
-import Header from '../component/header.jsx';
-import SearchBar from '../component/searchBar.jsx';
-import CategoryFilter from '../component/categoryFilter.jsx';
-import ProductCard from '../component/productCard.jsx';
-import CartItem from '../component/cartItem.jsx';
+import Header from '../component/common/Header.jsx';
+import SearchBar from '../component/common/SearchBar.jsx';
+import CategoryFilter from '../component/inventory/CategoryFilter.jsx';
+import ProductCard from '../component/inventory/ProductCard.jsx';
+import CartItem from '../component/sales/CartItem.jsx';
 
 // ICONS
 import { GiShoppingCart } from "react-icons/gi";
 import { IoCashOutline, IoCheckmarkCircleOutline } from "react-icons/io5";
 
 // SERVICES
-import productService from '../services/productService';
-import transactionService from '../services/transactionService';
+import productService from '../services/productService.js';
+import transactionService from '../services/transactionService.js';
 
 export default function RecordSale() {
 

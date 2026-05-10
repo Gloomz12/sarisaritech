@@ -1,173 +1,86 @@
-import React, { useState, useEffect } from 'react';
-
-// SERVICES
-import transactionService from '../services/transactionService';
-
-// ICONS
-import { IoAdd } from "react-icons/io5";
-import { BsBoxSeam } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { VscHistory } from "react-icons/vsc";
-import { GrAnalytics } from "react-icons/gr";
-import { WiStars } from "react-icons/wi";
-
-// COMPONENTS
-import HeaderDashboard from '../component/headerDashboard.jsx';
-import LargeButton from '../component/largePageButton.jsx';
-import SaleBoard from '../component/saleBoard.jsx';
-import StockAlerts from '../component/stockAlerts.jsx';
+import QuickActions from "../component/dashboard/QuickActions";
+import DashboardLayout from "../component/dashboard/DashboardLayout";
+import AIInsightPanel from "../component/dashboard/AIInsightPanel";
+import StatsCard from "../component/dashboard/StatsCard";
+import StockAlertCard from "../component/dashboard/StockAlertCard";
 
 export default function Dashboard() {
 
-    const [transactions, setTransactions] = useState([]);
+  return (
 
-    // FETCH TRANSACTIONS
-    useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const data = await transactionService.getAllTransactions();
-            setTransactions(data);
-        } catch (err) {
-            console.error("Error fetching transactions:", err);
-        }
-    };
+    <div className="space-y-4">
 
-    fetchData();
-}, []);
+      {/* RECORD SALE */}
 
-    // TODAY FILTER
-    const today = new Date();
+      <button
+        className="
+          w-full
+          h-14
 
-    const todayTransactions = transactions.filter(t => {
-        const d = new Date(t.created_at);
-        return (
-            d.getFullYear() === today.getFullYear() &&
-            d.getMonth() === today.getMonth() &&
-            d.getDate() === today.getDate()
-        );
-    });
+          rounded-2xl
 
-    const todaySales = todayTransactions.reduce(
-        (sum, t) => sum + t.total_amount,
-        0
-    );
+          bg-orange-500
+          hover:bg-orange-600
 
-    const todayCount = todayTransactions.length;
+          text-white
+          font-semibold
+          text-base
 
-    // WEEK FILTER
-    const now = new Date();
-    const weekAgo = new Date();
-    weekAgo.setDate(now.getDate() - 7);
+          shadow-sm
+          hover:shadow-lg
 
-    const weeklyTransactions = transactions.filter(t => {
-        const date = new Date(t.created_at);
-        return date >= weekAgo && date <= now;
-    });
+          hover:-translate-y-[2px]
 
-    const weeklySales = weeklyTransactions.reduce(
-        (sum, t) => sum + t.total_amount,
-        0
-    );
+          transition-all
+          duration-300
+        "
+      >
+        + Record Sale
+      </button>
 
-    const weeklyCount = weeklyTransactions.length;
+      {/* QUICK ACTIONS */}
 
-    // TOP PRODUCT
-    const productMap = {};
+      <QuickActions />
 
-    transactions.forEach(t => {
-        t.items.forEach(item => {
-            if (!productMap[item.product_name]) {
-                productMap[item.product_name] = 0;
-            }
-            productMap[item.product_name] += item.quantity;
-        });
-    });
+      {/* HERO SECTION */}
 
-    const topProductEntry = Object.entries(productMap)
-        .sort((a, b) => b[1] - a[1])[0];
+      <DashboardLayout />
 
-    const topProduct = topProductEntry
-        ? topProductEntry[0]
-        : "No data";
+      {/* AI PANEL */}
 
-    return (
-        <div>
-            <HeaderDashboard />
+      <AIInsightPanel />
 
-            <div className="dashboard-contents" style={{ padding: '10px 30px' }}>
+      {/* STATS */}
 
-                {/* BUTTONS */}
-                <div className="dashboard-buttons">
-                    <LargeButton
-                        pageIcon={<IoAdd size={30} />}
-                        pageName="Record Sale"
-                        variant="record-sale-btn"
-                        isFullWidth={true}
-                        path="/record-sale"
-                    />
+      <div
+        className="
+          grid
+          grid-cols-1
+          xl:grid-cols-3
+          gap-4
+        "
+      >
 
-                    <div className="page-buttons-row">
-                        <LargeButton
-                            pageIcon={<BsBoxSeam />}
-                            pageName="Inventory"
-                            variant="page-btn"
-                            path="/inventory"
-                        />
-                        <LargeButton
-                            pageIcon={<AiOutlineShoppingCart />}
-                            pageName="Restock"
-                            variant="page-btn"
-                            path="/restock"
-                        />
-                    </div>
+        <StatsCard
+          title="Today's Sales"
+          value="₱2,450.00"
+          subtitle="28 Transactions"
+          growth="+18.6%"
+          top="Top: Coke (15 units)"
+        />
 
-                    <div className="page-buttons-row">
-                        <LargeButton
-                            pageIcon={<VscHistory />}
-                            pageName="History"
-                            variant="page-btn"
-                            path="/history"
-                        />
-                        <LargeButton
-                            pageIcon={<GrAnalytics />}
-                            pageName="Statistics"
-                            variant="page-btn"
-                            path="/statistics"
-                        />
-                    </div>
+        <StatsCard
+          title="This Week's Sales"
+          value="₱17,850.00"
+          subtitle="210 Transactions"
+          growth="+15.2%"
+          top="Top: Noodles (80 units)"
+        />
 
-                    <LargeButton
-                        pageIcon={<WiStars size={50} />}
-                        pageName="AI Insight"
-                        variant="ai-insights-btn"
-                        isFullWidth={true}
-                        path="/ai-insight"
-                    />
-                </div>
+        <StockAlertCard />
 
-                {/* TODAY SALES */}
-                <div className="current-sale">
-                    <SaleBoard
-                        boardLabel="Today's Sales"
-                        totalSales={todaySales}
-                        totalCount={todayCount}
-                        topProduct={topProduct}
-                    />
-                </div>
+      </div>
 
-                {/* WEEKLY SALES */}
-                <div className="weekly-sale">
-                    <SaleBoard
-                        boardLabel="This Week's Sales"
-                        totalSales={weeklySales}
-                        totalCount={weeklyCount}
-                        topProduct={topProduct}
-                    />
-                </div>
-
-                {/* STOCK ALERTS */}
-                <StockAlerts />
-            </div>
-        </div>
-    );
+    </div>
+  );
 }
