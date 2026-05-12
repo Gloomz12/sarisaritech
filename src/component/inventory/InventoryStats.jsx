@@ -1,5 +1,3 @@
-// src/component/inventory/InventoryStats.jsx
-
 export default function InventoryStats({
   totalProducts = 0,
   lowStockCount = 0,
@@ -282,9 +280,7 @@ export default function InventoryStats({
           >
             <span className="text-gray-500">Retail Value</span>
 
-            <span className="font-semibold">
-              {formatPeso(totalRetailValue)}
-            </span>
+            <span className="font-semibold">{formatPeso(totalRetailValue)}</span>
           </div>
         </div>
       </div>

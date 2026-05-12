@@ -29,13 +29,8 @@ export default function AiInsight() {
   }, []);
 
   const generateMockAnalysis = () => {
-    const lowStock = productsData.filter(
-      (p) => p.stock_quantity <= p.min_stock_level
-    );
-    const totalRev = transactionHistory.reduce(
-      (sum, t) => sum + t.total_amount,
-      0
-    );
+    const lowStock = productsData.filter((p) => p.stock_quantity <= p.min_stock_level);
+    const totalRev = transactionHistory.reduce((sum, t) => sum + t.total_amount, 0);
 
     const catCounts = {};
     productsData.forEach((p) => {
@@ -112,9 +107,7 @@ export default function AiInsight() {
             <MdOutlineInventory2 className="stat-icon-img stock" />
             <div className="stat-info">
               <label>Low Stock Items</label>
-              <h3
-                className={insights.stats.lowStockCount > 0 ? "red-text" : ""}
-              >
+              <h3 className={insights.stats.lowStockCount > 0 ? "red-text" : ""}>
                 {insights.stats.lowStockCount}
               </h3>
             </div>
@@ -126,11 +119,7 @@ export default function AiInsight() {
           {insights.recommendations.map((rec, i) => (
             <div key={i} className={`ai-rec-box ${rec.type}`}>
               <div className="ai-rec-icon">
-                {rec.type === "warning" ? (
-                  <HiOutlineTrendingDown />
-                ) : (
-                  <HiOutlineTrendingUp />
-                )}
+                {rec.type === "warning" ? <HiOutlineTrendingDown /> : <HiOutlineTrendingUp />}
               </div>
               <div className="ai-rec-content">
                 <h4>{rec.title}</h4>

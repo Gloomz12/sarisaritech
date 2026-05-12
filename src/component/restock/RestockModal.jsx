@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 
-export default function RestockProductModal({
-  isOpen,
-  onClose,
-  product,
-  onRestock,
-}) {
+export default function RestockProductModal({ isOpen, onClose, product, onRestock }) {
   const [addAmount, setAddAmount] = useState("");
 
   if (!isOpen || !product) return null;

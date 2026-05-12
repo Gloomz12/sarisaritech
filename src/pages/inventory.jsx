@@ -138,9 +138,7 @@ export default function Inventory() {
   const totalProducts = processedProducts.length;
 
   const lowStockCount = processedProducts.filter(
-    (product) =>
-      product.stock_quantity > 0 &&
-      product.stock_quantity <= product.min_stock_level
+    (product) => product.stock_quantity > 0 && product.stock_quantity <= product.min_stock_level
   ).length;
 
   const outOfStockCount = processedProducts.filter(
@@ -157,18 +155,12 @@ export default function Inventory() {
 
   /* CATEGORIES */
 
-  const categories = [
-    "All",
-
-    ...new Set(processedProducts.map((product) => product.category)),
-  ];
+  const categories = ["All", ...new Set(processedProducts.map((product) => product.category))];
 
   /* FILTER PRODUCTS */
 
   const filteredProducts = processedProducts.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+    const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase());
 
     const matchesCategory = selectedCategory.includes("All")
       ? true
@@ -218,9 +210,7 @@ export default function Inventory() {
   const lowStockProducts = processedProducts
 
     .filter(
-      (product) =>
-        product.stock_quantity > 0 &&
-        product.stock_quantity <= product.min_stock_level
+      (product) => product.stock_quantity > 0 && product.stock_quantity <= product.min_stock_level
     )
 
     .sort((a, b) => a.stock_quantity - b.stock_quantity)
@@ -232,10 +222,7 @@ export default function Inventory() {
       {/* ADD */}
 
       {showAddModal && (
-        <AddProductModal
-          onClose={() => setShowAddModal(false)}
-          refreshProducts={fetchProducts}
-        />
+        <AddProductModal onClose={() => setShowAddModal(false)} refreshProducts={fetchProducts} />
       )}
 
       {/* EDIT */}
@@ -251,16 +238,13 @@ export default function Inventory() {
       {/* VIEW */}
 
       {showViewModal && (
-        <ViewProductModal
-          product={selectedProduct}
-          onClose={() => setShowViewModal(false)}
-        />
+        <ViewProductModal product={selectedProduct} onClose={() => setShowViewModal(false)} />
       )}
 
-     {/* HERO */}
+      {/* HERO */}
 
-<div
-  className="
+      <div
+        className="
     relative
     overflow-hidden
 
@@ -278,11 +262,11 @@ export default function Inventory() {
 
     shadow-sm
   "
->
-  {/* GLOW */}
+      >
+        {/* GLOW */}
 
-  <div
-    className="
+        <div
+          className="
       absolute
       -top-16
       -right-16
@@ -296,10 +280,10 @@ export default function Inventory() {
 
       blur-3xl
     "
-  />
+        />
 
-  <div
-    className="
+        <div
+          className="
       relative
       z-10
 
@@ -308,12 +292,12 @@ export default function Inventory() {
       justify-between
       gap-6
     "
-  >
-    {/* LEFT */}
+        >
+          {/* LEFT */}
 
-    <div>
-      <h1
-        className="
+          <div>
+            <h1
+              className="
           text-[54px]
           leading-[0.9]
 
@@ -323,12 +307,12 @@ export default function Inventory() {
 
           text-[#071437]
         "
-      >
-        Inventory
-      </h1>
+            >
+              Inventory
+            </h1>
 
-      <p
-        className="
+            <p
+              className="
           mt-2
 
           text-[15px]
@@ -336,16 +320,16 @@ export default function Inventory() {
           text-gray-500
           font-medium
         "
-      >
-        Manage your store products and monitor stock levels efficiently.
-      </p>
-    </div>
+            >
+              Manage your store products and monitor stock levels efficiently.
+            </p>
+          </div>
 
-    {/* BUTTON */}
+          {/* BUTTON */}
 
-    <button
-      onClick={() => setShowAddModal(true)}
-      className="
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="
         h-[52px]
 
         rounded-2xl
@@ -366,11 +350,11 @@ export default function Inventory() {
 
         active:scale-[0.98]
       "
-    >
-      + Add Product
-    </button>
-  </div>
-</div>
+          >
+            + Add Product
+          </button>
+        </div>
+      </div>
 
       {/* STATS */}
 

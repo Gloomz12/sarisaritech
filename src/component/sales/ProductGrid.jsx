@@ -1,9 +1,6 @@
-// ProductGrid.jsx
-
 import ProductCard from "./ProductCard";
 
 export default function ProductGrid({
-
   products,
 
   cart,
@@ -12,11 +9,8 @@ export default function ProductGrid({
   decreaseQuantity,
 
   toggleFavorite,
-
 }) {
-
   return (
-
     <div
       className="
         grid
@@ -29,52 +23,22 @@ export default function ProductGrid({
         gap-4
       "
     >
+      {products.map((product) => {
+        const cartItem = cart.find((item) => item.id === product.id);
 
-      {
+        const quantity = cartItem?.quantity || 0;
 
-        products.map((product) => {
-
-          const cartItem =
-            cart.find(
-              (item) =>
-                item.id === product.id
-            );
-
-          const quantity =
-            cartItem?.quantity || 0;
-
-          return (
-
-            <ProductCard
-
-              key={product.id}
-
-              product={product}
-
-              quantity={quantity}
-
-              increaseQuantity={
-                increaseQuantity
-              }
-
-              decreaseQuantity={
-                decreaseQuantity
-              }
-
-              toggleFavorite={
-                toggleFavorite
-              }
-
-            />
-
-          );
-
-        })
-
-      }
-
+        return (
+          <ProductCard
+            key={product.id}
+            product={product}
+            quantity={quantity}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+            toggleFavorite={toggleFavorite}
+          />
+        );
+      })}
     </div>
-
   );
-
 }

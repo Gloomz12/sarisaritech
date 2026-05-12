@@ -1,69 +1,44 @@
-// src/component/inventory/AddProductModal.jsx
-
 import React, { useEffect, useState } from "react";
 
 import productService from "../../services/productService";
 
-import {
-  Archive,
-  Bell,
-  Package,
-  PhilippinePeso,
-  Ruler,
-  Tag,
-  X,
-} from "lucide-react";
+import { Archive, Bell, Package, PhilippinePeso, Ruler, Tag, X } from "lucide-react";
 
 function capitalizeWords(text) {
-  return text
-    .toLowerCase()
-    .replace(/\b\w/g, (char) =>
-      char.toUpperCase()
-    );
+  return text.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 export default function AddProductModal({
-
   onClose,
 
   refreshProducts,
-
 }) {
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [categories, setCategories] = useState([]);
 
-  const [categories, setCategories] =
-    useState([]);
+  const [units, setUnits] = useState([]);
 
-  const [units, setUnits] =
-    useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
 
-  const [formData, setFormData] =
-    useState({
+    category: "",
 
-      name: "",
+    unit: "",
 
-      category: "",
+    cost_price: "",
 
-      unit: "",
+    selling_price: "",
 
-      cost_price: "",
+    stock_quantity: "",
 
-      selling_price: "",
-
-      stock_quantity: "",
-
-      min_stock_level: "",
-
-    });
+    min_stock_level: "",
+  });
 
   /* LOAD SAVED OPTIONS */
 
   useEffect(() => {
-
     const defaultCategories = [
-
       "Soft Drinks",
 
       "Snacks",
@@ -89,357 +64,170 @@ export default function AddProductModal({
       "Cleaning Supplies",
 
       "Personal Care",
-
     ];
 
-    const defaultUnits = [
+    const defaultUnits = ["pc", "pack", "box", "bottle", "can", "sachet", "kg", "g", "liter", "ml"];
 
-      "pc",
+    const savedCategories = JSON.parse(localStorage.getItem("inventory_categories")) || [];
 
-      "pack",
+    const savedUnits = JSON.parse(localStorage.getItem("inventory_units")) || [];
 
-      "box",
+    setCategories([...new Set([...defaultCategories, ...savedCategories])]);
 
-      "bottle",
-
-      "can",
-
-      "sachet",
-
-      "kg",
-
-      "g",
-
-      "liter",
-
-      "ml",
-
-    ];
-
-    const savedCategories =
-
-      JSON.parse(
-        localStorage.getItem(
-          "inventory_categories"
-        )
-      ) || [];
-
-    const savedUnits =
-
-      JSON.parse(
-        localStorage.getItem(
-          "inventory_units"
-        )
-      ) || [];
-
-    setCategories([
-
-      ...new Set([
-
-        ...defaultCategories,
-
-        ...savedCategories,
-
-      ]),
-
-    ]);
-
-    setUnits([
-
-      ...new Set([
-
-        ...defaultUnits,
-
-        ...savedUnits,
-
-      ]),
-
-    ]);
-
+    setUnits([...new Set([...defaultUnits, ...savedUnits])]);
   }, []);
 
   /* NORMAL INPUT */
 
   const handleChange = (e) => {
-
-    const { name, value } =
-      e.target;
+    const { name, value } = e.target;
 
     if (name === "name") {
-
       setFormData({
-
         ...formData,
 
-        [name]:
-          capitalizeWords(value),
-
+        [name]: capitalizeWords(value),
       });
 
       return;
-
     }
 
     setFormData({
-
       ...formData,
 
       [name]: value,
-
     });
-
   };
 
   /* CATEGORY */
 
-  const handleCategoryChange =
-    (e) => {
+  const handleCategoryChange = (e) => {
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
 
-      const value =
-        e.target.value.replace(
-          /[^a-zA-Z\s]/g,
-          ""
-        );
+    setFormData({
+      ...formData,
 
-      setFormData({
-
-        ...formData,
-
-        category:
-          capitalizeWords(value),
-
-      });
-
-    };
+      category: capitalizeWords(value),
+    });
+  };
 
   /* UNIT */
 
-  const handleUnitChange =
-    (e) => {
+  const handleUnitChange = (e) => {
+    const value = e.target.value
 
-      const value =
-        e.target.value
+      .replace(/[^a-zA-Z\s]/g, "")
 
-          .replace(
-            /[^a-zA-Z\s]/g,
-            ""
-          )
+      .toLowerCase();
 
-          .toLowerCase();
+    setFormData({
+      ...formData,
 
-      setFormData({
-
-        ...formData,
-
-        unit: value,
-
-      });
-
-    };
+      unit: value,
+    });
+  };
 
   /* SAVE CATEGORY */
 
-  const saveCategory = (
-    category
-  ) => {
-
+  const saveCategory = (category) => {
     if (!category.trim()) return;
 
-    const cleaned =
-      category.trim();
+    const cleaned = category.trim();
 
-    const updated = [
-
-      ...new Set([
-
-        ...categories,
-
-        cleaned,
-
-      ]),
-
-    ];
+    const updated = [...new Set([...categories, cleaned])];
 
     setCategories(updated);
 
     localStorage.setItem(
-
       "inventory_categories",
 
       JSON.stringify(updated)
-
     );
-
   };
 
   /* SAVE UNIT */
 
   const saveUnit = (unit) => {
-
     if (!unit.trim()) return;
 
-    const cleaned =
-      unit.trim().toLowerCase();
+    const cleaned = unit.trim().toLowerCase();
 
-    const updated = [
-
-      ...new Set([
-
-        ...units,
-
-        cleaned,
-
-      ]),
-
-    ];
+    const updated = [...new Set([...units, cleaned])];
 
     setUnits(updated);
 
     localStorage.setItem(
-
       "inventory_units",
 
       JSON.stringify(updated)
-
     );
-
   };
 
   /* SAVE PRODUCT */
 
-  const handleSave =
-    async () => {
+  const handleSave = async () => {
+    try {
+      if (!formData.name.trim()) {
+        alert("Product name is required");
 
-      try {
-
-        if (
-          !formData.name.trim()
-        ) {
-
-          alert(
-            "Product name is required"
-          );
-
-          return;
-
-        }
-
-        if (
-          !formData.category.trim()
-        ) {
-
-          alert(
-            "Category is required"
-          );
-
-          return;
-
-        }
-
-        if (
-          !formData.unit.trim()
-        ) {
-
-          alert(
-            "Unit is required"
-          );
-
-          return;
-
-        }
-
-        setLoading(true);
-
-        saveCategory(
-          formData.category
-        );
-
-        saveUnit(
-          formData.unit
-        );
-
-        console.log(
-          "FORM DATA:",
-          formData
-        );
-
-        await productService.createProduct({
-
-          id:
-            crypto.randomUUID(),
-
-          name:
-            formData.name.trim(),
-
-          category:
-            formData.category.trim(),
-
-          unit:
-            formData.unit
-              .trim()
-              .toLowerCase(),
-
-          cost_price:
-            Number(
-              formData.cost_price
-            ),
-
-          selling_price:
-            Number(
-              formData.selling_price
-            ),
-
-          stock_quantity:
-            Number(
-              formData.stock_quantity
-            ),
-
-          min_stock_level:
-            Number(
-              formData.min_stock_level
-            ),
-
-        });
-
-        await refreshProducts();
-
-        onClose();
-
-      } catch (error) {
-
-        console.log(
-          "FULL ERROR:",
-          error
-        );
-
-        console.log(
-          "ERROR RESPONSE:",
-          error.response
-        );
-
-        console.log(
-          "ERROR DATA:",
-          error.response?.data
-        );
-
-        alert(
-
-          error.response?.data?.detail ||
-
-          "Failed to save product"
-
-        );
-
-      } finally {
-
-        setLoading(false);
-
+        return;
       }
 
-    };
+      if (!formData.category.trim()) {
+        alert("Category is required");
+
+        return;
+      }
+
+      if (!formData.unit.trim()) {
+        alert("Unit is required");
+
+        return;
+      }
+
+      setLoading(true);
+
+      saveCategory(formData.category);
+
+      saveUnit(formData.unit);
+
+      console.log("FORM DATA:", formData);
+
+      await productService.createProduct({
+        id: crypto.randomUUID(),
+
+        name: formData.name.trim(),
+
+        category: formData.category.trim(),
+
+        unit: formData.unit.trim().toLowerCase(),
+
+        cost_price: Number(formData.cost_price),
+
+        selling_price: Number(formData.selling_price),
+
+        stock_quantity: Number(formData.stock_quantity),
+
+        min_stock_level: Number(formData.min_stock_level),
+      });
+
+      await refreshProducts();
+
+      onClose();
+    } catch (error) {
+      console.log("FULL ERROR:", error);
+
+      console.log("ERROR RESPONSE:", error.response);
+
+      console.log("ERROR DATA:", error.response?.data);
+
+      alert(error.response?.data?.detail || "Failed to save product");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-
     <div
       className="
         fixed
@@ -453,7 +241,6 @@ export default function AddProductModal({
         backdrop-blur-[2px]
       "
     >
-
       <div
         className="
           w-full
@@ -464,7 +251,6 @@ export default function AddProductModal({
           shadow-[0_20px_70px_rgba(15,23,42,0.12)]
         "
       >
-
         {/* HEADER */}
 
         <div
@@ -478,9 +264,7 @@ export default function AddProductModal({
             py-5
           "
         >
-
           <div>
-
             <h1
               className="
                 text-[34px]
@@ -501,7 +285,6 @@ export default function AddProductModal({
             >
               Create a new inventory item
             </p>
-
           </div>
 
           <button
@@ -518,19 +301,16 @@ export default function AddProductModal({
               hover:bg-[#f8fafc]
             "
           >
-
             <X
               size={28}
               className="
                 text-[#64748b]
               "
             />
-
           </button>
-
         </div>
 
-                {/* FORM */}
+        {/* FORM */}
 
         <div
           className="
@@ -541,291 +321,135 @@ export default function AddProductModal({
             py-6
           "
         >
-
           {/* PRODUCT NAME */}
 
           <div className="col-span-2">
+            <label className={labelClass}>Product Name</label>
 
-            <label className={labelClass}>
-              Product Name
-            </label>
-
-            <InputWrapper
-              icon={<Package size={21} />}
-            >
-
-              <input
-                type="text"
-
-                name="name"
-
-                value={formData.name}
-
-                onChange={handleChange}
-
-                placeholder="e.g. Coke"
-
-                className={inputClass}
-              />
-
+            <InputWrapper icon={<Package size={21} />}>
+              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="e.g. Coke" className={inputClass} />
             </InputWrapper>
-
           </div>
 
           {/* CATEGORY */}
 
           <div>
+            <label className={labelClass}>Category</label>
 
-            <label className={labelClass}>
-              Category
-            </label>
-
-            <InputWrapper
-              icon={<Tag size={20} />}
-            >
-
+            <InputWrapper icon={<Tag size={20} />}>
               <>
-
                 <input
                   type="text"
-
                   name="category"
-
-                  value={
-                    formData.category
-                  }
-
-                  onChange={
-                    handleCategoryChange
-                  }
-
+                  value={formData.category}
+                  onChange={handleCategoryChange}
                   placeholder="Soft Drinks"
-
                   className={inputClass}
-
                   list="category-list"
                 />
 
                 <datalist id="category-list">
-
-                  {
-
-                    categories.map(
-                      (
-                        category,
-                        index
-                      ) => (
-
-                        <option
-                          key={index}
-                          value={category}
-                        />
-
-                      )
-                    )
-
-                  }
-
+                  {categories.map((category, index) => (
+                    <option key={index} value={category} />
+                  ))}
                 </datalist>
-
               </>
-
             </InputWrapper>
-
           </div>
 
           {/* UNIT */}
 
           <div>
+            <label className={labelClass}>Unit</label>
 
-            <label className={labelClass}>
-              Unit
-            </label>
-
-            <InputWrapper
-              icon={<Ruler size={20} />}
-            >
-
+            <InputWrapper icon={<Ruler size={20} />}>
               <>
-
                 <input
                   type="text"
-
                   name="unit"
-
                   value={formData.unit}
-
-                  onChange={
-                    handleUnitChange
-                  }
-
+                  onChange={handleUnitChange}
                   placeholder="pc"
-
                   className={inputClass}
-
                   list="unit-list"
                 />
 
                 <datalist id="unit-list">
-
-                  {
-
-                    units.map(
-                      (
-                        unit,
-                        index
-                      ) => (
-
-                        <option
-                          key={index}
-                          value={unit}
-                        />
-
-                      )
-                    )
-
-                  }
-
+                  {units.map((unit, index) => (
+                    <option key={index} value={unit} />
+                  ))}
                 </datalist>
-
               </>
-
             </InputWrapper>
-
           </div>
 
           {/* COST */}
 
           <div>
+            <label className={labelClass}>Cost Price</label>
 
-            <label className={labelClass}>
-              Cost Price
-            </label>
-
-            <InputWrapper
-              icon={
-                <PhilippinePeso size={20} />
-              }
-            >
-
+            <InputWrapper icon={<PhilippinePeso size={20} />}>
               <input
                 type="number"
-
                 name="cost_price"
-
-                value={
-                  formData.cost_price
-                }
-
+                value={formData.cost_price}
                 onChange={handleChange}
-
                 placeholder="25"
-
                 className={inputClass}
               />
-
             </InputWrapper>
-
           </div>
 
           {/* SELLING */}
 
           <div>
+            <label className={labelClass}>Selling Price</label>
 
-            <label className={labelClass}>
-              Selling Price
-            </label>
-
-            <InputWrapper
-              icon={
-                <PhilippinePeso size={20} />
-              }
-            >
-
+            <InputWrapper icon={<PhilippinePeso size={20} />}>
               <input
                 type="number"
-
                 name="selling_price"
-
-                value={
-                  formData.selling_price
-                }
-
+                value={formData.selling_price}
                 onChange={handleChange}
-
                 placeholder="35"
-
                 className={inputClass}
               />
-
             </InputWrapper>
-
           </div>
 
           {/* STOCK */}
 
           <div>
+            <label className={labelClass}>Initial Stock</label>
 
-            <label className={labelClass}>
-              Initial Stock
-            </label>
-
-            <InputWrapper
-              icon={<Archive size={20} />}
-            >
-
+            <InputWrapper icon={<Archive size={20} />}>
               <input
                 type="number"
-
                 name="stock_quantity"
-
-                value={
-                  formData.stock_quantity
-                }
-
+                value={formData.stock_quantity}
                 onChange={handleChange}
-
                 placeholder="100"
-
                 className={inputClass}
               />
-
             </InputWrapper>
-
           </div>
 
           {/* MIN STOCK */}
 
           <div>
+            <label className={labelClass}>Min. Stock Level</label>
 
-            <label className={labelClass}>
-              Min. Stock Level
-            </label>
-
-            <InputWrapper
-              icon={<Bell size={20} />}
-            >
-
+            <InputWrapper icon={<Bell size={20} />}>
               <input
                 type="number"
-
                 name="min_stock_level"
-
-                value={
-                  formData.min_stock_level
-                }
-
+                value={formData.min_stock_level}
                 onChange={handleChange}
-
                 placeholder="10"
-
                 className={inputClass}
               />
-
             </InputWrapper>
-
           </div>
-
         </div>
 
         {/* FOOTER */}
@@ -844,7 +468,6 @@ export default function AddProductModal({
             py-5
           "
         >
-
           {/* CANCEL */}
 
           <button
@@ -867,9 +490,7 @@ export default function AddProductModal({
 
           <button
             onClick={handleSave}
-
             disabled={loading}
-
             className="
               h-[58px]
               rounded-[18px]
@@ -884,34 +505,18 @@ export default function AddProductModal({
               hover:bg-orange-600
             "
           >
-
-            {
-              loading
-                ? "Saving..."
-                : "Save Product"
-            }
-
+            {loading ? "Saving..." : "Save Product"}
           </button>
-
         </div>
-
       </div>
-
     </div>
-
   );
-
 }
 
 /* REUSABLE */
 
-function InputWrapper({
-  icon,
-  children,
-}) {
-
+function InputWrapper({ icon, children }) {
   return (
-
     <div
       className="
         flex
@@ -927,7 +532,6 @@ function InputWrapper({
         focus-within:ring-orange-100
       "
     >
-
       <div
         className="
           flex
@@ -942,11 +546,8 @@ function InputWrapper({
       </div>
 
       {children}
-
     </div>
-
   );
-
 }
 
 const inputClass = `

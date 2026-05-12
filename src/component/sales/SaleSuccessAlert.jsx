@@ -1,9 +1,7 @@
 import { FiCheckCircle } from "react-icons/fi";
 
 export default function SaleSuccessAlert() {
-
   return (
-
     <div
       className="
         bg-green-50
@@ -20,7 +18,6 @@ export default function SaleSuccessAlert() {
         gap-3
       "
     >
-
       <FiCheckCircle
         className="
           text-2xl
@@ -29,7 +26,6 @@ export default function SaleSuccessAlert() {
       />
 
       <div>
-
         <h1
           className="
             font-black
@@ -48,11 +44,7 @@ export default function SaleSuccessAlert() {
         >
           Change to return: ₱4
         </p>
-
       </div>
-
     </div>
-
   );
-
 }

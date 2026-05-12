@@ -1,11 +1,7 @@
-import {
-  FiShoppingBag,
-} from "react-icons/fi";
+import { FiShoppingBag } from "react-icons/fi";
 
 export default function SalesHeader() {
-
   return (
-
     <div
       className="
         relative
@@ -26,7 +22,6 @@ export default function SalesHeader() {
         shadow-sm
       "
     >
-
       {/* GLOW */}
 
       <div
@@ -56,11 +51,9 @@ export default function SalesHeader() {
           justify-between
         "
       >
-
         {/* LEFT */}
 
         <div>
-
           {/* TITLE */}
 
           <h2
@@ -81,7 +74,7 @@ export default function SalesHeader() {
           {/* SUBTITLE */}
 
           <p
-          className="
+            className="
             mt-3
 
             max-w-[780px]
@@ -94,9 +87,9 @@ export default function SalesHeader() {
 
             whitespace-nowrap
           "
-        >
-          Process customer purchases, manage checkout, and complete transactions faster.
-        </p>
+          >
+            Process customer purchases, manage checkout, and complete transactions faster.
+          </p>
         </div>
 
         {/* RIGHT ICON */}
@@ -124,7 +117,6 @@ export default function SalesHeader() {
             border-orange-100
           "
         >
-
           <div
             className="
               absolute
@@ -148,13 +140,8 @@ export default function SalesHeader() {
               text-orange-500
             "
           />
-
         </div>
-
       </div>
-
     </div>
-
   );
-
 }

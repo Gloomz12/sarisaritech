@@ -1,12 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } from "chart.js";
 
 // COMPONENTS
 import TimeFilter from "../component/dashboard/TimeFilter.jsx";
@@ -16,10 +10,7 @@ import Header from "../component/common/Header.jsx";
 import transactionService from "../services/transactionService.js";
 
 // ICONS
-import {
-  TbPresentationAnalyticsFilled,
-  TbShoppingCartFilled,
-} from "react-icons/tb";
+import { TbPresentationAnalyticsFilled, TbShoppingCartFilled } from "react-icons/tb";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
@@ -57,9 +48,7 @@ export default function Statistics() {
       prevStart = new Date(currentStart.getTime() - 24 * 60 * 60 * 1000);
 
       for (let i = 0; i < 12; i++) {
-        const bucketTime = new Date(
-          currentStart.getTime() + i * 2 * 60 * 60 * 1000
-        );
+        const bucketTime = new Date(currentStart.getTime() + i * 2 * 60 * 60 * 1000);
         let hr = bucketTime.getHours();
 
         buckets.push({
@@ -70,22 +59,12 @@ export default function Statistics() {
       }
 
       getBucketKey = (date) =>
-        Math.floor(
-          (date.getTime() - currentStart.getTime()) / (2 * 60 * 60 * 1000)
-        ).toString();
+        Math.floor((date.getTime() - currentStart.getTime()) / (2 * 60 * 60 * 1000)).toString();
     } else if (timeRange === "1week" || timeRange === "1month") {
       const days = timeRange === "1week" ? 7 : 30;
 
-      currentStart = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - (days - 1)
-      );
-      prevStart = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - (days * 2 - 1)
-      );
+      currentStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (days - 1));
+      prevStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (days * 2 - 1));
 
       for (let i = 0; i < days; i++) {
         const d = new Date(
@@ -101,21 +80,12 @@ export default function Statistics() {
         });
       }
 
-      getBucketKey = (date) =>
-        `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+      getBucketKey = (date) => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
     } else {
       const months = timeRange === "6months" ? 6 : 12;
 
-      currentStart = new Date(
-        now.getFullYear(),
-        now.getMonth() - (months - 1),
-        1
-      );
-      prevStart = new Date(
-        now.getFullYear(),
-        now.getMonth() - (months * 2 - 1),
-        1
-      );
+      currentStart = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1);
+      prevStart = new Date(now.getFullYear(), now.getMonth() - (months * 2 - 1), 1);
 
       const monthNames = [
         "Jan",
@@ -133,11 +103,7 @@ export default function Statistics() {
       ];
 
       for (let i = 0; i < months; i++) {
-        const d = new Date(
-          currentStart.getFullYear(),
-          currentStart.getMonth() + i,
-          1
-        );
+        const d = new Date(currentStart.getFullYear(), currentStart.getMonth() + i, 1);
 
         buckets.push({
           key: `${d.getFullYear()}-${d.getMonth()}`,
@@ -173,8 +139,7 @@ export default function Statistics() {
         (tx.items || []).forEach((item) => {
           const catName = item.category || "Uncategorized";
 
-          categoryTotals[catName] =
-            (categoryTotals[catName] || 0) + item.subtotal;
+          categoryTotals[catName] = (categoryTotals[catName] || 0) + item.subtotal;
           overallTotal += item.subtotal;
 
           const productName = item.product_name;
@@ -197,8 +162,7 @@ export default function Statistics() {
       .map(([name, value]) => ({
         name,
         value,
-        percentage:
-          overallTotal > 0 ? Math.round((value / overallTotal) * 100) : 0,
+        percentage: overallTotal > 0 ? Math.round((value / overallTotal) * 100) : 0,
       }))
       .sort((a, b) => b.value - a.value);
 
@@ -217,9 +181,7 @@ export default function Statistics() {
       cards: {
         total: currentTotal.toLocaleString(),
         avg: currentTransactions.length
-          ? Math.round(
-              currentTotal / currentTransactions.length
-            ).toLocaleString()
+          ? Math.round(currentTotal / currentTransactions.length).toLocaleString()
           : "0",
         trend: trend.toFixed(1),
         best: Math.max(...buckets.map((b) => b.amount), 0).toLocaleString(),
@@ -243,9 +205,7 @@ export default function Statistics() {
 
   //LOADING
   if (loading) {
-    return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>
-    );
+    return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
   }
 
   return (
@@ -285,9 +245,7 @@ export default function Statistics() {
               <p className="label">vs previous period</p>
             </div>
           </div>
-          <h2
-            className={`trend-val ${parseFloat(analytics.cards.trend) < 0 ? "neg" : "pos"}`}
-          >
+          <h2 className={`trend-val ${parseFloat(analytics.cards.trend) < 0 ? "neg" : "pos"}`}>
             {parseFloat(analytics.cards.trend) > 0 ? "+" : ""}
             {analytics.cards.trend}%
           </h2>
@@ -387,9 +345,7 @@ export default function Statistics() {
           {analytics.topProducts.map((product, index) => (
             <div key={index} className="product-item">
               <div className="product-rank">
-                <span className={`rank-badge rank-${index + 1}`}>
-                  #{index + 1}
-                </span>
+                <span className={`rank-badge rank-${index + 1}`}>#{index + 1}</span>
               </div>
 
               <div className="product-details">
@@ -398,9 +354,7 @@ export default function Statistics() {
                   <p className="p-sold">{product.sold} sold</p>
                 </div>
                 <div className="product-price-info">
-                  <h3 className="p-revenue">
-                    ₱{product.revenue.toLocaleString()}
-                  </h3>
+                  <h3 className="p-revenue">₱{product.revenue.toLocaleString()}</h3>
                 </div>
               </div>
             </div>
