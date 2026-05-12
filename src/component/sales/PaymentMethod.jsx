@@ -1,20 +1,11 @@
-// PaymentMethod.jsx
-
 import { useState } from "react";
 
 export default function PaymentMethod() {
+  const [method, setMethod] = useState("Cash");
 
-  const [method, setMethod] =
-    useState("Cash");
-
-  const methods = [
-    "Cash",
-    "GCash",
-    "Paymaya",
-  ];
+  const methods = ["Cash", "GCash", "Paymaya"];
 
   return (
-
     <div
       className="
         grid
@@ -23,20 +14,11 @@ export default function PaymentMethod() {
         gap-1
       "
     >
-
-      {
-
-        methods.map((item) => (
-
-          <button
-
-            key={item}
-
-            onClick={() =>
-              setMethod(item)
-            }
-
-            className={`
+      {methods.map((item) => (
+        <button
+          key={item}
+          onClick={() => setMethod(item)}
+          className={`
               h-[30px]
 
               rounded-[9px]
@@ -51,13 +33,11 @@ export default function PaymentMethod() {
 
               ${
                 method === item
-
                   ? `
                     bg-orange-500
                     border-orange-500
                     text-white
                   `
-
                   : `
                     bg-white
                     border-gray-200
@@ -67,18 +47,10 @@ export default function PaymentMethod() {
                   `
               }
             `}
-          >
-
-            {item}
-
-          </button>
-
-        ))
-
-      }
-
+        >
+          {item}
+        </button>
+      ))}
     </div>
-
   );
-
 }

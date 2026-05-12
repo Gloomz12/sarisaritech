@@ -227,26 +227,11 @@ export default function AIInsightPanel() {
           </h3>
 
           <div className="space-y-5 mt-6">
-            <Association
-              color="bg-red-500"
-              item1="Coke"
-              item2="Chips"
-              confidence="82%"
-            />
+            <Association color="bg-red-500" item1="Coke" item2="Chips" confidence="82%" />
 
-            <Association
-              color="bg-yellow-500"
-              item1="Coffee"
-              item2="Sugar"
-              confidence="78%"
-            />
+            <Association color="bg-yellow-500" item1="Coffee" item2="Sugar" confidence="78%" />
 
-            <Association
-              color="bg-orange-500"
-              item1="Noodles"
-              item2="Sardines"
-              confidence="75%"
-            />
+            <Association color="bg-orange-500" item1="Noodles" item2="Sardines" confidence="75%" />
           </div>
 
           <button
@@ -404,8 +389,7 @@ function Recommendation({ level, color, item, suggested }) {
             mt-1
           "
         >
-          Suggested:{" "}
-          <span className="text-green-500 font-semibold">{suggested}</span>
+          Suggested: <span className="text-green-500 font-semibold">{suggested}</span>
         </p>
       </div>
 

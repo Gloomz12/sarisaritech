@@ -1,5 +1,3 @@
-// src/component/inventory/InventoryTableRow.jsx
-
 import { useEffect, useRef, useState } from "react";
 
 import { MoreVertical } from "lucide-react";

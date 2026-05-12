@@ -1,14 +1,6 @@
-// RecordSale.jsx
+import { useMemo, useEffect, useState } from "react";
 
-import {
-  useMemo,
-  useEffect,
-  useState,
-} from "react";
-
-import {
-  FiPlus,
-} from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 import SalesHeader from "../component/sales/SalesHeader";
@@ -22,686 +14,332 @@ import productService from "../services/productService";
 import transactionService from "../services/transactionService";
 
 export default function RecordSale() {
+  const [products, setProducts] = useState([]);
 
-  const [products, setProducts] =
-    useState([]);
+  const [search, setSearch] = useState("");
 
-  const [search, setSearch] =
-    useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const [
-    selectedCategory,
-    setSelectedCategory,
-  ] = useState("All");
+  const [selectedFilter, setSelectedFilter] = useState("All Products");
 
-  const [
-    selectedFilter,
-    setSelectedFilter,
-  ] = useState("All Products");
+  const [showAddProduct, setShowAddProduct] = useState(false);
 
-  const [
-    showAddProduct,
-    setShowAddProduct,
-  ] = useState(false);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
 
-  const [cart, setCart] =
-    useState(() => {
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
-      const savedCart =
-        localStorage.getItem(
-          "cart"
-        );
+  const [amountPaid, setAmountPaid] = useState("");
 
-      return savedCart
-        ? JSON.parse(savedCart)
-        : [];
+  const [paymentMethod, setPaymentMethod] = useState("Cash");
 
-    });
+  const [loading, setLoading] = useState(false);
 
-  const [amountPaid, setAmountPaid] =
-    useState("");
+  const categories = useMemo(() => {
+    const uniqueCategories = [...new Set(products.map((product) => product.category))];
 
-  const [paymentMethod, setPaymentMethod] =
-    useState("Cash");
-
-  const [loading, setLoading] =
-    useState(false);
-
-  const categories =
-  useMemo(() => {
-
-    const uniqueCategories = [
-
-      ...new Set(
-
-        products.map(
-          (product) =>
-            product.category
-        )
-
-      ),
-
-    ];
-
-    return [
-
-      "All",
-
-      ...uniqueCategories,
-
-    ];
-
+    return ["All", ...uniqueCategories];
   }, [products]);
 
   /* FETCH PRODUCTS */
 
   useEffect(() => {
-
     fetchProducts();
-
   }, []);
 
   const fetchProducts = async () => {
-
     try {
+      const data = await productService.getAllProducts();
 
-      const data =
-        await productService.getAllProducts();
+      console.log("FETCHED PRODUCTS:", data);
 
-        console.log(
-          "FETCHED PRODUCTS:",
-          data
-        );
+      const savedFavorites = JSON.parse(localStorage.getItem("favorite_products")) || [];
 
-      const savedFavorites =
-        JSON.parse(
-          localStorage.getItem(
-            "favorite_products"
-          )
-        ) || [];
+      const formattedProducts = data.map((product) => ({
+        id: product.id,
 
-      const formattedProducts =
-        data.map((product) => ({
+        name: product.name,
 
-          id: product.id,
+        category: product.category,
 
-          name: product.name,
+        price: product.selling_price,
 
-          category:
-            product.category,
+        stock: product.stock_quantity,
 
-          price:
-            product.selling_price,
+        favorite: savedFavorites.includes(String(product.id)),
+      }));
 
-          stock:
-            product.stock_quantity,
-
-          favorite:
-          savedFavorites.includes(
-            String(product.id)
-          ),
-
-        }));
-
-      setProducts(
-        formattedProducts
-      );
-
+      setProducts(formattedProducts);
     } catch (error) {
-
-      console.error(
-        "Failed to fetch products",
-        error
-      );
-
+      console.error("Failed to fetch products", error);
     }
-
   };
 
-    /* SAVE CART */
+  /* SAVE CART */
 
   useEffect(() => {
-
     localStorage.setItem(
-
       "cart",
 
       JSON.stringify(cart)
-
     );
-
   }, [cart]);
 
   /* ADD PRODUCT */
 
   /* ADD PRODUCT */
 
-const addProduct = async (
-  newProduct
-) => {
+  const addProduct = async (newProduct) => {
+    try {
+      console.log("ADDING PRODUCT:", newProduct);
 
-        try {
-          console.log(
-        "ADDING PRODUCT:",
-        newProduct
-      );
+      await productService.createProduct({
+        id: crypto.randomUUID(),
 
-    await productService.createProduct({
+        name: newProduct.name,
 
-      id: crypto.randomUUID(),
+        category: newProduct.category,
 
-      name:
-        newProduct.name,
+        unit: newProduct.unit,
 
-      category:
-        newProduct.category,
+        cost_price: Number(newProduct.cost_price),
 
-      unit:
-        newProduct.unit,
+        selling_price: Number(newProduct.selling_price),
 
-      cost_price:
-        Number(
-          newProduct.cost_price
-        ),
+        stock_quantity: Number(newProduct.stock_quantity),
 
-      selling_price:
-        Number(
-          newProduct.selling_price
-        ),
+        min_stock_level: Number(newProduct.min_stock_level),
+      });
 
-      stock_quantity:
-        Number(
-          newProduct.stock_quantity
-        ),
+      await fetchProducts();
 
-      min_stock_level:
-        Number(
-          newProduct.min_stock_level
-        ),
+      setShowAddProduct(false);
 
-    });
+      toast.success("Product added successfully");
+    } catch (error) {
+      console.error(error);
 
-    await fetchProducts();
-
-    setShowAddProduct(false);
-
-    toast.success(
-          "Product added successfully"
-        );
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-
-      error?.response?.data?.detail ||
-
-      "Failed to add product"
-
-    );
-
-  }
-
-};
+      alert(error?.response?.data?.detail || "Failed to add product");
+    }
+  };
 
   /* FAVORITE */
 
- const toggleFavorite = (
-  id
-) => {
+  const toggleFavorite = (id) => {
+    const stringId = String(id);
 
-  const stringId =
-    String(id);
-
-  const updatedProducts =
-
-    products.map((product) =>
-
-      String(product.id) ===
-      stringId
-
+    const updatedProducts = products.map((product) =>
+      String(product.id) === stringId
         ? {
-
             ...product,
 
-            favorite:
-              !product.favorite,
-
+            favorite: !product.favorite,
           }
-
         : product
-
     );
 
-  setProducts(
-    updatedProducts
-  );
+    setProducts(updatedProducts);
 
-  const favorites =
+    const favorites = updatedProducts
 
-    updatedProducts
+      .filter((product) => product.favorite)
 
-      .filter(
-        (product) =>
-          product.favorite
-      )
+      .map((product) => String(product.id));
 
-      .map(
-        (product) =>
-          String(product.id)
-      );
+    localStorage.setItem(
+      "favorite_products",
 
-  localStorage.setItem(
-
-    "favorite_products",
-
-    JSON.stringify(
-      favorites
-    )
-
-  );
-
-};
+      JSON.stringify(favorites)
+    );
+  };
 
   /* FILTERED PRODUCTS */
 
-  const filteredProducts =
-    useMemo(() => {
+  const filteredProducts = useMemo(() => {
+    let filtered = products.filter((product) => {
+      const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase());
 
-      let filtered =
-        products.filter(
-          (product) => {
+      const matchesCategory = selectedCategory === "All" ? true : product.category === selectedCategory;
 
-            const matchesSearch =
-              product.name
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                );
+      return matchesSearch && matchesCategory;
+    });
 
-            const matchesCategory =
+    if (selectedFilter === "Low Stock") {
+      filtered = filtered.filter((product) => product.stock <= 10);
+    }
 
-              selectedCategory ===
-              "All"
+    if (selectedFilter === "Out of Stock") {
+      filtered = filtered.filter((product) => product.stock === 0);
+    }
 
-                ? true
+    if (selectedFilter === "Favorites") {
+      filtered = filtered.filter((product) => product.favorite);
+    }
 
-                : product.category ===
-                  selectedCategory;
+    if (selectedFilter === "High Price") {
+      filtered = [...filtered].sort((a, b) => b.price - a.price);
+    }
 
-            return (
-              matchesSearch &&
-              matchesCategory
-            );
+    filtered = [...filtered].sort((a, b) => b.favorite - a.favorite);
 
-          }
-        );
-
-      if (
-        selectedFilter ===
-        "Low Stock"
-      ) {
-
-        filtered =
-          filtered.filter(
-            (product) =>
-              product.stock <= 10
-          );
-
-      }
-
-      if (
-        selectedFilter ===
-        "Out of Stock"
-      ) {
-
-        filtered =
-          filtered.filter(
-            (product) =>
-              product.stock === 0
-          );
-
-      }
-
-      if (
-        selectedFilter ===
-        "Favorites"
-      ) {
-
-        filtered =
-          filtered.filter(
-            (product) =>
-              product.favorite
-          );
-
-      }
-
-      if (
-        selectedFilter ===
-        "High Price"
-      ) {
-
-        filtered = [
-          ...filtered,
-        ].sort(
-          (a, b) =>
-            b.price - a.price
-        );
-
-      }
-
-      filtered = [
-        ...filtered,
-      ].sort(
-        (a, b) =>
-          b.favorite -
-          a.favorite
-      );
-
-      return filtered;
-
-    }, [
-
-      products,
-
-      search,
-
-      selectedCategory,
-
-      selectedFilter,
-
-    ]);
+    return filtered;
+  }, [products, search, selectedCategory, selectedFilter]);
 
   /* CART */
 
-  const increaseQuantity = (
-    product
-  ) => {
+  const increaseQuantity = (product) => {
+    const existing = cart.find((item) => item.id === product.id);
 
-    const existing =
-      cart.find(
-        (item) =>
-          item.id === product.id
-      );
-
-    if (
-      existing &&
-      existing.quantity >= product.stock
-    ) {
-
-      alert(
-        "Not enough stock"
-      );
+    if (existing && existing.quantity >= product.stock) {
+      alert("Not enough stock");
 
       return;
-
     }
 
     if (existing) {
-
       setCart(
-
         cart.map((item) =>
-
           item.id === product.id
-
             ? {
                 ...item,
-                quantity:
-                  item.quantity + 1,
+                quantity: item.quantity + 1,
               }
-
             : item
-
         )
-
       );
-
     } else {
-
       if (product.stock <= 0) {
-
-       toast.error(
-        "Out of stock"
-      );
+        toast.error("Out of stock");
 
         return;
-
       }
 
       setCart([
-
         ...cart,
 
         {
           ...product,
           quantity: 1,
         },
-
       ]);
-
     }
-
   };
 
-  const decreaseQuantity = (
-    product
-  ) => {
-
+  const decreaseQuantity = (product) => {
     setCart(
-
       cart
 
         .map((item) => {
-
-          if (
-            item.id === product.id
-          ) {
-
+          if (item.id === product.id) {
             return {
-
               ...item,
 
-              quantity:
-                item.quantity - 1,
-
+              quantity: item.quantity - 1,
             };
-
           }
 
           return item;
-
         })
 
-        .filter(
-          (item) =>
-            item.quantity > 0
-        )
-
+        .filter((item) => item.quantity > 0)
     );
-
   };
 
   /* TOTAL */
 
-  const subtotal =
-    cart.reduce(
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
 
-      (total, item) =>
+    0
+  );
 
-        total +
-        (
-          item.price *
-          item.quantity
-        ),
+  /* COMPLETE SALE */
 
-      0
-
-    );
-
- /* COMPLETE SALE */
-
-const handleCompleteSale =
-  async () => {
-
+  const handleCompleteSale = async () => {
     try {
-
       if (cart.length === 0) {
-
-        alert(
-          "Cart is empty"
-        );
+        alert("Cart is empty");
 
         return;
-
       }
 
-      if (
-        Number(amountPaid) <
-        subtotal
-      ) {
-
-        toast.error(
-            "Insufficient payment"
-          );
+      if (Number(amountPaid) < subtotal) {
+        toast.error("Insufficient payment");
 
         return;
-
       }
 
       setLoading(true);
 
       const payload = {
+        total_amount: subtotal,
 
-        total_amount:
-          subtotal,
+        amount_paid: Number(amountPaid),
 
-        amount_paid:
-          Number(amountPaid),
+        payment_method: paymentMethod,
 
-        payment_method:
-          paymentMethod,
+        items: cart.map((item) => ({
+          product_id: item.id,
 
-        items: cart.map(
-          (item) => ({
-
-            product_id:
-              item.id,
-
-            quantity:
-              item.quantity,
-
-          })
-        ),
-
+          quantity: item.quantity,
+        })),
       };
 
-      console.log(
-        "SALE PAYLOAD:",
-        payload
-      );
+      console.log("SALE PAYLOAD:", payload);
 
-      const response =
+      const response = await transactionService.createTransaction(payload);
 
-        await transactionService.createTransaction(
-          payload
-        );
-
-      console.log(
-        "TRANSACTION RESPONSE:",
-        response
-      );
+      console.log("TRANSACTION RESPONSE:", response);
 
       if (response.error) {
-
-        alert(
-          response.error
-        );
+        alert(response.error);
 
         return;
-
       }
 
       toast.success(
+        `Sale Completed Successfully!`,
 
-          `Sale Completed Successfully!`,
+        {
+          duration: 4000,
 
-          {
-
-            duration: 4000,
-
-            style: {
-
-              borderRadius: "18px",
-
-              background: "#fff",
-
-              color: "#071437",
-
-              fontWeight: "600",
-
-              padding: "14px 16px",
-
-            },
-
-          }
-
-        );
+          style: {
+            borderRadius: "18px",
+            background: "#fff",
+            color: "#071437",
+            fontWeight: "600",
+            padding: "14px 16px",
+          },
+        }
+      );
 
       /* CLEAR CART */
 
       setCart([]);
 
-      localStorage.removeItem(
-        "cart"
-      );
+      localStorage.removeItem("cart");
 
       setAmountPaid("");
 
       /* REFRESH PRODUCTS */
 
       await fetchProducts();
-
     } catch (error) {
+      console.log("FULL ERROR:", error);
 
-      console.log(
-        "FULL ERROR:",
-        error
-      );
+      console.log("ERROR RESPONSE:", error.response);
 
-      console.log(
-        "ERROR RESPONSE:",
-        error.response
-      );
+      console.log("ERROR DATA:", error.response?.data);
 
-      console.log(
-        "ERROR DATA:",
-        error.response?.data
-      );
-
-      alert(
-
-        error.response?.data?.detail ||
-
-        error.message ||
-
-        "Failed to complete sale"
-
-      );
-
+      alert(error.response?.data?.detail || error.message || "Failed to complete sale");
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
-      return (
-
+  return (
     <>
-
       <div
         className="
           grid
@@ -712,7 +350,6 @@ const handleCompleteSale =
           overflow-hidden
         "
       >
-
         {/* LEFT */}
 
         <div
@@ -725,7 +362,6 @@ const handleCompleteSale =
             overflow-hidden
           "
         >
-
           <SalesHeader />
 
           {/* PRODUCTS */}
@@ -738,7 +374,6 @@ const handleCompleteSale =
               flex-col
             "
           >
-
             {/* SEARCH */}
 
             <div
@@ -750,23 +385,7 @@ const handleCompleteSale =
                 pb-3
               "
             >
-
-              <SalesSearchBar
-
-                search={search}
-
-                setSearch={setSearch}
-
-                selectedFilter={
-                  selectedFilter
-                }
-
-                setSelectedFilter={
-                  setSelectedFilter
-                }
-
-              />
-
+              <SalesSearchBar search={search} setSearch={setSearch} selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
             </div>
 
             {/* SCROLL */}
@@ -778,7 +397,6 @@ const handleCompleteSale =
                 min-h-0
               "
             >
-
               {/* BOTTOM FADE */}
 
               <div
@@ -805,7 +423,6 @@ const handleCompleteSale =
                   pb-6
                 "
               >
-
                 {/* CATEGORY */}
 
                 <div
@@ -813,23 +430,7 @@ const handleCompleteSale =
                     pb-4
                   "
                 >
-
-                  <CategoryTabs
-
-                    categories={
-                      categories
-                    }
-
-                    selectedCategory={
-                      selectedCategory
-                    }
-
-                    setSelectedCategory={
-                      setSelectedCategory
-                    }
-
-                  />
-
+                  <CategoryTabs categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
                 </div>
 
                 {/* GRID */}
@@ -843,17 +444,10 @@ const handleCompleteSale =
                     gap-4
                   "
                 >
-
                   {/* ADD PRODUCT CARD */}
 
                   <button
-
-                    onClick={() =>
-                      setShowAddProduct(
-                        true
-                      )
-                    }
-
+                    onClick={() => setShowAddProduct(true)}
                     className="
                       bg-white
                       border-2
@@ -873,7 +467,6 @@ const handleCompleteSale =
                       duration-300
                     "
                   >
-
                     <div
                       className="
                         w-14
@@ -886,18 +479,15 @@ const handleCompleteSale =
                         justify-center
                       "
                     >
-
                       <FiPlus
                         className="
                           text-[24px]
                           text-orange-500
                         "
                       />
-
                     </div>
 
                     <div>
-
                       <p
                         className="
                           text-[15px]
@@ -917,59 +507,25 @@ const handleCompleteSale =
                       >
                         Create inventory item
                       </p>
-
                     </div>
-
                   </button>
 
                   {/* PRODUCTS */}
 
-                  {
-
-                    filteredProducts.map(
-                      (product) => (
-
-                        <ProductCard
-
-                          key={product.id}
-
-                          product={product}
-
-                          quantity={
-                            cart.find(
-                              (item) =>
-                                item.id ===
-                                product.id
-                            )?.quantity || 0
-                          }
-
-                          increaseQuantity={
-                            increaseQuantity
-                          }
-
-                          decreaseQuantity={
-                            decreaseQuantity
-                          }
-
-                          toggleFavorite={
-                            toggleFavorite
-                          }
-
-                        />
-
-                      )
-                    )
-
-                  }
-
+                  {filteredProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      quantity={cart.find((item) => item.id === product.id)?.quantity || 0}
+                      increaseQuantity={increaseQuantity}
+                      decreaseQuantity={decreaseQuantity}
+                      toggleFavorite={toggleFavorite}
+                    />
+                  ))}
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
 
         {/* RIGHT */}
@@ -980,81 +536,29 @@ const handleCompleteSale =
             overflow-hidden
           "
         >
-
           <CartSidebar
-
             cart={cart}
-
             subtotal={subtotal}
-
-            amountPaid={
-              amountPaid
-            }
-
-            setAmountPaid={
-              setAmountPaid
-            }
-
-            paymentMethod={
-              paymentMethod
-            }
-
-            setPaymentMethod={
-              setPaymentMethod
-            }
-
+            amountPaid={amountPaid}
+            setAmountPaid={setAmountPaid}
+            paymentMethod={paymentMethod}
+            setPaymentMethod={setPaymentMethod}
             loading={loading}
-
-            increaseQuantity={
-              increaseQuantity
-            }
-
-            decreaseQuantity={
-              decreaseQuantity
-            }
-
-            onCompleteSale={
-              handleCompleteSale
-            }
-
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+            onCompleteSale={handleCompleteSale}
             clearCart={() => {
-
               setCart([]);
 
-              localStorage.removeItem(
-                "cart"
-              );
-
+              localStorage.removeItem("cart");
             }}
-
           />
-
         </div>
-
       </div>
 
       {/* MODAL */}
 
-    {
-  showAddProduct && (
-
-    <AddProductModal
-
-      onClose={() =>
-        setShowAddProduct(false)
-      }
-
-      refreshProducts={
-        fetchProducts
-      }
-
-    />
-
-  )
-}
-
+      {showAddProduct && <AddProductModal onClose={() => setShowAddProduct(false)} refreshProducts={fetchProducts} />}
     </>
-
   );
-
 }

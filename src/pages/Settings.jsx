@@ -130,9 +130,7 @@ export default function Settings() {
       toast.success("Settings saved successfully!");
     } catch (error) {
       toast.error(
-        error.response?.data?.detail ||
-          error.response?.data?.message ||
-          "Failed to update settings"
+        error.response?.data?.detail || error.response?.data?.message || "Failed to update settings"
       );
     }
   };
@@ -263,12 +261,7 @@ export default function Settings() {
             placeholder="09XXXXXXXXX"
           />
 
-          <Input
-            label="Email Address"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-          />
+          <Input label="Email Address" name="email" value={form.email} onChange={handleChange} />
 
           <div className="xl:col-span-2">
             <Input
@@ -371,9 +364,7 @@ export default function Settings() {
         </div>
 
         <div className="flex justify-end mt-5">
-          <PrimaryButton onClick={handlePasswordChange}>
-            Change Password
-          </PrimaryButton>
+          <PrimaryButton onClick={handlePasswordChange}>Change Password</PrimaryButton>
         </div>
       </Card>
 

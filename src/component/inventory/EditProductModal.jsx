@@ -2,21 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
-import {
-  Archive,
-  Bell,
-  Package,
-  PhilippinePeso,
-  Ruler,
-  Tag,
-  X,
-} from "lucide-react";
+import { Archive, Bell, Package, PhilippinePeso, Ruler, Tag, X } from "lucide-react";
 
-export default function EditProductModal({
-  product,
-  onClose,
-  refreshProducts,
-}) {
+export default function EditProductModal({ product, onClose, refreshProducts }) {
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({

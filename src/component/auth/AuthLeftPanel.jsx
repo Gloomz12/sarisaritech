@@ -104,8 +104,8 @@ export default function AuthLeftPanel({ register = false }) {
                     max-w-lg
                   "
                 >
-                  Manage inventory, monitor sales, and unlock AI-powered
-                  insights for your Sari-Sari Store.
+                  Manage inventory, monitor sales, and unlock AI-powered insights for your Sari-Sari
+                  Store.
                 </p>
               </>
             ) : (
@@ -131,8 +131,8 @@ export default function AuthLeftPanel({ register = false }) {
                     max-w-lg
                   "
                 >
-                  Analyze sales, forecast demand, detect buying patterns, and
-                  grow your store with AI-powered insights.
+                  Analyze sales, forecast demand, detect buying patterns, and grow your store with
+                  AI-powered insights.
                 </p>
               </>
             )}

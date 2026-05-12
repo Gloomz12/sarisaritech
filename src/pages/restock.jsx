@@ -12,8 +12,7 @@ import productService from "../services/productService.js";
 
 export default function Restock() {
   const getStatus = (product) => {
-    if (product.stock_quantity <= product.min_stock_level / 2)
-      return "CRITICAL";
+    if (product.stock_quantity <= product.min_stock_level / 2) return "CRITICAL";
     if (product.stock_quantity <= product.min_stock_level) return "LOW";
     return "OK";
   };

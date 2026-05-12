@@ -172,11 +172,7 @@ export default function Sidebar() {
           duration-300
         "
       >
-        {sidebarOpen ? (
-          <FiChevronLeft size={17} />
-        ) : (
-          <FiChevronRight size={17} />
-        )}
+        {sidebarOpen ? <FiChevronLeft size={17} /> : <FiChevronRight size={17} />}
       </button>
 
       {/* LOGO */}

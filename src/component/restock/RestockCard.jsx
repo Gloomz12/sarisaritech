@@ -34,15 +34,10 @@ export default function RestockCard({ product, getStatus, onRestock }) {
         </div>
 
         <div className="status-indicator">
-          <span className={`status-pill ${status.toLowerCase()}`}>
-            {status}
-          </span>
+          <span className={`status-pill ${status.toLowerCase()}`}>{status}</span>
         </div>
 
-        <button
-          className="restock-action-btn"
-          onClick={() => onRestock(product)}
-        >
+        <button className="restock-action-btn" onClick={() => onRestock(product)}>
           Restock
         </button>
       </div>

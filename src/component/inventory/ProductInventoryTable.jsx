@@ -1,5 +1,3 @@
-// src/component/inventory/ProductInventoryTable.jsx
-
 import { useState } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -176,13 +174,7 @@ export default function ProductInventoryTable({
           <tbody>
             {currentProducts.length > 0 ? (
               currentProducts.map((product) => (
-                <InventoryTableRow
-                  key={product.id}
-                  product={product}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                  onView={onView}
-                />
+                <InventoryTableRow key={product.id} product={product} onEdit={onEdit} onDelete={onDelete} onView={onView} />
               ))
             ) : (
               <tr>
@@ -228,16 +220,9 @@ export default function ProductInventoryTable({
             text-[#64748b]
           "
         >
-          Showing{" "}
-          <span className="font-bold text-[#0f172a]">
-            {products.length === 0 ? 0 : startIndex + 1}
-          </span>{" "}
-          to{" "}
-          <span className="font-bold text-[#0f172a]">
-            {Math.min(endIndex, products.length)}
-          </span>{" "}
-          of <span className="font-bold text-[#0f172a]">{products.length}</span>{" "}
-          products
+          Showing <span className="font-bold text-[#0f172a]">{products.length === 0 ? 0 : startIndex + 1}</span> to{" "}
+          <span className="font-bold text-[#0f172a]">{Math.min(endIndex, products.length)}</span> of{" "}
+          <span className="font-bold text-[#0f172a]">{products.length}</span> products
         </p>
 
         {/* PAGINATION */}
@@ -295,8 +280,7 @@ export default function ProductInventoryTable({
               text-[#475569]
             "
           >
-            Page <span className="text-[#0f172a]">{currentPage}</span> of{" "}
-            <span className="text-[#0f172a]">{totalPages || 1}</span>
+            Page <span className="text-[#0f172a]">{currentPage}</span> of <span className="text-[#0f172a]">{totalPages || 1}</span>
           </div>
 
           {/* NEXT */}
