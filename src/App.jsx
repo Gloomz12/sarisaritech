@@ -19,47 +19,30 @@ import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./component/auth/ProtectedRoute.jsx";
 
 export default function App() {
-
   return (
-
     <BrowserRouter>
-
       <Toaster
-
         position="top-right"
-
         reverseOrder={false}
-
         toastOptions={{
-
           style: {
             borderRadius: "18px",
             background: "#fff",
             color: "#071437",
             fontWeight: "600",
             padding: "14px 16px",
-
           },
-
         }}
-
       />
 
       <Routes>
-
         ...
         {/* DEFAULT */}
-
         <Route path="/" element={<Navigate to="/login" replace />} />
-
         {/* AUTH */}
-
         <Route path="/login" element={<Auth />} />
-
         <Route path="/register" element={<Auth />} />
-
         {/* MAIN DASHBOARD LAYOUT */}
-
         <Route
           element={
             <ProtectedRoute>
@@ -83,9 +66,7 @@ export default function App() {
 
           <Route path="/settings" element={<Settings />} />
         </Route>
-
         {/* UNKNOWN */}
-
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>

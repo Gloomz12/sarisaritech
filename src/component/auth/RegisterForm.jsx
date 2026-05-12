@@ -1,11 +1,4 @@
-import {
-  FiMail,
-  FiUser,
-  FiShoppingBag,
-  FiEye,
-  FiEyeOff,
-  FiShoppingCart,
-} from "react-icons/fi";
+import { FiMail, FiUser, FiShoppingBag, FiEye, FiEyeOff, FiShoppingCart } from "react-icons/fi";
 
 import { useState } from "react";
 

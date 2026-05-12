@@ -1,13 +1,6 @@
-// ProductCard.jsx
-
-import {
-  FiMinus,
-  FiPlus,
-  FiStar,
-} from "react-icons/fi";
+import { FiMinus, FiPlus, FiStar } from "react-icons/fi";
 
 export default function ProductCard({
-
   product,
 
   quantity,
@@ -16,11 +9,8 @@ export default function ProductCard({
   decreaseQuantity,
 
   toggleFavorite,
-
 }) {
-
   return (
-
     <div
       className="
         bg-white
@@ -43,7 +33,6 @@ export default function ProductCard({
         h-[160px]
       "
     >
-
       {/* TOP */}
 
       <div
@@ -51,14 +40,10 @@ export default function ProductCard({
           relative
         "
       >
-
         {/* FAVORITE */}
 
         <button
-          onClick={() =>
-            toggleFavorite(product.id)
-          }
-
+          onClick={() => toggleFavorite(product.id)}
           className="
             absolute
             top-0
@@ -72,7 +57,6 @@ export default function ProductCard({
             justify-center
           "
         >
-
           <FiStar
             className={`
               text-[15px]
@@ -82,19 +66,16 @@ export default function ProductCard({
 
               ${
                 product.favorite
-
                   ? `
                     fill-orange-400
                     text-orange-400
                   `
-
                   : `
                     text-gray-400
                   `
               }
             `}
           />
-
         </button>
 
         {/* PRODUCT INFO */}
@@ -109,12 +90,10 @@ export default function ProductCard({
             h-78px]
           "
         >
-
           {/* NAME */}
 
           <h1
             title={product.name}
-
             className="
               text-[14px]
               leading-snug
@@ -162,9 +141,7 @@ export default function ProductCard({
           >
             {product.stock} units remaining
           </p>
-
         </div>
-
       </div>
 
       {/* CONTROLS */}
@@ -180,7 +157,6 @@ export default function ProductCard({
           justify-center
         "
       >
-
         <div
           className="
             flex
@@ -190,14 +166,10 @@ export default function ProductCard({
             w-[115px]
           "
         >
-
           {/* MINUS */}
 
           <button
-            onClick={() =>
-              decreaseQuantity(product)
-            }
-
+            onClick={() => decreaseQuantity(product)}
             className="
               w-8
               h-8
@@ -217,9 +189,7 @@ export default function ProductCard({
               hover:border-orange-400
             "
           >
-
             <FiMinus className="text-[14px]" />
-
           </button>
 
           {/* QUANTITY */}
@@ -242,10 +212,7 @@ export default function ProductCard({
           {/* PLUS */}
 
           <button
-            onClick={() =>
-              increaseQuantity(product)
-            }
-
+            onClick={() => increaseQuantity(product)}
             className="
               w-8
               h-8
@@ -268,17 +235,10 @@ export default function ProductCard({
               hover:text-white
             "
           >
-
             <FiPlus className="text-[14px]" />
-
           </button>
-
         </div>
-
       </div>
-
     </div>
-
   );
-
 }

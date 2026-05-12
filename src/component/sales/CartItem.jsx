@@ -1,20 +1,12 @@
-import {
-  FiPlus,
-  FiMinus,
-  FiTrash2,
-} from "react-icons/fi";
+import { FiPlus, FiMinus, FiTrash2 } from "react-icons/fi";
 
 export default function CartItem({
-
   item,
 
   increaseQuantity,
   decreaseQuantity,
-
 }) {
-
   return (
-
     <div
       className="
         border
@@ -28,7 +20,6 @@ export default function CartItem({
         bg-white
       "
     >
-
       <div
         className="
           flex
@@ -38,11 +29,9 @@ export default function CartItem({
           gap-3
         "
       >
-
         {/* LEFT */}
 
         <div className="min-w-0 flex-1">
-
           <h1
             className="
               text-[14px]
@@ -67,7 +56,6 @@ export default function CartItem({
               gap-2
             "
           >
-
             <p
               className="
                 text-[12px]
@@ -88,9 +76,7 @@ export default function CartItem({
             >
               x{item.quantity}
             </span>
-
           </div>
-
         </div>
 
         {/* RIGHT */}
@@ -103,17 +89,10 @@ export default function CartItem({
             gap-2
           "
         >
-
           {/* MINUS */}
 
           <button
-
-            onClick={() =>
-              decreaseQuantity(
-                item
-              )
-            }
-
+            onClick={() => decreaseQuantity(item)}
             className="
               w-6
               h-6
@@ -135,9 +114,7 @@ export default function CartItem({
               hover:border-orange-400
             "
           >
-
             <FiMinus />
-
           </button>
 
           {/* QUANTITY */}
@@ -160,13 +137,7 @@ export default function CartItem({
           {/* PLUS */}
 
           <button
-
-            onClick={() =>
-              increaseQuantity(
-                item
-              )
-            }
-
+            onClick={() => increaseQuantity(item)}
             className="
               w-6
               h-6
@@ -191,9 +162,7 @@ export default function CartItem({
               hover:text-white
             "
           >
-
             <FiPlus />
-
           </button>
 
           {/* TOTAL */}
@@ -210,11 +179,7 @@ export default function CartItem({
               whitespace-nowrap
             "
           >
-            ₱
-            {
-              item.price *
-              item.quantity
-            }
+            ₱{item.price * item.quantity}
           </h1>
 
           {/* DELETE */}
@@ -231,17 +196,10 @@ export default function CartItem({
               hover:text-red-500
             "
           >
-
             <FiTrash2 className="text-[13px]" />
-
           </button>
-
         </div>
-
       </div>
-
     </div>
-
   );
-
 }

@@ -1,10 +1,7 @@
-// PaymentSection.jsx
-
 import QuickCashButtons from "./QuickCashButtons";
 import PaymentMethod from "./PaymentMethod";
 
 export default function PaymentSection({
-
   subtotal,
 
   amountPaid,
@@ -14,17 +11,10 @@ export default function PaymentSection({
   paymentMethod,
 
   setPaymentMethod,
-
 }) {
-
-  const change =
-
-    Number(amountPaid || 0) -
-
-    Number(subtotal || 0);
+  const change = Number(amountPaid || 0) - Number(subtotal || 0);
 
   return (
-
     <div
       className="
         border
@@ -39,7 +29,6 @@ export default function PaymentSection({
         space-y-1.5
       "
     >
-
       {/* TOTAL */}
 
       <div
@@ -49,7 +38,6 @@ export default function PaymentSection({
           justify-between
         "
       >
-
         <span
           className="
             text-[12px]
@@ -73,13 +61,11 @@ export default function PaymentSection({
         >
           ₱{subtotal}
         </h1>
-
       </div>
 
       {/* AMOUNT PAID */}
 
       <div>
-
         <p
           className="
             text-[9px]
@@ -95,15 +81,8 @@ export default function PaymentSection({
 
         <input
           type="number"
-
           value={amountPaid}
-
-          onChange={(e) =>
-            setAmountPaid(
-              e.target.value
-            )
-          }
-
+          onChange={(e) => setAmountPaid(e.target.value)}
           className="
             w-full
             h-7
@@ -123,20 +102,11 @@ export default function PaymentSection({
             text-[11px]
           "
         />
-
       </div>
 
       {/* QUICK CASH */}
 
-      <QuickCashButtons
-
-        amountPaid={amountPaid}
-
-        setAmountPaid={
-          setAmountPaid
-        }
-
-      />
+      <QuickCashButtons amountPaid={amountPaid} setAmountPaid={setAmountPaid} />
 
       {/* CHANGE */}
 
@@ -147,7 +117,6 @@ export default function PaymentSection({
           justify-between
         "
       >
-
         <span
           className="
             text-[11px]
@@ -167,33 +136,13 @@ export default function PaymentSection({
             text-green-500
           "
         >
-          ₱{
-
-            change >= 0
-              ? change
-              : 0
-
-          }
+          ₱{change >= 0 ? change : 0}
         </h1>
-
       </div>
 
       {/* PAYMENT METHOD */}
 
-      <PaymentMethod
-
-        paymentMethod={
-          paymentMethod
-        }
-
-        setPaymentMethod={
-          setPaymentMethod
-        }
-
-      />
-
+      <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
     </div>
-
   );
-
 }

@@ -1,14 +1,6 @@
-// src/component/inventory/InventoryToolbar.jsx
-
 import { useEffect, useState } from "react";
 
-import {
-  ChevronDown,
-  Filter,
-  Search,
-  SlidersHorizontal,
-  Tags,
-} from "lucide-react";
+import { ChevronDown, Filter, Search, SlidersHorizontal, Tags } from "lucide-react";
 
 export default function InventoryToolbar({
   showAddModal,
@@ -27,15 +19,11 @@ export default function InventoryToolbar({
       setOpenFilter(false);
     }
   }, [showAddModal]);
-  const [tempCategories, setTempCategories] = useState(
-    Array.isArray(selectedCategory) ? selectedCategory : ["All"]
-  );
+  const [tempCategories, setTempCategories] = useState(Array.isArray(selectedCategory) ? selectedCategory : ["All"]);
   const [tempSortBy, setTempSortBy] = useState(sortBy);
 
   useEffect(() => {
-    setTempCategories(
-      Array.isArray(selectedCategory) ? selectedCategory : ["All"]
-    );
+    setTempCategories(Array.isArray(selectedCategory) ? selectedCategory : ["All"]);
   }, [selectedCategory]);
 
   useEffect(() => {
@@ -142,9 +130,7 @@ export default function InventoryToolbar({
           >
             <Filter size={17} />
             Filter
-            {Array.isArray(tempCategories) &&
-            tempCategories.length > 0 &&
-            !tempCategories.includes("All")
+            {Array.isArray(tempCategories) && tempCategories.length > 0 && !tempCategories.includes("All")
               ? ` (${tempCategories.length})`
               : ""}
             <ChevronDown
@@ -221,22 +207,15 @@ export default function InventoryToolbar({
                     >
                       <input
                         type="checkbox"
-                        checked={
-                          Array.isArray(tempCategories) &&
-                          tempCategories.includes(category)
-                        }
+                        checked={Array.isArray(tempCategories) && tempCategories.includes(category)}
                         onChange={() => {
                           if (category === "All") {
                             setTempCategories(["All"]);
                             return;
                           }
-                          let updated = tempCategories.filter(
-                            (item) => item !== "All"
-                          );
+                          let updated = tempCategories.filter((item) => item !== "All");
                           if (updated.includes(category)) {
-                            updated = updated.filter(
-                              (item) => item !== category
-                            );
+                            updated = updated.filter((item) => item !== category);
                           } else {
                             updated.push(category);
                           }
@@ -379,9 +358,7 @@ export default function InventoryToolbar({
 
                 <button
                   onClick={() => {
-                    setSelectedCategory(
-                      Array.isArray(tempCategories) ? tempCategories : ["All"]
-                    );
+                    setSelectedCategory(Array.isArray(tempCategories) ? tempCategories : ["All"]);
                     setSortBy(tempSortBy);
                     setOpenFilter(false);
                   }}

@@ -1,11 +1,4 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const data = [
   { day: "Mon", sales: 2000 },
@@ -28,12 +21,7 @@ export default function StatisticsChart() {
 
           <Tooltip />
 
-          <Line
-            type="monotone"
-            dataKey="sales"
-            stroke="#f97316"
-            strokeWidth={3}
-          />
+          <Line type="monotone" dataKey="sales" stroke="#f97316" strokeWidth={3} />
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -92,10 +92,7 @@ export default function HeaderDashboard() {
               transition-all
             "
           >
-            Owner:{" "}
-            <span className="font-medium">
-              {user?.owner_name || "Store Owner"}
-            </span>
+            Owner: <span className="font-medium">{user?.owner_name || "Store Owner"}</span>
           </p>
         </div>
       </div>

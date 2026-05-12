@@ -1,12 +1,4 @@
-import {
-  Archive,
-  Bell,
-  Package,
-  PhilippinePeso,
-  Ruler,
-  Tag,
-  X,
-} from "lucide-react";
+import { Archive, Bell, Package, PhilippinePeso, Ruler, Tag, X } from "lucide-react";
 
 export default function ViewProductModal({ product, onClose }) {
   if (!product) return null;
@@ -104,23 +96,11 @@ export default function ViewProductModal({ product, onClose }) {
         {/* BODY */}
 
         <div className="grid grid-cols-2 gap-4 p-7">
-          <InfoCard
-            icon={<Package size={17} />}
-            label="Product Name"
-            value={product.name}
-          />
+          <InfoCard icon={<Package size={17} />} label="Product Name" value={product.name} />
 
-          <InfoCard
-            icon={<Tag size={17} />}
-            label="Category"
-            value={product.category}
-          />
+          <InfoCard icon={<Tag size={17} />} label="Category" value={product.category} />
 
-          <InfoCard
-            icon={<Ruler size={17} />}
-            label="Unit"
-            value={product.unit}
-          />
+          <InfoCard icon={<Ruler size={17} />} label="Unit" value={product.unit} />
 
           <InfoCard
             icon={<Archive size={17} />}

@@ -1,37 +1,22 @@
-// CategoryTabs.jsx
-
 import { useRef } from "react";
 
-export default function CategoryTabs({
-
-  categories,
-  selectedCategory,
-  setSelectedCategory,
-
-}) {
-
+export default function CategoryTabs({ categories, selectedCategory, setSelectedCategory }) {
   const scrollRef = useRef(null);
 
   const handleWheel = (e) => {
+    if (!e.shiftKey) return;
 
-  if (!e.shiftKey) return;
+    if (scrollRef.current) {
+      e.preventDefault();
 
-  if (scrollRef.current) {
-
-    e.preventDefault();
-
-    scrollRef.current.scrollLeft += e.deltaY;
-
-  }
-
-};
+      scrollRef.current.scrollLeft += e.deltaY;
+    }
+  };
 
   return (
-
     <div
       ref={scrollRef}
       onWheel={handleWheel}
-
       className="
         category-scroll-container
 
@@ -47,19 +32,11 @@ export default function CategoryTabs({
         scroll-smooth
       "
     >
-
-      {
-
-        categories.map((category) => (
-
-          <button
-            key={category}
-
-            onClick={() =>
-              setSelectedCategory(category)
-            }
-
-            className={`
+      {categories.map((category) => (
+        <button
+          key={category}
+          onClick={() => setSelectedCategory(category)}
+          className={`
               shrink-0
 
               h-10
@@ -95,16 +72,10 @@ export default function CategoryTabs({
                   `
               }
             `}
-          >
-            {category}
-          </button>
-
-        ))
-
-      }
-
+        >
+          {category}
+        </button>
+      ))}
     </div>
-
   );
-
 }

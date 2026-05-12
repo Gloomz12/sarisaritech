@@ -1,11 +1,6 @@
 import { Pencil, Eye, Trash2 } from "lucide-react";
 
-export default function ProductActionsDropdown({
-  onEdit,
-  onView,
-  onRestock,
-  onDelete,
-}) {
+export default function ProductActionsDropdown({ onEdit, onView, onRestock, onDelete }) {
   return (
     <div
       className="

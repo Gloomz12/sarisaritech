@@ -1,32 +1,11 @@
-// QuickCashButtons.jsx
+export default function QuickCashButtons({ amountPaid, setAmountPaid }) {
+  const amounts = [5, 10, 20, 50, 100, 500];
 
-export default function QuickCashButtons({
-  amountPaid,
-  setAmountPaid,
-}) {
-
-  const amounts = [
-    5,
-    10,
-    20,
-    50,
-    100,
-    500,
-  ];
-
-  const handleAddAmount = (
-    value
-  ) => {
-
-    setAmountPaid(
-      Number(amountPaid || 0) +
-      value
-    );
-
+  const handleAddAmount = (value) => {
+    setAmountPaid(Number(amountPaid || 0) + value);
   };
 
   return (
-
     <div
       className="
         grid
@@ -34,18 +13,10 @@ export default function QuickCashButtons({
         gap-1.5
       "
     >
-
       {amounts.map((amount) => (
-
         <button
           key={amount}
-
-          onClick={() =>
-            handleAddAmount(
-              amount
-            )
-          }
-
+          onClick={() => handleAddAmount(amount)}
           className="
             h-8
 
@@ -68,11 +39,7 @@ export default function QuickCashButtons({
         >
           ₱{amount}
         </button>
-
       ))}
-
     </div>
-
   );
-
 }

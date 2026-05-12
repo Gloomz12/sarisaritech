@@ -1,5 +1,3 @@
-// src/component/inventory/StockAlerts.jsx
-
 export default function StockAlerts({ lowStock = [] }) {
   /* SORT */
 
@@ -129,11 +127,7 @@ export default function StockAlerts({ lowStock = [] }) {
                       w-2.5
                       rounded-full
 
-                      ${
-                        item.stock_quantity === 0
-                          ? "bg-red-400"
-                          : "bg-orange-400"
-                      }
+                      ${item.stock_quantity === 0 ? "bg-red-400" : "bg-orange-400"}
                     `}
                 />
 
@@ -244,8 +238,7 @@ export default function StockAlerts({ lowStock = [] }) {
               text-[#64748b]
             "
           >
-            <span className="font-bold text-[#0f172a]">{lowStock.length}</span>{" "}
-            products currently need restocking
+            <span className="font-bold text-[#0f172a]">{lowStock.length}</span> products currently need restocking
           </p>
         </div>
       </div>

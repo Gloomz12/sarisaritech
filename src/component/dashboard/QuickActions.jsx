@@ -1,10 +1,4 @@
-import {
-  FiBox,
-  FiRotateCcw,
-  FiClock,
-  FiPieChart,
-  FiChevronRight,
-} from "react-icons/fi";
+import { FiBox, FiRotateCcw, FiClock, FiPieChart, FiChevronRight } from "react-icons/fi";
 
 import { useNavigate } from "react-router-dom";
 

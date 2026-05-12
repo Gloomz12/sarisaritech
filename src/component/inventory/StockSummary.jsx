@@ -1,5 +1,3 @@
-// src/component/inventory/StockSummary.jsx
-
 import { Package, ShoppingCart, Wallet } from "lucide-react";
 
 export default function StockSummary({ totalProducts, totalInventoryValue }) {
