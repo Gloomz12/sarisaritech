@@ -33,7 +33,7 @@
   transform: translateX(-50%);
   margin: 0;
   font-size: clamp(1.1rem, 1.4vw, 1.8rem);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   text-align: center;
   white-space: nowrap;
 }
@@ -60,7 +60,6 @@
   object-fit: contain;
 }
 
-
 /*DASHBOARD==========================================================================================================================================================================================================================*/
 .page-buttons-row {
   display: flex;
@@ -76,7 +75,7 @@
   border-radius: 8px;
   border: 30px solid #ddd;
   cursor: pointer;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   transition: all 0.2s ease-in-out;
   margin: 8px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -133,57 +132,57 @@
 /*RECORD SALE==========================================================================================================================================================================================================================*/
 
 .sale-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #4caf50;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    animation: slideInDown 0.4s ease-out forwards;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideInDown 0.4s ease-out forwards;
 }
 
 .sale-notif-icon {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 @keyframes slideInDown {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .complete-sale-btn {
-    width: 100%;
-    padding: 15px;
-    background-color: #007bff;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .complete-sale-btn:hover:not(:disabled) {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .complete-sale-btn:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 /*SALES BOARD==========================================================================================================================================================================================================================*/
@@ -191,7 +190,7 @@
 .sales-board-container {
   width: 100%;
   margin-top: 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   /* Or your preferred sans-serif */
 }
 
@@ -276,7 +275,7 @@
 .alerts-section {
   width: 100%;
   margin-top: 25px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .alerts-header {
@@ -345,7 +344,6 @@
 .search-container {
   width: auto;
   margin: 15px;
-  ;
 }
 
 #product-category-filter {
@@ -372,7 +370,7 @@
   padding: 12px 15px 12px 45px;
   font-size: 1rem;
   background-color: #ffffff;
-  border: 3px solid #D9D9D9;
+  border: 3px solid #d9d9d9;
   border-radius: 10px;
   outline: none;
   transition: all 0.2s ease-in-out;
@@ -450,9 +448,6 @@
   min-height: 0;
 }
 
-
-
-
 /*CART LIST==========================================================================================================================================================================================================================*/
 .cart-list-container {
   height: 100%;
@@ -472,7 +467,6 @@
   padding-bottom: 10px;
 }
 
-
 /*CART TRANSACTION BODY==========================================================================================================================================================================================================================*/
 .cart-transaction-body {
   background-color: #ffffff;
@@ -487,7 +481,6 @@
   margin-top: auto;
   flex-shrink: 0;
 }
-
 
 .cart-header-row {
   display: flex;
@@ -691,8 +684,8 @@
   transition: transform 0.1s ease;
 }
 
-.product-card .product-details{
-  display:block;
+.product-card .product-details {
+  display: block;
 }
 
 .product-name {
@@ -893,11 +886,10 @@
   font-weight: 700;
 }
 
-
 /*INVENTORY CARD===========================================================================================================================================================================================================================*/
 .inventory-card {
   background: #fff;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   border-radius: 12px;
   padding: 16px;
   margin: 12px;
@@ -1416,7 +1408,6 @@
   color: #52c41a;
 }
 
-
 /*RESTOCK*==========================================================================================================================================================================================================================*/
 .restock-card {
   background: #ffffff;
@@ -1591,7 +1582,6 @@
     grid-template-columns: 1fr;
   }
 }
-
 
 /*TRANSACTION*==========================================================================================================================================================================================================================*/
 .transactions-summary-grid {
@@ -1888,11 +1878,10 @@
   border-color: #eee;
 }
 
-
 /*STATISTICS==========================================================================================================================================================================================================================*/
 .statistics-body {
   padding: 20px;
-  background-color: #f9fafb
+  background-color: #f9fafb;
 }
 
 /*TIME INTERVAL BUTTONS==========================================================================================================================================================================================================================*/

@@ -9,11 +9,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function QuickActions() {
-
   const navigate = useNavigate();
 
   const actions = [
-
     {
       title: "Inventory",
       subtitle: "Manage products",
@@ -41,11 +39,9 @@ export default function QuickActions() {
       icon: <FiPieChart />,
       path: "/statistics",
     },
-
   ];
 
   return (
-
     <div
       className="
         grid
@@ -56,14 +52,10 @@ export default function QuickActions() {
         gap-5
       "
     >
-
       {actions.map((item, index) => (
-
         <div
           key={index}
-          onClick={() =>
-            navigate(item.path)
-          }
+          onClick={() => navigate(item.path)}
           className="
             group
 
@@ -97,11 +89,9 @@ export default function QuickActions() {
             cursor-pointer
           "
         >
-
           {/* LEFT */}
 
           <div className="flex items-center gap-4">
-
             {/* ICON */}
 
             <div
@@ -133,7 +123,6 @@ export default function QuickActions() {
             {/* TEXT */}
 
             <div>
-
               <h3
                 className="
                   font-bold
@@ -157,9 +146,7 @@ export default function QuickActions() {
               >
                 {item.subtitle}
               </p>
-
             </div>
-
           </div>
 
           {/* ARROW */}
@@ -180,12 +167,8 @@ export default function QuickActions() {
           >
             <FiChevronRight />
           </div>
-
         </div>
-
       ))}
-
     </div>
-
   );
 }

@@ -9,132 +9,85 @@ import {
 
 import { useState } from "react";
 
-import {
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import api from "../../services/api";
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
 
-  const navigate =
-    useNavigate();
+  const [storeName, setStoreName] = useState("");
 
-  const [storeName, setStoreName] =
-    useState("");
+  const [ownerName, setOwnerName] = useState("");
 
-  const [ownerName, setOwnerName] =
-    useState("");
+  const [email, setEmail] = useState("");
 
-  const [email, setEmail] =
-    useState("");
+  const [username, setUsername] = useState("");
 
-  const [username, setUsername] =
-    useState("");
+  const [password, setPassword] = useState("");
 
-  const [password, setPassword] =
-    useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [
-    confirmPassword,
-    setConfirmPassword,
-  ] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [
-    showConfirmPassword,
-    setShowConfirmPassword,
-  ] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [error, setError] = useState("");
 
-  const [error, setError] =
-    useState("");
-
-  const [success, setSuccess] =
-    useState("");
+  const [success, setSuccess] = useState("");
 
   /* EMAIL VALIDATION */
 
   const validateEmail = (email) => {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      .test(email);
-
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   /* REGISTER */
 
   const handleRegister = async (e) => {
-
     e.preventDefault();
 
     setError("");
     setSuccess("");
 
-    if (
-      !storeName ||
-      !email ||
-      !username ||
-      !password ||
-      !confirmPassword
-    ) {
-
-      setError(
-        "Please fill in all required fields."
-      );
+    if (!storeName || !email || !username || !password || !confirmPassword) {
+      setError("Please fill in all required fields.");
 
       return;
     }
 
     if (!validateEmail(email)) {
-
-      setError(
-        "Please enter a valid email."
-      );
+      setError("Please enter a valid email.");
 
       return;
     }
 
     if (password.length < 8) {
-
-      setError(
-        "Password must be at least 8 characters."
-      );
+      setError("Password must be at least 8 characters.");
 
       return;
     }
 
     if (password !== confirmPassword) {
-
-      setError(
-        "Passwords do not match."
-      );
+      setError("Passwords do not match.");
 
       return;
     }
 
     try {
-
       setLoading(true);
 
-      await api.post(
-        "/auth/register",
-        {
-          store_name: storeName,
-          owner_name: ownerName,
-          email,
-          username,
-          password,
-        }
-      );
+      await api.post("/auth/register", {
+        store_name: storeName,
+        owner_name: ownerName,
+        email,
+        username,
+        password,
+      });
 
-      setSuccess(
-        "Account created successfully!"
-      );
+      setSuccess("Account created successfully!");
 
       setStoreName("");
       setOwnerName("");
@@ -144,28 +97,16 @@ export default function RegisterForm() {
       setConfirmPassword("");
 
       setTimeout(() => {
-
         navigate("/login");
-
       }, 1500);
-
     } catch (err) {
-
-      setError(
-        err.response?.data?.detail ||
-        "Registration failed."
-      );
-
+      setError(err.response?.data?.detail || "Registration failed.");
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   return (
-
     <div
       className="
         w-full
@@ -178,7 +119,6 @@ export default function RegisterForm() {
         py-6
       "
     >
-
       {/* LOGO */}
 
       <div
@@ -197,7 +137,6 @@ export default function RegisterForm() {
       {/* TITLE */}
 
       <div className="mt-4">
-
         <h1
           className="
             text-[28px]
@@ -207,11 +146,7 @@ export default function RegisterForm() {
           "
         >
           Create
-
-          <span className="text-orange-500">
-            {" "}Store Account
-          </span>
-
+          <span className="text-orange-500"> Store Account</span>
         </h1>
 
         <p
@@ -222,16 +157,13 @@ export default function RegisterForm() {
             leading-5
           "
         >
-          Start managing your store smarter
-          with AI-powered insights.
+          Start managing your store smarter with AI-powered insights.
         </p>
-
       </div>
 
       {/* ERROR */}
 
       {error && (
-
         <div
           className="
             mt-4
@@ -245,13 +177,11 @@ export default function RegisterForm() {
         >
           {error}
         </div>
-
       )}
 
       {/* SUCCESS */}
 
       {success && (
-
         <div
           className="
             mt-4
@@ -265,7 +195,6 @@ export default function RegisterForm() {
         >
           {success}
         </div>
-
       )}
 
       {/* FORM */}
@@ -277,18 +206,13 @@ export default function RegisterForm() {
           space-y-2.5
         "
       >
-
         {/* STORE NAME */}
 
         <InputField
           label="Store Name"
           type="text"
           value={storeName}
-          onChange={(e) =>
-            setStoreName(
-              e.target.value
-            )
-          }
+          onChange={(e) => setStoreName(e.target.value)}
           placeholder="e.g. Tristan Store"
           icon={<FiShoppingBag />}
         />
@@ -299,11 +223,7 @@ export default function RegisterForm() {
           label="Owner Name"
           type="text"
           value={ownerName}
-          onChange={(e) =>
-            setOwnerName(
-              e.target.value
-            )
-          }
+          onChange={(e) => setOwnerName(e.target.value)}
           placeholder="e.g. Juan Dela Cruz"
           icon={<FiUser />}
         />
@@ -314,11 +234,7 @@ export default function RegisterForm() {
           label="Email"
           type="email"
           value={email}
-          onChange={(e) =>
-            setEmail(
-              e.target.value
-            )
-          }
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           icon={<FiMail />}
         />
@@ -329,11 +245,7 @@ export default function RegisterForm() {
           label="Username"
           type="text"
           value={username}
-          onChange={(e) =>
-            setUsername(
-              e.target.value
-            )
-          }
+          onChange={(e) => setUsername(e.target.value)}
           placeholder="Choose username"
           icon={<FiUser />}
         />
@@ -341,15 +253,10 @@ export default function RegisterForm() {
         {/* PASSWORDS */}
 
         <div className="grid grid-cols-2 gap-2">
-
           <PasswordField
             label="Password"
             value={password}
-            onChange={(e) =>
-              setPassword(
-                e.target.value
-              )
-            }
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             show={showPassword}
             setShow={setShowPassword}
@@ -358,18 +265,11 @@ export default function RegisterForm() {
           <PasswordField
             label="Confirm"
             value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(
-                e.target.value
-              )
-            }
+            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm"
             show={showConfirmPassword}
-            setShow={
-              setShowConfirmPassword
-            }
+            setShow={setShowConfirmPassword}
           />
-
         </div>
 
         {/* BUTTON */}
@@ -394,14 +294,8 @@ export default function RegisterForm() {
             shadow-orange-500/20
           "
         >
-
-          {loading
-            ? "Creating..."
-            : "Create Account"
-          }
-
+          {loading ? "Creating..." : "Create Account"}
         </button>
-
       </form>
 
       {/* FOOTER */}
@@ -414,13 +308,9 @@ export default function RegisterForm() {
           text-sm
         "
       >
-
         Already have an account?
-
         <span
-          onClick={() =>
-            navigate("/login")
-          }
+          onClick={() => navigate("/login")}
           className="
             text-orange-500
             font-semibold
@@ -431,25 +321,16 @@ export default function RegisterForm() {
         >
           Login here
         </span>
-
       </p>
-
     </div>
   );
 }
 
 /* INPUT FIELD */
 
-function InputField({
-  label,
-  icon,
-  ...props
-}) {
-
+function InputField({ label, icon, ...props }) {
   return (
-
     <div>
-
       <label
         className="
           font-medium
@@ -461,7 +342,6 @@ function InputField({
       </label>
 
       <div className="mt-1.5 relative">
-
         <input
           {...props}
           className="
@@ -492,28 +372,16 @@ function InputField({
         >
           {icon}
         </div>
-
       </div>
-
     </div>
   );
 }
 
 /* PASSWORD FIELD */
 
-function PasswordField({
-  label,
-  value,
-  onChange,
-  placeholder,
-  show,
-  setShow,
-}) {
-
+function PasswordField({ label, value, onChange, placeholder, show, setShow }) {
   return (
-
     <div>
-
       <label
         className="
           font-medium
@@ -525,13 +393,8 @@ function PasswordField({
       </label>
 
       <div className="mt-1.5 relative">
-
         <input
-          type={
-            show
-              ? "text"
-              : "password"
-          }
+          type={show ? "text" : "password"}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -553,9 +416,7 @@ function PasswordField({
 
         <button
           type="button"
-          onClick={() =>
-            setShow(!show)
-          }
+          onClick={() => setShow(!show)}
           className="
             absolute
             right-4
@@ -567,16 +428,9 @@ function PasswordField({
             text-base
           "
         >
-
-          {show
-            ? <FiEyeOff />
-            : <FiEye />
-          }
-
+          {show ? <FiEyeOff /> : <FiEye />}
         </button>
-
       </div>
-
     </div>
   );
 }

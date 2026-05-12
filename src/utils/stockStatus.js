@@ -1,8 +1,4 @@
-export const stockStatus = (
-  stock,
-  minStock
-) => {
-
+export const stockStatus = (stock, minStock) => {
   if (stock <= 0) {
     return {
       label: "Out of Stock",

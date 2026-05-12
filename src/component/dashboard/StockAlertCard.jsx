@@ -1,12 +1,7 @@
-import {
-  FiAlertTriangle,
-  FiChevronRight,
-} from "react-icons/fi";
+import { FiAlertTriangle, FiChevronRight } from "react-icons/fi";
 
 export default function StockAlertCard() {
-
   return (
-
     <div
       className="
         relative
@@ -32,11 +27,10 @@ export default function StockAlertCard() {
         duration-300
       "
     >
-
       {/* TOP BORDER */}
 
-        <div
-          className="
+      <div
+        className="
             absolute
             top-0
             left-0
@@ -51,7 +45,7 @@ export default function StockAlertCard() {
 
             opacity-80
           "
-        />
+      />
 
       {/* HEADER */}
 
@@ -62,7 +56,6 @@ export default function StockAlertCard() {
           justify-between
         "
       >
-
         <div
           className="
             flex
@@ -70,7 +63,6 @@ export default function StockAlertCard() {
             gap-3
           "
         >
-
           {/* ICON */}
 
           <div
@@ -94,7 +86,6 @@ export default function StockAlertCard() {
           </div>
 
           <div>
-
             <h3
               className="
                 text-[22px]
@@ -123,9 +114,7 @@ export default function StockAlertCard() {
             >
               Low inventory products
             </p>
-
           </div>
-
         </div>
 
         {/* BUTTON */}
@@ -148,47 +137,23 @@ export default function StockAlertCard() {
           See All
           <FiChevronRight />
         </button>
-
       </div>
 
       {/* ALERTS */}
 
       <div className="mt-6 space-y-3">
+        <Alert item="Coke" stock="20 units left" danger percentage="Critical" />
 
-        <Alert
-          item="Coke"
-          stock="20 units left"
-          danger
-          percentage="Critical"
-        />
+        <Alert item="Chips" stock="35 units left" percentage="Low" />
 
-        <Alert
-          item="Chips"
-          stock="35 units left"
-          percentage="Low"
-        />
-
-        <Alert
-          item="Noodles"
-          stock="42 units left"
-          percentage="Medium"
-        />
-
+        <Alert item="Noodles" stock="42 units left" percentage="Medium" />
       </div>
-
     </div>
   );
 }
 
-function Alert({
-  item,
-  stock,
-  danger,
-  percentage,
-}) {
-
+function Alert({ item, stock, danger, percentage }) {
   return (
-
     <div
       className="
         flex
@@ -210,11 +175,9 @@ function Alert({
         transition-all
       "
     >
-
       {/* LEFT */}
 
       <div>
-
         <p
           className="
             text-[17px]
@@ -239,7 +202,6 @@ function Alert({
         >
           {stock}
         </p>
-
       </div>
 
       {/* RIGHT */}
@@ -269,8 +231,6 @@ function Alert({
       >
         {percentage}
       </div>
-
     </div>
-
   );
 }

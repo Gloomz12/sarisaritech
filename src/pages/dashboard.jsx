@@ -5,11 +5,8 @@ import StatsCard from "../component/dashboard/StatsCard";
 import StockAlertCard from "../component/dashboard/StockAlertCard";
 
 export default function Dashboard() {
-
   return (
-
     <div className="space-y-4">
-
       {/* RECORD SALE */}
 
       <button
@@ -60,7 +57,6 @@ export default function Dashboard() {
           gap-4
         "
       >
-
         <StatsCard
           title="Today's Sales"
           value="₱2,450.00"
@@ -78,9 +74,7 @@ export default function Dashboard() {
         />
 
         <StockAlertCard />
-
       </div>
-
     </div>
   );
 }

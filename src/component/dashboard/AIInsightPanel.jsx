@@ -1,10 +1,4 @@
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  Tooltip,
-} from "recharts";
+import { ResponsiveContainer, LineChart, Line, XAxis, Tooltip } from "recharts";
 
 const forecastData = [
   { day: "May 10", sales: 30 },
@@ -16,9 +10,7 @@ const forecastData = [
 ];
 
 export default function AIInsightPanel() {
-
   return (
-
     <div
       className="
         rounded-[28px]
@@ -39,7 +31,6 @@ export default function AIInsightPanel() {
         duration-300
       "
     >
-
       {/* HEADER */}
 
       <div
@@ -56,14 +47,9 @@ export default function AIInsightPanel() {
           justify-between
         "
       >
-
         <div className="flex items-center gap-3">
-
           <div className="flex items-center gap-2">
-
-            <span className="text-white text-lg">
-              ✨
-            </span>
+            <span className="text-white text-lg">✨</span>
 
             <h2
               className="
@@ -74,7 +60,6 @@ export default function AIInsightPanel() {
             >
               AI Store Consultant
             </h2>
-
           </div>
 
           <div
@@ -91,7 +76,6 @@ export default function AIInsightPanel() {
           >
             Preview
           </div>
-
         </div>
 
         <button
@@ -103,7 +87,6 @@ export default function AIInsightPanel() {
         >
           View All Insights →
         </button>
-
       </div>
 
       {/* BODY */}
@@ -122,13 +105,10 @@ export default function AIInsightPanel() {
           xl:divide-x
         "
       >
-
         {/* FORECAST */}
 
         <div className="p-5">
-
           <div className="flex justify-between items-start">
-
             <h3
               className="
                 text-[18px]
@@ -160,20 +140,13 @@ export default function AIInsightPanel() {
             >
               +20%
             </div>
-
           </div>
 
           {/* GRAPH */}
 
           <div className="h-[150px] mt-4">
-
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-            >
-
+            <ResponsiveContainer width="100%" height="100%">
               <LineChart data={forecastData}>
-
                 <XAxis
                   dataKey="day"
                   tick={{
@@ -193,11 +166,8 @@ export default function AIInsightPanel() {
                     r: 4,
                   }}
                 />
-
               </LineChart>
-
             </ResponsiveContainer>
-
           </div>
 
           {/* INFO */}
@@ -220,8 +190,7 @@ export default function AIInsightPanel() {
               text-sm
             "
           >
-            ℹ️ Coke demand is predicted to
-            increase next week.
+            ℹ️ Coke demand is predicted to increase next week.
           </div>
 
           <button
@@ -237,13 +206,11 @@ export default function AIInsightPanel() {
           >
             View full forecast →
           </button>
-
         </div>
 
         {/* APRIORI */}
 
         <div className="p-5">
-
           <h3
             className="
               text-[18px]
@@ -260,7 +227,6 @@ export default function AIInsightPanel() {
           </h3>
 
           <div className="space-y-5 mt-6">
-
             <Association
               color="bg-red-500"
               item1="Coke"
@@ -281,7 +247,6 @@ export default function AIInsightPanel() {
               item2="Sardines"
               confidence="75%"
             />
-
           </div>
 
           <button
@@ -297,13 +262,11 @@ export default function AIInsightPanel() {
           >
             View all associations →
           </button>
-
         </div>
 
         {/* RESTOCK */}
 
         <div className="p-5">
-
           <h3
             className="
               text-[18px]
@@ -317,7 +280,6 @@ export default function AIInsightPanel() {
           </h3>
 
           <div className="space-y-5 mt-6">
-
             <Recommendation
               level="High"
               color="bg-red-100 text-red-500"
@@ -338,7 +300,6 @@ export default function AIInsightPanel() {
               item="Noodles"
               suggested="+25 units"
             />
-
           </div>
 
           <button
@@ -354,31 +315,18 @@ export default function AIInsightPanel() {
           >
             View all recommendations →
           </button>
-
         </div>
-
       </div>
-
     </div>
-
   );
 }
 
 /* APRIORI */
 
-function Association({
-  color,
-  item1,
-  item2,
-  confidence,
-}) {
-
+function Association({ color, item1, item2, confidence }) {
   return (
-
     <div className="flex justify-between items-center">
-
       <div className="flex items-center gap-3">
-
         <div
           className={`
             w-3
@@ -401,11 +349,9 @@ function Association({
           {" + "}
           {item2}
         </p>
-
       </div>
 
       <div className="text-right">
-
         <p
           className="
             text-xs
@@ -426,29 +372,17 @@ function Association({
         >
           {confidence}
         </p>
-
       </div>
-
     </div>
-
   );
 }
 
 /* RESTOCK */
 
-function Recommendation({
-  level,
-  color,
-  item,
-  suggested,
-}) {
-
+function Recommendation({ level, color, item, suggested }) {
   return (
-
     <div className="flex justify-between">
-
       <div>
-
         <h4
           className="
             font-bold
@@ -470,16 +404,9 @@ function Recommendation({
             mt-1
           "
         >
-
-          Suggested:
-          {" "}
-
-          <span className="text-green-500 font-semibold">
-            {suggested}
-          </span>
-
+          Suggested:{" "}
+          <span className="text-green-500 font-semibold">{suggested}</span>
         </p>
-
       </div>
 
       <div
@@ -499,8 +426,6 @@ function Recommendation({
       >
         {level}
       </div>
-
     </div>
-
   );
 }

@@ -1,14 +1,13 @@
-import api from './api';
+import api from "./api";
 
 const productService = {
-
   getAllProducts: async () => {
-    const res = await api.get('/products');
+    const res = await api.get("/products");
     return res.data;
   },
 
   createProduct: async (data) => {
-    const res = await api.post('/products', data);
+    const res = await api.post("/products", data);
     return res.data;
   },
 
@@ -20,8 +19,7 @@ const productService = {
   deleteProduct: async (id) => {
     const res = await api.delete(`/products/${id}`);
     return res.data;
-  }
-
+  },
 };
 
 export default productService;
