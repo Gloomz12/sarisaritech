@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // COMPONENTS
-import Header from '../component/common/Header.jsx';
-import SearchBar from '../component/common/SearchBar.jsx';
-import StockSummary from '../component/inventory/StockSummary.jsx';
-import RestockProductModal from '../component/restock/RestockModal.jsx';
-import RestockCard from '../component/restock/RestockCard.jsx';
+import Header from "../component/common/Header.jsx";
+import SearchBar from "../component/common/SearchBar.jsx";
+import StockSummary from "../component/inventory/StockSummary.jsx";
+import RestockProductModal from "../component/restock/RestockModal.jsx";
+import RestockCard from "../component/restock/RestockCard.jsx";
 
 // SERVICE
-import productService from '../services/productService.js';
+import productService from "../services/productService.js";
 
 export default function Restock() {
-
   const getStatus = (product) => {
-    if (product.stock_quantity <= product.min_stock_level / 2) return "CRITICAL";
+    if (product.stock_quantity <= product.min_stock_level / 2)
+      return "CRITICAL";
     if (product.stock_quantity <= product.min_stock_level) return "LOW";
     return "OK";
   };
@@ -44,7 +44,7 @@ export default function Restock() {
     return priority[getStatus(a)] - priority[getStatus(b)];
   });
 
-  const filteredAndSorted = sortedProducts.filter(p =>
+  const filteredAndSorted = sortedProducts.filter((p) =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -78,7 +78,7 @@ export default function Restock() {
       />
 
       <div className="restock-grid">
-        {filteredAndSorted.map(product => (
+        {filteredAndSorted.map((product) => (
           <RestockCard
             key={product.id}
             product={product}

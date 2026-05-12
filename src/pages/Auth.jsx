@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 
-import {
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import AuthLeftPanel from "../component/auth/AuthLeftPanel";
 
@@ -12,43 +9,27 @@ import LoginForm from "../component/auth/LoginForm";
 import RegisterForm from "../component/auth/RegisterForm";
 
 export default function Auth() {
+  const navigate = useNavigate();
 
-  const navigate =
-    useNavigate();
-
-  const location =
-    useLocation();
+  const location = useLocation();
 
   // CHECK IF LOGIN PAGE
 
-  const isLogin =
-    location.pathname === "/login";
+  const isLogin = location.pathname === "/login";
 
   // AUTO REDIRECT IF LOGGED IN
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
 
-    const token =
-      localStorage.getItem(
-        "token"
-      );
-
-    const user =
-      localStorage.getItem(
-        "user"
-      );
+    const user = localStorage.getItem("user");
 
     if (token && user) {
-
-      navigate(
-        "/dashboard"
-      );
+      navigate("/dashboard");
     }
-
   }, []);
 
   return (
-
     <div
       className="
         w-full
@@ -58,12 +39,9 @@ export default function Auth() {
         overflow-hidden
       "
     >
-
       {/* LEFT SIDE */}
 
-      <AuthLeftPanel
-        register={!isLogin}
-      />
+      <AuthLeftPanel register={!isLogin} />
 
       {/* RIGHT SIDE */}
 
@@ -76,15 +54,8 @@ export default function Auth() {
           px-6
         "
       >
-
-        {isLogin ? (
-          <LoginForm />
-        ) : (
-          <RegisterForm />
-        )}
-
+        {isLogin ? <LoginForm /> : <RegisterForm />}
       </div>
-
     </div>
   );
 }

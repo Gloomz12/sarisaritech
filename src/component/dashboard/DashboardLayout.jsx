@@ -1,80 +1,55 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 
 export default function DashboardLayout() {
+  const [greeting, setGreeting] = useState("");
 
-  const [greeting, setGreeting] =
-    useState("");
+  const [emoji, setEmoji] = useState("");
 
-  const [emoji, setEmoji] =
-    useState("");
+  const [ownerName, setOwnerName] = useState("Store");
+
+  /* LOAD USER */
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
+    if (user?.owner_name) {
+      setOwnerName(user.owner_name);
+    }
+  }, []);
+
+  /* GREETING */
+
+  useEffect(() => {
     const updateGreeting = () => {
-
-      const hour =
-        new Date().getHours();
+      const hour = new Date().getHours();
 
       if (hour >= 5 && hour < 12) {
-
-        setGreeting(
-          "Good morning"
-        );
+        setGreeting("Good morning");
 
         setEmoji("🌞");
-
-      } else if (
-        hour >= 12 &&
-        hour < 18
-      ) {
-
-        setGreeting(
-          "Good afternoon"
-        );
+      } else if (hour >= 12 && hour < 18) {
+        setGreeting("Good afternoon");
 
         setEmoji("☀️");
-
-      } else if (
-        hour >= 18 &&
-        hour < 22
-      ) {
-
-        setGreeting(
-          "Good evening"
-        );
+      } else if (hour >= 18 && hour < 22) {
+        setGreeting("Good evening");
 
         setEmoji("🌙");
-
       } else {
-
-        setGreeting(
-          "Good night"
-        );
+        setGreeting("Good night");
 
         setEmoji("✨");
-
       }
-
     };
 
     updateGreeting();
 
-    const interval =
-      setInterval(
-        updateGreeting,
-        60000
-      );
+    const interval = setInterval(updateGreeting, 60000);
 
-    return () =>
-      clearInterval(interval);
-
+    return () => clearInterval(interval);
   }, []);
 
   return (
-
     <div
       className="
         relative
@@ -110,15 +85,12 @@ export default function DashboardLayout() {
         min-h-[200px]
       "
     >
-
       {/* LEFT */}
 
       <div className="z-10 max-w-[56%]">
-
         {/* GREETING */}
 
         <div className="flex items-center gap-3">
-
           <div
             className="
               w-11
@@ -140,7 +112,6 @@ export default function DashboardLayout() {
           </div>
 
           <div>
-
             <p
               className="
                 text-orange-500
@@ -148,7 +119,7 @@ export default function DashboardLayout() {
                 text-base
               "
             >
-              {greeting}! {emoji}
+              {greeting}!
             </p>
 
             <p
@@ -162,9 +133,7 @@ export default function DashboardLayout() {
             >
               Your store is doing great today.
             </p>
-
           </div>
-
         </div>
 
         {/* TITLE */}
@@ -184,9 +153,15 @@ export default function DashboardLayout() {
             dark:text-white
           "
         >
-          Welcome to Tristan
+          Welcome to {ownerName}
           <br />
-          Sari Sari Store
+          <span
+            className="
+              text-orange-500
+            "
+          >
+            Sari Sari Store
+          </span>
         </h1>
 
         {/* SUBTITLE */}
@@ -200,10 +175,8 @@ export default function DashboardLayout() {
             dark:text-gray-400
           "
         >
-          Here's what's happening with your
-          store today.
+          Here's what's happening with your store today.
         </p>
-
       </div>
 
       {/* RIGHT IMAGE */}
@@ -220,7 +193,6 @@ export default function DashboardLayout() {
           items-end
         "
       >
-
         <img
           src="/images/house_dashboard.png"
           alt="store"
@@ -230,10 +202,7 @@ export default function DashboardLayout() {
             opacity-95
           "
         />
-
       </div>
-
     </div>
-
   );
 }

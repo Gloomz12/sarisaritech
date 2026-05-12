@@ -16,57 +16,36 @@ import {
 
 import { BsShop } from "react-icons/bs";
 
-import {
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Sidebar() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const [sidebarOpen, setSidebarOpen] =
-    useState(true);
-
-  const [user, setUser] =
-    useState(null);
+  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
 
   const location = useLocation();
 
   useEffect(() => {
-
     const loadUser = () => {
-
-      const storedUser =
-        localStorage.getItem("user");
+      const storedUser = localStorage.getItem("user");
 
       if (storedUser) {
-
-        setUser(
-          JSON.parse(storedUser)
-        );
+        setUser(JSON.parse(storedUser));
       }
     };
 
     loadUser();
 
-    window.addEventListener(
-      "userUpdated",
-      loadUser
-    );
+    window.addEventListener("userUpdated", loadUser);
 
     return () => {
-
-      window.removeEventListener(
-        "userUpdated",
-        loadUser
-      );
+      window.removeEventListener("userUpdated", loadUser);
     };
-
   }, []);
 
   const menuItems = [
-
     {
       icon: <FiHome />,
       label: "Dashboard",
@@ -114,22 +93,19 @@ export default function Sidebar() {
       label: "Settings",
       path: "/settings",
     },
-
   ];
 
   /* LOGOUT */
-
   const handleLogout = () => {
-
     localStorage.removeItem("token");
-
     localStorage.removeItem("user");
+    localStorage.removeItem("theme");
+    document.documentElement.classList.remove("dark");
 
     navigate("/login");
   };
 
   return (
-
     <div
       className={`
         relative
@@ -149,23 +125,18 @@ export default function Sidebar() {
         transition-all
         duration-300
 
-        ${sidebarOpen
-          ? "w-[235px]"
-          : "w-[82px]"
-        }
+        ${sidebarOpen ? "w-[235px]" : "w-[82px]"}
       `}
     >
-
       {/* TOGGLE */}
 
       <button
-        onClick={() =>
-          setSidebarOpen(!sidebarOpen)
-        }
+        onClick={() => setSidebarOpen(!sidebarOpen)}
         className="
           absolute
           -right-4
-          top-8
+          top-1/2
+          -translate-y-1/2
           z-50
 
           w-9
@@ -201,12 +172,11 @@ export default function Sidebar() {
           duration-300
         "
       >
-
-        {sidebarOpen
-          ? <FiChevronLeft size={17} />
-          : <FiChevronRight size={17} />
-        }
-
+        {sidebarOpen ? (
+          <FiChevronLeft size={17} />
+        ) : (
+          <FiChevronRight size={17} />
+        )}
       </button>
 
       {/* LOGO */}
@@ -226,7 +196,6 @@ export default function Sidebar() {
           gap-3
         "
       >
-
         <img
           src="/images/icon.png"
           alt="logo"
@@ -238,7 +207,6 @@ export default function Sidebar() {
         />
 
         {sidebarOpen && (
-
           <h1
             className="
               text-[18px]
@@ -246,10 +214,7 @@ export default function Sidebar() {
               whitespace-nowrap
             "
           >
-
-            <span className="text-orange-500">
-              SariSari
-            </span>
+            <span className="text-orange-500">SariSari</span>
 
             <span
               className="
@@ -259,11 +224,8 @@ export default function Sidebar() {
             >
               Tech
             </span>
-
           </h1>
-
         )}
-
       </div>
 
       {/* PROFILE */}
@@ -278,19 +240,14 @@ export default function Sidebar() {
           dark:border-[#1F2937]
         "
       >
-
         <div
           className={`
             flex
             items-center
 
-            ${sidebarOpen
-              ? "gap-3"
-              : "justify-center"
-            }
+            ${sidebarOpen ? "gap-3" : "justify-center"}
           `}
         >
-
           <div
             className="
               w-12
@@ -310,20 +267,16 @@ export default function Sidebar() {
               justify-center
             "
           >
-
             <BsShop
               className="
                 text-[22px]
                 text-orange-500
               "
             />
-
           </div>
 
           {sidebarOpen && (
-
             <div className="min-w-0">
-
               <h2
                 className="
                   font-semibold
@@ -335,7 +288,7 @@ export default function Sidebar() {
                   truncate
                 "
               >
-                {user?.store_name || "Store"}
+                {user?.owner_name || "Store"}
               </h2>
 
               <p
@@ -348,13 +301,9 @@ export default function Sidebar() {
               >
                 Store Owner
               </p>
-
             </div>
-
           )}
-
         </div>
-
       </div>
 
       {/* MENU */}
@@ -370,19 +319,13 @@ export default function Sidebar() {
           space-y-1
         "
       >
-
         {menuItems.map((item, index) => {
-
-          const isActive =
-            location.pathname === item.path;
+          const isActive = location.pathname === item.path;
 
           return (
-
             <button
               key={index}
-              onClick={() =>
-                navigate(item.path)
-              }
+              onClick={() => navigate(item.path)}
               className={`
                 w-full
                 h-11
@@ -399,8 +342,9 @@ export default function Sidebar() {
                 group
                 border
 
-                ${isActive
-                  ? `
+                ${
+                  isActive
+                    ? `
                     bg-[#fdf4ea]
                     dark:bg-orange-500/10
 
@@ -409,7 +353,7 @@ export default function Sidebar() {
 
                     shadow-sm
                   `
-                  : `
+                    : `
                     border-transparent
 
                     hover:bg-orange-50
@@ -421,27 +365,23 @@ export default function Sidebar() {
                 }
               `}
             >
-
               <div
                 className={`
                   flex
                   items-center
                   w-full
 
-                  ${sidebarOpen
-                    ? "gap-3"
-                    : "justify-center"
-                  }
+                  ${sidebarOpen ? "gap-3" : "justify-center"}
                 `}
               >
-
                 <div
                   className={`
                     text-[18px]
 
-                    ${isActive
-                      ? "text-orange-500"
-                      : `
+                    ${
+                      isActive
+                        ? "text-orange-500"
+                        : `
                         text-gray-500
                         dark:text-gray-400
 
@@ -454,16 +394,16 @@ export default function Sidebar() {
                 </div>
 
                 {sidebarOpen && (
-
                   <span
                     className={`
                       text-sm
                       font-medium
                       whitespace-nowrap
 
-                      ${isActive
-                        ? "text-orange-500"
-                        : `
+                      ${
+                        isActive
+                          ? "text-orange-500"
+                          : `
                           text-gray-700
                           dark:text-gray-300
 
@@ -474,17 +414,11 @@ export default function Sidebar() {
                   >
                     {item.label}
                   </span>
-
                 )}
-
               </div>
-
             </button>
-
           );
-
         })}
-
       </div>
 
       {/* FOOTER */}
@@ -498,7 +432,6 @@ export default function Sidebar() {
           dark:border-[#1F2937]
         "
       >
-
         <button
           onClick={handleLogout}
           className="
@@ -521,36 +454,21 @@ export default function Sidebar() {
             dark:text-red-400
           "
         >
-
           <div
             className={`
               flex
               items-center
               w-full
 
-              ${sidebarOpen
-                ? "gap-3"
-                : "justify-center"
-              }
+              ${sidebarOpen ? "gap-3" : "justify-center"}
             `}
           >
-
             <FiLogOut className="text-[18px]" />
 
-            {sidebarOpen && (
-
-              <span className="text-sm font-medium">
-                Logout
-              </span>
-
-            )}
-
+            {sidebarOpen && <span className="text-sm font-medium">Logout</span>}
           </div>
-
         </button>
-
       </div>
-
     </div>
   );
 }

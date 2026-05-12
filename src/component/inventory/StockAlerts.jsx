@@ -1,63 +1,254 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import api from '../../services/api';
+// src/component/inventory/StockAlerts.jsx
 
-export default function StockAlerts() {
-    const navigate = useNavigate();
+export default function StockAlerts({ lowStock = [] }) {
+  /* SORT */
 
-    const [items, setItems] = useState([]);
+  const sortedAlerts = [...lowStock]
 
-    const fetchProducts = async () => {
-        try {
-            const res = await api.get("/products");
+    .sort((a, b) => {
+      if (a.stock_quantity === 0 && b.stock_quantity !== 0) {
+        return -1;
+      }
 
-            // FILTER LOW STOCK
-            const lowStock = res.data.filter(p =>
-                p.stock_quantity <= p.min_stock_level
-            );
+      if (b.stock_quantity === 0 && a.stock_quantity !== 0) {
+        return 1;
+      }
 
-            setItems(lowStock);
+      return a.stock_quantity - b.stock_quantity;
+    })
 
-        } catch (err) {
-            console.error("Stock alert error:", err);
-        }
-    };
+    .slice(0, 3);
 
-    useEffect(() => {
-        fetchProducts();
+  return (
+    <div
+      className="
+        flex
+        min-h-[unset]
+        flex-col
+        justify-between
 
-        const interval = setInterval(fetchProducts, 3000);
+        rounded-[26px]
+        border
+        border-[#eef2f7]
+        bg-white
+        p-5
 
-        return () => clearInterval(interval);
-    }, []);
+        shadow-[0_6px_24px_rgba(15,23,42,0.04)]
+      "
+    >
+      {/* TOP */}
 
-    return (
-        <div className="alerts-section">
-            <div className="alerts-header">
-                <p className="alerts-title">Stock Alerts</p>
-                <button className="see-all-btn" onClick={() => navigate('/restock')}>
-                    See All
-                </button>
-            </div>
+      <div>
+        {/* HEADER */}
 
-            <div className="alerts-list">
-                {items.length > 0 ? (
-                    items.map((item) => (
-                        <div key={item.id} className="alert-card">
-                            <h4 className="item-name">{item.name}</h4>
-                            <p className="stock-status">
-                                Stock Low: <span className="count">
-                                    {item.stock_quantity} remaining
-                                </span>
-                            </p>
-                        </div>
-                    ))
-                ) : (
-                    <div className="alert-card healthy">
-                        <p>All stock levels are OK</p>
-                    </div>
-                )}
-            </div>
+        <div
+          className="
+            flex
+            items-start
+            justify-between
+          "
+        >
+          <div>
+            <h2
+              className="
+                text-[18px]
+                font-black
+                tracking-[-0.5px]
+                text-[#0f172a]
+              "
+            >
+              Low Stock Alerts
+            </h2>
+
+            <p
+              className="
+                mt-1
+                text-[13px]
+                text-[#64748b]
+              "
+            >
+              Products needing attention
+            </p>
+          </div>
+
+          <button
+            className="
+              text-[13px]
+              font-semibold
+              text-orange-500
+
+              transition-all
+              duration-200
+
+              hover:text-orange-600
+            "
+          >
+            See All →
+          </button>
         </div>
-    );
+
+        {/* ALERTS */}
+
+        <div className="mt-5 space-y-3">
+          {sortedAlerts.map((item) => (
+            <div
+              key={item.id}
+              className="
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+                  border
+                  border-[#f8fafc]
+
+                  px-4
+                  py-3
+
+                  transition-all
+                  duration-200
+
+                  hover:border-orange-100
+                  hover:bg-orange-50/30
+                "
+            >
+              {/* LEFT */}
+
+              <div
+                className="
+                    flex
+                    items-center
+                    gap-3
+                  "
+              >
+                {/* DOT */}
+
+                <div
+                  className={`
+                      h-2.5
+                      w-2.5
+                      rounded-full
+
+                      ${
+                        item.stock_quantity === 0
+                          ? "bg-red-400"
+                          : "bg-orange-400"
+                      }
+                    `}
+                />
+
+                {/* INFO */}
+
+                <div>
+                  <p
+                    className="
+                        text-[15px]
+                        font-bold
+                        text-[#0f172a]
+                      "
+                  >
+                    {item.name}
+                  </p>
+
+                  <p
+                    className="
+                        mt-0.5
+                        text-[13px]
+                        text-[#64748b]
+                      "
+                  >
+                    {item.category}
+                  </p>
+                </div>
+              </div>
+
+              {/* RIGHT */}
+
+              <div
+                className={`
+                    rounded-full
+                    px-3.5
+                    py-1.5
+
+                    text-[13px]
+                    font-bold
+
+                    ${
+                      item.stock_quantity === 0
+                        ? `
+                          bg-red-100
+                          text-red-500
+                        `
+                        : `
+                          bg-orange-100
+                          text-orange-600
+                        `
+                    }
+                  `}
+              >
+                {item.stock_quantity} left
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* BOTTOM */}
+
+      <div className="mt-6">
+        {/* MORE */}
+
+        {lowStock.length > 3 && (
+          <button
+            className="
+              w-full
+
+              rounded-2xl
+              border
+              border-dashed
+              border-[#e2e8f0]
+
+              py-3
+
+              text-[13px]
+              font-semibold
+              text-[#64748b]
+
+              transition-all
+              duration-200
+
+              hover:border-orange-200
+              hover:bg-orange-50/40
+              hover:text-orange-500
+            "
+          >
+            +{lowStock.length - 3} more items
+          </button>
+        )}
+
+        {/* SUMMARY */}
+
+        <div
+          className="
+            mt-4
+            rounded-2xl
+            bg-[#f8fafc]
+            px-4
+            py-3
+          "
+        >
+          <p
+            className="
+              text-[13px]
+              font-medium
+              text-[#64748b]
+            "
+          >
+            <span className="font-bold text-[#0f172a]">{lowStock.length}</span>{" "}
+            products currently need restocking
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }

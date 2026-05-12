@@ -1,69 +1,56 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import './index.css';
+import "./index.css";
 
-import App from './App';
+import App from "./App";
 
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-
   <React.StrictMode>
-
     <Toaster
-
       position="top-right"
-
       toastOptions={{
-
         duration: 3000,
 
         style: {
+          background: "#111827",
 
-          background: '#111827',
+          color: "#fff",
 
-          color: '#fff',
+          borderRadius: "16px",
 
-          borderRadius: '16px',
+          padding: "14px 18px",
 
-          padding: '14px 18px',
+          fontSize: "14px",
 
-          fontSize: '14px',
-
-          fontWeight: '600',
+          fontWeight: "600",
         },
 
         success: {
-
           iconTheme: {
+            primary: "#f97316",
 
-            primary: '#f97316',
-
-            secondary: '#fff',
+            secondary: "#fff",
           },
         },
 
         error: {
-
           iconTheme: {
+            primary: "#ef4444",
 
-            primary: '#ef4444',
-
-            secondary: '#fff',
+            secondary: "#fff",
           },
         },
       }}
     />
 
     <App />
-
   </React.StrictMode>
 );
 
