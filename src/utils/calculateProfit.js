@@ -1,9 +1,3 @@
-export const calculateProfit = (
-  sellingPrice,
-  costPrice,
-  quantity
-) => {
-  return (
-    (sellingPrice - costPrice) * quantity
-  );
+export const calculateProfit = (sellingPrice, costPrice, quantity) => {
+  return (sellingPrice - costPrice) * quantity;
 };

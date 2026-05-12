@@ -1,77 +1,48 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 
-import {
-  FiClock,
-  FiCalendar,
-} from "react-icons/fi";
+import { FiClock, FiCalendar } from "react-icons/fi";
 
 export default function HeaderDashboard() {
+  const [dateTime, setDateTime] = useState(new Date());
 
-  const [dateTime, setDateTime] =
-    useState(new Date());
-
-  const [user, setUser] =
-    useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const loadUser = () => {
+      const storedUser = localStorage.getItem("user");
 
-  const loadUser = () => {
-
-    const storedUser =
-      localStorage.getItem("user");
-
-    if (storedUser) {
-
-      setUser(
-        JSON.parse(storedUser)
-      );
-    }
-  };
-
-  loadUser();
-
-  const timer = setInterval(() => {
-    setDateTime(new Date());
-  }, 1000);
-
-  window.addEventListener(
-    "userUpdated",
-    loadUser
-  );
-
-  return () => {
-
-    clearInterval(timer);
-
-    window.removeEventListener(
-      "userUpdated",
-      loadUser
-    );
-  };
-
-}, []);
-
-  const timeString =
-    dateTime.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
-  const dateString =
-    dateTime.toLocaleDateString(
-      "en-US",
-      {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
       }
-    );
+    };
+
+    loadUser();
+
+    const timer = setInterval(() => {
+      setDateTime(new Date());
+    }, 1000);
+
+    window.addEventListener("userUpdated", loadUser);
+
+    return () => {
+      clearInterval(timer);
+
+      window.removeEventListener("userUpdated", loadUser);
+    };
+  }, []);
+
+  const timeString = dateTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const dateString = dateTime.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   return (
-
     <div
       className="
         bg-white
@@ -93,13 +64,10 @@ export default function HeaderDashboard() {
         duration-300
       "
     >
-
       {/* LEFT */}
 
       <div className="flex items-center gap-5">
-
         <div>
-
           <h2
             className="
               text-[22px]
@@ -111,8 +79,7 @@ export default function HeaderDashboard() {
               transition-all
             "
           >
-            {user?.store_name ||
-              "SariSariTech"}
+            {user?.store_name || "SariSariTech"}
           </h2>
 
           <p
@@ -125,26 +92,17 @@ export default function HeaderDashboard() {
               transition-all
             "
           >
-            Owner:
-            {" "}
-
+            Owner:{" "}
             <span className="font-medium">
-
-              {user?.owner_name ||
-                "Store Owner"}
-
+              {user?.owner_name || "Store Owner"}
             </span>
-
           </p>
-
         </div>
-
       </div>
 
       {/* RIGHT */}
 
       <div className="flex items-center gap-6">
-
         <div
           className="
             flex
@@ -159,13 +117,9 @@ export default function HeaderDashboard() {
             transition-all
           "
         >
-
           <FiClock />
 
-          <span>
-            {timeString}
-          </span>
-
+          <span>{timeString}</span>
         </div>
 
         <div
@@ -182,17 +136,11 @@ export default function HeaderDashboard() {
             transition-all
           "
         >
-
           <FiCalendar />
 
-          <span>
-            {dateString}
-          </span>
-
+          <span>{dateString}</span>
         </div>
-
       </div>
-
     </div>
   );
 }

@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 
 import { Outlet } from "react-router-dom";
 
@@ -9,61 +6,35 @@ import Sidebar from "../component/dashboard/Sidebar";
 import HeaderDashboard from "../component/dashboard/HeaderDashboard";
 
 export default function MainLayout() {
-
-  const [darkMode, setDarkMode] =
-    useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   /* LOAD SAVED THEME */
 
   useEffect(() => {
-
-    const savedTheme =
-      localStorage.getItem("theme");
+    const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme === "dark") {
-
       setDarkMode(true);
 
-      document.documentElement.classList.add(
-        "dark"
-      );
-
+      document.documentElement.classList.add("dark");
     }
-
   }, []);
 
   /* SAVE THEME */
 
   useEffect(() => {
-
     if (darkMode) {
+      document.documentElement.classList.add("dark");
 
-      document.documentElement.classList.add(
-        "dark"
-      );
-
-      localStorage.setItem(
-        "theme",
-        "dark"
-      );
-
+      localStorage.setItem("theme", "dark");
     } else {
+      document.documentElement.classList.remove("dark");
 
-      document.documentElement.classList.remove(
-        "dark"
-      );
-
-      localStorage.setItem(
-        "theme",
-        "light"
-      );
-
+      localStorage.setItem("theme", "light");
     }
-
   }, [darkMode]);
 
   return (
-
     <div
       className="
         flex
@@ -77,7 +48,6 @@ export default function MainLayout() {
         duration-300
       "
     >
-
       {/* SIDEBAR */}
 
       <Sidebar />
@@ -92,7 +62,6 @@ export default function MainLayout() {
           overflow-hidden
         "
       >
-
         {/* HEADER */}
 
         <HeaderDashboard />
@@ -108,18 +77,14 @@ export default function MainLayout() {
             py-6
           "
         >
-
           <Outlet
             context={{
               darkMode,
               setDarkMode,
             }}
           />
-
         </div>
-
       </div>
-
     </div>
   );
 }

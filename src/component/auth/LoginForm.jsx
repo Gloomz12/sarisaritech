@@ -1,133 +1,79 @@
-import {
-  FiMail,
-  FiShoppingCart,
-  FiEye,
-  FiEyeOff,
-} from "react-icons/fi";
+import { FiMail, FiShoppingCart, FiEye, FiEyeOff } from "react-icons/fi";
 
 import { useState } from "react";
 
-import {
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import api from "../../services/api";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
 
-  const navigate =
-    useNavigate();
+  const [email, setEmail] = useState("");
 
-  const [email, setEmail] =
-    useState("");
+  const [password, setPassword] = useState("");
 
-  const [password, setPassword] =
-    useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [error, setError] = useState("");
 
-  const [error, setError] =
-    useState("");
-
-  const [success, setSuccess] =
-    useState("");
+  const [success, setSuccess] = useState("");
 
   /* EMAIL VALIDATION */
 
   const validateEmail = (email) => {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      .test(email);
-
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   /* LOGIN */
 
   const handleLogin = async (e) => {
-
     e.preventDefault();
 
     setError("");
     setSuccess("");
 
     if (!email || !password) {
-
-      setError(
-        "Please fill in all fields."
-      );
+      setError("Please fill in all fields.");
 
       return;
     }
 
     if (!validateEmail(email)) {
-
-      setError(
-        "Please enter a valid email."
-      );
+      setError("Please enter a valid email.");
 
       return;
     }
 
     try {
-
       setLoading(true);
 
-      const response =
-        await api.post(
-          "/auth/login",
-          {
-            email,
-            password,
-          }
-        );
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
 
       /* SAVE USER */
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(
-          response.data.user
-        )
-      );
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      localStorage.setItem(
-        "token",
-        response.data.token
-      );
+      localStorage.setItem("token", response.data.token);
 
-      setSuccess(
-        "Login successful!"
-      );
+      setSuccess("Login successful!");
 
       setTimeout(() => {
-
-        navigate(
-          "/dashboard"
-        );
-
+        navigate("/dashboard");
       }, 1000);
-
     } catch (err) {
-
-      setError(
-        err.response?.data?.detail ||
-        "Invalid credentials."
-      );
-
+      setError(err.response?.data?.detail || "Invalid credentials.");
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   return (
-
     <div
       className="
         w-full
@@ -139,7 +85,6 @@ export default function LoginForm() {
         p-8
       "
     >
-
       {/* LOGO */}
 
       <div
@@ -158,7 +103,6 @@ export default function LoginForm() {
       {/* TITLE */}
 
       <div className="mt-6">
-
         <h1
           className="
             text-3xl
@@ -168,11 +112,7 @@ export default function LoginForm() {
           "
         >
           Sign in to
-
-          <span className="text-orange-500">
-            {" "}SariSariTech
-          </span>
-
+          <span className="text-orange-500"> SariSariTech</span>
         </h1>
 
         <p
@@ -183,16 +123,13 @@ export default function LoginForm() {
             leading-6
           "
         >
-          Access your AI-powered
-          store dashboard.
+          Access your AI-powered store dashboard.
         </p>
-
       </div>
 
       {/* ERROR */}
 
       {error && (
-
         <div
           className="
             mt-5
@@ -206,13 +143,11 @@ export default function LoginForm() {
         >
           {error}
         </div>
-
       )}
 
       {/* SUCCESS */}
 
       {success && (
-
         <div
           className="
             mt-5
@@ -226,7 +161,6 @@ export default function LoginForm() {
         >
           {success}
         </div>
-
       )}
 
       {/* FORM */}
@@ -238,11 +172,9 @@ export default function LoginForm() {
           space-y-5
         "
       >
-
         {/* EMAIL */}
 
         <div>
-
           <label
             className="
               font-medium
@@ -253,16 +185,11 @@ export default function LoginForm() {
           </label>
 
           <div className="mt-2 relative">
-
             <input
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) =>
-                setEmail(
-                  e.target.value
-                )
-              }
+              onChange={(e) => setEmail(e.target.value)}
               className="
                 w-full
                 h-12
@@ -288,15 +215,12 @@ export default function LoginForm() {
                 text-lg
               "
             />
-
           </div>
-
         </div>
 
         {/* PASSWORD */}
 
         <div>
-
           <label
             className="
               font-medium
@@ -307,20 +231,11 @@ export default function LoginForm() {
           </label>
 
           <div className="mt-2 relative">
-
             <input
-              type={
-                showPassword
-                  ? "text"
-                  : "password"
-              }
+              type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
               value={password}
-              onChange={(e) =>
-                setPassword(
-                  e.target.value
-                )
-              }
+              onChange={(e) => setPassword(e.target.value)}
               className="
                 w-full
                 h-12
@@ -338,11 +253,7 @@ export default function LoginForm() {
 
             <button
               type="button"
-              onClick={() =>
-                setShowPassword(
-                  !showPassword
-                )
-              }
+              onClick={() => setShowPassword(!showPassword)}
               className="
                 absolute
                 right-4
@@ -354,16 +265,9 @@ export default function LoginForm() {
                 text-lg
               "
             >
-
-              {showPassword
-                ? <FiEyeOff />
-                : <FiEye />
-              }
-
+              {showPassword ? <FiEyeOff /> : <FiEye />}
             </button>
-
           </div>
-
         </div>
 
         {/* OPTIONS */}
@@ -374,15 +278,13 @@ export default function LoginForm() {
             justify-between
           "
         >
-
           <label
             className="
               flex items-center gap-2
               text-sm text-gray-500
               cursor-pointer
             "
-          >
-          </label>
+          ></label>
 
           <button
             type="button"
@@ -395,7 +297,6 @@ export default function LoginForm() {
           >
             Forgot password?
           </button>
-
         </div>
 
         {/* LOGIN BUTTON */}
@@ -420,14 +321,8 @@ export default function LoginForm() {
             shadow-orange-500/20
           "
         >
-
-          {loading
-            ? "Logging in..."
-            : "Login"
-          }
-
+          {loading ? "Logging in..." : "Login"}
         </button>
-
       </form>
 
       {/* FOOTER */}
@@ -439,13 +334,9 @@ export default function LoginForm() {
           text-gray-500
         "
       >
-
         Don&apos;t have an account?
-
         <span
-          onClick={() =>
-            navigate("/register")
-          }
+          onClick={() => navigate("/register")}
           className="
             text-orange-500
             font-semibold
@@ -456,9 +347,7 @@ export default function LoginForm() {
         >
           Register here
         </span>
-
       </p>
-
     </div>
   );
 }

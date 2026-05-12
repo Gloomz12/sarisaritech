@@ -1,5 +1,4 @@
 @layer components {
-
   .card {
     @apply bg-white rounded-3xl shadow-sm border border-gray-100;
   }
@@ -59,5 +58,4 @@
   .modal-content {
     @apply bg-white rounded-3xl p-8 w-full max-w-xl;
   }
-
 }

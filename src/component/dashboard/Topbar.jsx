@@ -13,16 +13,12 @@ import {
 export default function Sidebar() {
   return (
     <div className="w-72 bg-white border-r min-h-screen p-5">
-
       <h1 className="text-3xl font-bold">
-        <span className="text-orange-500">
-          SariSari
-        </span>
+        <span className="text-orange-500">SariSari</span>
         Tech
       </h1>
 
       <div className="mt-10 space-y-3">
-
         <Menu icon={<FiHome />} text="Dashboard" active />
 
         <Menu icon={<FiShoppingCart />} text="Record Sale" />
@@ -40,35 +36,23 @@ export default function Sidebar() {
         <Menu icon={<FiSettings />} text="Settings" />
 
         <Menu icon={<FiLogOut />} text="Logout" />
-
       </div>
-
     </div>
   );
 }
 
-function Menu({
-  icon,
-  text,
-  active = false,
-}) {
+function Menu({ icon, text, active = false }) {
   return (
     <div
       className={`
         flex items-center gap-4
         p-4 rounded-xl cursor-pointer transition
-        ${active
-          ? "bg-orange-100 text-orange-600"
-          : "hover:bg-gray-100"}
+        ${active ? "bg-orange-100 text-orange-600" : "hover:bg-gray-100"}
       `}
     >
-      <div className="text-xl">
-        {icon}
-      </div>
+      <div className="text-xl">{icon}</div>
 
-      <span className="font-medium">
-        {text}
-      </span>
+      <span className="font-medium">{text}</span>
     </div>
   );
 }

@@ -1,16 +1,7 @@
-import {
-  FiShoppingCart,
-  FiBarChart2,
-  FiCpu,
-  FiPackage,
-} from "react-icons/fi";
+import { FiShoppingCart, FiBarChart2, FiCpu, FiPackage } from "react-icons/fi";
 
-export default function AuthLeftPanel({
-  register = false,
-}) {
-
+export default function AuthLeftPanel({ register = false }) {
   return (
-
     <div
       className="
         hidden lg:flex
@@ -21,11 +12,9 @@ export default function AuthLeftPanel({
         bg-center
       "
       style={{
-        backgroundImage:
-          "url('/images/auth-bg.png')",
+        backgroundImage: "url('/images/auth-bg.png')",
       }}
     >
-
       {/* OVERLAY */}
 
       <div className="absolute inset-0 bg-black/65" />
@@ -59,15 +48,12 @@ export default function AuthLeftPanel({
           text-white
         "
       >
-
         {/* TOP */}
 
         <div>
-
           {/* LOGO */}
 
           <div className="flex items-center gap-4">
-
             <div
               className="
                 w-16 h-16
@@ -83,32 +69,20 @@ export default function AuthLeftPanel({
             </div>
 
             <div>
-
               <h1 className="text-4xl font-bold">
-
-                <span className="text-orange-500">
-                  SariSari
-                </span>
-
+                <span className="text-orange-500">SariSari</span>
                 Tech
-
               </h1>
 
-              <p className="text-gray-300 mt-1">
-                AI-Powered Store Analytics
-              </p>
-
+              <p className="text-gray-300 mt-1">AI-Powered Store Analytics</p>
             </div>
-
           </div>
 
           {/* HERO */}
 
           <div className="mt-20 max-w-xl">
-
             {register ? (
               <>
-
                 <h2
                   className="
                     text-5xl
@@ -130,17 +104,12 @@ export default function AuthLeftPanel({
                     max-w-lg
                   "
                 >
-                  Manage inventory,
-                  monitor sales,
-                  and unlock AI-powered
-                  insights for your
-                  Sari-Sari Store.
+                  Manage inventory, monitor sales, and unlock AI-powered
+                  insights for your Sari-Sari Store.
                 </p>
-
               </>
             ) : (
               <>
-
                 <h2
                   className="
                     text-5xl
@@ -162,24 +131,17 @@ export default function AuthLeftPanel({
                     max-w-lg
                   "
                 >
-                  Analyze sales,
-                  forecast demand,
-                  detect buying patterns,
-                  and grow your store
-                  with AI-powered insights.
+                  Analyze sales, forecast demand, detect buying patterns, and
+                  grow your store with AI-powered insights.
                 </p>
-
               </>
             )}
-
           </div>
-
         </div>
 
         {/* FEATURES */}
 
         <div className="space-y-7">
-
           <Feature
             icon={<FiBarChart2 />}
             title="Sales Analytics"
@@ -197,28 +159,17 @@ export default function AuthLeftPanel({
             title="Inventory Intelligence"
             text="Monitor stocks and receive low-stock alerts instantly."
           />
-
         </div>
-
       </div>
-
     </div>
-
   );
 }
 
 /* FEATURE */
 
-function Feature({
-  icon,
-  title,
-  text,
-}) {
-
+function Feature({ icon, title, text }) {
   return (
-
     <div className="flex items-start gap-4">
-
       <div
         className="
           w-14 h-14
@@ -236,10 +187,7 @@ function Feature({
       </div>
 
       <div>
-
-        <h3 className="text-xl font-semibold">
-          {title}
-        </h3>
+        <h3 className="text-xl font-semibold">{title}</h3>
 
         <p
           className="
@@ -251,10 +199,7 @@ function Feature({
         >
           {text}
         </p>
-
       </div>
-
     </div>
-
   );
 }

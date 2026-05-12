@@ -1,17 +1,7 @@
-import {
-  FiTrendingUp,
-} from "react-icons/fi";
+import { FiTrendingUp } from "react-icons/fi";
 
-export default function StatsCard({
-  title,
-  value,
-  subtitle,
-  growth,
-  top,
-}) {
-
+export default function StatsCard({ title, value, subtitle, growth, top }) {
   return (
-
     <div
       className="
         relative
@@ -37,7 +27,6 @@ export default function StatsCard({
         duration-300
       "
     >
-
       {/* TOP BORDER */}
 
       <div
@@ -67,9 +56,7 @@ export default function StatsCard({
           justify-between
         "
       >
-
         <div>
-
           <p
             className="
               text-[15px]
@@ -98,7 +85,6 @@ export default function StatsCard({
           >
             {value}
           </h2>
-
         </div>
 
         {/* ICON */}
@@ -122,7 +108,6 @@ export default function StatsCard({
         >
           <FiTrendingUp />
         </div>
-
       </div>
 
       {/* SUBTITLE */}
@@ -144,7 +129,6 @@ export default function StatsCard({
       {/* GROWTH */}
 
       <div className="mt-5">
-
         <span
           className="
             inline-flex
@@ -166,7 +150,6 @@ export default function StatsCard({
         >
           {growth}
         </span>
-
       </div>
 
       {/* FOOTER */}
@@ -181,7 +164,6 @@ export default function StatsCard({
           pt-5
         "
       >
-
         <p
           className="
             text-[15px]
@@ -193,9 +175,7 @@ export default function StatsCard({
         >
           {top}
         </p>
-
       </div>
-
     </div>
   );
 }
