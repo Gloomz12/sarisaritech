@@ -43,9 +43,7 @@ export default function Restock() {
     return priority[getStatus(a)] - priority[getStatus(b)];
   });
 
-  const filteredAndSorted = sortedProducts.filter((p) =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredAndSorted = sortedProducts.filter((p) => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const handleRestockClick = (product) => {
     setSelectedProduct(product);
@@ -70,20 +68,11 @@ export default function Restock() {
 
       <StockSummary products={products} getStatus={getStatus} />
 
-      <SearchBar
-        placeholder="Search for products..."
-        value={searchQuery}
-        onSearchChange={setSearchQuery}
-      />
+      <SearchBar placeholder="Search for products..." value={searchQuery} onSearchChange={setSearchQuery} />
 
       <div className="restock-grid">
         {filteredAndSorted.map((product) => (
-          <RestockCard
-            key={product.id}
-            product={product}
-            getStatus={getStatus}
-            onRestock={handleRestockClick}
-          />
+          <RestockCard key={product.id} product={product} getStatus={getStatus} onRestock={handleRestockClick} />
         ))}
       </div>
 

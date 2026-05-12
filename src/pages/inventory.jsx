@@ -141,9 +141,7 @@ export default function Inventory() {
     (product) => product.stock_quantity > 0 && product.stock_quantity <= product.min_stock_level
   ).length;
 
-  const outOfStockCount = processedProducts.filter(
-    (product) => product.stock_quantity === 0
-  ).length;
+  const outOfStockCount = processedProducts.filter((product) => product.stock_quantity === 0).length;
 
   const totalCostValue = processedProducts.reduce((total, product) => {
     return total + product.cost_price * product.stock_quantity;
@@ -162,9 +160,7 @@ export default function Inventory() {
   const filteredProducts = processedProducts.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase());
 
-    const matchesCategory = selectedCategory.includes("All")
-      ? true
-      : selectedCategory.includes(product.category);
+    const matchesCategory = selectedCategory.includes("All") ? true : selectedCategory.includes(product.category);
 
     return matchesSearch && matchesCategory;
   });
@@ -209,9 +205,7 @@ export default function Inventory() {
 
   const lowStockProducts = processedProducts
 
-    .filter(
-      (product) => product.stock_quantity > 0 && product.stock_quantity <= product.min_stock_level
-    )
+    .filter((product) => product.stock_quantity > 0 && product.stock_quantity <= product.min_stock_level)
 
     .sort((a, b) => a.stock_quantity - b.stock_quantity)
 
@@ -221,25 +215,17 @@ export default function Inventory() {
     <div className="space-y-5 bg-[#f8fafc]">
       {/* ADD */}
 
-      {showAddModal && (
-        <AddProductModal onClose={() => setShowAddModal(false)} refreshProducts={fetchProducts} />
-      )}
+      {showAddModal && <AddProductModal onClose={() => setShowAddModal(false)} refreshProducts={fetchProducts} />}
 
       {/* EDIT */}
 
       {showEditModal && (
-        <EditProductModal
-          product={selectedProduct}
-          onClose={() => setShowEditModal(false)}
-          refreshProducts={fetchProducts}
-        />
+        <EditProductModal product={selectedProduct} onClose={() => setShowEditModal(false)} refreshProducts={fetchProducts} />
       )}
 
       {/* VIEW */}
 
-      {showViewModal && (
-        <ViewProductModal product={selectedProduct} onClose={() => setShowViewModal(false)} />
-      )}
+      {showViewModal && <ViewProductModal product={selectedProduct} onClose={() => setShowViewModal(false)} />}
 
       {/* HERO */}
 

@@ -58,8 +58,7 @@ export default function Statistics() {
         });
       }
 
-      getBucketKey = (date) =>
-        Math.floor((date.getTime() - currentStart.getTime()) / (2 * 60 * 60 * 1000)).toString();
+      getBucketKey = (date) => Math.floor((date.getTime() - currentStart.getTime()) / (2 * 60 * 60 * 1000)).toString();
     } else if (timeRange === "1week" || timeRange === "1month") {
       const days = timeRange === "1week" ? 7 : 30;
 
@@ -67,11 +66,7 @@ export default function Statistics() {
       prevStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (days * 2 - 1));
 
       for (let i = 0; i < days; i++) {
-        const d = new Date(
-          currentStart.getFullYear(),
-          currentStart.getMonth(),
-          currentStart.getDate() + i
-        );
+        const d = new Date(currentStart.getFullYear(), currentStart.getMonth(), currentStart.getDate() + i);
 
         buckets.push({
           key: `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`,
@@ -87,20 +82,7 @@ export default function Statistics() {
       currentStart = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1);
       prevStart = new Date(now.getFullYear(), now.getMonth() - (months * 2 - 1), 1);
 
-      const monthNames = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
       for (let i = 0; i < months; i++) {
         const d = new Date(currentStart.getFullYear(), currentStart.getMonth() + i, 1);
@@ -166,12 +148,7 @@ export default function Statistics() {
       }))
       .sort((a, b) => b.value - a.value);
 
-    const trend =
-      prevTotal === 0
-        ? currentTotal > 0
-          ? 100
-          : 0
-        : ((currentTotal - prevTotal) / prevTotal) * 100;
+    const trend = prevTotal === 0 ? (currentTotal > 0 ? 100 : 0) : ((currentTotal - prevTotal) / prevTotal) * 100;
 
     const topProductsList = Object.values(productStats)
       .sort((a, b) => b.revenue - a.revenue)
@@ -180,9 +157,7 @@ export default function Statistics() {
     return {
       cards: {
         total: currentTotal.toLocaleString(),
-        avg: currentTransactions.length
-          ? Math.round(currentTotal / currentTransactions.length).toLocaleString()
-          : "0",
+        avg: currentTransactions.length ? Math.round(currentTotal / currentTransactions.length).toLocaleString() : "0",
         trend: trend.toFixed(1),
         best: Math.max(...buckets.map((b) => b.amount), 0).toLocaleString(),
         active: currentTransactions.length,
@@ -235,9 +210,7 @@ export default function Statistics() {
 
         <div className="trend-box">
           <div className="trend-left">
-            <div
-              className={`trend-arrow ${parseFloat(analytics.cards.trend) < 0 ? "down" : "up"} icon`}
-            >
+            <div className={`trend-arrow ${parseFloat(analytics.cards.trend) < 0 ? "down" : "up"} icon`}>
               {parseFloat(analytics.cards.trend) < 0 ? "↘" : "↗"}
             </div>
             <div className="trend-texts">
@@ -257,10 +230,7 @@ export default function Statistics() {
             <div
               className="chart-inner-container"
               style={{
-                width:
-                  analytics.chart.labels.length > 7
-                    ? `${analytics.chart.labels.length * 50}px`
-                    : "100%",
+                width: analytics.chart.labels.length > 7 ? `${analytics.chart.labels.length * 50}px` : "100%",
               }}
             >
               <Bar
@@ -277,9 +247,7 @@ export default function Statistics() {
               />
             </div>
           </div>
-          {analytics.chart.labels.length > 7 && (
-            <p className="scroll-hint">← Swipe to see more →</p>
-          )}
+          {analytics.chart.labels.length > 7 && <p className="scroll-hint">← Swipe to see more →</p>}
         </div>
 
         <div className="bottom-metrics">
@@ -322,10 +290,7 @@ export default function Statistics() {
                     <span className="cat-percentage">{cat.percentage}%</span>
                   </div>
                   <div className="progress-bar-bg">
-                    <div
-                      className={`progress-fill fill-${index % 5}`}
-                      style={{ width: `${cat.percentage}%` }}
-                    ></div>
+                    <div className={`progress-fill fill-${index % 5}`} style={{ width: `${cat.percentage}%` }}></div>
                   </div>
                   <p className="cat-value">₱{cat.value.toLocaleString()}</p>
                 </div>

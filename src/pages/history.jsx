@@ -1,193 +1,161 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from "react";
 
-// COMPONENTS
-import Header from '../component/common/Header.jsx';
-import SearchBar from '../component/common/SearchBar.jsx';
-import CategoryFilter from '../component/inventory/CategoryFilter.jsx';
-import TransactionItem from '../component/sales/TransactionItem.jsx';
+// // COMPONENTS
+// import Header from "../component/common/Header.jsx";
+// import SearchBar from "../component/common/SearchBar.jsx";
+// import CategoryFilter from "../component/inventory/CategoryFilter.jsx";
+// import TransactionItem from "../component/sales/TransactionItem.jsx";
 
-// ICONS
-import { BsCashStack } from "react-icons/bs";
-import { FaCashRegister } from "react-icons/fa";
+// // ICONS
+// import { BsCashStack } from "react-icons/bs";
+// import { FaCashRegister } from "react-icons/fa";
 
-// SERVICES 
-import transactionService from '../services/transactionService.js';
+// // SERVICES
+// import transactionService from "../services/transactionService.js";
 
-export default function History() {
+// export default function History() {
+//   const [transactions, setTransactions] = useState([]);
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const [activeMethod, setActiveMethod] = useState("All Payments");
 
-  const [transactions, setTransactions] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeMethod, setActiveMethod] = useState("All Payments");
+//   // FETCH TRANSACTIONS
+//   useEffect(() => {
+//     const fetchTransactions = async () => {
+//       try {
+//         const data = await transactionService.getAllTransactions();
+//         setTransactions(data);
+//       } catch (err) {
+//         console.error("Error fetching transactions:", err);
+//       }
+//     };
 
-  // FETCH TRANSACTIONS
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const data = await transactionService.getAllTransactions();
-        setTransactions(data);
-      } catch (err) {
-        console.error("Error fetching transactions:", err);
-      }
-    };
+//     fetchTransactions();
+//   }, []);
 
-    fetchTransactions();
+//   // TOTALS
+//   const totalSales = transactions.reduce((acc, curr) => acc + curr.total_amount, 0);
 
-  }, []);
+//   const totalCount = transactions.length;
 
-  // TOTALS
-  const totalSales = transactions.reduce(
-    (acc, curr) => acc + curr.total_amount,
-    0
-  );
+//   const formattedSales = new Intl.NumberFormat("en-PH", {
+//     style: "currency",
+//     currency: "PHP",
+//   }).format(totalSales);
 
-  const totalCount = transactions.length;
+//   // PAYMENT METHODS
+//   const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya"];
 
-  const formattedSales = new Intl.NumberFormat('en-PH', {
-    style: 'currency',
-    currency: 'PHP',
-  }).format(totalSales);
+//   // FILTER
+//   const filteredTransactions = transactions.filter((t) => {
+//     const matchesMethod = activeMethod === "All Payments" || t.payment_method === activeMethod;
 
-  // PAYMENT METHODS
-  const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya"];
+//     const matchesSearch = t.items.some((item) => item.product_name.toLowerCase().includes(searchQuery.toLowerCase()));
 
-  // FILTER
-  const filteredTransactions = transactions.filter(t => {
-    const matchesMethod =
-      activeMethod === "All Payments" ||
-      t.payment_method === activeMethod;
+//     return matchesMethod && matchesSearch;
+//   });
 
-    const matchesSearch = t.items.some(item =>
-      item.product_name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
+//   const methodTotal = filteredTransactions.reduce((acc, curr) => acc + curr.total_amount, 0);
 
-    return matchesMethod && matchesSearch;
-  });
+//   // SORT
+//   const sortedTransactions = [...filteredTransactions].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-  const methodTotal = filteredTransactions.reduce(
-    (acc, curr) => acc + curr.total_amount,
-    0
-  );
+//   // FORMAT TIME
+//   const formatTime = (isoString) => {
+//     return new Date(isoString).toLocaleTimeString("en-US", {
+//       hour: "2-digit",
+//       minute: "2-digit",
+//       hour12: true,
+//     });
+//   };
 
-  // SORT
-  const sortedTransactions = [...filteredTransactions].sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
+//   // GROUP BY DATE
+//   const groupedTransactions = sortedTransactions.reduce((groups, trans) => {
+//     const dateStr = new Date(trans.created_at).toLocaleDateString("en-US", {
+//       weekday: "long",
+//       month: "short",
+//       day: "numeric",
+//     });
 
-  // FORMAT TIME
-  const formatTime = (isoString) => {
-    return new Date(isoString).toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
-  };
+//     if (!groups[dateStr]) {
+//       groups[dateStr] = [];
+//     }
 
-  // GROUP BY DATE
-  const groupedTransactions = sortedTransactions.reduce((groups, trans) => {
-    const dateStr = new Date(trans.created_at).toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'short',
-      day: 'numeric'
-    });
+//     groups[dateStr].push(trans);
+//     return groups;
+//   }, {});
 
-    if (!groups[dateStr]) {
-      groups[dateStr] = [];
-    }
+//   return (
+//     <div className="history-page-container">
+//       <Header currentPage="History" />
 
-    groups[dateStr].push(trans);
-    return groups;
-  }, {});
+//       {/* SUMMARY */}
+//       <div className="transactions-summary-grid">
+//         <div className="stat-card">
+//           <div className="stat-icon sales-bg">
+//             <BsCashStack />
+//           </div>
+//           <div className="stat-info">
+//             <span className="stat-title">TOTAL SALES</span>
+//             <h2 className="stat-number">{formattedSales}</h2>
+//           </div>
+//         </div>
 
-  return (
-    <div className="history-page-container">
-      <Header currentPage="History" />
+//         <div className="stat-card">
+//           <div className="stat-icon trans-bg">
+//             <FaCashRegister />
+//           </div>
+//           <div className="stat-info">
+//             <span className="stat-title">TRANSACTIONS</span>
+//             <h2 className="stat-number">{totalCount}</h2>
+//           </div>
+//         </div>
+//       </div>
 
-      {/* SUMMARY */}
-      <div className="transactions-summary-grid">
-        <div className="stat-card">
-          <div className="stat-icon sales-bg">
-            <BsCashStack />
-          </div>
-          <div className="stat-info">
-            <span className="stat-title">TOTAL SALES</span>
-            <h2 className="stat-number">{formattedSales}</h2>
-          </div>
-        </div>
+//       {/* SEARCH */}
+//       <SearchBar value={searchQuery} onSearchChange={setSearchQuery} />
 
-        <div className="stat-card">
-          <div className="stat-icon trans-bg">
-            <FaCashRegister />
-          </div>
-          <div className="stat-info">
-            <span className="stat-title">TRANSACTIONS</span>
-            <h2 className="stat-number">{totalCount}</h2>
-          </div>
-        </div>
-      </div>
+//       {/* FILTER */}
+//       <CategoryFilter categories={paymentMethods} activeCategory={activeMethod} onCategoryChange={setActiveMethod} />
 
-      {/* SEARCH */}
-      <SearchBar
-        value={searchQuery}
-        onSearchChange={setSearchQuery}
-      />
+//       {/* FILTER INFO */}
+//       <div className="filter-stats-container">
+//         <div className="filter-text-group">
+//           <h3 className="filter-period-label">Recent Activity</h3>
+//           <div className="filter-info">
+//             <span>{filteredTransactions.length} transactions</span>
+//             <span className="divider-dot">•</span>
+//             <span className="amount-label">₱{methodTotal.toLocaleString()}</span>
+//           </div>
+//         </div>
+//       </div>
 
-      {/* FILTER */}
-      <CategoryFilter
-        categories={paymentMethods}
-        activeCategory={activeMethod}
-        onCategoryChange={setActiveMethod}
-      />
+//       {/* LIST */}
+//       <div className="transactions-list-scroll">
+//         {Object.keys(groupedTransactions).map((dateKey) => {
+//           const dayTransactions = groupedTransactions[dateKey];
 
-      {/* FILTER INFO */}
-      <div className="filter-stats-container">
-        <div className="filter-text-group">
-          <h3 className="filter-period-label">Recent Activity</h3>
-          <div className="filter-info">
-            <span>{filteredTransactions.length} transactions</span>
-            <span className="divider-dot">•</span>
-            <span className="amount-label">
-              ₱{methodTotal.toLocaleString()}
-            </span>
-          </div>
-        </div>
-      </div>
+//           const dayTotal = dayTransactions.reduce((sum, t) => sum + t.total_amount, 0);
 
-      {/* LIST */}
-      <div className="transactions-list-scroll">
-        {Object.keys(groupedTransactions).map((dateKey) => {
-          const dayTransactions = groupedTransactions[dateKey];
+//           return (
+//             <div key={dateKey} className="date-group">
+//               <div className="daily-header">
+//                 <div className="header-info">
+//                   <h3 className="header-date">{dateKey}</h3>
+//                   <span className="header-stats">
+//                     {dayTransactions.length} transactions • ₱{dayTotal.toLocaleString()}
+//                   </span>
+//                 </div>
+//               </div>
 
-          const dayTotal = dayTransactions.reduce(
-            (sum, t) => sum + t.total_amount,
-            0
-          );
-
-          return (
-            <div key={dateKey} className="date-group">
-              <div className="daily-header">
-                <div className="header-info">
-                  <h3 className="header-date">{dateKey}</h3>
-                  <span className="header-stats">
-                    {dayTransactions.length} transactions • ₱{dayTotal.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-
-              <div className="day-items">
-                {dayTransactions.map((transaction) => (
-                  <TransactionItem
-                    key={transaction.id}
-                    transaction={transaction}
-                    formatTime={formatTime}
-                  />
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
+//               <div className="day-items">
+//                 {dayTransactions.map((transaction) => (
+//                   <TransactionItem key={transaction.id} transaction={transaction} formatTime={formatTime} />
+//                 ))}
+//               </div>
+//             </div>
+//           );
+//         })}
+//       </div>
+//     </div>
+//   );
+// }
