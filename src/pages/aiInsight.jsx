@@ -36,10 +36,7 @@ export default function AiInsight() {
     productsData.forEach((p) => {
       catCounts[p.category] = (catCounts[p.category] || 0) + 1;
     });
-    const topCat = Object.keys(catCounts).reduce(
-      (a, b) => (catCounts[a] > catCounts[b] ? a : b),
-      "N/A"
-    );
+    const topCat = Object.keys(catCounts).reduce((a, b) => (catCounts[a] > catCounts[b] ? a : b), "N/A");
 
     const recs = [];
 
@@ -107,9 +104,7 @@ export default function AiInsight() {
             <MdOutlineInventory2 className="stat-icon-img stock" />
             <div className="stat-info">
               <label>Low Stock Items</label>
-              <h3 className={insights.stats.lowStockCount > 0 ? "red-text" : ""}>
-                {insights.stats.lowStockCount}
-              </h3>
+              <h3 className={insights.stats.lowStockCount > 0 ? "red-text" : ""}>{insights.stats.lowStockCount}</h3>
             </div>
           </div>
         </div>
@@ -118,9 +113,7 @@ export default function AiInsight() {
           <h3>Strategic Recommendations</h3>
           {insights.recommendations.map((rec, i) => (
             <div key={i} className={`ai-rec-box ${rec.type}`}>
-              <div className="ai-rec-icon">
-                {rec.type === "warning" ? <HiOutlineTrendingDown /> : <HiOutlineTrendingUp />}
-              </div>
+              <div className="ai-rec-icon">{rec.type === "warning" ? <HiOutlineTrendingDown /> : <HiOutlineTrendingUp />}</div>
               <div className="ai-rec-content">
                 <h4>{rec.title}</h4>
                 <p>{rec.text}</p>
