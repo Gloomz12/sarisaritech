@@ -1,13 +1,11 @@
 import { FiTrendingUp } from "react-icons/fi";
 
-export default function StatsCard({ title, value, subtitle, growth, top }) {
+export default function StatsCard({ title, value, subtitle, growth, top, average }) {
   return (
     <div
       className="
         relative
         overflow-hidden
-
-        min-h-[260px]
 
         bg-white
         dark:bg-[#0F172A]
@@ -39,9 +37,9 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
           h-[2px]
 
           bg-gradient-to-r
-          from-[#8B5CF6]
-          via-[#6366F1]
-          to-[#3B82F6]
+          from-[#F97316]
+          via-[#FB923C]
+          to-[#FDBA74]
 
           opacity-80
         "
@@ -78,9 +76,9 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
 
               tracking-[-2px]
 
-              text-orange-500
+              mt-4
 
-              mt-5
+              text-orange-500
             "
           >
             {value}
@@ -91,8 +89,8 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
 
         <div
           className="
-            w-14
-            h-14
+            w-12
+            h-12
 
             rounded-2xl
 
@@ -103,7 +101,7 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
             justify-center
 
             text-orange-500
-            text-[24px]
+            text-[20px]
           "
         >
           <FiTrendingUp />
@@ -112,30 +110,36 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
 
       {/* SUBTITLE */}
 
-      <p
+      <div
         className="
-          mt-6
+          mt-7
 
-          text-[18px]
-          font-semibold
-
-          text-[#0F172A]
-          dark:text-white
+          flex
+          items-center
+          justify-between
         "
       >
-        {subtitle}
-      </p>
+        <p
+          className="
+            text-[16px]
+            font-semibold
 
-      {/* GROWTH */}
+            text-[#0F172A]
+            dark:text-white
+          "
+        >
+          {subtitle}
+        </p>
 
-      <div className="mt-5">
+        {/* GROWTH */}
+
         <span
           className="
             inline-flex
             items-center
 
-            px-4
-            py-2
+            px-3
+            py-1.5
 
             rounded-full
 
@@ -152,6 +156,31 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
         </span>
       </div>
 
+      {/* AVERAGE SALE */}
+
+      <div className="mt-4">
+        <p
+          className="
+            text-sm
+            text-gray-500
+            dark:text-gray-400
+          "
+        >
+          Average Sale:
+          <span
+            className="
+              ml-1
+              font-bold
+
+              text-[#0F172A]
+              dark:text-white
+            "
+          >
+            {average}
+          </span>
+        </p>
+      </div>
+
       {/* FOOTER */}
 
       <div
@@ -160,21 +189,51 @@ export default function StatsCard({ title, value, subtitle, growth, top }) {
           border-gray-100
           dark:border-white/5
 
-          mt-6
-          pt-5
+          mt-7
+          pt-4
         "
       >
-        <p
+        <div
           className="
-            text-[15px]
-            font-semibold
-
-            text-green-600
-            dark:text-green-400
+            flex
+            items-center
+            gap-2
+            flex-wrap
           "
         >
-          {top}
-        </p>
+          <span
+            className="
+              text-xs
+              font-semibold
+
+              uppercase
+              tracking-wide
+
+              text-gray-400
+            "
+          >
+            Best Seller
+          </span>
+
+          <div
+            className="
+              px-3
+              py-1.5
+
+              rounded-full
+
+              bg-green-500/10
+
+              text-green-600
+              dark:text-green-400
+
+              text-sm
+              font-bold
+            "
+          >
+            {top}
+          </div>
+        </div>
       </div>
     </div>
   );

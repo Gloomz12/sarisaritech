@@ -1,15 +1,44 @@
+import { useEffect, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import QuickActions from "../component/dashboard/QuickActions";
 import DashboardLayout from "../component/dashboard/DashboardLayout";
 import AIInsightPanel from "../component/dashboard/AIInsightPanel";
 import StatsCard from "../component/dashboard/StatsCard";
 import StockAlertCard from "../component/dashboard/StockAlertCard";
 
+import { getDashboardStats } from "../services/dashboardService";
+
 export default function Dashboard() {
+  const navigate = useNavigate();
+
+  const [stats, setStats] = useState(null);
+
+  /* FETCH DASHBOARD */
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      const data = await getDashboardStats();
+
+      setStats(data);
+
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* RECORD SALE */}
 
       <button
+        onClick={() => navigate("/record-sale")}
         className="
           w-full
           h-14
@@ -25,7 +54,6 @@ export default function Dashboard() {
 
           shadow-sm
           hover:shadow-lg
-
           hover:-translate-y-[2px]
 
           transition-all
@@ -55,25 +83,34 @@ export default function Dashboard() {
           grid-cols-1
           xl:grid-cols-3
           gap-4
+          items-start
         "
       >
+        {/* TODAY SALES */}
+
         <StatsCard
           title="Today's Sales"
-          value="₱2,450.00"
-          subtitle="28 Transactions"
-          growth="+18.6%"
-          top="Top: Coke (15 units)"
+          value={`₱${stats?.today?.sales?.toLocaleString() || 0}`}
+          subtitle={`${stats?.today?.transactions || 0} Transactions`}
+          growth={`${stats?.today?.growth || 0}%`}
+          average={`₱${stats?.today?.average_sale || 0}`}
+          top={`Top: ${stats?.today?.top_product || "None"} (${stats?.today?.top_quantity || 0} units)`}
         />
+
+        {/* WEEK SALES */}
 
         <StatsCard
           title="This Week's Sales"
-          value="₱17,850.00"
-          subtitle="210 Transactions"
-          growth="+15.2%"
-          top="Top: Noodles (80 units)"
+          value={`₱${stats?.week?.sales?.toLocaleString() || 0}`}
+          subtitle={`${stats?.week?.transactions || 0} Transactions`}
+          growth={`${stats?.week?.growth || 0}%`}
+          average={`₱${stats?.week?.average_sale || 0}`}
+          top={`${stats?.week?.top_product || "None"} (${stats?.week?.top_quantity || 0} units)`}
         />
 
-        <StockAlertCard />
+        {/* STOCK ALERTS */}
+
+        <StockAlertCard alerts={stats?.stock_alerts || []} />
       </div>
     </div>
   );

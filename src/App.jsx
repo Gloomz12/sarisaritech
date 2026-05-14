@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import React from "react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -10,10 +12,13 @@ import RecordSale from "./pages/RecordSale.jsx";
 import Restock from "./pages/Restock.jsx";
 import Statistics from "./pages/Statistics.jsx";
 import History from "./pages/History.jsx";
+
 import AiInsight from "./pages/AiInsight.jsx";
+
 import Settings from "./pages/Settings.jsx";
 
 import MainLayout from "./layouts/MainLayout.jsx";
+
 import { Toaster } from "react-hot-toast";
 
 import ProtectedRoute from "./component/auth/ProtectedRoute.jsx";
@@ -36,13 +41,15 @@ export default function App() {
       />
 
       <Routes>
-        ...
         {/* DEFAULT */}
         <Route path="/" element={<Navigate to="/login" replace />} />
+
         {/* AUTH */}
         <Route path="/login" element={<Auth />} />
+
         <Route path="/register" element={<Auth />} />
-        {/* MAIN DASHBOARD LAYOUT */}
+
+        {/* MAIN LAYOUT */}
         <Route
           element={
             <ProtectedRoute>
@@ -66,6 +73,7 @@ export default function App() {
 
           <Route path="/settings" element={<Settings />} />
         </Route>
+
         {/* UNKNOWN */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

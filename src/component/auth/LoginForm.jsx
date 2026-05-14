@@ -1,3 +1,5 @@
+// LoginForm.jsx
+
 import { FiMail, FiShoppingCart, FiEye, FiEyeOff } from "react-icons/fi";
 
 import { useState } from "react";
@@ -55,9 +57,19 @@ export default function LoginForm() {
         password,
       });
 
-      /* SAVE USER */
+      console.log("LOGIN RESPONSE:", response.data);
 
+      // CLEAR OLD SESSION
+      localStorage.removeItem("token");
+
+      localStorage.removeItem("user");
+
+      localStorage.removeItem("user_id");
+
+      // SAVE USER
       localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      localStorage.setItem("user_id", response.data.user.id);
 
       localStorage.setItem("token", response.data.token);
 
@@ -67,6 +79,8 @@ export default function LoginForm() {
         navigate("/dashboard");
       }, 1000);
     } catch (err) {
+      console.log("LOGIN ERROR:", err);
+
       setError(err.response?.data?.detail || "Invalid credentials.");
     } finally {
       setLoading(false);

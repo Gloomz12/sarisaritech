@@ -97,6 +97,11 @@ export default function Sidebar() {
 
   /* LOGOUT */
   const handleLogout = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user?.id) {
+      localStorage.removeItem(`cart_${user.id}`);
+    }
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("theme");

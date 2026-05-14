@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function StockAlerts({ lowStock = [] }) {
+  const navigate = useNavigate();
+
   /* SORT */
 
   const sortedAlerts = [...lowStock]
@@ -70,6 +74,7 @@ export default function StockAlerts({ lowStock = [] }) {
           </div>
 
           <button
+            onClick={() => navigate("/restock")}
             className="
               text-[13px]
               font-semibold
@@ -194,6 +199,7 @@ export default function StockAlerts({ lowStock = [] }) {
 
         {lowStock.length > 3 && (
           <button
+            onClick={() => navigate("/restock")}
             className="
               w-full
 

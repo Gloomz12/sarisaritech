@@ -30,11 +30,11 @@ export default function InventoryStats({
 
       <div
         className="
-          rounded-3xl
+          rounded-[24px]
           border
           border-gray-100
           bg-white
-          p-5
+          p-4
           shadow-sm
         "
       >
@@ -52,7 +52,7 @@ export default function InventoryStats({
 
         <p
           className="
-            mt-5
+            mt-3
             text-sm
             text-gray-500
           "
@@ -86,11 +86,11 @@ export default function InventoryStats({
 
       <div
         className="
-          rounded-3xl
+          rounded-[24px]
           border
           border-gray-100
           bg-white
-          p-5
+          p-4
           shadow-sm
         "
       >
@@ -108,7 +108,7 @@ export default function InventoryStats({
 
         <p
           className="
-            mt-5
+            mt-3
             text-sm
             text-gray-500
           "
@@ -148,11 +148,11 @@ export default function InventoryStats({
 
       <div
         className="
-          rounded-3xl
+          rounded-[24px]
           border
           border-gray-100
           bg-white
-          p-5
+          p-4
           shadow-sm
         "
       >
@@ -170,7 +170,7 @@ export default function InventoryStats({
 
         <p
           className="
-            mt-5
+            mt-3
             text-sm
             text-gray-500
           "
@@ -210,11 +210,11 @@ export default function InventoryStats({
 
       <div
         className="
-          rounded-3xl
+          rounded-[24px]
           border
           border-gray-100
           bg-white
-          p-5
+          p-4
           shadow-sm
         "
       >
@@ -232,7 +232,7 @@ export default function InventoryStats({
 
         <p
           className="
-            mt-5
+            mt-3
             text-sm
             text-gray-500
           "

@@ -1,4 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import (
+    APIRouter,
+    HTTPException,
+    Depends
+)
+
 from passlib.context import CryptContext
 
 from app.db.database import get_connection
@@ -6,6 +11,10 @@ from app.db.database import get_connection
 from app.models.settings_model import (
     UpdateSettings,
     ChangePasswordRequest
+)
+
+from app.utils.auth import (
+    get_current_user
 )
 
 router = APIRouter()
@@ -17,16 +26,19 @@ pwd_context = CryptContext(
     deprecated="auto"
 )
 
+
 # UPDATE SETTINGS
-@router.put("/{user_id}")
+@router.put("/")
 def update_settings(
-    user_id: str,
-    data: UpdateSettings
+    data: UpdateSettings,
+    current_user=Depends(get_current_user)
 ):
 
     conn = get_connection()
 
     cursor = conn.cursor()
+
+    user_id = current_user["user_id"]
 
     # UPDATE USER
 
@@ -64,7 +76,9 @@ def update_settings(
             email,
             contact_number,
             store_address
+
         FROM users
+
         WHERE user_id = %s
         """,
         (user_id,)
@@ -84,33 +98,41 @@ def update_settings(
         "user": {
 
             "id": updated_user[0],
+
             "store_name": updated_user[1],
+
             "owner_name": updated_user[2],
+
             "email": updated_user[3],
+
             "contact_number": updated_user[4],
+
             "store_address": updated_user[5],
         }
     }
 
 
-
 # CHANGE PASSWORD
-@router.put("/change-password/{user_id}")
+@router.put("/change-password")
 def change_password(
-    user_id: str,
-    data: ChangePasswordRequest
+    data: ChangePasswordRequest,
+    current_user=Depends(get_current_user)
 ):
 
     conn = get_connection()
 
     cursor = conn.cursor()
 
+    user_id = current_user["user_id"]
+
     # GET USER PASSWORD
 
     cursor.execute(
         """
         SELECT password_hash
+
         FROM users
+
         WHERE user_id = %s
         """,
         (user_id,)
@@ -158,7 +180,9 @@ def change_password(
     cursor.execute(
         """
         UPDATE users
+
         SET password_hash = %s
+
         WHERE user_id = %s
         """,
         (

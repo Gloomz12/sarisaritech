@@ -1,8 +1,6 @@
-import { useState } from "react";
+// PaymentMethod.jsx
 
-export default function PaymentMethod() {
-  const [method, setMethod] = useState("Cash");
-
+export default function PaymentMethod({ paymentMethod, setPaymentMethod }) {
   const methods = ["Cash", "GCash", "Paymaya"];
 
   return (
@@ -10,45 +8,39 @@ export default function PaymentMethod() {
       className="
         grid
         grid-cols-3
-
         gap-1
       "
     >
       {methods.map((item) => (
         <button
           key={item}
-          onClick={() => setMethod(item)}
+          onClick={() => setPaymentMethod(item)}
           className={`
-              h-[30px]
+            h-[30px]
+            rounded-[9px]
+            border
+            text-[10px]
+            font-semibold
+            transition-all
+            duration-300
 
-              rounded-[9px]
-
-              border
-
-              text-[10px]
-              font-semibold
-
-              transition-all
-              duration-300
-
-              ${
-                method === item
-                  ? `
-                    bg-orange-500
-                    border-orange-500
-                    text-white
-                  `
-                  : `
-                    bg-white
-                    border-gray-200
-                    text-[#0F172A]
-
-                    hover:border-orange-300
-                  `
-              }
-            `}
+            ${
+              paymentMethod === item
+                ? `
+                  bg-orange-500
+                  border-orange-500
+                  text-white
+                `
+                : `
+                  bg-white
+                  border-gray-200
+                  text-[#0F172A]
+                  hover:border-orange-300
+                `
+            }
+          `}
         >
-          {item}
+          {item === "Paymaya" ? "PayMaya" : item}
         </button>
       ))}
     </div>

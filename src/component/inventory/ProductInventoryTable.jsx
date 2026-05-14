@@ -60,10 +60,12 @@ export default function ProductInventoryTable({
 
       <div
         className="
-          min-h-[720px]
-          px-6
-          overflow-visible
-        "
+    min-h-[500px]
+
+    px-6
+
+    overflow-visible
+  "
       >
         <table
           className="
@@ -200,88 +202,121 @@ export default function ProductInventoryTable({
 
       <div
         className="
-          flex
-          flex-wrap
-          items-center
-          justify-between
-          gap-4
-          border-t
-          border-[#eef2f7]
-          px-7
-          py-5
-        "
+    flex
+    items-center
+    justify-between
+
+    border-t
+    border-[#eef2f7]
+
+    px-6
+    py-5
+  "
       >
         {/* INFO */}
 
         <p
           className="
-            text-[14px]
-            font-medium
-            text-[#64748b]
-          "
+      text-[13px]
+      font-medium
+      text-[#64748b]
+    "
         >
           Showing <span className="font-bold text-[#0f172a]">{products.length === 0 ? 0 : startIndex + 1}</span> to{" "}
           <span className="font-bold text-[#0f172a]">{Math.min(endIndex, products.length)}</span> of{" "}
-          <span className="font-bold text-[#0f172a]">{products.length}</span> products
+          <span className="font-bold text-[#0f172a]">{products.length}</span>
         </p>
 
         {/* PAGINATION */}
 
         <div
           className="
-            flex
-            items-center
-            gap-3
-          "
+      flex
+      items-center
+      gap-2
+    "
         >
-          {/* PREVIOUS */}
+          {/* PREV */}
 
           <button
             onClick={prevPage}
             disabled={currentPage === 1}
             className="
-              flex
-              h-11
-              items-center
-              gap-2
+        flex
+        h-12
+        w-12
+        items-center
+        justify-center
+
+        rounded-2xl
+
+        border
+        border-[#e2e8f0]
+
+        bg-white
+
+        text-[#475569]
+
+        transition-all
+        duration-200
+
+        hover:border-orange-200
+        hover:text-orange-500
+
+        disabled:cursor-not-allowed
+        disabled:opacity-40
+      "
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          {/* PAGE NUMBERS */}
+
+          {Array.from({ length: totalPages }, (_, index) => {
+            const page = index + 1;
+
+            const active = currentPage === page;
+
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`
+              h-12
+              w-12
+
               rounded-2xl
-              border
-              border-[#e2e8f0]
-              bg-white
-              px-4
+
               text-[14px]
               font-semibold
-              text-[#475569]
 
               transition-all
               duration-200
 
-              hover:border-orange-200
-              hover:text-orange-500
+              ${
+                active
+                  ? `
+                    bg-orange-500
+                    text-white
+                    shadow-sm
+                  `
+                  : `
+                    border
+                    border-[#e2e8f0]
 
-              disabled:cursor-not-allowed
-              disabled:opacity-40
-            "
-          >
-            <ChevronLeft size={17} />
-            Previous
-          </button>
+                    bg-white
+                    text-[#0f172a]
 
-          {/* PAGE */}
-
-          <div
-            className="
-              rounded-2xl
-              bg-[#f8fafc]
-              px-5
-              py-3
-              text-[14px]
-              font-semibold
-              text-[#475569]
-            "
-          >
-            Page <span className="text-[#0f172a]">{currentPage}</span> of <span className="text-[#0f172a]">{totalPages || 1}</span>
-          </div>
+                    hover:border-orange-200
+                    hover:text-orange-500
+                  `
+              }
+            `}
+              >
+                {page}
+              </button>
+            );
+          })}
 
           {/* NEXT */}
 
@@ -289,31 +324,32 @@ export default function ProductInventoryTable({
             onClick={nextPage}
             disabled={currentPage === totalPages || totalPages === 0}
             className="
-              flex
-              h-11
-              items-center
-              gap-2
-              rounded-2xl
-              border
-              border-[#e2e8f0]
-              bg-white
-              px-4
-              text-[14px]
-              font-semibold
-              text-[#475569]
+        flex
+        h-12
+        w-12
+        items-center
+        justify-center
 
-              transition-all
-              duration-200
+        rounded-2xl
 
-              hover:border-orange-200
-              hover:text-orange-500
+        border
+        border-[#e2e8f0]
 
-              disabled:cursor-not-allowed
-              disabled:opacity-40
-            "
+        bg-white
+
+        text-[#475569]
+
+        transition-all
+        duration-200
+
+        hover:border-orange-200
+        hover:text-orange-500
+
+        disabled:cursor-not-allowed
+        disabled:opacity-40
+      "
           >
-            Next
-            <ChevronRight size={17} />
+            <ChevronRight size={18} />
           </button>
         </div>
       </div>

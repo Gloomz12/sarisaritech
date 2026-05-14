@@ -3,10 +3,15 @@ import uuid
 from fastapi import (
     APIRouter,
     HTTPException,
+    Depends,
 )
 
 from app.db.database import (
     get_connection,
+)
+
+from app.utils.auth import (
+    get_current_user,
 )
 
 router = APIRouter()
@@ -14,7 +19,9 @@ router = APIRouter()
 
 # GET PRODUCTS
 @router.get("/")
-def get_products():
+def get_products(
+    current_user=Depends(get_current_user)
+):
 
     try:
 
@@ -36,7 +43,18 @@ def get_products():
 
             LEFT JOIN categories c
             ON p.category_id = c.id
-        """)
+
+            WHERE
+            p.user_id = %s
+
+            AND
+
+             p.is_active = TRUE
+
+            ORDER BY p.name ASC
+        """, (
+            current_user["user_id"],
+        ))
 
         rows = cursor.fetchall()
 
@@ -83,18 +101,17 @@ def get_products():
         )
 
 
-
 # ADD PRODUCT
-
 @router.post("/")
-def add_product(product: dict):
+def add_product(
+    product: dict,
+    current_user=Depends(get_current_user)
+):
 
     try:
 
         conn = get_connection()
         cursor = conn.cursor()
-
-        # CLEAN INPUTS
 
         product_name = (
             product["name"]
@@ -106,18 +123,20 @@ def add_product(product: dict):
             .strip()
         )
 
-        # VALIDATION
-
         if not product_name:
+
             raise HTTPException(
                 status_code=400,
                 detail="Product name is required"
             )
 
-        # CHECK DUPLICATE
+        # CHECK EXISTING PRODUCT
 
         cursor.execute("""
-            SELECT p.id
+            SELECT
+                p.id,
+                p.is_active
+
             FROM products p
 
             LEFT JOIN categories c
@@ -131,28 +150,97 @@ def add_product(product: dict):
 
                 LOWER(TRIM(c.name)) =
                 LOWER(TRIM(%s))
+
+            AND
+
+                p.user_id = %s
         """, (
+
             product_name,
-            category_name
+
+            category_name,
+
+            current_user["user_id"]
+
         ))
 
         existing = cursor.fetchone()
 
         if existing:
 
-            raise HTTPException(
-                status_code=400,
-                detail="Product already exists in this category"
-            )
+            existing_product_id = existing[0]
+
+            is_active = existing[1]
+
+            # PRODUCT STILL ACTIVE
+
+            if is_active:
+
+                raise HTTPException(
+                    status_code=400,
+                    detail="Product already exists in this category"
+                )
+
+            # RESTORE REMOVED PRODUCT
+
+            cursor.execute("""
+                UPDATE products
+
+                SET
+                    is_active = TRUE,
+                    cost_price = %s,
+                    selling_price = %s,
+                    stock_quantity = %s,
+                    min_stock_level = %s,
+                    unit = %s
+
+                WHERE id = %s
+            """, (
+
+                product["cost_price"],
+
+                product["selling_price"],
+
+                product["stock_quantity"],
+
+                product["min_stock_level"],
+
+                product.get("unit", "pc"),
+
+                existing_product_id
+
+            ))
+
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+
+            return {
+                "message": "Product restored successfully"
+            }
 
         # FIND CATEGORY
 
         cursor.execute("""
             SELECT id
+
             FROM categories
-            WHERE LOWER(TRIM(name)) =
-                  LOWER(TRIM(%s))
-        """, (category_name,))
+
+            WHERE
+                LOWER(TRIM(name)) =
+                LOWER(TRIM(%s))
+
+            AND
+
+                user_id = %s
+        """, (
+
+            category_name,
+
+            current_user["user_id"]
+
+        ))
 
         cat = cursor.fetchone()
 
@@ -161,10 +249,30 @@ def add_product(product: dict):
         if not cat:
 
             cursor.execute("""
-                INSERT INTO categories (name)
-                VALUES (%s)
+                INSERT INTO categories (
+
+                    id,
+                    name,
+                    user_id
+
+                )
+
+                VALUES (
+                    %s,
+                    %s,
+                    %s
+                )
+
                 RETURNING id
-            """, (category_name,))
+            """, (
+
+                str(uuid.uuid4()),
+
+                category_name,
+
+                current_user["user_id"]
+
+            ))
 
             category_id = (
                 cursor.fetchone()[0]
@@ -180,6 +288,7 @@ def add_product(product: dict):
             INSERT INTO products (
 
                 id,
+                user_id,
                 name,
                 category_id,
                 cost_price,
@@ -198,11 +307,14 @@ def add_product(product: dict):
                 %s,
                 %s,
                 %s,
+                %s,
                 %s
             )
         """, (
 
             product["id"],
+
+            current_user["user_id"],
 
             product_name,
 
@@ -242,190 +354,12 @@ def add_product(product: dict):
         )
 
 
-
-# UPDATE PRODUCT
-
-@router.put("/{product_id}")
-def update_product(
-    product_id: str,
-    product: dict
-):
-
-    try:
-
-        conn = get_connection()
-        cursor = conn.cursor()
-
-        product_name = (
-            product["name"]
-            .strip()
-        )
-
-        category_name = (
-            product["category"]
-            .strip()
-        )
-
-        # CHECK DUPLICATE EXCEPT SELF
-
-        cursor.execute("""
-            SELECT p.id
-
-            FROM products p
-
-            LEFT JOIN categories c
-            ON p.category_id = c.id
-
-            WHERE
-                LOWER(TRIM(p.name)) =
-                LOWER(TRIM(%s))
-
-            AND
-
-                LOWER(TRIM(c.name)) =
-                LOWER(TRIM(%s))
-
-            AND
-
-                p.id != %s
-        """, (
-            product_name,
-            category_name,
-            product_id
-        ))
-
-        existing = cursor.fetchone()
-
-        if existing:
-
-            raise HTTPException(
-                status_code=400,
-                detail="Another product already exists with same name and category"
-            )
-
-        # FIND CATEGORY
-
-        cursor.execute("""
-            SELECT id
-            FROM categories
-            WHERE LOWER(TRIM(name)) =
-                  LOWER(TRIM(%s))
-        """, (category_name,))
-
-        cat = cursor.fetchone()
-
-        if not cat:
-
-            cursor.execute("""
-                INSERT INTO categories (name)
-                VALUES (%s)
-                RETURNING id
-            """, (category_name,))
-
-            category_id = (
-                cursor.fetchone()[0]
-            )
-
-        else:
-
-            category_id = cat[0]
-
-        # UPDATE
-
-        cursor.execute("""
-            UPDATE products
-
-            SET
-                name=%s,
-                category_id=%s,
-                cost_price=%s,
-                selling_price=%s,
-                stock_quantity=%s,
-                min_stock_level=%s,
-                unit=%s
-
-            WHERE id=%s
-        """, (
-
-            product_name,
-
-            category_id,
-
-            product["cost_price"],
-
-            product["selling_price"],
-
-            product["stock_quantity"],
-
-            product["min_stock_level"],
-
-            product.get("unit", "pc"),
-
-            product_id
-
-        ))
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-
-        return {
-            "message": "Updated"
-        }
-
-    except HTTPException as e:
-
-        raise e
-
-    except Exception as e:
-
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
-
-
-
-# DELETE PRODUCT
-
-@router.delete("/{product_id}")
-def delete_product(product_id: str):
-
-    try:
-
-        conn = get_connection()
-        cursor = conn.cursor()
-
-        cursor.execute("""
-            DELETE FROM products
-            WHERE id=%s
-        """, (product_id,))
-
-        conn.commit()
-
-        cursor.close()
-        conn.close()
-
-        return {
-            "message": "Deleted"
-        }
-
-    except Exception as e:
-
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
-
-
-
 # RESTOCK PRODUCT
-
 @router.put("/restock/{product_id}")
 def restock_product(
     product_id: str,
-    data: dict
+    data: dict,
+    current_user=Depends(get_current_user)
 ):
 
     conn = None
@@ -453,12 +387,22 @@ def restock_product(
             SET stock_quantity =
                 stock_quantity + %s
 
-            WHERE id = %s
+            WHERE
+                id = %s
+
+            AND
+
+                user_id = %s
 
             RETURNING stock_quantity
         """, (
+
             amount,
-            product_id
+
+            product_id,
+
+            current_user["user_id"]
+
         ))
 
         result = cursor.fetchone()
@@ -478,6 +422,7 @@ def restock_product(
             INSERT INTO stock_movements (
 
                 id,
+                user_id,
                 product_id,
                 change_quantity,
                 type
@@ -488,11 +433,14 @@ def restock_product(
                 %s,
                 %s,
                 %s,
+                %s,
                 'RESTOCK'
             )
         """, (
 
             str(uuid.uuid4()),
+
+            current_user["user_id"],
 
             product_id,
 
@@ -534,3 +482,316 @@ def restock_product(
 
         if conn:
             conn.close()
+
+
+# UPDATE PRODUCT
+@router.put("/{product_id}")
+def update_product(
+    product_id: str,
+    product: dict,
+    current_user=Depends(get_current_user)
+):
+
+    try:
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        product_name = (
+            product["name"]
+            .strip()
+        )
+
+        category_name = (
+            product["category"]
+            .strip()
+        )
+
+        # CHECK DUPLICATE
+
+        cursor.execute("""
+            SELECT p.id
+
+            FROM products p
+
+            LEFT JOIN categories c
+            ON p.category_id = c.id
+
+            WHERE
+                LOWER(TRIM(p.name)) =
+                LOWER(TRIM(%s))
+
+            AND
+
+                LOWER(TRIM(c.name)) =
+                LOWER(TRIM(%s))
+
+            AND
+
+                p.id != %s
+
+            AND
+
+                p.user_id = %s
+        """, (
+
+            product_name,
+
+            category_name,
+
+            product_id,
+
+            current_user["user_id"]
+
+        ))
+
+        existing = cursor.fetchone()
+
+        if existing:
+
+            raise HTTPException(
+                status_code=400,
+                detail="Another product already exists with same name and category"
+            )
+
+        # FIND CATEGORY
+
+        cursor.execute("""
+            SELECT id
+
+            FROM categories
+
+            WHERE
+                LOWER(TRIM(name)) =
+                LOWER(TRIM(%s))
+
+            AND
+
+                user_id = %s
+        """, (
+
+            category_name,
+
+            current_user["user_id"]
+
+        ))
+
+        cat = cursor.fetchone()
+
+        if not cat:
+
+            cursor.execute("""
+                INSERT INTO categories (
+
+                    id,
+                    name,
+                    user_id
+
+                )
+
+                VALUES (
+                    %s,
+                    %s,
+                    %s
+                )
+
+                RETURNING id
+            """, (
+
+                str(uuid.uuid4()),
+
+                category_name,
+
+                current_user["user_id"]
+
+            ))
+
+            category_id = (
+                cursor.fetchone()[0]
+            )
+
+        else:
+
+            category_id = cat[0]
+
+        # GET OLD STOCK
+
+        cursor.execute("""
+            SELECT stock_quantity
+
+            FROM products
+
+            WHERE
+                id = %s
+
+            AND
+
+                user_id = %s
+        """, (
+
+            product_id,
+
+            current_user["user_id"]
+
+        ))
+
+        old_stock_result = cursor.fetchone()
+
+        old_stock = old_stock_result[0]
+
+        # UPDATE PRODUCT
+
+        cursor.execute("""
+            UPDATE products
+
+            SET
+                name = %s,
+                category_id = %s,
+                cost_price = %s,
+                selling_price = %s,
+                stock_quantity = %s,
+                min_stock_level = %s,
+                unit = %s
+
+            WHERE
+                id = %s
+
+            AND
+
+                user_id = %s
+        """, (
+
+            product_name,
+
+            category_id,
+
+            product["cost_price"],
+
+            product["selling_price"],
+
+            product["stock_quantity"],
+
+            product["min_stock_level"],
+
+            product.get("unit", "pc"),
+
+            product_id,
+
+            current_user["user_id"]
+
+        ))
+
+       # STOCK ADJUSTMENT LOG
+
+        new_stock = product["stock_quantity"]
+
+        difference = new_stock - old_stock
+
+        if difference != 0:
+
+            cursor.execute("""
+                INSERT INTO stock_movements (
+
+                    id,
+                    user_id,
+                    product_id,
+                    change_quantity,
+                    type,
+                    previous_stock,
+                    new_stock
+
+                )
+
+                VALUES (
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    'ADJUSTMENT',
+                    %s,
+                    %s
+                )
+            """, (
+
+                str(uuid.uuid4()),
+
+                current_user["user_id"],
+
+                product_id,
+
+                difference,
+
+                old_stock,
+
+                new_stock
+
+            ))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return {
+            "message": "Updated"
+        }
+
+    except HTTPException as e:
+
+        raise e
+
+    except Exception as e:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+
+# DELETE PRODUCT
+@router.delete("/{product_id}")
+def delete_product(
+    product_id: str,
+    current_user=Depends(get_current_user)
+):
+
+    try:
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            UPDATE products
+
+            SET
+                is_active = FALSE
+
+            WHERE
+                id = %s
+
+            AND
+
+                user_id = %s
+        """, (
+
+            product_id,
+
+            current_user["user_id"]
+
+        ))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return {
+            "message": "Removed from inventory"
+        }
+
+    except Exception as e:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )

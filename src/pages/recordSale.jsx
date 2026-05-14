@@ -14,6 +14,8 @@ import productService from "../services/productService";
 import transactionService from "../services/transactionService";
 
 export default function RecordSale() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [products, setProducts] = useState([]);
 
   const [search, setSearch] = useState("");
@@ -25,7 +27,7 @@ export default function RecordSale() {
   const [showAddProduct, setShowAddProduct] = useState(false);
 
   const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
+    const savedCart = localStorage.getItem(`cart_${user.id}`);
 
     return savedCart ? JSON.parse(savedCart) : [];
   });
@@ -54,7 +56,7 @@ export default function RecordSale() {
 
       console.log("FETCHED PRODUCTS:", data);
 
-      const savedFavorites = JSON.parse(localStorage.getItem("favorite_products")) || [];
+      const savedFavorites = JSON.parse(localStorage.getItem(`favorite_products_${user.id}`)) || [];
 
       const formattedProducts = data.map((product) => ({
         id: product.id,
@@ -80,7 +82,7 @@ export default function RecordSale() {
 
   useEffect(() => {
     localStorage.setItem(
-      "cart",
+      `cart_${user.id}`,
 
       JSON.stringify(cart)
     );
@@ -148,7 +150,7 @@ export default function RecordSale() {
       .map((product) => String(product.id));
 
     localStorage.setItem(
-      "favorite_products",
+      `favorite_products_${user.id}`,
 
       JSON.stringify(favorites)
     );
@@ -318,7 +320,7 @@ export default function RecordSale() {
 
       setCart([]);
 
-      localStorage.removeItem("cart");
+      localStorage.removeItem(`cart_${user.id}`);
 
       setAmountPaid("");
 
@@ -550,7 +552,7 @@ export default function RecordSale() {
             clearCart={() => {
               setCart([]);
 
-              localStorage.removeItem("cart");
+              localStorage.removeItem(`cart_${user.id}`);
             }}
           />
         </div>

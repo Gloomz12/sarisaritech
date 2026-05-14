@@ -1,20 +1,21 @@
-export const stockStatus = (stock, minStock) => {
-  if (stock <= 0) {
-    return {
-      label: "Out of Stock",
-      color: "text-red-500",
-    };
+export function getStockStatus(stock, minLevel) {
+  const currentStock = Number(stock);
+
+  const minimum = Number(minLevel);
+
+  // OUT OF STOCK
+
+  if (currentStock <= 0) {
+    return "critical";
   }
 
-  if (stock <= minStock) {
-    return {
-      label: "Low Stock",
-      color: "text-yellow-500",
-    };
+  // LOW STOCK
+
+  if (currentStock <= minimum) {
+    return "low";
   }
 
-  return {
-    label: "In Stock",
-    color: "text-green-500",
-  };
-};
+  // GOOD STOCK
+
+  return "good";
+}
