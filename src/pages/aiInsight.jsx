@@ -1,30 +1,94 @@
+import { useEffect, useState } from "react";
+
+import { useSearchParams } from "react-router-dom";
+
 import Header from "../component/aiinsight/Header";
+
 import Tabs from "../component/aiinsight/Tabs";
 
 import Overview from "../component/aiinsight/Overview";
 
 import ForecastSection from "../component/aiinsight/ForecastSection";
+
 import AprioriSection from "../component/aiinsight/AprioriSection";
+
 import RestockSection from "../component/aiinsight/RestockSection";
 
 import GeminiSection from "../component/aiinsight/GeminiSection";
 
-export default function AIInsight() {
+export default function AiInsight() {
+  const [searchParams] = useSearchParams();
+
+  const [activeTab, setActiveTab] = useState("forecast");
+
+  /* URL TAB SYNC */
+
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+
+    if (tab) {
+      setActiveTab(tab);
+
+      setTimeout(() => {
+        const section = document.getElementById(`${tab}-section`);
+
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 100);
+    }
+  }, [searchParams]);
+
+  /* MANUAL TAB SWITCH */
+
+  const navigateInsight = (tab) => {
+    setActiveTab(tab);
+
+    setTimeout(() => {
+      const section = document.getElementById(`${tab}-section`);
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 100);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 p-6 space-y-6">
+    <div
+      className="
+      min-h-screen
+      bg-gray-50
+      p-6
+      space-y-6
+    "
+    >
       <Header />
 
       <Overview />
 
-      <Tabs />
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <ForecastSection />
+      {/* FORECAST */}
 
-      <AprioriSection />
+      <div id="forecast-section">{activeTab === "forecast" && <ForecastSection navigateInsight={navigateInsight} />}</div>
 
-      <RestockSection />
+      {/* APRIORI */}
 
-      <GeminiSection />
+      <div id="apriori-section">{activeTab === "apriori" && <AprioriSection navigateInsight={navigateInsight} />}</div>
+
+      {/* RESTOCK */}
+
+      <div id="restock-section">{activeTab === "restock" && <RestockSection navigateInsight={navigateInsight} />}</div>
+
+      {/* GEMINI */}
+
+      <div id="gemini-section">{activeTab === "gemini" && <GeminiSection navigateInsight={navigateInsight} />}</div>
     </div>
   );
 }

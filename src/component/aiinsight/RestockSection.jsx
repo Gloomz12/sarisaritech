@@ -9,8 +9,6 @@ export default function RestockSection() {
 
           <p className="text-sm text-gray-500">AI-powered inventory suggestions</p>
         </div>
-
-        <button className="px-4 py-2 bg-gray-100 rounded-xl text-sm">Refresh</button>
       </div>
 
       <RestockTable />
