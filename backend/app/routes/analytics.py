@@ -1,0 +1,480 @@
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+)
+
+from app.db.database import (
+    get_connection,
+)
+
+from app.utils.auth import (
+    get_current_user,
+)
+
+router = APIRouter()
+
+
+
+# RANGE FILTER
+def get_interval(range_value):
+
+    mapping = {
+
+        "7days":
+            "7 days",
+
+        "30days":
+            "30 days",
+
+        "3months":
+            "3 months",
+
+        "1year":
+            "1 year",
+    }
+
+    return mapping.get(
+        range_value,
+        "30 days"
+    )
+
+
+# ====================================
+# OVERVIEW
+# ====================================
+
+@router.get("/overview")
+def get_overview(
+    range: str = "30days",
+    current_user=Depends(
+        get_current_user
+    )
+):
+
+    conn = None
+    cursor = None
+
+    try:
+
+        interval = get_interval(range)
+
+        conn = get_connection()
+
+        cursor = conn.cursor()
+
+        cursor.execute(f"""
+
+            SELECT
+
+                COALESCE(
+                    SUM(total_amount),
+                    0
+                ),
+
+                COUNT(*)
+
+            FROM transactions
+
+            WHERE
+                user_id = %s
+
+            AND
+                created_at >=
+                NOW() - INTERVAL '{interval}'
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        sales_data = cursor.fetchone()
+
+        total_sales = float(
+            sales_data[0]
+        )
+
+        total_orders = sales_data[1]
+
+        average_order_value = (
+
+            total_sales / total_orders
+
+            if total_orders > 0
+
+            else 0
+        )
+
+        cursor.execute("""
+
+            SELECT COUNT(*)
+
+            FROM products
+
+            WHERE
+                user_id = %s
+
+            AND
+                is_active = true
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        active_products = cursor.fetchone()[0]
+
+        return {
+
+            "totalSales":
+                total_sales,
+
+            "totalOrders":
+                total_orders,
+
+            "averageOrderValue":
+                round(
+                    average_order_value,
+                    2
+                ),
+
+            "activeProducts":
+                active_products,
+        }
+
+    except Exception as e:
+
+        print(
+            "ANALYTICS ERROR:",
+            e
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+
+# ====================================
+# SALES TREND
+# ====================================
+
+@router.get("/sales-trend")
+def get_sales_trend(
+    range: str = "30days",
+    current_user=Depends(
+        get_current_user
+    )
+):
+
+    conn = None
+    cursor = None
+
+    try:
+
+        interval = get_interval(range)
+
+        conn = get_connection()
+
+        cursor = conn.cursor()
+
+        cursor.execute(f"""
+
+            SELECT
+
+                DATE(created_at),
+
+                COALESCE(
+                    SUM(total_amount),
+                    0
+                )
+
+            FROM transactions
+
+            WHERE
+                user_id = %s
+
+            AND
+                created_at >=
+                NOW() - INTERVAL '{interval}'
+
+            GROUP BY
+                DATE(created_at)
+
+            ORDER BY
+                DATE(created_at)
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        rows = cursor.fetchall()
+
+        result = []
+
+        for row in rows:
+
+            result.append({
+
+                "date":
+                    str(row[0]),
+
+                "sales":
+                    float(row[1]),
+            })
+
+        return result
+
+    except Exception as e:
+
+        print(
+            "ANALYTICS ERROR:",
+            e
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+
+# ====================================
+# TOP PRODUCTS
+# ====================================
+
+@router.get("/top-products")
+def get_top_products(
+    range: str = "30days",
+    current_user=Depends(
+        get_current_user
+    )
+):
+
+    conn = None
+    cursor = None
+
+    try:
+
+        interval = get_interval(range)
+
+        conn = get_connection()
+
+        cursor = conn.cursor()
+
+        cursor.execute(f"""
+
+            SELECT
+
+                p.name,
+
+                c.name,
+
+                COALESCE(
+                    SUM(ti.quantity),
+                    0
+                ) as sold,
+
+                COALESCE(
+                    SUM(ti.subtotal),
+                    0
+                ) as sales
+
+            FROM transaction_items ti
+
+            JOIN products p
+            ON ti.product_id = p.id
+
+            JOIN categories c
+            ON p.category_id = c.id
+
+            JOIN transactions t
+            ON ti.transaction_id = t.id
+
+            WHERE
+                t.user_id = %s
+
+            AND
+                t.created_at >=
+                NOW() - INTERVAL '{interval}'
+
+            GROUP BY
+                p.name,
+                c.name
+
+            ORDER BY
+                sales DESC
+
+            LIMIT 5
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        rows = cursor.fetchall()
+
+        result = []
+
+        for row in rows:
+
+            result.append({
+
+                "name":
+                    row[0],
+
+                "category":
+                    row[1],
+
+                "sold":
+                    row[2],
+
+                "sales":
+                    float(row[3]),
+            })
+
+        return result
+
+    except Exception as e:
+
+        print(
+            "ANALYTICS ERROR:",
+            e
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+
+# ====================================
+# CATEGORY DISTRIBUTION
+# ====================================
+
+@router.get("/categories")
+def get_categories(
+    range: str = "30days",
+    current_user=Depends(
+        get_current_user
+    )
+):
+
+    conn = None
+    cursor = None
+
+    try:
+
+        interval = get_interval(range)
+
+        conn = get_connection()
+
+        cursor = conn.cursor()
+
+        cursor.execute(f"""
+
+            SELECT
+
+                c.name,
+
+                COALESCE(
+                    SUM(ti.subtotal),
+                    0
+                ) as sales
+
+            FROM transaction_items ti
+
+            JOIN products p
+            ON ti.product_id = p.id
+
+            JOIN categories c
+            ON p.category_id = c.id
+
+            JOIN transactions t
+            ON ti.transaction_id = t.id
+
+            WHERE
+                t.user_id = %s
+
+            AND
+                t.created_at >=
+                NOW() - INTERVAL '{interval}'
+
+            GROUP BY
+                c.name
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        rows = cursor.fetchall()
+
+        total = sum(
+            float(row[1])
+            for row in rows
+        )
+
+        result = []
+
+        for row in rows:
+
+            amount = float(row[1])
+
+            percent = (
+                (amount / total) * 100
+                if total > 0 else 0
+            )
+
+            result.append({
+
+                "name":
+                    row[0],
+
+                "amount":
+                    amount,
+
+                "percent":
+                    round(percent, 1),
+            })
+
+        return result
+
+    except Exception as e:
+
+        print(
+            "ANALYTICS ERROR:",
+            e
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()

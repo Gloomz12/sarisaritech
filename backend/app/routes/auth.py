@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from passlib.context import CryptContext
 from jose import jwt
 from datetime import datetime, timedelta
+import uuid
 
 from app.db.database import get_connection
 
@@ -90,6 +91,7 @@ def register(data: RegisterRequest):
         """
         INSERT INTO users
         (
+            user_id,
             store_name,
             owner_name,
             email,
@@ -102,10 +104,12 @@ def register(data: RegisterRequest):
             %s,
             %s,
             %s,
+            %s,
             %s
         )
         """,
         (
+            str(uuid.uuid4()),
             data.store_name,
             data.owner_name,
             data.email,

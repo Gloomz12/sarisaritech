@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useOutletContext } from "react-router-dom";
 
-import axios from "axios";
+import api from "../services/api";
 
 import { FiLock, FiSettings, FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -91,21 +91,17 @@ export default function Settings() {
 
       const loadingToast = toast.loading("Saving settings...");
 
-      const response = await axios.put(
-        `http://127.0.0.1:8000/api/settings/${user.id}`,
+      const response = await api.put("/settings/", {
+        store_name: form.store_name,
 
-        {
-          store_name: form.store_name,
+        owner_name: form.owner_name,
 
-          owner_name: form.owner_name,
+        email: form.email,
 
-          email: form.email,
+        contact_number: form.contact_number,
 
-          contact_number: form.contact_number,
-
-          store_address: form.store_address,
-        }
-      );
+        store_address: form.store_address,
+      });
 
       const updatedUser = {
         ...user,
@@ -129,9 +125,7 @@ export default function Settings() {
 
       toast.success("Settings saved successfully!");
     } catch (error) {
-      toast.error(
-        error.response?.data?.detail || error.response?.data?.message || "Failed to update settings"
-      );
+      toast.error(error.response?.data?.detail || error.response?.data?.message || "Failed to update settings");
     }
   };
 
@@ -151,19 +145,13 @@ export default function Settings() {
         return;
       }
 
-      const user = JSON.parse(localStorage.getItem("user"));
-
       const loadingToast = toast.loading("Changing password...");
 
-      await axios.put(
-        `http://127.0.0.1:8000/api/settings/change-password/${user.id}`,
+      await api.put("/settings/change-password", {
+        current_password: passwordForm.current_password,
 
-        {
-          current_password: passwordForm.current_password,
-
-          new_password: passwordForm.new_password,
-        }
-      );
+        new_password: passwordForm.new_password,
+      });
 
       toast.dismiss(loadingToast);
 
@@ -239,19 +227,9 @@ export default function Settings() {
             mt-6
           "
         >
-          <Input
-            label="Store Name"
-            name="store_name"
-            value={form.store_name}
-            onChange={handleChange}
-          />
+          <Input label="Store Name" name="store_name" value={form.store_name} onChange={handleChange} />
 
-          <Input
-            label="Owner Name"
-            name="owner_name"
-            value={form.owner_name}
-            onChange={handleChange}
-          />
+          <Input label="Owner Name" name="owner_name" value={form.owner_name} onChange={handleChange} />
 
           <Input
             label="Contact Number"

@@ -13,11 +13,21 @@ const productService = {
 
   updateProduct: async (id, data) => {
     const res = await api.put(`/products/${id}`, data);
+
     return res.data;
   },
 
   deleteProduct: async (id) => {
     const res = await api.delete(`/products/${id}`);
+
+    return res.data;
+  },
+
+  restockProduct: async (productId, amount) => {
+    const res = await api.put(`/products/restock/${productId}`, {
+      amount,
+    });
+
     return res.data;
   },
 };

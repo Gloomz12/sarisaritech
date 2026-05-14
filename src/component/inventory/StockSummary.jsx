@@ -1,6 +1,10 @@
 import { Package, ShoppingCart, Wallet } from "lucide-react";
 
-export default function StockSummary({ totalProducts, totalInventoryValue }) {
+import { useNavigate } from "react-router-dom";
+
+export default function StockSummary({ totalProducts, totalInventoryValue, totalUnits }) {
+  const navigate = useNavigate();
+
   return (
     <div
       className="
@@ -13,6 +17,7 @@ export default function StockSummary({ totalProducts, totalInventoryValue }) {
       "
     >
       {/* HEADER */}
+
       <div>
         <h2
           className="
@@ -37,26 +42,51 @@ export default function StockSummary({ totalProducts, totalInventoryValue }) {
       </div>
 
       {/* SUMMARY LIST */}
+
       <div className="mt-6 space-y-3">
         {/* ITEM */}
+
         <SummaryItem
-          icon={<Package size={20} className="text-orange-500" />}
+          icon={
+            <Package
+              size={20}
+              className="
+                text-orange-500
+              "
+            />
+          }
           title="Total Products"
           subtitle="Need Restock"
           value={totalProducts}
         />
 
         {/* ITEM */}
+
         <SummaryItem
-          icon={<ShoppingCart size={20} className="text-orange-500" />}
+          icon={
+            <ShoppingCart
+              size={20}
+              className="
+                text-orange-500
+              "
+            />
+          }
           title="Total Units"
           subtitle="Across all products"
-          value="156"
+          value={totalUnits}
         />
 
         {/* ITEM */}
+
         <SummaryItem
-          icon={<Wallet size={20} className="text-orange-500" />}
+          icon={
+            <Wallet
+              size={20}
+              className="
+                text-orange-500
+              "
+            />
+          }
           title="Est. Cost"
           subtitle="Estimated amount"
           value={`₱${totalInventoryValue}`}
@@ -64,7 +94,9 @@ export default function StockSummary({ totalProducts, totalInventoryValue }) {
       </div>
 
       {/* BUTTON */}
+
       <button
+        onClick={() => navigate("/restock")}
         className="
           mt-5
           flex
@@ -114,8 +146,10 @@ function SummaryItem({ icon, title, subtitle, value }) {
       "
     >
       {/* LEFT */}
+
       <div className="flex items-center gap-3">
         {/* ICON */}
+
         <div
           className="
             flex
@@ -132,6 +166,7 @@ function SummaryItem({ icon, title, subtitle, value }) {
         </div>
 
         {/* TEXT */}
+
         <div>
           <p
             className="
@@ -157,6 +192,7 @@ function SummaryItem({ icon, title, subtitle, value }) {
       </div>
 
       {/* VALUE */}
+
       <div
         className="
           min-w-[90px]

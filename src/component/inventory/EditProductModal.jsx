@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
+import api from "../../services/api";
 
 import { Archive, Bell, Package, PhilippinePeso, Ruler, Tag, X } from "lucide-react";
 
@@ -9,11 +9,17 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
 
   const [formData, setFormData] = useState({
     name: "",
+
     category: "",
+
     unit: "",
+
     cost_price: "",
+
     selling_price: "",
+
     stock_quantity: "",
+
     min_stock_level: "",
   });
 
@@ -39,33 +45,36 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
     }
   }, [product]);
 
-  /* NORMAL INPUT */
+  /* INPUT */
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
+
       [e.target.name]: e.target.value,
     });
   };
 
-  /* CATEGORY VALIDATION */
+  /* CATEGORY */
 
   const handleCategoryChange = (e) => {
     const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
 
     setFormData({
       ...formData,
+
       category: value,
     });
   };
 
-  /* UNIT VALIDATION */
+  /* UNIT */
 
   const handleUnitChange = (e) => {
     const value = e.target.value.replace(/[^a-zA-Z\s]/g, "").toLowerCase();
 
     setFormData({
       ...formData,
+
       unit: value,
     });
   };
@@ -82,7 +91,7 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
 
       setLoading(true);
 
-      await axios.put(`http://127.0.0.1:8000/api/products/${product.id}`, {
+      await api.put(`/products/${product.id}`, {
         name: formData.name.trim(),
 
         category: formData.category.trim(),
@@ -116,11 +125,15 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
         fixed
         inset-0
         z-50
+
         flex
         items-center
         justify-center
+
         bg-black/40
+
         p-5
+
         backdrop-blur-[2px]
       "
     >
@@ -128,9 +141,13 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
         className="
           w-full
           max-w-[1050px]
+
           overflow-hidden
+
           rounded-[28px]
+
           bg-white
+
           shadow-[0_20px_70px_rgba(15,23,42,0.12)]
         "
       >
@@ -141,8 +158,10 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
             flex
             items-center
             justify-between
+
             border-b
             border-[#eef2f7]
+
             px-8
             py-5
           "
@@ -152,7 +171,9 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
               className="
                 text-[34px]
                 font-bold
+
                 tracking-[-1px]
+
                 text-[#0f172a]
               "
             >
@@ -162,7 +183,9 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
             <p
               className="
                 mt-1
+
                 text-[15px]
+
                 text-[#64748b]
               "
             >
@@ -176,11 +199,15 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
               flex
               h-11
               w-11
+
               items-center
               justify-center
+
               rounded-full
+
               transition-all
               duration-200
+
               hover:bg-[#f8fafc]
             "
           >
@@ -191,20 +218,13 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
         {/* FORM */}
 
         <div className="grid grid-cols-2 gap-4 px-8 py-6">
-          {/* PRODUCT NAME */}
+          {/* NAME */}
 
           <div className="col-span-2">
             <label className={labelClass}>Product Name</label>
 
             <InputWrapper icon={<Package size={21} />}>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="e.g. Coke"
-                className={inputClass}
-              />
+              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="e.g. Coke" className={inputClass} />
             </InputWrapper>
           </div>
 
@@ -231,14 +251,7 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
             <label className={labelClass}>Unit</label>
 
             <InputWrapper icon={<Ruler size={20} />}>
-              <input
-                type="text"
-                name="unit"
-                value={formData.unit}
-                onChange={handleUnitChange}
-                placeholder="pc"
-                className={inputClass}
-              />
+              <input type="text" name="unit" value={formData.unit} onChange={handleUnitChange} placeholder="pc" className={inputClass} />
             </InputWrapper>
           </div>
 
@@ -318,47 +331,58 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
             grid
             grid-cols-2
             gap-4
+
             border-t
             border-[#eef2f7]
+
             bg-white
+
             px-8
             py-5
           "
         >
-          {/* CANCEL */}
-
           <button
             onClick={onClose}
             className="
               h-[58px]
+
               rounded-[18px]
+
               border
               border-[#dbe2ea]
+
               bg-white
+
               text-[16px]
               font-semibold
+
               text-[#475569]
             "
           >
             Cancel
           </button>
 
-          {/* UPDATE */}
-
           <button
             onClick={handleUpdate}
             disabled={loading}
             className="
               h-[58px]
+
               rounded-[18px]
+
               bg-orange-500
+
               text-[16px]
               font-semibold
+
               text-white
+
               shadow-lg
               shadow-orange-500/20
+
               transition-all
               duration-200
+
               hover:bg-orange-600
             "
           >
@@ -378,10 +402,14 @@ function InputWrapper({ icon, children }) {
       className="
         flex
         h-[60px]
+
         overflow-hidden
+
         rounded-[18px]
+
         border
         border-[#e2e8f0]
+
         bg-white
 
         focus-within:border-orange-300
@@ -393,9 +421,12 @@ function InputWrapper({ icon, children }) {
         className="
           flex
           w-[68px]
+
           items-center
           justify-center
+
           bg-[#fff7ed]
+
           text-orange-500
         "
       >
@@ -410,18 +441,25 @@ function InputWrapper({ icon, children }) {
 const inputClass = `
   w-full
   bg-transparent
+
   px-5
+
   text-[15px]
   font-medium
+
   text-[#0f172a]
+
   outline-none
+
   placeholder:text-[#94a3b8]
 `;
 
 const labelClass = `
   mb-2
   block
+
   text-[15px]
   font-semibold
+
   text-[#0f172a]
 `;

@@ -1,13 +1,17 @@
 import { FiAlertTriangle, FiChevronRight } from "react-icons/fi";
 
-export default function StockAlertCard() {
+import { useNavigate } from "react-router-dom";
+
+export default function StockAlertCard({ alerts = [] }) {
+  const navigate = useNavigate();
+
   return (
     <div
       className="
         relative
         overflow-hidden
 
-        min-h-[260px]
+         min-h-[287px]
 
         bg-white
         dark:bg-[#0F172A]
@@ -31,20 +35,20 @@ export default function StockAlertCard() {
 
       <div
         className="
-            absolute
-            top-0
-            left-0
+          absolute
+          top-0
+          left-0
 
-            w-full
-            h-[2px]
+          w-full
+          h-[2px]
 
-            bg-gradient-to-r
-            from-[#8B5CF6]
-            via-[#6366F1]
-            to-[#3B82F6]
+          bg-gradient-to-r
+          from-[#8B5CF6]
+          via-[#6366F1]
+          to-[#3B82F6]
 
-            opacity-80
-          "
+          opacity-80
+        "
       />
 
       {/* HEADER */}
@@ -67,8 +71,8 @@ export default function StockAlertCard() {
 
           <div
             className="
-              w-12
-              h-12
+              w-11
+              h-11
 
               rounded-2xl
 
@@ -79,7 +83,7 @@ export default function StockAlertCard() {
               justify-center
 
               text-red-500
-              text-[20px]
+              text-[18px]
             "
           >
             <FiAlertTriangle />
@@ -88,12 +92,12 @@ export default function StockAlertCard() {
           <div>
             <h3
               className="
-                text-[22px]
+                text-[20px]
                 leading-none
 
                 font-black
 
-                tracking-[-1px]
+                tracking-[-0.5px]
 
                 text-[#0F172A]
                 dark:text-white
@@ -120,6 +124,7 @@ export default function StockAlertCard() {
         {/* BUTTON */}
 
         <button
+          onClick={() => navigate("/restock")}
           className="
             flex
             items-center
@@ -141,12 +146,43 @@ export default function StockAlertCard() {
 
       {/* ALERTS */}
 
-      <div className="mt-6 space-y-3">
-        <Alert item="Coke" stock="20 units left" danger percentage="Critical" />
+      <div className="mt-5 space-y-3">
+        {alerts.length > 0 ? (
+          alerts
+            .slice(0, 3)
+            .map((alert) => (
+              <Alert
+                key={alert.id}
+                item={alert.name}
+                stock={`${alert.stock} units left`}
+                danger={alert.level === "critical"}
+                percentage={alert.level === "critical" ? "Critical" : alert.level === "low" ? "Low" : "Medium"}
+              />
+            ))
+        ) : (
+          <div
+            className="
+              h-[120px]
 
-        <Alert item="Chips" stock="35 units left" percentage="Low" />
+              flex
+              items-center
+              justify-center
 
-        <Alert item="Noodles" stock="42 units left" percentage="Medium" />
+              rounded-2xl
+
+              border
+              border-dashed
+              border-gray-200
+              dark:border-white/10
+
+              text-sm
+
+              text-gray-400
+            "
+          >
+            No low stock alerts
+          </div>
+        )}
       </div>
     </div>
   );
@@ -170,7 +206,7 @@ function Alert({ item, stock, danger, percentage }) {
         dark:bg-[#111827]
 
         px-4
-        py-3
+        py-0.5
 
         transition-all
       "
@@ -180,7 +216,7 @@ function Alert({ item, stock, danger, percentage }) {
       <div>
         <p
           className="
-            text-[17px]
+            text-[16px]
             font-bold
 
             text-[#0F172A]
@@ -192,7 +228,7 @@ function Alert({ item, stock, danger, percentage }) {
 
         <p
           className="
-            mt-1
+            mt-0.5
 
             text-sm
 
@@ -208,12 +244,12 @@ function Alert({ item, stock, danger, percentage }) {
 
       <div
         className={`
-          px-4
-          py-2
+          px-3
+          py-1.5
 
           rounded-full
 
-          text-sm
+          text-xs
           font-bold
 
           ${

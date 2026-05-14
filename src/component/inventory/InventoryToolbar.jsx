@@ -1,26 +1,34 @@
+// InventoryToolbar.jsx
+
 import { useEffect, useState } from "react";
 
 import { ChevronDown, Filter, Search, SlidersHorizontal, Tags } from "lucide-react";
 
 export default function InventoryToolbar({
   showAddModal,
+
   search,
   setSearch,
+
   categories,
+
   selectedCategory,
   setSelectedCategory,
+
   sortBy,
   setSortBy,
 }) {
   const [openFilter, setOpenFilter] = useState(false);
+
+  const [tempCategories, setTempCategories] = useState(Array.isArray(selectedCategory) ? selectedCategory : ["All"]);
+
+  const [tempSortBy, setTempSortBy] = useState(sortBy);
 
   useEffect(() => {
     if (showAddModal) {
       setOpenFilter(false);
     }
   }, [showAddModal]);
-  const [tempCategories, setTempCategories] = useState(Array.isArray(selectedCategory) ? selectedCategory : ["All"]);
-  const [tempSortBy, setTempSortBy] = useState(sortBy);
 
   useEffect(() => {
     setTempCategories(Array.isArray(selectedCategory) ? selectedCategory : ["All"]);
@@ -34,35 +42,44 @@ export default function InventoryToolbar({
     <div>
       {/* SEARCH + FILTER */}
 
-      <div className="flex flex-wrap items-center gap-4">
+      <div
+        className="
+          flex
+          flex-wrap
+          items-center
+          gap-3
+        "
+      >
         {/* SEARCH */}
 
         <div
           className="
             flex
-            h-[56px]
+            h-[52px]
             flex-1
             items-center
 
-            rounded-2xl
+            rounded-[18px]
+
             border
             border-[#e2e8f0]
 
             bg-white
 
-            px-5
+            px-4
 
             transition-all
             duration-200
 
             hover:border-orange-200
+
             focus-within:border-orange-300
             focus-within:ring-4
             focus-within:ring-orange-100
           "
         >
           <Search
-            size={18}
+            size={17}
             className="
               mr-3
               text-[#94a3b8]
@@ -79,7 +96,7 @@ export default function InventoryToolbar({
 
               bg-transparent
 
-              text-[15px]
+              text-[14px]
               font-medium
               text-[#0f172a]
 
@@ -91,23 +108,32 @@ export default function InventoryToolbar({
           />
         </div>
 
-        {/* FILTER BUTTON */}
+        {/* FILTER */}
 
         <div className="relative">
+          {/* BUTTON */}
+
           <button
             onClick={() => setOpenFilter(!openFilter)}
             className={`
               flex
-              h-[56px]
+              h-[48px]
               items-center
-              gap-3
-              rounded-[20px]
+              gap-2.5
+
+              rounded-[16px]
+
               border
+
               bg-white
-              px-6
-              text-[14px]
+
+              px-4
+
+              text-[13px]
               font-semibold
+
               shadow-sm
+
               transition-all
               duration-200
 
@@ -128,13 +154,13 @@ export default function InventoryToolbar({
               }
             `}
           >
-            <Filter size={17} />
+            <Filter size={16} />
             Filter
             {Array.isArray(tempCategories) && tempCategories.length > 0 && !tempCategories.includes("All")
               ? ` (${tempCategories.length})`
               : ""}
             <ChevronDown
-              size={15}
+              size={14}
               className={`
                 transition-transform
                 duration-200
@@ -144,24 +170,32 @@ export default function InventoryToolbar({
             />
           </button>
 
-          {/* FILTER PANEL */}
+          {/* PANEL */}
 
           {openFilter && (
             <div
               className="
-                  absolute
-                  right-0
-                  top-[105%]
-                  z-[9999]
-                  w-[320px]
-                  overflow-hidden
-                  rounded-[28px]
-                  border
-                  border-[#eef2f7]
-                  bg-white
-                  p-6
-                  shadow-[0_20px_60px_rgba(15,23,42,0.16)]
-                "
+                absolute
+                right-0
+                top-[105%]
+
+                z-[9999]
+
+                w-[280px]
+
+                overflow-visible
+
+                rounded-[22px]
+
+                border
+                border-[#eef2f7]
+
+                bg-white
+
+                p-4
+
+                shadow-[0_20px_60px_rgba(15,23,42,0.16)]
+              "
             >
               {/* CATEGORIES */}
 
@@ -170,31 +204,33 @@ export default function InventoryToolbar({
                   className="
                     flex
                     items-center
-                    justify-between
+                    gap-2
                   "
                 >
-                  <div
+                  <Tags
+                    size={14}
                     className="
-                      flex
-                      items-center
-                      gap-2
+                      text-orange-500
+                    "
+                  />
+
+                  <h3
+                    className="
+                      text-[13px]
+                      font-semibold
+                      text-[#0f172a]
                     "
                   >
-                    <Tags size={15} className="text-orange-500" />
-
-                    <h3
-                      className="
-                        text-[14px]
-                        font-semibold
-                        text-[#0f172a]
-                      "
-                    >
-                      Categories
-                    </h3>
-                  </div>
+                    Categories
+                  </h3>
                 </div>
 
-                <div className="mt-4 space-y-3">
+                <div
+                  className="
+                    mt-3
+                    space-y-2.5
+                  "
+                >
                   {categories.map((category) => (
                     <label
                       key={category}
@@ -211,30 +247,37 @@ export default function InventoryToolbar({
                         onChange={() => {
                           if (category === "All") {
                             setTempCategories(["All"]);
+
                             return;
                           }
+
                           let updated = tempCategories.filter((item) => item !== "All");
+
                           if (updated.includes(category)) {
                             updated = updated.filter((item) => item !== category);
                           } else {
                             updated.push(category);
                           }
+
                           if (updated.length === 0) {
                             updated = ["All"];
                           }
+
                           setTempCategories(updated);
                         }}
                         className="
                             h-4
                             w-4
+
                             text-orange-500
+
                             focus:ring-orange-500
                           "
                       />
 
                       <span
                         className="
-                            text-[14px]
+                            text-[13px]
                             font-medium
                             text-[#334155]
                           "
@@ -250,7 +293,8 @@ export default function InventoryToolbar({
 
               <div
                 className="
-                  my-5
+                  my-4
+
                   border-t
                   border-[#eef2f7]
                 "
@@ -266,11 +310,16 @@ export default function InventoryToolbar({
                     gap-2
                   "
                 >
-                  <SlidersHorizontal size={15} className="text-orange-500" />
+                  <SlidersHorizontal
+                    size={14}
+                    className="
+                      text-orange-500
+                    "
+                  />
 
                   <h3
                     className="
-                      text-[14px]
+                      text-[13px]
                       font-semibold
                       text-[#0f172a]
                     "
@@ -283,18 +332,21 @@ export default function InventoryToolbar({
                   value={tempSortBy}
                   onChange={(e) => setTempSortBy(e.target.value)}
                   className="
-                    mt-4
-                    h-[50px]
+                    mt-3
+
+                    h-[44px]
                     w-full
 
-                    rounded-2xl
+                    rounded-[16px]
+
                     border
                     border-[#e2e8f0]
 
                     bg-white
+
                     px-4
 
-                    text-[14px]
+                    text-[13px]
                     font-medium
                     text-[#0f172a]
 
@@ -304,6 +356,7 @@ export default function InventoryToolbar({
                     duration-200
 
                     hover:border-orange-200
+
                     focus:border-orange-300
                   "
                 >
@@ -321,25 +374,36 @@ export default function InventoryToolbar({
 
               {/* BUTTONS */}
 
-              <div className="mt-6 flex gap-3">
+              <div
+                className="
+                  mt-5
+                  flex
+                  gap-3
+                "
+              >
                 {/* RESET */}
 
                 <button
                   onClick={() => {
                     setSearch("");
+
                     setTempCategories(["All"]);
+
                     setTempSortBy("default");
+
                     setSelectedCategory(["All"]);
+
                     setSortBy("default");
                   }}
                   className="
                     flex-1
 
-                    rounded-2xl
+                    rounded-[16px]
+
                     border
                     border-[#e2e8f0]
 
-                    h-[46px]
+                    h-[40px]
 
                     text-[13px]
                     font-semibold
@@ -359,16 +423,19 @@ export default function InventoryToolbar({
                 <button
                   onClick={() => {
                     setSelectedCategory(Array.isArray(tempCategories) ? tempCategories : ["All"]);
+
                     setSortBy(tempSortBy);
+
                     setOpenFilter(false);
                   }}
                   className="
                     flex-1
 
-                    rounded-2xl
+                    rounded-[16px]
+
                     bg-orange-500
 
-                    h-[46px]
+                    h-[40px]
 
                     text-[13px]
                     font-semibold

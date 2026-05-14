@@ -1,8 +1,6 @@
-// src/pages/Inventory.jsx
-
 import { useEffect, useState } from "react";
 
-import axios from "axios";
+import api from "../services/api";
 
 import InventoryStats from "../component/inventory/InventoryStats";
 import InventoryToolbar from "../component/inventory/InventoryToolbar";
@@ -47,7 +45,7 @@ export default function Inventory() {
     try {
       setLoading(true);
 
-      const response = await axios.get("http://127.0.0.1:8000/api/products/");
+      const response = await api.get("/products/");
 
       const backendProducts = response.data.map((product) => ({
         id: product.id,
@@ -70,6 +68,10 @@ export default function Inventory() {
       setProducts(backendProducts);
     } catch (error) {
       console.log(error);
+
+      if (error.response?.status === 401) {
+        alert("Session expired. Please login again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -103,13 +105,15 @@ export default function Inventory() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/products/${product.id}/`);
+      await api.delete(`/products/${product.id}/`);
 
       fetchProducts();
     } catch (error) {
       console.log(error);
 
-      alert("Failed to delete product");
+      console.log(error.response?.data);
+
+      alert(error.response?.data?.detail || error.response?.data?.message || "Failed to delete product");
     }
   };
 
@@ -203,13 +207,29 @@ export default function Inventory() {
 
   /* LOW STOCK ALERTS */
 
-  const lowStockProducts = processedProducts
+  /* LOW STOCK ALERTS */
 
-    .filter((product) => product.stock_quantity > 0 && product.stock_quantity <= product.min_stock_level)
+  const allLowStockProducts = processedProducts
 
-    .sort((a, b) => a.stock_quantity - b.stock_quantity)
+    .filter((product) => {
+      return product.stock_quantity === 0 || product.stock_quantity <= product.min_stock_level;
+    })
 
-    .slice(0, 3);
+    .sort((a, b) => {
+      // OUT OF STOCK FIRST
+
+      if (a.stock_quantity === 0 && b.stock_quantity !== 0) {
+        return -1;
+      }
+
+      if (b.stock_quantity === 0 && a.stock_quantity !== 0) {
+        return 1;
+      }
+
+      return a.stock_quantity - b.stock_quantity;
+    });
+
+  const lowStockProducts = allLowStockProducts.slice(0, 3);
 
   return (
     <div className="space-y-5 bg-[#f8fafc]">
@@ -231,81 +251,81 @@ export default function Inventory() {
 
       <div
         className="
-    relative
-    overflow-hidden
+          relative
+          overflow-hidden
 
-    rounded-[30px]
+          rounded-[30px]
 
-    bg-gradient-to-br
-    from-white
-    to-[#fffaf5]
+          bg-gradient-to-br
+          from-white
+          to-[#fffaf5]
 
-    border
-    border-[#f3f4f6]
+          border
+          border-[#f3f4f6]
 
-    px-8
-    py-6
+          px-8
+          py-6
 
-    shadow-sm
-  "
+          shadow-sm
+        "
       >
         {/* GLOW */}
 
         <div
           className="
-      absolute
-      -top-16
-      -right-16
+            absolute
+            -top-16
+            -right-16
 
-      w-[180px]
-      h-[180px]
+            w-[180px]
+            h-[180px]
 
-      rounded-full
+            rounded-full
 
-      bg-orange-100/20
+            bg-orange-100/20
 
-      blur-3xl
-    "
+            blur-3xl
+          "
         />
 
         <div
           className="
-      relative
-      z-10
+            relative
+            z-10
 
-      flex
-      items-center
-      justify-between
-      gap-6
-    "
+            flex
+            items-center
+            justify-between
+            gap-6
+          "
         >
           {/* LEFT */}
 
           <div>
             <h1
               className="
-          text-[54px]
-          leading-[0.9]
+                text-[54px]
+                leading-[0.9]
 
-          tracking-[-2px]
+                tracking-[-2px]
 
-          font-black
+                font-black
 
-          text-[#071437]
-        "
+                text-[#071437]
+              "
             >
               Inventory
             </h1>
 
             <p
               className="
-          mt-2
+                mt-2
 
-          text-[15px]
+                text-[15px]
 
-          text-gray-500
-          font-medium
-        "
+                text-gray-500
+                font-medium
+              "
             >
               Manage your store products and monitor stock levels efficiently.
             </p>
@@ -316,26 +336,26 @@ export default function Inventory() {
           <button
             onClick={() => setShowAddModal(true)}
             className="
-        h-[52px]
+              h-[52px]
 
-        rounded-2xl
+              rounded-2xl
 
-        bg-orange-500
+              bg-orange-500
 
-        px-7
+              px-7
 
-        text-[14px]
-        font-semibold
-        text-white
+              text-[14px]
+              font-semibold
+              text-white
 
-        transition-all
-        duration-300
+              transition-all
+              duration-300
 
-        hover:bg-orange-600
-        hover:shadow-lg
+              hover:bg-orange-600
+              hover:shadow-lg
 
-        active:scale-[0.98]
-      "
+              active:scale-[0.98]
+            "
           >
             + Add Product
           </button>
@@ -421,13 +441,16 @@ export default function Inventory() {
             gap-4
           "
         >
-          <StockAlerts lowStock={lowStockProducts} />
+          <StockAlerts lowStock={allLowStockProducts} />
 
           <StockSummary
             totalProducts={processedProducts.length}
             lowStock={lowStockCount}
             outOfStock={outOfStockCount}
             totalInventoryValue={totalRetailValue}
+            totalUnits={processedProducts.reduce((sum, product) => {
+              return sum + Number(product.stock_quantity || 0);
+            }, 0)}
           />
         </div>
       </div>

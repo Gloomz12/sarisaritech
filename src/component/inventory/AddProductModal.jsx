@@ -8,11 +8,9 @@ function capitalizeWords(text) {
   return text.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-export default function AddProductModal({
-  onClose,
+export default function AddProductModal({ onClose, refreshProducts }) {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  refreshProducts,
-}) {
   const [loading, setLoading] = useState(false);
 
   const [categories, setCategories] = useState([]);
@@ -67,13 +65,9 @@ export default function AddProductModal({
     ];
 
     const defaultUnits = ["pc", "pack", "box", "bottle", "can", "sachet", "kg", "g", "liter", "ml"];
-
-    const savedCategories = JSON.parse(localStorage.getItem("inventory_categories")) || [];
-
-    const savedUnits = JSON.parse(localStorage.getItem("inventory_units")) || [];
-
+    const savedCategories = JSON.parse(localStorage.getItem(`inventory_categories_${user.id}`)) || [];
+    const savedUnits = JSON.parse(localStorage.getItem(`inventory_units_${user.id}`)) || [];
     setCategories([...new Set([...defaultCategories, ...savedCategories])]);
-
     setUnits([...new Set([...defaultUnits, ...savedUnits])]);
   }, []);
 
@@ -139,7 +133,7 @@ export default function AddProductModal({
     setCategories(updated);
 
     localStorage.setItem(
-      "inventory_categories",
+      `inventory_categories_${user.id}`,
 
       JSON.stringify(updated)
     );
@@ -157,7 +151,7 @@ export default function AddProductModal({
     setUnits(updated);
 
     localStorage.setItem(
-      "inventory_units",
+      `inventory_units_${user.id}`,
 
       JSON.stringify(updated)
     );

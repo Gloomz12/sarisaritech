@@ -1,161 +1,584 @@
-// import React, { useState, useEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-// // COMPONENTS
-// import Header from "../component/common/Header.jsx";
-// import SearchBar from "../component/common/SearchBar.jsx";
-// import CategoryFilter from "../component/inventory/CategoryFilter.jsx";
-// import TransactionItem from "../component/sales/TransactionItem.jsx";
+import { ChevronDown, Filter } from "lucide-react";
 
-// // ICONS
-// import { BsCashStack } from "react-icons/bs";
-// import { FaCashRegister } from "react-icons/fa";
+import StatsCards from "../component/history/StatsCards";
+import SearchBar from "../component/history/SearchBar";
+import TransactionFilters from "../component/history/TransactionFilters";
+import TransactionList from "../component/history/TransactionList";
 
-// // SERVICES
-// import transactionService from "../services/transactionService.js";
+export default function History() {
+  const [search, setSearch] = useState("");
 
-// export default function History() {
-//   const [transactions, setTransactions] = useState([]);
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [activeMethod, setActiveMethod] = useState("All Payments");
+  const [filter, setFilter] = useState("All");
 
-//   // FETCH TRANSACTIONS
-//   useEffect(() => {
-//     const fetchTransactions = async () => {
-//       try {
-//         const data = await transactionService.getAllTransactions();
-//         setTransactions(data);
-//       } catch (err) {
-//         console.error("Error fetching transactions:", err);
-//       }
-//     };
+  const [range, setRange] = useState("Today");
 
-//     fetchTransactions();
-//   }, []);
+  const [sortFilter, setSortFilter] = useState("Latest First");
 
-//   // TOTALS
-//   const totalSales = transactions.reduce((acc, curr) => acc + curr.total_amount, 0);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-//   const totalCount = transactions.length;
+  // API DATA
 
-//   const formattedSales = new Intl.NumberFormat("en-PH", {
-//     style: "currency",
-//     currency: "PHP",
-//   }).format(totalSales);
+  const [transactionsData, setTransactionsData] = useState([]);
 
-//   // PAYMENT METHODS
-//   const paymentMethods = ["All Payments", "Cash", "GCash", "Paymaya"];
+  const [loading, setLoading] = useState(true);
 
-//   // FILTER
-//   const filteredTransactions = transactions.filter((t) => {
-//     const matchesMethod = activeMethod === "All Payments" || t.payment_method === activeMethod;
+  // INFINITE SCROLL
 
-//     const matchesSearch = t.items.some((item) => item.product_name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const [visibleCount, setVisibleCount] = useState(20);
 
-//     return matchesMethod && matchesSearch;
-//   });
+  const loadMoreRef = useRef(null);
 
-//   const methodTotal = filteredTransactions.reduce((acc, curr) => acc + curr.total_amount, 0);
+  // RESET VISIBLE ITEMS
 
-//   // SORT
-//   const sortedTransactions = [...filteredTransactions].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [sortFilter, filter, search, range]);
 
-//   // FORMAT TIME
-//   const formatTime = (isoString) => {
-//     return new Date(isoString).toLocaleTimeString("en-US", {
-//       hour: "2-digit",
-//       minute: "2-digit",
-//       hour12: true,
-//     });
-//   };
+  // FETCH TRANSACTIONS
 
-//   // GROUP BY DATE
-//   const groupedTransactions = sortedTransactions.reduce((groups, trans) => {
-//     const dateStr = new Date(trans.created_at).toLocaleDateString("en-US", {
-//       weekday: "long",
-//       month: "short",
-//       day: "numeric",
-//     });
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
-//     if (!groups[dateStr]) {
-//       groups[dateStr] = [];
-//     }
+  const fetchTransactions = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-//     groups[dateStr].push(trans);
-//     return groups;
-//   }, {});
+      // SALES
 
-//   return (
-//     <div className="history-page-container">
-//       <Header currentPage="History" />
+      const salesResponse = await fetch("http://localhost:8000/api/transactions", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-//       {/* SUMMARY */}
-//       <div className="transactions-summary-grid">
-//         <div className="stat-card">
-//           <div className="stat-icon sales-bg">
-//             <BsCashStack />
-//           </div>
-//           <div className="stat-info">
-//             <span className="stat-title">TOTAL SALES</span>
-//             <h2 className="stat-number">{formattedSales}</h2>
-//           </div>
-//         </div>
+      const salesData = await salesResponse.json();
 
-//         <div className="stat-card">
-//           <div className="stat-icon trans-bg">
-//             <FaCashRegister />
-//           </div>
-//           <div className="stat-info">
-//             <span className="stat-title">TRANSACTIONS</span>
-//             <h2 className="stat-number">{totalCount}</h2>
-//           </div>
-//         </div>
-//       </div>
+      // RESTOCKS
 
-//       {/* SEARCH */}
-//       <SearchBar value={searchQuery} onSearchChange={setSearchQuery} />
+      const restockResponse = await fetch("http://localhost:8000/api/stock-movements", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-//       {/* FILTER */}
-//       <CategoryFilter categories={paymentMethods} activeCategory={activeMethod} onCategoryChange={setActiveMethod} />
+      const restockData = await restockResponse.json();
 
-//       {/* FILTER INFO */}
-//       <div className="filter-stats-container">
-//         <div className="filter-text-group">
-//           <h3 className="filter-period-label">Recent Activity</h3>
-//           <div className="filter-info">
-//             <span>{filteredTransactions.length} transactions</span>
-//             <span className="divider-dot">•</span>
-//             <span className="amount-label">₱{methodTotal.toLocaleString()}</span>
-//           </div>
-//         </div>
-//       </div>
+      if (!salesResponse.ok) {
+        throw new Error(salesData.detail);
+      }
 
-//       {/* LIST */}
-//       <div className="transactions-list-scroll">
-//         {Object.keys(groupedTransactions).map((dateKey) => {
-//           const dayTransactions = groupedTransactions[dateKey];
+      if (!restockResponse.ok) {
+        throw new Error(restockData.detail);
+      }
 
-//           const dayTotal = dayTransactions.reduce((sum, t) => sum + t.total_amount, 0);
+      // FORMAT SALES
 
-//           return (
-//             <div key={dateKey} className="date-group">
-//               <div className="daily-header">
-//                 <div className="header-info">
-//                   <h3 className="header-date">{dateKey}</h3>
-//                   <span className="header-stats">
-//                     {dayTransactions.length} transactions • ₱{dayTotal.toLocaleString()}
-//                   </span>
-//                 </div>
-//               </div>
+      const formattedSales = salesData.map((transaction) => {
+        const date = new Date(transaction.created_at);
 
-//               <div className="day-items">
-//                 {dayTransactions.map((transaction) => (
-//                   <TransactionItem key={transaction.id} transaction={transaction} formatTime={formatTime} />
-//                 ))}
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
+        return {
+          id: transaction.id,
+
+          type: "sale",
+
+          created_at: transaction.created_at,
+
+          date: date.toLocaleDateString("en-US", {
+            weekday: "long",
+
+            month: "long",
+
+            day: "numeric",
+          }),
+
+          time: date.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+
+            minute: "2-digit",
+          }),
+
+          payment_method: transaction.payment_method?.trim(),
+
+          total: transaction.total_amount,
+
+          items_count: transaction.items.length,
+
+          items: transaction.items.map((item) => ({
+            name: item.product_name,
+
+            qty: item.quantity,
+
+            price: item.subtotal,
+          })),
+        };
+      });
+
+      // FORMAT RESTOCKS
+
+      const formattedRestocks = restockData.map((movement) => {
+        const date = new Date(movement.created_at);
+
+        return {
+          id: movement.id,
+
+          type: movement.type === "ADJUSTMENT" ? "adjustment" : "restock",
+
+          created_at: movement.created_at,
+
+          date: date.toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+          }),
+
+          time: date.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+
+          product_name: movement.product_name,
+
+          quantity: movement.change_quantity,
+
+          previous_stock: movement.previous_stock,
+
+          new_stock: movement.new_stock,
+        };
+      });
+
+      // MERGE
+
+      setTransactionsData([...formattedRestocks, ...formattedSales]);
+    } catch (error) {
+      console.error("FETCH ERROR:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // FILTER + SEARCH + RANGE
+
+  const filteredTransactions = useMemo(() => {
+    let filtered = transactionsData.filter((transaction) => {
+      // FILTERS
+
+      let filterMatch = true;
+
+      if (filter === "Sales") {
+        filterMatch = transaction.type === "sale";
+      } else if (filter === "Restocks") {
+        filterMatch = transaction.type === "restock";
+      } else if (filter === "Adjustments") {
+        filterMatch = transaction.type === "adjustment";
+      } else if (filter !== "All") {
+        filterMatch = transaction.payment_method?.toLowerCase()?.trim() === filter?.toLowerCase()?.trim();
+      }
+
+      // SEARCH
+
+      const searchLower = search.toLowerCase();
+
+      const searchMatch =
+        transaction.type === "restock" || transaction.type === "adjustment"
+          ? transaction.product_name?.toLowerCase().includes(searchLower)
+          : transaction.payment_method?.toLowerCase().includes(searchLower) ||
+            (transaction.total || 0).toString().includes(search) ||
+            transaction.items.some((item) => item.name.toLowerCase().includes(searchLower));
+
+      // RANGE FILTER
+
+      const now = new Date();
+
+      const transactionDate = new Date(transaction.created_at);
+
+      let rangeMatch = true;
+
+      if (range === "Today") {
+        rangeMatch = transactionDate.toDateString() === now.toDateString();
+      }
+
+      if (range === "Week") {
+        const diff = (now - transactionDate) / (1000 * 60 * 60 * 24);
+
+        rangeMatch = diff <= 7;
+      }
+
+      if (range === "Month") {
+        rangeMatch = transactionDate.getMonth() === now.getMonth() && transactionDate.getFullYear() === now.getFullYear();
+      }
+
+      return filterMatch && searchMatch && rangeMatch;
+    });
+
+    filtered = [...filtered];
+
+    // SORTING
+
+    if (sortFilter === "Highest Amount") {
+      filtered.sort((a, b) => (b.total || 0) - (a.total || 0));
+    }
+
+    if (sortFilter === "Lowest Amount") {
+      filtered.sort((a, b) => (a.total || 0) - (b.total || 0));
+    }
+
+    if (sortFilter === "Latest First") {
+      filtered.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+
+    if (sortFilter === "Oldest First") {
+      filtered.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+    }
+
+    return filtered;
+  }, [transactionsData, search, filter, sortFilter, range]);
+
+  // VISIBLE ITEMS
+
+  const visibleTransactions = filteredTransactions.slice(0, visibleCount);
+
+  // GROUP BY DATE
+
+  const groupedTransactions = visibleTransactions.reduce((acc, transaction) => {
+    if (!acc[transaction.date]) {
+      acc[transaction.date] = [];
+    }
+
+    acc[transaction.date].push(transaction);
+
+    return acc;
+  }, {});
+
+  // TOTAL SALES
+
+  const totalSales = visibleTransactions.reduce(
+    (sum, transaction) => sum + (transaction.total || 0),
+
+    0
+  );
+
+  // FILTER OPTIONS
+
+  const filterOptions = ["Latest First", "Oldest First", "Highest Amount", "Lowest Amount"];
+
+  // INFINITE SCROLL
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && visibleCount < filteredTransactions.length) {
+          setVisibleCount((prev) => prev + 5);
+        }
+      },
+      {
+        threshold: 1,
+      }
+    );
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [visibleCount, filteredTransactions.length]);
+
+  // LOADING
+
+  if (loading) {
+    return (
+      <div
+        className="
+          py-10
+          text-center
+          text-gray-400
+        "
+      >
+        Loading transactions...
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* HERO */}
+
+      <div
+        className="
+          rounded-[26px]
+          bg-[#fffaf3]
+
+          px-7
+          py-5
+
+          shadow-sm
+        "
+      >
+        <div
+          className="
+            flex
+            items-center
+            justify-between
+          "
+        >
+          {/* LEFT */}
+
+          <div>
+            <h1
+              className="
+                text-[38px]
+                font-black
+                leading-[0.95]
+                text-[#071437]
+              "
+            >
+              Store Activity
+            </h1>
+
+            <p
+              className="
+                mt-3
+                text-[14px]
+                text-gray-600
+              "
+            >
+              Track sales, restocks, adjustments, and payment activity in one place.
+            </p>
+          </div>
+
+          {/* RIGHT */}
+
+          <div
+            className="
+              flex
+              h-20
+              w-20
+              items-center
+              justify-center
+
+              rounded-[22px]
+
+              border
+              border-orange-100
+
+              bg-[#fff7ed]
+            "
+          >
+            <div
+              className="
+                flex
+                h-14
+                w-14
+                items-center
+                justify-center
+
+                rounded-[18px]
+
+                border
+                border-orange-100
+
+                bg-white
+
+                text-[24px]
+              "
+            >
+              🧾
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SEARCH */}
+
+      <div className="flex gap-3">
+        <div className="flex-1">
+          <SearchBar search={search} setSearch={setSearch} />
+        </div>
+
+        {/* FILTER BUTTON */}
+
+        <div className="relative">
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="
+              flex
+              items-center
+              gap-2
+
+              rounded-[18px]
+
+              border
+              border-gray-200
+
+              bg-white
+
+              px-5
+              py-3
+
+              text-[15px]
+              font-semibold
+              text-[#172033]
+
+              shadow-sm
+
+              transition
+
+              hover:bg-gray-50
+            "
+          >
+            <Filter size={18} />
+            Filter
+            <ChevronDown size={16} />
+          </button>
+
+          {/* DROPDOWN */}
+
+          {showDropdown && (
+            <div
+              className="
+                absolute
+                right-0
+                top-[110%]
+                z-50
+
+                w-52
+
+                rounded-2xl
+
+                border
+                border-gray-100
+
+                bg-white
+
+                p-2
+
+                shadow-xl
+              "
+            >
+              {filterOptions.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => {
+                    setSortFilter(option);
+
+                    setShowDropdown(false);
+                  }}
+                  className={`
+                      w-full
+
+                      rounded-xl
+
+                      px-4
+                      py-3
+
+                      text-left
+                      text-sm
+
+                      transition
+
+                      ${
+                        sortFilter === option
+                          ? `
+                            bg-orange-50
+                            font-semibold
+                            text-orange-500
+                          `
+                          : `
+                            text-gray-700
+                            hover:bg-gray-50
+                          `
+                      }
+                    `}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* FILTERS */}
+
+      <TransactionFilters filter={filter} setFilter={setFilter} range={range} setRange={setRange} />
+
+      {/* STATS */}
+
+      <StatsCards
+        totalSales={filteredTransactions
+          .filter((transaction) => transaction.type === "sale")
+          .reduce((sum, transaction) => sum + Number(transaction.total || 0), 0)}
+        totalTransactions={filteredTransactions.filter((transaction) => transaction.type === "sale").length}
+        totalRestocks={
+          filteredTransactions.filter((transaction) => transaction.type === "restock" || transaction.type === "adjustment").length
+        }
+      />
+
+      {/* LIST */}
+
+      <TransactionList groupedTransactions={groupedTransactions} />
+
+      {/* LOADER */}
+
+      {visibleTransactions.length < filteredTransactions.length && (
+        <div
+          ref={loadMoreRef}
+          className="
+            flex
+            items-center
+            justify-center
+
+            py-10
+          "
+        >
+          <div
+            className="
+              flex
+              items-center
+              gap-3
+
+              rounded-full
+
+              border
+              border-gray-100
+
+              bg-white
+
+              px-5
+              py-3
+
+              shadow-sm
+            "
+          >
+            <div
+              className="
+                h-4
+                w-4
+
+                animate-spin
+
+                rounded-full
+
+                border-2
+                border-orange-200
+                border-t-orange-500
+              "
+            />
+
+            <span
+              className="
+                text-[13px]
+                font-medium
+                text-gray-400
+              "
+            >
+              Loading more transactions
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
