@@ -6,6 +6,9 @@ from app.routes import transactions
 from app.routes import stock_movements
 from app.routes.dashboard import router as dashboard_router
 from app.routes.analytics import router as analytics_router
+from app.routes.ai_insights import (
+    router as ai_router
+)
 
 from app.routes.auth import (
     router as auth_router
@@ -80,4 +83,11 @@ app.include_router(
     analytics_router,
     prefix="/api/analytics",
     tags=["Analytics"]
+)
+
+# AI INSIGHTS
+app.include_router(
+    ai_router,
+    prefix="/api/ai-insights",
+    tags=["AI Insights"]
 )

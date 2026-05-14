@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import QuickActions from "../component/dashboard/QuickActions";
+
 import DashboardLayout from "../component/dashboard/DashboardLayout";
+
 import AIInsightPanel from "../component/dashboard/AIInsightPanel";
+
 import StatsCard from "../component/dashboard/StatsCard";
+
 import StockAlertCard from "../component/dashboard/StockAlertCard";
 
 import { getDashboardStats } from "../services/dashboardService";
@@ -31,6 +35,12 @@ export default function Dashboard() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  /* AI INSIGHT NAVIGATION */
+
+  const navigateInsight = (tab) => {
+    navigate(`/ai-insight?tab=${tab}`);
   };
 
   return (
@@ -73,7 +83,7 @@ export default function Dashboard() {
 
       {/* AI PANEL */}
 
-      <AIInsightPanel />
+      <AIInsightPanel navigateInsight={navigateInsight} />
 
       {/* STATS */}
 

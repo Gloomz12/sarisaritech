@@ -1,17 +1,69 @@
-const tabs = ["Forecast", "Apriori", "Restock", "AI Insights"];
+const tabs = [
+  {
+    name: "Forecast",
+    value: "forecast",
+  },
 
-export default function Tabs() {
+  {
+    name: "Apriori",
+    value: "apriori",
+  },
+
+  {
+    name: "Restock",
+    value: "restock",
+  },
+
+  {
+    name: "AI Insights",
+    value: "gemini",
+  },
+];
+
+export default function Tabs({
+  activeTab,
+
+  setActiveTab,
+}) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-2 flex flex-wrap gap-2 shadow-sm">
-      {tabs.map((tab, index) => (
+    <div
+      className="
+      bg-white
+      rounded-3xl
+      border border-gray-100
+      p-3
+      flex flex-wrap
+      gap-3
+      shadow-sm
+    "
+    >
+      {tabs.map((tab) => (
         <button
-          key={tab}
+          key={tab.value}
+          onClick={() => setActiveTab(tab.value)}
           className={`
-            px-5 py-3 rounded-xl text-sm font-medium transition-all
-            ${index === 0 ? "bg-purple-100 text-purple-700" : "text-gray-600 hover:bg-gray-100"}
+            px-6 py-3
+            rounded-2xl
+            text-sm
+            font-semibold
+            transition-all
+            duration-200
+
+            ${
+              activeTab === tab.value
+                ? `
+                  bg-purple-100
+                  text-purple-700
+                  shadow-sm
+                `
+                : `
+                  text-gray-500
+                  hover:bg-gray-100
+                `
+            }
           `}
         >
-          {tab}
+          {tab.name}
         </button>
       ))}
     </div>
