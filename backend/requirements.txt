@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+psycopg2-binary
+python-dotenv
+python-jose
+passlib[bcrypt]
+pydantic
+
+pandas
+numpy
+prophet
+mlxtend
+scikit-learn
+
+google-generativeai
