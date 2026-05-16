@@ -8,7 +8,7 @@ export default function StatsCard({ title, value, subtitle, growth, top, average
         overflow-hidden
 
         bg-white
-        dark:bg-[#0F172A]
+        dark:bg-[#111827]
 
         border
         border-gray-100

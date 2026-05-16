@@ -55,56 +55,77 @@ export default function AssociationTable() {
     }
   };
 
+  /* LOADING */
+
   if (loading) {
     return (
       <div className="space-y-5">
         <div
           className="
-          h-40
-          rounded-3xl
-          bg-gray-100
-          animate-pulse
-        "
+            h-40
+
+            animate-pulse
+
+            rounded-3xl
+
+            bg-gray-100
+            dark:bg-[#0F172A]
+          "
         />
 
         <div
           className="
-          h-40
-          rounded-3xl
-          bg-gray-100
-          animate-pulse
-        "
+            h-40
+
+            animate-pulse
+
+            rounded-3xl
+
+            bg-gray-100
+            dark:bg-[#0F172A]
+          "
         />
       </div>
     );
   }
 
+  /* EMPTY */
+
   if (!rules.length) {
     return (
       <div
         className="
-        bg-gray-50
-        rounded-3xl
-        p-10
-        text-center
-      "
+          rounded-3xl
+
+          bg-gray-50
+          dark:bg-[#0F172A]
+
+          p-10
+
+          text-center
+        "
       >
         <h2
           className="
-          text-lg
-          font-semibold
-          text-gray-700
-        "
+            text-lg
+            font-semibold
+
+            text-gray-700
+            dark:text-white
+          "
         >
           No association rules found
         </h2>
 
         <p
           className="
-          text-sm
-          text-gray-400
-          mt-2
-        "
+            mt-2
+
+            text-sm
+
+            text-gray-400
+            dark:text-slate-400
+          "
         >
           More transactions are needed for Apriori analysis.
         </p>
@@ -115,84 +136,121 @@ export default function AssociationTable() {
   return (
     <>
       {/* REFRESH BUTTON */}
-      <div className="flex justify-end -mt-16 mb-5">
+
+      <div className="mb-5 flex justify-end -mt-16">
         <button
           onClick={loadApriori}
           disabled={loading}
           className="
+          rounded-2xl
+
+          border
+          border-orange-500/20
+
+          bg-orange-500
+          hover:bg-orange-600
+
           px-6
           py-3
-          rounded-2xl
-          bg-gray-100
-          hover:bg-gray-200
-          disabled:opacity-50
+
           text-sm
-          font-medium
+          font-bold
+
+          text-white
+
+          shadow-lg
+          shadow-orange-500/20
+
           transition-all
+          duration-300
+
+          hover:scale-[1.02]
+
+          disabled:opacity-50
         "
         >
           {loading ? "Refreshing..." : "Refresh"}
         </button>
       </div>
 
+      {/* RULES */}
+
       <div className="space-y-5">
         {rules.map((rule, index) => (
           <div
             key={index}
             className="
-            bg-white
-            border
-            border-gray-100
-            rounded-3xl
-            p-6
-            hover:shadow-lg
-            transition-all
-          "
+              rounded-3xl
+
+              border
+              border-gray-100
+              dark:border-[#1F2937]
+
+              bg-white
+              dark:bg-[#0F172A]
+
+              p-6
+
+              transition-all
+
+              hover:shadow-lg
+            "
           >
             <div
               className="
-              flex
-              flex-col
-              xl:flex-row
-              xl:items-center
-              xl:justify-between
-              gap-6
-            "
+                flex
+                flex-col
+                gap-6
+
+                xl:flex-row
+                xl:items-center
+                xl:justify-between
+              "
             >
               {/* PRODUCTS */}
+
               <div>
                 <p
                   className="
-                  text-xs
-                  uppercase
-                  text-gray-400
-                  font-semibold
-                "
+                    text-xs
+                    font-semibold
+                    uppercase
+
+                    text-gray-400
+                    dark:text-slate-500
+                  "
                 >
                   Frequently Bought Together
                 </p>
 
                 <div
                   className="
-                  flex
-                  flex-wrap
-                  items-center
-                  gap-3
-                  mt-4
-                "
+                    mt-4
+
+                    flex
+                    flex-wrap
+                    items-center
+                    gap-3
+                  "
                 >
                   {rule.products.map((item) => (
                     <span
                       key={item}
                       className="
-                        px-5
-                        py-3
-                        rounded-2xl
-                        bg-purple-100
-                        text-purple-700
-                        text-base
-                        font-semibold
-                      "
+                          rounded-2xl
+
+                          bg-purple-100
+                          dark:bg-purple-500/10
+
+                          px-5
+                          py-3
+
+                          text-base
+                          font-semibold
+
+                          text-purple-700
+                          dark:text-purple-300
+                        "
                     >
                       {item}
                     </span>
@@ -200,10 +258,12 @@ export default function AssociationTable() {
 
                   <span
                     className="
-                    text-2xl
-                    text-gray-300
-                    font-light
-                  "
+                      text-2xl
+                      font-light
+
+                      text-gray-300
+                      dark:text-slate-600
+                    "
                   >
                     →
                   </span>
@@ -212,14 +272,20 @@ export default function AssociationTable() {
                     <span
                       key={item}
                       className="
-                        px-5
-                        py-3
-                        rounded-2xl
-                        bg-green-100
-                        text-green-700
-                        text-base
-                        font-semibold
-                      "
+                          rounded-2xl
+
+                          bg-green-100
+                          dark:bg-green-500/10
+
+                          px-5
+                          py-3
+
+                          text-base
+                          font-semibold
+
+                          text-green-700
+                          dark:text-green-300
+                        "
                     >
                       {item}
                     </span>
@@ -228,134 +294,174 @@ export default function AssociationTable() {
               </div>
 
               {/* METRICS */}
+
               <div
                 className="
-                flex
-                flex-wrap
-                gap-4
-              "
+                  flex
+                  flex-wrap
+                  gap-4
+                "
               >
                 {/* MATCH RATE */}
+
                 <div
                   className="
-                  bg-gray-50
-                  rounded-2xl
-                  px-5
-                  py-4
-                  min-w-[140px]
-                "
+                    min-w-[140px]
+
+                    rounded-2xl
+
+                    bg-gray-50
+                    dark:bg-[#111827]
+
+                    px-5
+                    py-4
+                  "
                 >
                   <p
                     className="
-                    text-sm
-                    text-gray-400
-                    font-medium
-                  "
+                      text-sm
+                      font-medium
+
+                      text-gray-400
+                      dark:text-slate-500
+                    "
                   >
                     Match Rate
                   </p>
 
                   <h2
                     className="
-                    text-3xl
-                    font-black
-                    text-gray-900
-                    mt-2
-                  "
+                      mt-2
+
+                      text-3xl
+                      font-black
+
+                      text-gray-900
+                      dark:text-white
+                    "
                   >
                     {Math.round(rule.support * 100)}%
                   </h2>
 
                   <p
                     className="
-                    text-xs
-                    text-gray-400
-                    mt-2
-                  "
+                      mt-2
+
+                      text-xs
+
+                      text-gray-400
+                      dark:text-slate-500
+                    "
                   >
                     Bought together
                   </p>
                 </div>
 
                 {/* BUY CHANCE */}
+
                 <div
                   className="
-                  bg-gray-50
-                  rounded-2xl
-                  px-5
-                  py-4
-                  min-w-[140px]
-                "
+                    min-w-[140px]
+
+                    rounded-2xl
+
+                    bg-gray-50
+                    dark:bg-[#111827]
+
+                    px-5
+                    py-4
+                  "
                 >
                   <p
                     className="
-                    text-sm
-                    text-gray-400
-                    font-medium
-                  "
+                      text-sm
+                      font-medium
+
+                      text-gray-400
+                      dark:text-slate-500
+                    "
                   >
                     Buy Chance
                   </p>
 
                   <h2
                     className="
-                    text-3xl
-                    font-black
-                    text-gray-900
-                    mt-2
-                  "
+                      mt-2
+
+                      text-3xl
+                      font-black
+
+                      text-gray-900
+                      dark:text-white
+                    "
                   >
                     {Math.round(rule.confidence * 100)}%
                   </h2>
 
                   <p
                     className="
-                    text-xs
-                    text-gray-400
-                    mt-2
-                  "
+                      mt-2
+
+                      text-xs
+
+                      text-gray-400
+                      dark:text-slate-500
+                    "
                   >
                     Chance customer buys both
                   </p>
                 </div>
 
                 {/* SALES STRENGTH */}
+
                 <div
                   className="
-                  bg-gray-50
-                  rounded-2xl
-                  px-5
-                  py-4
-                  min-w-[140px]
-                "
+                    min-w-[140px]
+
+                    rounded-2xl
+
+                    bg-gray-50
+                    dark:bg-[#111827]
+
+                    px-5
+                    py-4
+                  "
                 >
                   <p
                     className="
-                    text-sm
-                    text-gray-400
-                    font-medium
-                  "
+                      text-sm
+                      font-medium
+
+                      text-gray-400
+                      dark:text-slate-500
+                    "
                   >
                     Sales Strength
                   </p>
 
                   <h2
                     className="
-                    text-3xl
-                    font-black
-                    text-gray-900
-                    mt-2
-                  "
+                      mt-2
+
+                      text-3xl
+                      font-black
+
+                      text-gray-900
+                      dark:text-white
+                    "
                   >
                     {rule.lift}
                   </h2>
 
                   <p
                     className="
-                    text-xs
-                    text-gray-400
-                    mt-2
-                  "
+                      mt-2
+
+                      text-xs
+
+                      text-gray-400
+                      dark:text-slate-500
+                    "
                   >
                     Strong product pairing
                   </p>

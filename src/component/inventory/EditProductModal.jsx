@@ -48,10 +48,20 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
   /* INPUT */
 
   const handleChange = (e) => {
+    let value = e.target.value;
+
+    if (["cost_price", "selling_price", "stock_quantity", "min_stock_level"].includes(e.target.name)) {
+      value = value.replace("-", "");
+
+      if (Number(value) < 0) {
+        value = 0;
+      }
+    }
+
     setFormData({
       ...formData,
 
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   };
 
@@ -130,26 +140,32 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
         items-center
         justify-center
 
-        bg-black/40
+        bg-black/60
 
         p-5
 
-        backdrop-blur-[2px]
+        backdrop-blur-[4px]
       "
     >
       <div
         className="
-          w-full
-          max-w-[1050px]
+        w-full
+        max-w-[620px]
 
-          overflow-hidden
+        overflow-hidden
 
-          rounded-[28px]
+        rounded-[28px]
 
-          bg-white
+        bg-white
 
-          shadow-[0_20px_70px_rgba(15,23,42,0.12)]
-        "
+        dark:bg-gradient-to-b
+        dark:from-[#111827]
+        dark:to-[#0F172A]
+
+        border
+        border-gray-100
+        dark:border-[#1F2937]
+      "
       >
         {/* HEADER */}
 
@@ -161,20 +177,22 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
 
             border-b
             border-[#eef2f7]
+            dark:border-[#1F2937]
 
-            px-8
+            px-6
             py-5
           "
         >
           <div>
             <h1
               className="
-                text-[34px]
+                text-[30px]
                 font-bold
 
                 tracking-[-1px]
 
                 text-[#0f172a]
+                dark:text-white
               "
             >
               Edit Product
@@ -187,6 +205,7 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
                 text-[15px]
 
                 text-[#64748b]
+                dark:text-gray-400
               "
             >
               Update product information
@@ -209,15 +228,31 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
               duration-200
 
               hover:bg-[#f8fafc]
+              dark:hover:bg-white/5
             "
           >
-            <X size={28} className="text-[#64748b]" />
+            <X
+              size={28}
+              className="
+                text-[#64748b]
+                dark:text-gray-400
+              "
+            />
           </button>
         </div>
 
         {/* FORM */}
 
-        <div className="grid grid-cols-2 gap-4 px-8 py-6">
+        <div
+          className="
+            grid
+            grid-cols-2
+            gap-4
+
+            px-6
+            py-5
+          "
+        >
           {/* NAME */}
 
           <div className="col-span-2">
@@ -300,7 +335,7 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
                 name="stock_quantity"
                 value={formData.stock_quantity}
                 onChange={handleChange}
-                placeholder="100"
+                placeholder="0"
                 className={inputClass}
               />
             </InputWrapper>
@@ -334,29 +369,40 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
 
             border-t
             border-[#eef2f7]
+            dark:border-[#1F2937]
 
             bg-white
+            dark:bg-[#111827]
 
-            px-8
+            px-6
             py-5
           "
         >
           <button
             onClick={onClose}
             className="
-              h-[58px]
+              h-[52px]
 
               rounded-[18px]
 
               border
               border-[#dbe2ea]
+              dark:border-[#374151]
 
               bg-white
+              dark:bg-[#1F2937]
 
               text-[16px]
               font-semibold
 
               text-[#475569]
+              dark:text-white
+
+              transition-all
+              duration-300
+
+              hover:border-orange-300
+              dark:hover:border-orange-500/40
             "
           >
             Cancel
@@ -366,7 +412,7 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
             onClick={handleUpdate}
             disabled={loading}
             className="
-              h-[58px]
+              h-[52px]
 
               rounded-[18px]
 
@@ -384,6 +430,7 @@ export default function EditProductModal({ product, onClose, refreshProducts }) 
               duration-200
 
               hover:bg-orange-600
+              hover:shadow-orange-500/40
             "
           >
             {loading ? "Updating..." : "Update Product"}
@@ -401,7 +448,7 @@ function InputWrapper({ icon, children }) {
     <div
       className="
         flex
-        h-[60px]
+        h-[54px]
 
         overflow-hidden
 
@@ -409,8 +456,13 @@ function InputWrapper({ icon, children }) {
 
         border
         border-[#e2e8f0]
+        dark:border-[#374151]
 
         bg-white
+        dark:bg-[#111827]
+
+        transition-all
+        duration-300
 
         focus-within:border-orange-300
         focus-within:ring-4
@@ -426,6 +478,7 @@ function InputWrapper({ icon, children }) {
           justify-center
 
           bg-[#fff7ed]
+          dark:bg-orange-500/10
 
           text-orange-500
         "
@@ -448,10 +501,12 @@ const inputClass = `
   font-medium
 
   text-[#0f172a]
+  dark:text-white
 
   outline-none
 
   placeholder:text-[#94a3b8]
+  dark:placeholder:text-gray-500
 `;
 
 const labelClass = `
@@ -462,4 +517,5 @@ const labelClass = `
   font-semibold
 
   text-[#0f172a]
+  dark:text-white
 `;

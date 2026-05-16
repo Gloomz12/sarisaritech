@@ -62,15 +62,27 @@ export default function AiInsight() {
   return (
     <div
       className="
-      min-h-screen
-      bg-gray-50
-      p-6
-      space-y-6
-    "
+        min-h-screen
+
+        bg-[#f5f7fb]
+        dark:bg-[#0B1120]
+
+        p-6
+        space-y-6
+
+        transition-all
+        duration-300
+      "
     >
+      {/* HEADER */}
+
       <Header />
 
+      {/* OVERVIEW */}
+
       <Overview />
+
+      {/* TABS */}
 
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 

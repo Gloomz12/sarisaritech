@@ -1,22 +1,27 @@
+import { CalendarDays } from "lucide-react";
+
 export default function TransactionFilters({
   filter,
   setFilter,
 
   range,
   setRange,
+
+  customRange,
+  setCustomRange,
 }) {
   const filters = ["All", "Sales", "Restocks", "Adjustments", "Cash", "GCash", "Paymaya"];
 
-  const ranges = ["Today", "Week", "Month"];
+  const ranges = ["Today", "Week", "Month", "Custom"];
 
   return (
     <div
       className="
         flex
+        flex-wrap
         items-center
         justify-between
         gap-4
-        flex-wrap
       "
     >
       {/* LEFT FILTERS */}
@@ -25,7 +30,9 @@ export default function TransactionFilters({
         className="
           flex
           gap-2
+
           overflow-x-auto
+
           scrollbar-hide
         "
       >
@@ -55,16 +62,22 @@ export default function TransactionFilters({
                     ? `
                       bg-orange-500
                       text-white
+
                       shadow-sm
                     `
                     : `
                       border
                       border-gray-200
+                      dark:border-[#1F2937]
 
                       bg-white
+                      dark:bg-[#111827]
+
                       text-gray-600
+                      dark:text-slate-300
 
                       hover:bg-gray-50
+                      dark:hover:bg-[#1E293B]
                     `
                 }
               `}
@@ -80,55 +93,190 @@ export default function TransactionFilters({
       <div
         className="
           flex
+          flex-wrap
           items-center
-          gap-1
-
-          rounded-full
-
-          border
-          border-gray-200
-
-          bg-white
-
-          p-1
+          gap-2
         "
       >
-        {ranges.map((item) => {
-          const active = range === item;
+        {/* RANGE BUTTONS */}
 
-          return (
-            <button
-              key={item}
-              onClick={() => setRange(item)}
-              className={`
-                rounded-full
+        <div
+          className="
+            flex
+            items-center
+            gap-1
 
-                px-4
-                py-2
+            rounded-full
 
-                text-[13px]
-                font-semibold
+            border
+            border-gray-200
+            dark:border-[#1F2937]
 
-                transition-all
-                duration-200
+            bg-white
+            dark:bg-[#111827]
 
-                ${
-                  active
-                    ? `
-                      bg-orange-500
-                      text-white
-                    `
-                    : `
-                      text-gray-500
-                      hover:bg-gray-100
-                    `
-                }
-              `}
+            p-1
+          "
+        >
+          {ranges.map((item) => {
+            const active = range === item;
+
+            return (
+              <button
+                key={item}
+                onClick={() => setRange(item)}
+                className={`
+                  rounded-full
+
+                  px-4
+                  py-2
+
+                  text-[13px]
+                  font-semibold
+
+                  transition-all
+                  duration-200
+
+                  ${
+                    active
+                      ? `
+                        bg-orange-500
+                        text-white
+                      `
+                      : `
+                        text-gray-500
+                        dark:text-slate-400
+
+                        hover:bg-gray-100
+                        dark:hover:bg-[#1E293B]
+                      `
+                  }
+                `}
+              >
+                {item}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* CUSTOM DATE RANGE */}
+
+        {range === "Custom" && (
+          <div
+            className="
+              flex
+              flex-wrap
+              items-center
+              gap-2
+
+              rounded-2xl
+
+              border
+              border-gray-200
+              dark:border-[#1F2937]
+
+              bg-white
+              dark:bg-[#111827]
+
+              px-3
+              py-2
+            "
+          >
+            {/* ICON */}
+
+            <CalendarDays
+              size={18}
+              className="
+                text-orange-500
+              "
+            />
+
+            {/* START DATE */}
+
+            <input
+              type="date"
+              value={customRange.start}
+              onChange={(e) =>
+                setCustomRange({
+                  ...customRange,
+
+                  start: e.target.value,
+                })
+              }
+              className="
+                rounded-xl
+
+                border
+                border-gray-200
+                dark:border-[#1F2937]
+
+                bg-white
+                dark:bg-[#0F172A]
+
+                px-2.5
+                py-1.5
+
+                text-sm
+
+                text-gray-700
+                dark:text-slate-200
+
+                outline-none
+
+                focus:border-orange-500
+              "
+            />
+
+            {/* TO */}
+
+            <span
+              className="
+                text-sm
+                font-medium
+
+                text-gray-400
+              "
             >
-              {item}
-            </button>
-          );
-        })}
+              to
+            </span>
+
+            {/* END DATE */}
+
+            <input
+              type="date"
+              value={customRange.end}
+              onChange={(e) =>
+                setCustomRange({
+                  ...customRange,
+
+                  end: e.target.value,
+                })
+              }
+              className="
+                rounded-xl
+
+                border
+                border-gray-200
+                dark:border-[#1F2937]
+
+                bg-white
+                dark:bg-[#0F172A]
+
+                px-2.5
+                py-1.5
+
+                text-sm
+
+                text-gray-700
+                dark:text-slate-200
+
+                outline-none
+
+                focus:border-orange-500
+              "
+            />
+          </div>
+        )}
       </div>
     </div>
   );

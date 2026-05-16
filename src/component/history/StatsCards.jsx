@@ -19,9 +19,11 @@ export default function StatsCards({ totalSales, totalTransactions, totalRestock
         icon={<ShoppingCart size={22} />}
         iconBg="
           bg-green-100
+          dark:bg-green-500/10
         "
         iconColor="
           text-green-600
+          dark:text-green-400
         "
       />
 
@@ -30,34 +32,32 @@ export default function StatsCards({ totalSales, totalTransactions, totalRestock
       <Card
         title="INVENTORY UPDATES"
         value={totalRestocks || 0}
-        subtitle="
-          Restocks + Adjustments
-        "
+        subtitle="Restocks + Adjustments"
         icon={<PackagePlus size={26} />}
         iconBg="
           bg-orange-100
+          dark:bg-orange-500/10
         "
         iconColor="
           text-orange-500
+          dark:text-orange-400
         "
       />
 
       {/* SALES COUNT */}
 
       <Card
-        title="
-          COMPLETED SALES
-        "
+        title="COMPLETED SALES"
         value={totalTransactions || 0}
-        subtitle="
-          Successful Transactions
-        "
+        subtitle="Successful Transactions"
         icon={<Receipt size={26} />}
         iconBg="
           bg-yellow-100
+          dark:bg-yellow-500/10
         "
         iconColor="
           text-yellow-600
+          dark:text-yellow-400
         "
       />
     </div>
@@ -74,17 +74,22 @@ function Card({ title, value, subtitle, icon, iconBg, iconColor }) {
         items-center
         gap-4
 
-        rounded-[22px]
+        rounded-[24px]
 
         border
         border-[#edf2f7]
+        dark:border-[#1F2937]
 
         bg-white
+        dark:bg-[#111827]
 
-        px-3
-        py-3
+        px-4
+        py-4
 
         shadow-sm
+
+        transition-all
+        duration-300
       "
     >
       {/* ICON */}
@@ -92,8 +97,8 @@ function Card({ title, value, subtitle, icon, iconBg, iconColor }) {
       <div
         className={`
           flex
-          h-[52px]
-          w-[52px]
+          h-[56px]
+          w-[56px]
 
           items-center
           justify-center
@@ -112,12 +117,13 @@ function Card({ title, value, subtitle, icon, iconBg, iconColor }) {
       <div>
         <p
           className="
-            text-[14px]
+            text-[13px]
             font-bold
             uppercase
             tracking-wide
 
             text-[#98a2b3]
+            dark:text-slate-500
           "
         >
           {title}
@@ -127,12 +133,13 @@ function Card({ title, value, subtitle, icon, iconBg, iconColor }) {
           className="
             mt-1
 
-            text-[22px]
+            text-[24px]
             font-black
 
             leading-none
 
             text-[#071437]
+            dark:text-white
           "
         >
           {value}
@@ -145,6 +152,7 @@ function Card({ title, value, subtitle, icon, iconBg, iconColor }) {
             text-[14px]
 
             text-[#98a2b3]
+            dark:text-slate-400
           "
         >
           {subtitle}

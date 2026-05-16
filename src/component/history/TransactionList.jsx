@@ -15,7 +15,9 @@ export default function TransactionList({ groupedTransactions }) {
                 className="
                     text-[18px]
                     font-extrabold
+
                     text-[#172033]
+                    dark:text-white
                   "
               >
                 {date}
@@ -24,8 +26,11 @@ export default function TransactionList({ groupedTransactions }) {
               <p
                 className="
                     mt-1
+
                     text-[13px]
+
                     text-gray-400
+                    dark:text-slate-500
                   "
               >
                 {transactions.length} transactions

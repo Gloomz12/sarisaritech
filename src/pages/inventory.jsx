@@ -207,8 +207,6 @@ export default function Inventory() {
 
   /* LOW STOCK ALERTS */
 
-  /* LOW STOCK ALERTS */
-
   const allLowStockProducts = processedProducts
 
     .filter((product) => {
@@ -216,8 +214,6 @@ export default function Inventory() {
     })
 
     .sort((a, b) => {
-      // OUT OF STOCK FIRST
-
       if (a.stock_quantity === 0 && b.stock_quantity !== 0) {
         return -1;
       }
@@ -229,10 +225,18 @@ export default function Inventory() {
       return a.stock_quantity - b.stock_quantity;
     });
 
-  const lowStockProducts = allLowStockProducts.slice(0, 3);
-
   return (
-    <div className="space-y-5 bg-[#f8fafc]">
+    <div
+      className="
+        space-y-5
+
+        bg-[#f8fafc]
+        dark:bg-[#020817]
+
+        transition-all
+        duration-300
+      "
+    >
       {/* ADD */}
 
       {showAddModal && <AddProductModal onClose={() => setShowAddModal(false)} refreshProducts={fetchProducts} />}
@@ -260,13 +264,20 @@ export default function Inventory() {
           from-white
           to-[#fffaf5]
 
+          dark:from-[#111827]
+          dark:to-[#0F172A]
+
           border
           border-[#f3f4f6]
+          dark:border-[#1F2937]
 
           px-8
           py-6
 
           shadow-sm
+
+          transition-all
+          duration-300
         "
       >
         {/* GLOW */}
@@ -283,6 +294,7 @@ export default function Inventory() {
             rounded-full
 
             bg-orange-100/20
+            dark:bg-orange-500/10
 
             blur-3xl
           "
@@ -312,6 +324,7 @@ export default function Inventory() {
                 font-black
 
                 text-[#071437]
+                dark:text-white
               "
             >
               Inventory
@@ -324,6 +337,8 @@ export default function Inventory() {
                 text-[15px]
 
                 text-gray-500
+                dark:text-gray-400
+
                 font-medium
               "
             >
@@ -348,11 +363,14 @@ export default function Inventory() {
               font-semibold
               text-white
 
+              shadow-lg
+              shadow-orange-500/20
+
               transition-all
               duration-300
 
               hover:bg-orange-600
-              hover:shadow-lg
+              hover:shadow-orange-500/40
 
               active:scale-[0.98]
             "
@@ -388,11 +406,22 @@ export default function Inventory() {
         <div
           className="
             overflow-visible
+
             rounded-[28px]
+
             bg-white
+            dark:bg-[#111827]
+
+            border
+            border-gray-100
+            dark:border-[#1F2937]
+
             p-6
 
             shadow-[0_4px_20px_rgba(15,23,42,0.04)]
+
+            transition-all
+            duration-300
           "
         >
           <InventoryToolbar
@@ -411,8 +440,11 @@ export default function Inventory() {
               <div
                 className="
                   py-10
+
                   text-center
+
                   text-gray-500
+                  dark:text-gray-400
                 "
               >
                 Loading products...

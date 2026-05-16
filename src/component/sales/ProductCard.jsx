@@ -14,9 +14,11 @@ export default function ProductCard({
     <div
       className="
         bg-white
+        dark:bg-[#111827]
 
         border
         border-gray-200
+        dark:border-[#1F2937]
 
         rounded-[18px]
 
@@ -26,6 +28,9 @@ export default function ProductCard({
         duration-300
 
         hover:shadow-md
+        hover:-translate-y-1
+
+        dark:hover:border-orange-500/20
 
         flex
         flex-col
@@ -72,6 +77,7 @@ export default function ProductCard({
                   `
                   : `
                     text-gray-400
+                    dark:text-gray-500
                   `
               }
             `}
@@ -87,7 +93,7 @@ export default function ProductCard({
             flex
             flex-col
 
-            h-78px]
+            h-[78px]
           "
         >
           {/* NAME */}
@@ -101,6 +107,7 @@ export default function ProductCard({
               font-black
 
               text-[#0F172A]
+              dark:text-white
 
               line-clamp-2
 
@@ -137,6 +144,7 @@ export default function ProductCard({
               leading-relaxed
 
               text-gray-400
+              dark:text-gray-500
             "
           >
             {product.stock} units remaining
@@ -178,6 +186,10 @@ export default function ProductCard({
 
               border
               border-gray-200
+              dark:border-[#374151]
+
+              text-[#0F172A]
+              dark:text-white
 
               flex
               items-center
@@ -187,6 +199,9 @@ export default function ProductCard({
               duration-300
 
               hover:border-orange-400
+              dark:hover:border-orange-400
+
+              dark:bg-[#1F2937]
             "
           >
             <FiMinus className="text-[14px]" />
@@ -204,6 +219,7 @@ export default function ProductCard({
               font-black
 
               text-[#0F172A]
+              dark:text-white
             "
           >
             {quantity}
@@ -233,6 +249,8 @@ export default function ProductCard({
 
               hover:bg-orange-500
               hover:text-white
+
+              dark:bg-orange-500/10
             "
           >
             <FiPlus className="text-[14px]" />

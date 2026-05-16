@@ -8,6 +8,10 @@ import TransactionFilters from "../component/history/TransactionFilters";
 import TransactionList from "../component/history/TransactionList";
 
 export default function History() {
+  const [customRange, setCustomRange] = useState({
+    start: "",
+    end: "",
+  });
   const [search, setSearch] = useState("");
 
   const [filter, setFilter] = useState("All");
@@ -209,6 +213,15 @@ export default function History() {
       if (range === "Month") {
         rangeMatch = transactionDate.getMonth() === now.getMonth() && transactionDate.getFullYear() === now.getFullYear();
       }
+      if (range === "Custom" && customRange.start && customRange.end) {
+        const start = new Date(customRange.start);
+
+        const end = new Date(customRange.end);
+
+        end.setHours(23, 59, 59, 999);
+
+        rangeMatch = transactionDate >= start && transactionDate <= end;
+      }
 
       return filterMatch && searchMatch && rangeMatch;
     });
@@ -234,7 +247,7 @@ export default function History() {
     }
 
     return filtered;
-  }, [transactionsData, search, filter, sortFilter, range]);
+  }, [transactionsData, search, filter, sortFilter, range, customRange.start, customRange.end]);
 
   // VISIBLE ITEMS
 
@@ -251,14 +264,6 @@ export default function History() {
 
     return acc;
   }, {});
-
-  // TOTAL SALES
-
-  const totalSales = visibleTransactions.reduce(
-    (sum, transaction) => sum + (transaction.total || 0),
-
-    0
-  );
 
   // FILTER OPTIONS
 
@@ -294,6 +299,7 @@ export default function History() {
           py-10
           text-center
           text-gray-400
+          dark:text-slate-500
         "
       >
         Loading transactions...
@@ -307,17 +313,55 @@ export default function History() {
 
       <div
         className="
-          rounded-[26px]
-          bg-[#fffaf3]
+          relative
+          isolate
+          overflow-hidden
+
+          rounded-[30px]
+
+          border
+          border-[#eef2f7]
+          dark:border-[#1F2937]
+
+         bg-gradient-to-br
+      from-[#fffaf3]
+      to-[#fff7ed]
+
+      dark:from-[#111827]
+      dark:to-[#0F172A]
 
           px-7
-          py-5
+          py-6
 
           shadow-sm
+
+          transition-all
+          duration-300
         "
       >
         <div
           className="
+            absolute
+            top-0
+            right-0
+
+            h-[180px]
+            w-[180px]
+
+            rounded-full
+
+            bg-orange-100/10
+            dark:bg-orange-500/10
+
+            blur-3xl
+          "
+        />
+
+        <div
+          className="
+            relative
+            z-10
+
             flex
             items-center
             justify-between
@@ -331,7 +375,9 @@ export default function History() {
                 text-[38px]
                 font-black
                 leading-[0.95]
+
                 text-[#071437]
+                dark:text-white
               "
             >
               Store Activity
@@ -341,7 +387,9 @@ export default function History() {
               className="
                 mt-3
                 text-[14px]
+
                 text-gray-600
+                dark:text-slate-400
               "
             >
               Track sales, restocks, adjustments, and payment activity in one place.
@@ -358,12 +406,14 @@ export default function History() {
               items-center
               justify-center
 
-              rounded-[22px]
+              rounded-[24px]
 
               border
-              border-orange-100
+              border-orange-100/80
+              dark:border-orange-500/20
 
               bg-[#fff7ed]
+              dark:bg-[#111827]
             "
           >
             <div
@@ -378,8 +428,10 @@ export default function History() {
 
                 border
                 border-orange-100
+                dark:border-orange-500/10
 
                 bg-white
+                dark:bg-[#0F172A]
 
                 text-[24px]
               "
@@ -411,21 +463,26 @@ export default function History() {
 
               border
               border-gray-200
+              dark:border-[#1F2937]
 
               bg-white
+              dark:bg-[#111827]
 
               px-5
               py-3
 
               text-[15px]
               font-semibold
+
               text-[#172033]
+              dark:text-white
 
               shadow-sm
 
               transition
 
               hover:bg-gray-50
+              dark:hover:bg-[#1E293B]
             "
           >
             <Filter size={18} />
@@ -449,8 +506,10 @@ export default function History() {
 
                 border
                 border-gray-100
+                dark:border-[#1F2937]
 
                 bg-white
+                dark:bg-[#111827]
 
                 p-2
 
@@ -466,31 +525,37 @@ export default function History() {
                     setShowDropdown(false);
                   }}
                   className={`
-                      w-full
+                    w-full
 
-                      rounded-xl
+                    rounded-xl
 
-                      px-4
-                      py-3
+                    px-4
+                    py-3
 
-                      text-left
-                      text-sm
+                    text-left
+                    text-sm
 
-                      transition
+                    transition
 
-                      ${
-                        sortFilter === option
-                          ? `
-                            bg-orange-50
-                            font-semibold
-                            text-orange-500
-                          `
-                          : `
-                            text-gray-700
-                            hover:bg-gray-50
-                          `
-                      }
-                    `}
+                    ${
+                      sortFilter === option
+                        ? `
+                          bg-orange-50
+                          dark:bg-orange-500/10
+
+                          font-semibold
+
+                          text-orange-500
+                        `
+                        : `
+                          text-gray-700
+                          dark:text-slate-300
+
+                          hover:bg-gray-50
+                          dark:hover:bg-[#1E293B]
+                        `
+                    }
+                  `}
                 >
                   {option}
                 </button>
@@ -502,7 +567,14 @@ export default function History() {
 
       {/* FILTERS */}
 
-      <TransactionFilters filter={filter} setFilter={setFilter} range={range} setRange={setRange} />
+      <TransactionFilters
+        filter={filter}
+        setFilter={setFilter}
+        range={range}
+        setRange={setRange}
+        customRange={customRange}
+        setCustomRange={setCustomRange}
+      />
 
       {/* STATS */}
 
@@ -543,8 +615,10 @@ export default function History() {
 
               border
               border-gray-100
+              dark:border-[#1F2937]
 
               bg-white
+              dark:bg-[#111827]
 
               px-5
               py-3
@@ -571,7 +645,9 @@ export default function History() {
               className="
                 text-[13px]
                 font-medium
+
                 text-gray-400
+                dark:text-slate-400
               "
             >
               Loading more transactions

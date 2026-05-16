@@ -38,43 +38,39 @@ export default function AddProductModal({ onClose, refreshProducts }) {
   useEffect(() => {
     const defaultCategories = [
       "Soft Drinks",
-
       "Snacks",
-
       "Beverages",
-
       "Instant Food",
-
       "Condiments",
-
       "Canned Goods",
-
       "Frozen Foods",
-
       "Coffee",
-
       "Rice",
-
       "Bread",
-
       "Dairy",
-
       "Cleaning Supplies",
-
       "Personal Care",
     ];
 
     const defaultUnits = ["pc", "pack", "box", "bottle", "can", "sachet", "kg", "g", "liter", "ml"];
+
     const savedCategories = JSON.parse(localStorage.getItem(`inventory_categories_${user.id}`)) || [];
+
     const savedUnits = JSON.parse(localStorage.getItem(`inventory_units_${user.id}`)) || [];
+
     setCategories([...new Set([...defaultCategories, ...savedCategories])]);
+
     setUnits([...new Set([...defaultUnits, ...savedUnits])]);
   }, []);
 
   /* NORMAL INPUT */
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+
+    let value = e.target.value;
+
+    // PRODUCT NAME
 
     if (name === "name") {
       setFormData({
@@ -84,6 +80,14 @@ export default function AddProductModal({ onClose, refreshProducts }) {
       });
 
       return;
+    }
+
+    if (["cost_price", "selling_price", "stock_quantity", "min_stock_level"].includes(name)) {
+      value = value.replace("-", "");
+
+      if (Number(value) < 0) {
+        value = 0;
+      }
     }
 
     setFormData({
@@ -185,8 +189,6 @@ export default function AddProductModal({ onClose, refreshProducts }) {
 
       saveUnit(formData.unit);
 
-      console.log("FORM DATA:", formData);
-
       await productService.createProduct({
         id: crypto.randomUUID(),
 
@@ -211,10 +213,6 @@ export default function AddProductModal({ onClose, refreshProducts }) {
     } catch (error) {
       console.log("FULL ERROR:", error);
 
-      console.log("ERROR RESPONSE:", error.response);
-
-      console.log("ERROR DATA:", error.response?.data);
-
       alert(error.response?.data?.detail || "Failed to save product");
     } finally {
       setLoading(false);
@@ -227,22 +225,38 @@ export default function AddProductModal({ onClose, refreshProducts }) {
         fixed
         inset-0
         z-50
+
         flex
         items-center
         justify-center
-        bg-black/40
+
+        bg-black/60
+
         p-5
-        backdrop-blur-[2px]
+
+        backdrop-blur-[4px]
       "
     >
       <div
         className="
           w-full
           max-w-[620px]
+
           overflow-hidden
+
           rounded-[28px]
+
           bg-white
+          dark:bg-[#111827]
+
+          border
+          border-gray-100
+          dark:border-[#1F2937]
+
           shadow-[0_20px_70px_rgba(15,23,42,0.12)]
+
+          transition-all
+          duration-300
         "
       >
         {/* HEADER */}
@@ -252,8 +266,11 @@ export default function AddProductModal({ onClose, refreshProducts }) {
             flex
             items-center
             justify-between
+
             border-b
             border-[#eef2f7]
+            dark:border-[#1F2937]
+
             px-8
             py-5
           "
@@ -263,8 +280,11 @@ export default function AddProductModal({ onClose, refreshProducts }) {
               className="
                 text-[34px]
                 font-bold
+
                 tracking-[-1px]
+
                 text-[#0f172a]
+                dark:text-white
               "
             >
               Add New Product
@@ -273,8 +293,11 @@ export default function AddProductModal({ onClose, refreshProducts }) {
             <p
               className="
                 mt-1
+
                 text-[15px]
+
                 text-[#64748b]
+                dark:text-gray-400
               "
             >
               Create a new inventory item
@@ -287,18 +310,24 @@ export default function AddProductModal({ onClose, refreshProducts }) {
               flex
               h-11
               w-11
+
               items-center
               justify-center
+
               rounded-full
+
               transition-all
               duration-200
+
               hover:bg-[#f8fafc]
+              dark:hover:bg-white/5
             "
           >
             <X
               size={28}
               className="
                 text-[#64748b]
+                dark:text-gray-400
               "
             />
           </button>
@@ -310,7 +339,9 @@ export default function AddProductModal({ onClose, refreshProducts }) {
           className="
             grid
             grid-cols-2
+
             gap-4
+
             px-8
             py-6
           "
@@ -452,12 +483,19 @@ export default function AddProductModal({ onClose, refreshProducts }) {
           className="
             sticky
             bottom-0
+
             grid
             grid-cols-2
+
             gap-4
+
             border-t
             border-[#eef2f7]
+            dark:border-[#1F2937]
+
             bg-white
+            dark:bg-[#111827]
+
             px-8
             py-5
           "
@@ -468,13 +506,27 @@ export default function AddProductModal({ onClose, refreshProducts }) {
             onClick={onClose}
             className="
               h-[58px]
+
               rounded-[18px]
+
               border
               border-[#dbe2ea]
+              dark:border-[#374151]
+
               bg-white
+              dark:bg-[#1F2937]
+
               text-[16px]
               font-semibold
+
               text-[#475569]
+              dark:text-white
+
+              transition-all
+              duration-300
+
+              hover:border-orange-300
+              dark:hover:border-orange-500/40
             "
           >
             Cancel
@@ -487,16 +539,23 @@ export default function AddProductModal({ onClose, refreshProducts }) {
             disabled={loading}
             className="
               h-[58px]
+
               rounded-[18px]
+
               bg-orange-500
+
               text-[16px]
               font-semibold
               text-white
+
               shadow-lg
               shadow-orange-500/20
+
               transition-all
               duration-200
+
               hover:bg-orange-600
+              hover:shadow-orange-500/40
             "
           >
             {loading ? "Saving..." : "Save Product"}
@@ -515,11 +574,20 @@ function InputWrapper({ icon, children }) {
       className="
         flex
         h-[60px]
+
         overflow-hidden
+
         rounded-[18px]
+
         border
         border-[#e2e8f0]
+        dark:border-[#374151]
+
         bg-white
+        dark:bg-[#111827]
+
+        transition-all
+        duration-300
 
         focus-within:border-orange-300
         focus-within:ring-4
@@ -530,9 +598,13 @@ function InputWrapper({ icon, children }) {
         className="
           flex
           w-[68px]
+
           items-center
           justify-center
+
           bg-[#fff7ed]
+          dark:bg-orange-500/10
+
           text-orange-500
         "
       >
@@ -551,8 +623,10 @@ const inputClass = `
   text-[15px]
   font-medium
   text-[#0f172a]
+  dark:text-white
   outline-none
   placeholder:text-[#94a3b8]
+  dark:placeholder:text-gray-500
 `;
 
 const labelClass = `
@@ -561,4 +635,5 @@ const labelClass = `
   text-[15px]
   font-semibold
   text-[#0f172a]
+  dark:text-white
 `;

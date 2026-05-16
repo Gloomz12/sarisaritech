@@ -49,46 +49,76 @@ export default function ProductInventoryTable({
     <div
       className="
         overflow-visible
+
         rounded-[26px]
+
         border
         border-[#eef2f7]
+        dark:border-[#1F2937]
+
         bg-white
+
+        dark:bg-gradient-to-b
+        dark:from-[#111827]
+        dark:to-[#0F172A]
+
         shadow-[0_1px_2px_rgba(16,24,40,0.04)]
+
+        transition-all
+        duration-300
       "
     >
       {/* TABLE */}
 
       <div
         className="
-    min-h-[500px]
+          min-h-[500px]
 
-    px-6
+          overflow-visible
 
-    overflow-visible
-  "
+          px-6
+        "
       >
         <table
           className="
             w-full
+
             table-fixed
+
             border-collapse
           "
         >
           {/* HEADER */}
 
-          <thead className="bg-white">
-            <tr className="border-b border-[#eef2f7]">
+          <thead
+            className="
+              bg-white
+              dark:bg-transparent
+            "
+          >
+            <tr
+              className="
+                border-b
+                border-[#eef2f7]
+                dark:border-[#1F2937]
+              "
+            >
               {/* PRODUCT */}
 
               <th
                 className="
                   w-[30%]
+
                   py-5
                   pl-5
+
                   text-left
+
                   text-[14px]
                   font-semibold
+
                   text-[#64748b]
+                  dark:text-gray-400
                 "
               >
                 Product
@@ -99,11 +129,16 @@ export default function ProductInventoryTable({
               <th
                 className="
                   w-[14%]
+
                   py-5
+
                   text-left
+
                   text-[14px]
                   font-semibold
+
                   text-[#64748b]
+                  dark:text-gray-400
                 "
               >
                 Stock
@@ -114,11 +149,16 @@ export default function ProductInventoryTable({
               <th
                 className="
                   w-[12%]
+
                   py-5
+
                   text-left
+
                   text-[14px]
                   font-semibold
+
                   text-[#64748b]
+                  dark:text-gray-400
                 "
               >
                 Cost
@@ -129,11 +169,16 @@ export default function ProductInventoryTable({
               <th
                 className="
                   w-[12%]
+
                   py-5
+
                   text-left
+
                   text-[14px]
                   font-semibold
+
                   text-[#64748b]
+                  dark:text-gray-400
                 "
               >
                 Selling
@@ -144,11 +189,16 @@ export default function ProductInventoryTable({
               <th
                 className="
                   w-[18%]
+
                   py-5
+
                   text-center
+
                   text-[14px]
                   font-semibold
+
                   text-[#64748b]
+                  dark:text-gray-400
                 "
               >
                 Status
@@ -159,11 +209,16 @@ export default function ProductInventoryTable({
               <th
                 className="
                   w-[8%]
+
                   py-5
+
                   text-center
+
                   text-[14px]
                   font-semibold
+
                   text-[#64748b]
+                  dark:text-gray-400
                 "
               >
                 Actions
@@ -184,10 +239,14 @@ export default function ProductInventoryTable({
                   colSpan="6"
                   className="
                     py-20
+
                     text-center
+
                     text-[15px]
                     font-medium
+
                     text-[#94a3b8]
+                    dark:text-gray-500
                   "
                 >
                   No products found
@@ -202,39 +261,72 @@ export default function ProductInventoryTable({
 
       <div
         className="
-    flex
-    items-center
-    justify-between
+          flex
+          items-center
+          justify-between
 
-    border-t
-    border-[#eef2f7]
+          border-t
+          border-[#eef2f7]
+          dark:border-[#1F2937]
 
-    px-6
-    py-5
-  "
+          px-6
+          py-5
+        "
       >
         {/* INFO */}
 
         <p
           className="
-      text-[13px]
-      font-medium
-      text-[#64748b]
-    "
+            text-[13px]
+            font-medium
+
+            text-[#64748b]
+            dark:text-gray-400
+          "
         >
-          Showing <span className="font-bold text-[#0f172a]">{products.length === 0 ? 0 : startIndex + 1}</span> to{" "}
-          <span className="font-bold text-[#0f172a]">{Math.min(endIndex, products.length)}</span> of{" "}
-          <span className="font-bold text-[#0f172a]">{products.length}</span>
+          Showing{" "}
+          <span
+            className="
+              font-bold
+
+              text-[#0f172a]
+              dark:text-white
+            "
+          >
+            {products.length === 0 ? 0 : startIndex + 1}
+          </span>{" "}
+          to{" "}
+          <span
+            className="
+              font-bold
+
+              text-[#0f172a]
+              dark:text-white
+            "
+          >
+            {Math.min(endIndex, products.length)}
+          </span>{" "}
+          of{" "}
+          <span
+            className="
+              font-bold
+
+              text-[#0f172a]
+              dark:text-white
+            "
+          >
+            {products.length}
+          </span>
         </p>
 
         {/* PAGINATION */}
 
         <div
           className="
-      flex
-      items-center
-      gap-2
-    "
+            flex
+            items-center
+            gap-2
+          "
         >
           {/* PREV */}
 
@@ -242,81 +334,98 @@ export default function ProductInventoryTable({
             onClick={prevPage}
             disabled={currentPage === 1}
             className="
-        flex
-        h-12
-        w-12
-        items-center
-        justify-center
+              flex
+              h-12
+              w-12
 
-        rounded-2xl
+              items-center
+              justify-center
 
-        border
-        border-[#e2e8f0]
+              rounded-2xl
 
-        bg-white
+              border
+              border-[#e2e8f0]
+              dark:border-[#374151]
 
-        text-[#475569]
+              bg-white
+              dark:bg-[#111827]
 
-        transition-all
-        duration-200
+              text-[#475569]
+              dark:text-gray-300
 
-        hover:border-orange-200
-        hover:text-orange-500
+              transition-all
+              duration-200
 
-        disabled:cursor-not-allowed
-        disabled:opacity-40
-      "
+              hover:border-orange-200
+              dark:hover:border-orange-500/20
+
+              hover:text-orange-500
+
+              disabled:cursor-not-allowed
+              disabled:opacity-40
+            "
           >
             <ChevronLeft size={18} />
           </button>
 
           {/* PAGE NUMBERS */}
 
-          {Array.from({ length: totalPages }, (_, index) => {
-            const page = index + 1;
+          {Array.from(
+            {
+              length: totalPages,
+            },
+            (_, index) => {
+              const page = index + 1;
 
-            const active = currentPage === page;
+              const active = currentPage === page;
 
-            return (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`
-              h-12
-              w-12
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`
+                    h-12
+                    w-12
 
-              rounded-2xl
+                    rounded-2xl
 
-              text-[14px]
-              font-semibold
+                    text-[14px]
+                    font-semibold
 
-              transition-all
-              duration-200
+                    transition-all
+                    duration-200
 
-              ${
-                active
-                  ? `
-                    bg-orange-500
-                    text-white
-                    shadow-sm
-                  `
-                  : `
-                    border
-                    border-[#e2e8f0]
+                    ${
+                      active
+                        ? `
+                          bg-orange-500
+                          text-white
+                          shadow-sm
+                        `
+                        : `
+                          border
+                          border-[#e2e8f0]
+                          dark:border-[#374151]
 
-                    bg-white
-                    text-[#0f172a]
+                          bg-white
+                          dark:bg-[#111827]
 
-                    hover:border-orange-200
-                    hover:text-orange-500
-                  `
-              }
-            `}
-              >
-                {page}
-              </button>
-            );
-          })}
+                          text-[#0f172a]
+                          dark:text-white
+
+                          hover:border-orange-200
+                          dark:hover:border-orange-500/20
+
+                          hover:text-orange-500
+                        `
+                    }
+                  `}
+                >
+                  {page}
+                </button>
+              );
+            }
+          )}
 
           {/* NEXT */}
 
@@ -324,30 +433,36 @@ export default function ProductInventoryTable({
             onClick={nextPage}
             disabled={currentPage === totalPages || totalPages === 0}
             className="
-        flex
-        h-12
-        w-12
-        items-center
-        justify-center
+              flex
+              h-12
+              w-12
 
-        rounded-2xl
+              items-center
+              justify-center
 
-        border
-        border-[#e2e8f0]
+              rounded-2xl
 
-        bg-white
+              border
+              border-[#e2e8f0]
+              dark:border-[#374151]
 
-        text-[#475569]
+              bg-white
+              dark:bg-[#111827]
 
-        transition-all
-        duration-200
+              text-[#475569]
+              dark:text-gray-300
 
-        hover:border-orange-200
-        hover:text-orange-500
+              transition-all
+              duration-200
 
-        disabled:cursor-not-allowed
-        disabled:opacity-40
-      "
+              hover:border-orange-200
+              dark:hover:border-orange-500/20
+
+              hover:text-orange-500
+
+              disabled:cursor-not-allowed
+              disabled:opacity-40
+            "
           >
             <ChevronRight size={18} />
           </button>

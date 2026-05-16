@@ -39,17 +39,16 @@ export default function ForecastSummary({ selectedRange }) {
         return;
       }
 
-      // TOTAL REVENUE
-      const revenue = forecast.reduce(
-        (sum, item) => sum + Number(item.yhat || 0),
+      /* TOTAL REVENUE */
 
-        0
-      );
+      const revenue = forecast.reduce((sum, item) => sum + Number(item.yhat || 0), 0);
 
-      // DAILY AVG
+      /* DAILY AVG */
+
       const average = revenue / forecast.length;
 
-      // BEST DAY
+      /* BEST DAY */
+
       const best = forecast.reduce((prev, current) => (prev.yhat > current.yhat ? prev : current));
 
       setSummary({
@@ -70,17 +69,79 @@ export default function ForecastSummary({ selectedRange }) {
     }
   };
 
+  /* LOADING */
+
   if (loading) {
     return (
-      <div className="bg-gray-50 rounded-2xl p-5 animate-pulse">
-        <div className="h-6 w-40 rounded-xl bg-gray-200" />
+      <div
+        className="
+          animate-pulse
 
-        <div className="h-16 rounded-2xl bg-gray-200 mt-6" />
+          rounded-3xl
 
-        <div className="space-y-4 mt-6">
-          <div className="h-10 rounded-xl bg-gray-200" />
+          border
+          border-gray-100
+          dark:border-[#1F2937]
 
-          <div className="h-10 rounded-xl bg-gray-200" />
+          bg-gray-50
+          dark:bg-[#0F172A]
+
+          p-5
+        "
+      >
+        <div
+          className="
+            h-6
+            w-40
+
+            rounded-xl
+
+            bg-gray-200
+            dark:bg-[#1E293B]
+          "
+        />
+
+        <div
+          className="
+            mt-6
+
+            h-16
+
+            rounded-2xl
+
+            bg-gray-200
+            dark:bg-[#1E293B]
+          "
+        />
+
+        <div
+          className="
+            mt-6
+
+            space-y-4
+          "
+        >
+          <div
+            className="
+              h-10
+
+              rounded-xl
+
+              bg-gray-200
+              dark:bg-[#1E293B]
+            "
+          />
+
+          <div
+            className="
+              h-10
+
+              rounded-xl
+
+              bg-gray-200
+              dark:bg-[#1E293B]
+            "
+          />
         </div>
       </div>
     );
@@ -89,83 +150,232 @@ export default function ForecastSummary({ selectedRange }) {
   return (
     <div
       className="
-      bg-gradient-to-br
-      from-purple-600
-      to-violet-500
-      rounded-2xl
-      p-5
-      text-white
-      shadow-lg
-      flex flex-col
-      justify-between
-      min-h-full
-    "
+        flex
+        min-h-full
+        flex-col
+        justify-between
+
+        rounded-3xl
+
+        bg-gradient-to-br
+        from-[#5B21B6]
+        via-[#6D28D9]
+        to-[#4C1D95]
+
+        p-5
+
+        text-white
+
+        border
+        border-purple-500/20
+
+        shadow-xl
+        shadow-purple-900/20
+      "
     >
       {/* HEADER */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-xl font-bold">Forecast Summary</h3>
 
-          <p className="text-purple-100 text-sm mt-1">Next Prediction Overview</p>
+      <div
+        className="
+          flex
+          items-center
+          justify-between
+        "
+      >
+        <div>
+          <h3
+            className="
+              text-xl
+              font-bold
+            "
+          >
+            Forecast Summary
+          </h3>
+
+          <p
+            className="
+              mt-1
+
+              text-sm
+
+              text-purple-100
+            "
+          >
+            Next Prediction Overview
+          </p>
         </div>
 
         <div
           className="
-          h-12
-          w-12
-          rounded-2xl
-          bg-white/20
-          flex
-          items-center
-          justify-center
-          text-xl
-        "
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+
+            rounded-2xl
+
+            bg-white/10
+
+            text-xl
+          "
         >
           📈
         </div>
       </div>
 
       {/* REVENUE */}
-      <div className="mt-6">
-        <p className="text-sm text-purple-100">Predicted Revenue</p>
 
-        <h2 className="text-4xl font-black mt-2 break-words">₱{Math.round(summary.revenue).toLocaleString()}</h2>
+      <div className="mt-6">
+        <p
+          className="
+            text-sm
+            text-purple-100
+          "
+        >
+          Predicted Revenue
+        </p>
+
+        <h2
+          className="
+            mt-2
+
+            break-words
+
+            text-4xl
+            font-black
+          "
+        >
+          ₱{Math.round(summary.revenue).toLocaleString()}
+        </h2>
       </div>
 
       {/* STATS */}
-      <div className="mt-auto pt-8 space-y-4">
+
+      <div
+        className="
+          mt-auto
+          space-y-4
+          pt-8
+        "
+      >
         {/* AVG */}
+
         <div
           className="
-          bg-white/10
-          rounded-2xl
-          p-5
-          flex
-          items-center
-          justify-between
-        "
+            flex
+            items-center
+            justify-between
+
+            rounded-2xl
+
+            bg-white/5
+
+            p-5
+
+            backdrop-blur-sm
+          "
         >
           <div>
-            <p className="text-xs uppercase tracking-wide text-purple-100">Daily Average</p>
+            <p
+              className="
+                text-xs
+                uppercase
+                tracking-wide
 
-            <h3 className="text-2xl font-bold mt-1">₱{Math.round(summary.average).toLocaleString()}</h3>
+                text-purple-100
+              "
+            >
+              Daily Average
+            </p>
+
+            <h3
+              className="
+                mt-1
+
+                text-2xl
+                font-bold
+              "
+            >
+              ₱{Math.round(summary.average).toLocaleString()}
+            </h3>
           </div>
 
           <div className="text-3xl">💰</div>
         </div>
 
         {/* BEST DAY */}
-        <div className="bg-white/10 rounded-2xl p-5">
-          <p className="text-xs uppercase tracking-wide text-purple-100">Best Day</p>
 
-          <h3 className="text-2xl font-bold mt-1">{summary.bestDay}</h3>
+        <div
+          className="
+            rounded-2xl
+
+            bg-white/5
+
+            p-5
+
+            backdrop-blur-sm
+          "
+        >
+          <p
+            className="
+              text-xs
+              uppercase
+              tracking-wide
+
+              text-purple-100
+            "
+          >
+            Best Day
+          </p>
+
+          <h3
+            className="
+              mt-1
+
+              text-2xl
+              font-bold
+            "
+          >
+            {summary.bestDay}
+          </h3>
         </div>
 
         {/* HIGHEST */}
-        <div className="bg-white/10 rounded-2xl p-5">
-          <p className="text-xs uppercase tracking-wide text-purple-100">Highest Sales</p>
 
-          <h3 className="text-2xl font-bold mt-1">₱{Math.round(summary.bestSales).toLocaleString()}</h3>
+        <div
+          className="
+            rounded-2xl
+
+            bg-white/5
+
+            p-5
+
+            backdrop-blur-sm
+          "
+        >
+          <p
+            className="
+              text-xs
+              uppercase
+              tracking-wide
+
+              text-purple-100
+            "
+          >
+            Highest Sales
+          </p>
+
+          <h3
+            className="
+              mt-1
+
+              text-2xl
+              font-bold
+            "
+          >
+            ₱{Math.round(summary.bestSales).toLocaleString()}
+          </h3>
         </div>
       </div>
     </div>

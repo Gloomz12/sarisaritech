@@ -1,10 +1,37 @@
 export default function Header() {
   return (
-    <div className="flex items-center justify-between">
+    <div
+      className="
+        flex
+        items-center
+        justify-between
+      "
+    >
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">AI Insights</h1>
+        <h1
+          className="
+            text-4xl
+            font-black
 
-        <p className="text-sm text-gray-500 mt-1">AI-powered analytics for smarter inventory decisions.</p>
+            text-gray-900
+            dark:text-white
+          "
+        >
+          AI Insights
+        </h1>
+
+        <p
+          className="
+            mt-2
+
+            text-sm
+
+            text-gray-500
+            dark:text-slate-400
+          "
+        >
+          AI-powered analytics for smarter inventory decisions.
+        </p>
       </div>
     </div>
   );

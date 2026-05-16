@@ -1,14 +1,36 @@
 // RestockCard.jsx
 
-import { Package2 } from "lucide-react";
+import { Package2, AlertTriangle, ShieldAlert, CheckCircle2 } from "lucide-react";
 
 import { getStockStatus } from "../../utils/stockStatus";
 
 export default function RestockCard({ product, onRestock }) {
   const status = getStockStatus(product.stock, product.minLevel);
 
-  const badgeColor =
-    status === "critical" ? "bg-red-100 text-red-500" : status === "low" ? "bg-yellow-100 text-yellow-700" : "bg-green-100 text-green-600";
+  const badgeStyles =
+    status === "critical"
+      ? `
+        bg-red-100
+        dark:bg-red-500/10
+
+        text-red-500
+        dark:text-red-400
+      `
+      : status === "low"
+        ? `
+          bg-yellow-100
+          dark:bg-yellow-500/10
+
+          text-yellow-700
+          dark:text-yellow-400
+        `
+        : `
+          bg-green-100
+          dark:bg-green-500/10
+
+          text-green-600
+          dark:text-green-400
+        `;
 
   return (
     <div
@@ -20,12 +42,16 @@ export default function RestockCard({ product, onRestock }) {
         h-full
         flex-col
 
-        rounded-[22px]
+        rounded-[24px]
 
         border
         border-slate-200
+        dark:border-[#1F2937]
 
         bg-white
+        dark:bg-gradient-to-b
+        dark:from-[#111827]
+        dark:to-[#0F172A]
 
         p-4
 
@@ -35,7 +61,7 @@ export default function RestockCard({ product, onRestock }) {
         duration-300
 
         hover:-translate-y-1
-        hover:shadow-md
+        hover:shadow-lg
       "
     >
       {/* TOP ACCENT */}
@@ -77,8 +103,8 @@ export default function RestockCard({ product, onRestock }) {
           <div
             className="
               flex
-              h-10
-              w-10
+              h-11
+              w-11
               shrink-0
               items-center
               justify-center
@@ -86,12 +112,14 @@ export default function RestockCard({ product, onRestock }) {
               rounded-2xl
 
               bg-slate-100
+              dark:bg-[#1E293B]
             "
           >
             <Package2
-              size={16}
+              size={18}
               className="
                 text-slate-500
+                dark:text-gray-300
               "
             />
           </div>
@@ -115,6 +143,7 @@ export default function RestockCard({ product, onRestock }) {
                 font-bold
 
                 text-[#0F172A]
+                dark:text-white
               "
             >
               {product.name}
@@ -125,7 +154,9 @@ export default function RestockCard({ product, onRestock }) {
                 mt-0.5
 
                 text-[13px]
+
                 text-slate-500
+                dark:text-gray-400
               "
             >
               {product.category}
@@ -191,14 +222,26 @@ export default function RestockCard({ product, onRestock }) {
           </p>
 
           <h3
-            className="
+            className={`
               mt-1
 
               text-[16px]
               font-black
 
-              text-[#0F172A]
-            "
+              ${
+                status === "critical"
+                  ? `
+                    text-red-500
+                  `
+                  : status === "low"
+                    ? `
+                      text-yellow-500
+                    `
+                    : `
+                      text-green-500
+                    `
+              }
+            `}
           >
             {product.stock}
           </h3>
@@ -227,6 +270,7 @@ export default function RestockCard({ product, onRestock }) {
               font-black
 
               text-[#0F172A]
+              dark:text-white
             "
           >
             {product.minLevel}
@@ -246,9 +290,10 @@ export default function RestockCard({ product, onRestock }) {
               inline-flex
               items-center
               justify-center
+              gap-1
 
-              min-w-[74px]
-              h-[26px]
+              min-w-[82px]
+              h-[28px]
 
               rounded-full
 
@@ -258,9 +303,15 @@ export default function RestockCard({ product, onRestock }) {
               font-bold
               uppercase
 
-              ${badgeColor}
+              ${badgeStyles}
             `}
           >
+            {status === "critical" && <ShieldAlert size={11} />}
+
+            {status === "low" && <AlertTriangle size={11} />}
+
+            {status === "good" && <CheckCircle2 size={11} />}
+
             {status}
           </span>
         </div>

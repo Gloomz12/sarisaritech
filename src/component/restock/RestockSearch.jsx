@@ -1,3 +1,5 @@
+// RestockSearch.jsx
+
 import { Search } from "lucide-react";
 
 export default function RestockSearch({
@@ -12,17 +14,33 @@ export default function RestockSearch({
   goodCount,
 }) {
   return (
-    <div className="flex gap-3">
+    <div
+      className="
+        flex
+        flex-col
+        gap-3
+
+        lg:flex-row
+      "
+    >
       {/* SEARCH */}
 
-      <div className="relative flex-1">
+      <div
+        className="
+          relative
+          flex-1
+        "
+      >
         <Search
           className="
             absolute
             left-4
             top-1/2
+
             -translate-y-1/2
+
             text-slate-400
+            dark:text-gray-500
           "
           size={18}
         />
@@ -37,19 +55,32 @@ export default function RestockSearch({
             w-full
 
             rounded-[20px]
+
             border
             border-slate-200
+            dark:border-[#1F2937]
+
             bg-white
+            dark:bg-[#111827]
 
             pl-12
             pr-4
 
             text-[15px]
+
             text-slate-700
+            dark:text-white
 
             outline-none
 
             transition-all
+
+            placeholder:text-slate-400
+            dark:placeholder:text-gray-500
+
+            hover:border-orange-200
+            dark:hover:border-orange-500/20
+
             focus:border-orange-300
             focus:ring-4
             focus:ring-orange-100
@@ -63,32 +94,37 @@ export default function RestockSearch({
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         className="
-    h-[54px]
-    min-w-[150px]
+          h-[54px]
+          min-w-[170px]
 
-    rounded-[18px]
+          rounded-[18px]
 
-    border
-    border-slate-200
+          border
+          border-slate-200
+          dark:border-[#1F2937]
 
-    bg-white
+          bg-white
+          dark:bg-[#111827]
 
-    px-4
+          px-4
 
-    text-[14px]
-    font-semibold
-    text-slate-700
+          text-[14px]
+          font-semibold
 
-    outline-none
+          text-slate-700
+          dark:text-white
 
-    transition-all
+          outline-none
 
-    hover:border-orange-200
+          transition-all
 
-    focus:border-orange-300
-    focus:ring-4
-    focus:ring-orange-100
-  "
+          hover:border-orange-200
+          dark:hover:border-orange-500/20
+
+          focus:border-orange-300
+          focus:ring-4
+          focus:ring-orange-100
+        "
       >
         <option value="All">⚪ All</option>
 

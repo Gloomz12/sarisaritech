@@ -11,11 +11,11 @@ export default function ForecastChart({ selectedRange }) {
 
   const [stats, setStats] = useState({
     growth: 0,
-
     revenue: 0,
-
     bestDay: "-",
   });
+
+  const darkMode = document.documentElement.classList.contains("dark");
 
   useEffect(() => {
     loadForecast();
@@ -27,9 +27,7 @@ export default function ForecastChart({ selectedRange }) {
 
       const daysMap = {
         "7 Days": 7,
-
         "30 Days": 30,
-
         "90 Days": 90,
       };
 
@@ -59,17 +57,20 @@ export default function ForecastChart({ selectedRange }) {
 
       setForecastData(formatted);
 
-      // TOTAL REVENUE
+      /* TOTAL REVENUE */
+
       const totalRevenue = forecast.reduce(
         (sum, item) => sum + Number(item.yhat || 0),
 
         0
       );
 
-      // BEST DAY
+      /* BEST DAY */
+
       const best = forecast.reduce((prev, current) => (prev.yhat > current.yhat ? prev : current));
 
-      // GROWTH
+      /* GROWTH */
+
       const first = forecast[0]?.yhat || 0;
 
       const last = forecast[forecast.length - 1]?.yhat || 0;
@@ -96,32 +97,64 @@ export default function ForecastChart({ selectedRange }) {
     }
   };
 
+  /* LOADING */
+
   if (loading) {
     return (
       <div
         className="
-        bg-white
-        rounded-3xl
-        border border-gray-100
-        p-5
-        shadow-sm
-        animate-pulse
-      "
+          animate-pulse
+
+          rounded-3xl
+
+          border
+          border-gray-100
+          dark:border-[#1F2937]
+
+          bg-white
+          dark:bg-[#111827]
+
+          p-5
+
+          shadow-sm
+        "
       >
         <div
           className="
-          grid grid-cols-1 md:grid-cols-3
-          gap-4 mb-6
-        "
+            mb-6
+
+            grid
+            grid-cols-1
+            gap-4
+
+            md:grid-cols-3
+          "
         >
-          <div className="h-24 rounded-2xl bg-gray-100" />
+          {[1, 2, 3].map((item) => (
+            <div
+              key={item}
+              className="
+                h-24
 
-          <div className="h-24 rounded-2xl bg-gray-100" />
+                rounded-2xl
 
-          <div className="h-24 rounded-2xl bg-gray-100" />
+                bg-gray-100
+                dark:bg-[#0F172A]
+              "
+            />
+          ))}
         </div>
 
-        <div className="h-[420px] rounded-2xl bg-gray-100" />
+        <div
+          className="
+            h-[420px]
+
+            rounded-2xl
+
+            bg-gray-100
+            dark:bg-[#0F172A]
+          "
+        />
       </div>
     );
   }
@@ -129,45 +162,70 @@ export default function ForecastChart({ selectedRange }) {
   return (
     <div
       className="
-      bg-white
-      rounded-3xl
-      border border-gray-100
-      p-5
-      shadow-sm
-    "
+        rounded-3xl
+
+        border
+        border-gray-100
+        dark:border-[#1F2937]
+
+        bg-white
+        dark:bg-[#111827]
+
+        p-5
+
+        shadow-sm
+
+        transition-all
+        duration-300
+      "
     >
       {/* TOP STATS */}
+
       <div
         className="
-        grid grid-cols-1 md:grid-cols-3
-        gap-4 mb-6
-      "
+          mb-6
+
+          grid
+          grid-cols-1
+          gap-4
+
+          md:grid-cols-3
+        "
       >
         {/* GROWTH */}
+
         <div
           className="
-          bg-purple-50
-          rounded-2xl
-          p-4
-        "
+            rounded-2xl
+
+            bg-purple-50
+            dark:bg-purple-500/10
+
+            p-4
+          "
         >
           <p
             className="
-            text-sm
-            text-purple-600
-            font-medium
-          "
+              text-sm
+              font-medium
+
+              text-purple-600
+              dark:text-purple-300
+            "
           >
             Forecast Growth
           </p>
 
           <h2
             className="
-            text-3xl
-            font-bold
-            text-purple-700
-            mt-2
-          "
+              mt-2
+
+              text-3xl
+              font-bold
+
+              text-purple-700
+              dark:text-purple-200
+            "
           >
             {stats.growth >= 0 ? "+" : ""}
             {stats.growth}%
@@ -175,60 +233,78 @@ export default function ForecastChart({ selectedRange }) {
         </div>
 
         {/* REVENUE */}
+
         <div
           className="
-          bg-green-50
-          rounded-2xl
-          p-4
-        "
+            rounded-2xl
+
+            bg-green-50
+            dark:bg-green-500/10
+
+            p-4
+          "
         >
           <p
             className="
-            text-sm
-            text-green-600
-            font-medium
-          "
+              text-sm
+              font-medium
+
+              text-green-600
+              dark:text-green-300
+            "
           >
             Predicted Revenue
           </p>
 
           <h2
             className="
-            text-3xl
-            font-bold
-            text-green-700
-            mt-2
-          "
+              mt-2
+
+              text-3xl
+              font-bold
+
+              text-green-700
+              dark:text-green-200
+            "
           >
             ₱{Math.round(stats.revenue).toLocaleString()}
           </h2>
         </div>
 
         {/* BEST DAY */}
+
         <div
           className="
-          bg-orange-50
-          rounded-2xl
-          p-4
-        "
+            rounded-2xl
+
+            bg-orange-50
+            dark:bg-orange-500/10
+
+            p-4
+          "
         >
           <p
             className="
-            text-sm
-            text-orange-600
-            font-medium
-          "
+              text-sm
+              font-medium
+
+              text-orange-600
+              dark:text-orange-300
+            "
           >
             Best Day
           </p>
 
           <h2
             className="
-            text-3xl
-            font-bold
-            text-orange-700
-            mt-2
-          "
+              mt-2
+
+              text-3xl
+              font-bold
+
+              text-orange-700
+              dark:text-orange-200
+            "
           >
             {stats.bestDay}
           </h2>
@@ -236,6 +312,7 @@ export default function ForecastChart({ selectedRange }) {
       </div>
 
       {/* CHART */}
+
       <div className="h-[420px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -248,9 +325,11 @@ export default function ForecastChart({ selectedRange }) {
             }}
           >
             {/* GRID */}
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#374151" : "#e5e7eb"} />
 
             {/* X AXIS */}
+
             <XAxis
               dataKey="day"
               tickLine={false}
@@ -259,42 +338,69 @@ export default function ForecastChart({ selectedRange }) {
               minTickGap={50}
               tick={{
                 fontSize: 12,
+
+                fill: darkMode ? "#94A3B8" : "#64748b",
               }}
             />
 
             {/* Y AXIS */}
+
             <YAxis
               tickLine={false}
               axisLine={false}
               tick={{
                 fontSize: 12,
+
+                fill: darkMode ? "#94A3B8" : "#64748b",
               }}
             />
 
             {/* TOOLTIP */}
+
             <Tooltip
               formatter={(value, name) => [`₱${Number(value).toLocaleString()}`, name]}
+              cursor={{
+                stroke: "#a855f7",
+                strokeWidth: 2,
+                strokeDasharray: "4 4",
+              }}
               contentStyle={{
+                backgroundColor: darkMode ? "#0f172a" : "#ffffff",
+
                 borderRadius: "18px",
 
-                border: "none",
+                border: darkMode ? "1px solid #1F2937" : "1px solid #e5e7eb",
 
-                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                color: darkMode ? "#ffffff" : "#0f172a",
+
+                boxShadow: darkMode ? "0 10px 30px rgba(0,0,0,0.4)" : "0 10px 30px rgba(15,23,42,0.08)",
+              }}
+              labelStyle={{
+                color: darkMode ? "#cbd5e1" : "#64748b",
+
+                fontWeight: 600,
+              }}
+              itemStyle={{
+                color: "#a855f7",
+                fontWeight: 700,
               }}
             />
 
             {/* LEGEND */}
+
             <Legend />
 
             {/* ACTUAL */}
-            <Line type="monotone" dataKey="actual" name="Actual Sales" stroke="#7c3aed" strokeWidth={3} dot={false} activeDot={false} />
+
+            <Line type="monotone" dataKey="actual" name="Actual Sales" stroke="#8B5CF6" strokeWidth={3} dot={false} activeDot={false} />
 
             {/* PREDICTED */}
+
             <Line
               type="monotone"
               dataKey="predicted"
               name="Predicted Sales"
-              stroke="#c084fc"
+              stroke="#C084FC"
               strokeWidth={3}
               strokeDasharray="8 8"
               dot={false}

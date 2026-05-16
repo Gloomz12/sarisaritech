@@ -18,15 +18,18 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
         inset-0
         z-50
 
+        overflow-y-auto
+
         flex
-        items-center
+        items-start
         justify-center
 
-        bg-black/40
+        bg-black/60
 
-        p-4
+        px-4
+        py-8
 
-        backdrop-blur-[2px]
+        backdrop-blur-[4px]
       "
     >
       {/* MODAL */}
@@ -36,13 +39,23 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
           w-full
           max-w-[560px]
 
+          my-auto
+
           overflow-hidden
 
           rounded-[28px]
 
-          bg-white
+          border
+          border-[#1F2937]
 
-          shadow-[0_20px_70px_rgba(15,23,42,0.12)]
+          bg-gradient-to-b
+          from-[#111827]
+          to-[#0F172A]
+
+          shadow-[0_20px_70px_rgba(0,0,0,0.45)]
+
+          transition-all
+          duration-300
         "
       >
         {/* HEADER */}
@@ -54,7 +67,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
             justify-between
 
             border-b
-            border-[#eef2f7]
+            border-[#1F2937]
 
             px-6
             py-4
@@ -68,7 +81,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                 tracking-[-1px]
 
-                text-[#071437]
+                text-white
               "
             >
               Restock Product
@@ -79,7 +92,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 mt-1
 
                 text-[13px]
-                text-[#64748b]
+
+                text-gray-400
               "
             >
               Update inventory quantity
@@ -102,13 +116,13 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               transition-all
               duration-200
 
-              hover:bg-[#f8fafc]
+              hover:bg-white/5
             "
           >
             <X
               size={24}
               className="
-                text-[#64748b]
+                text-gray-400
               "
             />
           </button>
@@ -131,9 +145,9 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               rounded-[24px]
 
               border
-              border-[#e2e8f0]
+              border-[#1F2937]
 
-              bg-[#fcfcfd]
+              bg-[#111827]
 
               p-4
             "
@@ -151,13 +165,13 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                   rounded-[20px]
 
-                  bg-[#f1f5f9]
+                  bg-[#1E293B]
                 "
               >
                 <Package
                   size={28}
                   className="
-                    text-slate-500
+                    text-gray-300
                   "
                 />
               </div>
@@ -174,7 +188,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     tracking-[-1px]
 
-                    text-[#071437]
+                    text-white
                   "
                 >
                   {product.name}
@@ -185,7 +199,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                     mt-1.5
 
                     text-[13px]
-                    text-[#64748b]
+
+                    text-gray-400
                   "
                 >
                   {product.category}
@@ -208,7 +223,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                     <p
                       className="
                         text-[11px]
-                        text-[#94a3b8]
+
+                        text-gray-500
                       "
                     >
                       Current
@@ -223,7 +239,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                         font-black
 
-                        text-[#071437]
+                        text-white
                       "
                     >
                       {product.stock}
@@ -236,7 +252,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                     <p
                       className="
                         text-[11px]
-                        text-[#94a3b8]
+
+                        text-gray-500
                       "
                     >
                       Min Level
@@ -251,7 +268,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                         font-black
 
-                        text-[#071437]
+                        text-white
                       "
                     >
                       {product.minLevel}
@@ -264,7 +281,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                     <p
                       className="
                         text-[11px]
-                        text-[#94a3b8]
+
+                        text-gray-500
                       "
                     >
                       Status
@@ -280,7 +298,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                             rounded-full
 
-                            bg-red-100
+                            bg-red-500/10
 
                             px-2.5
                             py-1
@@ -289,7 +307,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                             font-bold
                             uppercase
 
-                            text-red-500
+                            text-red-400
                           "
                         >
                           <ShieldAlert size={12} />
@@ -306,7 +324,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                             rounded-full
 
-                            bg-yellow-100
+                            bg-yellow-500/10
 
                             px-2.5
                             py-1
@@ -315,7 +333,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                             font-bold
                             uppercase
 
-                            text-yellow-700
+                            text-yellow-400
                           "
                         >
                           <AlertTriangle size={12} />
@@ -332,7 +350,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                             rounded-full
 
-                            bg-green-100
+                            bg-green-500/10
 
                             px-2.5
                             py-1
@@ -341,7 +359,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                             font-bold
                             uppercase
 
-                            text-green-600
+                            text-green-400
                           "
                         >
                           <CheckCircle2 size={12} />
@@ -370,7 +388,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   text-[15px]
                   font-semibold
 
-                  text-[#071437]
+                  text-white
                 "
               >
                 Add Quantity
@@ -387,9 +405,9 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                         rounded-[14px]
 
                         border
-                        border-[#F4D7B5]
+                        border-orange-500/20
 
-                        bg-orange-50
+                        bg-orange-500/10
 
                         px-3
                         py-1.5
@@ -397,11 +415,11 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                         text-[11px]
                         font-bold
 
-                        text-orange-500
+                        text-orange-400
 
                         transition-all
 
-                        hover:bg-orange-100
+                        hover:bg-orange-500/20
                       "
                   >
                     +{amount}
@@ -426,15 +444,15 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 rounded-[18px]
 
                 border
-                border-[#F4D7B5]
+                border-orange-500/20
 
-                bg-white
+                bg-[#111827]
 
                 transition-all
 
-                focus-within:border-orange-300
+                focus-within:border-orange-400
                 focus-within:ring-2
-                focus-within:ring-orange-100
+                focus-within:ring-orange-500/20
               "
             >
               {/* ICON */}
@@ -447,13 +465,13 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   items-center
                   justify-center
 
-                  bg-[#fff7ed]
+                  bg-orange-500/10
                 "
               >
                 <Package
                   size={18}
                   className="
-                    text-orange-500
+                    text-orange-400
                   "
                 />
               </div>
@@ -481,11 +499,11 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   text-[24px]
                   font-black
 
-                  text-[#071437]
+                  text-white
 
                   outline-none
 
-                  placeholder:text-[#cbd5e1]
+                  placeholder:text-gray-600
                 "
               />
             </div>
@@ -498,9 +516,9 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               rounded-[18px]
 
               border
-              border-green-100
+              border-green-500/20
 
-              bg-[#f7fff9]
+              bg-green-500/5
 
               p-3
             "
@@ -518,7 +536,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 <p
                   className="
                     text-[11px]
-                    text-[#94a3b8]
+
+                    text-gray-500
                   "
                 >
                   Before
@@ -533,7 +552,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     font-black
 
-                    text-[#071437]
+                    text-white
                   "
                 >
                   {product.stock}
@@ -546,7 +565,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 <p
                   className="
                     text-[11px]
-                    text-[#94a3b8]
+
+                    text-gray-500
                   "
                 >
                   Added
@@ -561,7 +581,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     font-black
 
-                    text-green-600
+                    text-green-400
                   "
                 >
                   +{quantity || 0}
@@ -574,7 +594,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 <p
                   className="
                     text-[11px]
-                    text-[#94a3b8]
+
+                    text-gray-500
                   "
                 >
                   After
@@ -589,7 +610,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     font-black
 
-                    text-[#071437]
+                    text-white
                   "
                 >
                   {newStock}
@@ -606,7 +627,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                   rounded-[14px]
 
-                  bg-green-100
+                  bg-green-500/10
 
                   px-3
                   py-2
@@ -614,7 +635,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   text-[11px]
                   font-semibold
 
-                  text-green-700
+                  text-green-400
                 "
               >
                 Stock status will become GOOD after restocking.
@@ -632,9 +653,9 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
             gap-3
 
             border-t
-            border-[#eef2f7]
+            border-[#1F2937]
 
-            bg-white
+            bg-[#0F172A]
 
             px-6
             py-4
@@ -650,18 +671,18 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               rounded-[18px]
 
               border
-              border-[#dbe2ea]
+              border-[#1F2937]
 
-              bg-white
+              bg-[#111827]
 
               text-[14px]
               font-semibold
 
-              text-[#475569]
+              text-gray-300
 
               transition-all
 
-              hover:bg-[#f8fafc]
+              hover:bg-white/5
             "
           >
             Cancel

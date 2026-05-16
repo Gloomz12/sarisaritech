@@ -13,6 +13,7 @@ export default function RestockGrid({ products, onRestock }) {
         2xl:grid-cols-4
 
         gap-4
+
         auto-rows-fr
       "
     >

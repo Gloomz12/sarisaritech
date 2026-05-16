@@ -42,7 +42,7 @@ export default function MainLayout() {
         overflow-hidden
 
         bg-[#f5f7fb]
-        dark:bg-[#020817]
+        dark:bg-[#020617]
 
         transition-all
         duration-300
@@ -75,6 +75,12 @@ export default function MainLayout() {
 
             px-7
             py-6
+
+            text-[#0F172A]
+            dark:text-white
+
+            transition-all
+            duration-300
           "
         >
           <Outlet

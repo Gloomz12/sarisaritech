@@ -5,39 +5,54 @@ export default function AprioriSection() {
     <section
       id="apriori-section"
       className="
-      bg-white
-      rounded-3xl
-      border
-      border-gray-100
-      p-6
-      shadow-sm
-    "
+        rounded-3xl
+
+        border
+        border-gray-100
+        dark:border-[#1F2937]
+
+        bg-white
+        dark:bg-[#111827]
+
+        p-6
+
+        shadow-sm
+
+        transition-all
+        duration-300
+      "
     >
       <div
         className="
-        flex
-        items-center
-        justify-between
-        mb-2
-      "
+          mb-2
+
+          flex
+          items-center
+          justify-between
+        "
       >
         <div>
           <h2
             className="
-            text-2xl
-            font-bold
-            text-gray-900
-          "
+              text-2xl
+              font-bold
+
+              text-gray-900
+              dark:text-white
+            "
           >
             Apriori Analysis
           </h2>
 
           <p
             className="
-            text-sm
-            text-gray-500
-            mt-1
-          "
+              mt-1
+
+              text-sm
+
+              text-gray-500
+              dark:text-slate-400
+            "
           >
             Frequently bought together products
           </p>

@@ -12,6 +12,15 @@ export default function StatsCards({ stats }) {
       value: `₱${stats.totalSales?.toLocaleString() || 0}`,
 
       icon: ShoppingBag,
+
+      iconBg: `
+        bg-orange-100
+        dark:bg-orange-500/10
+      `,
+
+      iconColor: `
+        text-orange-500
+      `,
     },
 
     {
@@ -20,6 +29,15 @@ export default function StatsCards({ stats }) {
       value: stats.totalOrders || 0,
 
       icon: ShoppingCart,
+
+      iconBg: `
+        bg-blue-100
+        dark:bg-blue-500/10
+      `,
+
+      iconColor: `
+        text-blue-500
+      `,
     },
 
     {
@@ -28,6 +46,15 @@ export default function StatsCards({ stats }) {
       value: `₱${stats.averageOrderValue?.toLocaleString() || 0}`,
 
       icon: Wallet,
+
+      iconBg: `
+        bg-green-100
+        dark:bg-green-500/10
+      `,
+
+      iconColor: `
+        text-green-500
+      `,
     },
 
     {
@@ -36,11 +63,29 @@ export default function StatsCards({ stats }) {
       value: stats.activeProducts || 0,
 
       icon: Package,
+
+      iconBg: `
+        bg-purple-100
+        dark:bg-purple-500/10
+      `,
+
+      iconColor: `
+        text-purple-500
+      `,
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div
+      className="
+        grid
+        grid-cols-1
+        gap-4
+
+        md:grid-cols-2
+        xl:grid-cols-4
+      "
+    >
       {cards.map((card, index) => {
         const Icon = card.icon;
 
@@ -48,23 +93,81 @@ export default function StatsCards({ stats }) {
           <div
             key={index}
             className="
-              bg-white
-              rounded-[22px]
-              p-5
+              rounded-[24px]
+
               border
               border-gray-100
+              dark:border-[#1F2937]
+
+              bg-white
+              dark:bg-[#111827]
+
+              p-5
+
               shadow-sm
+
+              transition-all
+              duration-300
+
+              hover:-translate-y-1
+              hover:shadow-lg
             "
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-bold text-gray-400">{card.title}</p>
+            <div
+              className="
+                flex
+                items-start
+                justify-between
+              "
+            >
+              {/* LEFT */}
 
-                <h2 className="text-3xl font-black mt-4 text-[#0f172a]">{card.value}</h2>
+              <div>
+                <p
+                  className="
+                    text-xs
+                    font-bold
+
+                    tracking-wide
+
+                    text-gray-400
+                    dark:text-slate-500
+                  "
+                >
+                  {card.title}
+                </p>
+
+                <h2
+                  className="
+                    mt-4
+
+                    text-3xl
+                    font-black
+
+                    text-[#0f172a]
+                    dark:text-white
+                  "
+                >
+                  {card.value}
+                </h2>
               </div>
 
-              <div className="w-14 h-14 rounded-2xl bg-[#fff8f1] flex items-center justify-center">
-                <Icon size={22} className="text-[#ff7a00]" />
+              {/* ICON */}
+
+              <div
+                className={`
+                  flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+
+                  rounded-2xl
+
+                  ${card.iconBg}
+                `}
+              >
+                <Icon size={22} className={card.iconColor} />
               </div>
             </div>
           </div>

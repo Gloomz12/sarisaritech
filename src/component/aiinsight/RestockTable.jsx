@@ -38,32 +38,21 @@ export default function RestockTable() {
   if (loading) {
     return (
       <div className="space-y-4">
-        <div
-          className="
-          h-28
-          rounded-3xl
-          bg-gray-100
-          animate-pulse
-        "
-        />
+        {[1, 2, 3].map((item) => (
+          <div
+            key={item}
+            className="
+              h-28
 
-        <div
-          className="
-          h-28
-          rounded-3xl
-          bg-gray-100
-          animate-pulse
-        "
-        />
+              animate-pulse
 
-        <div
-          className="
-          h-28
-          rounded-3xl
-          bg-gray-100
-          animate-pulse
-        "
-        />
+              rounded-3xl
+
+              bg-gray-100
+              dark:bg-[#0F172A]
+            "
+          />
+        ))}
       </div>
     );
   }
@@ -72,28 +61,37 @@ export default function RestockTable() {
     return (
       <div
         className="
-        bg-gray-50
-        rounded-3xl
-        p-10
-        text-center
-      "
+          rounded-3xl
+
+          bg-gray-50
+          dark:bg-[#0F172A]
+
+          p-10
+
+          text-center
+        "
       >
         <h2
           className="
-          text-lg
-          font-semibold
-          text-gray-700
-        "
+            text-lg
+            font-semibold
+
+            text-gray-700
+            dark:text-white
+          "
         >
           No restock recommendations
         </h2>
 
         <p
           className="
-          text-sm
-          text-gray-400
-          mt-2
-        "
+            mt-2
+
+            text-sm
+
+            text-gray-400
+            dark:text-slate-400
+          "
         >
           Inventory levels are currently stable.
         </p>
@@ -102,211 +100,258 @@ export default function RestockTable() {
   }
 
   return (
-    <>
-      {/* REFRESH BUTTON */}
-      <div className="flex justify-end -mt-16 mb-5">
-        <button
-          onClick={loadRestock}
-          disabled={loading}
+    <div className="space-y-4">
+      {items.map((item, index) => (
+        <div
+          key={index}
           className="
-          px-6
-          py-3
-          rounded-2xl
-          bg-gray-100
-          hover:bg-gray-200
-          disabled:opacity-50
-          text-sm
-          font-medium
-          transition-all
-        "
-        >
-          {loading ? "Refreshing..." : "Refresh"}
-        </button>
-      </div>
+            rounded-3xl
 
-      <div className="space-y-4">
-        {items.map((item, index) => (
-          <div
-            key={index}
-            className="
-            bg-white
             border
             border-gray-100
-            rounded-3xl
+            dark:border-[#1F2937]
+
+            bg-white
+            dark:bg-[#0F172A]
+
             p-5
-            hover:shadow-lg
+
             transition-all
+            duration-300
+
+            hover:-translate-y-1
+            hover:shadow-xl
           "
-          >
-            <div
-              className="
+        >
+          <div
+            className="
               flex
               flex-col
+              gap-5
+
               xl:flex-row
               xl:items-center
               xl:justify-between
-              gap-5
             "
+          >
+            {/* PRODUCT */}
+
+            <div
+              className="
+                flex
+                items-center
+                gap-4
+              "
             >
-              {/* PRODUCT */}
-              <div className="flex items-center gap-4">
-                <div
-                  className="
+              <div
+                className="
+                  flex
                   h-14
                   w-14
-                  rounded-2xl
-                  bg-orange-100
-                  flex
                   items-center
                   justify-center
+
+                  rounded-2xl
+
+                  bg-orange-100
+                  dark:bg-orange-500/10
+
                   text-2xl
                 "
-                >
-                  📦
-                </div>
+              >
+                📦
+              </div>
 
-                <div>
-                  <h3
-                    className="
+              <div>
+                <h3
+                  className="
                     text-lg
                     font-bold
+
                     text-gray-900
+                    dark:text-white
                   "
-                  >
-                    {item.product_name}
-                  </h3>
+                >
+                  {item.product_name}
+                </h3>
 
-                  <p
-                    className="
-                    text-sm
-                    text-gray-400
+                <p
+                  className="
                     mt-1
+
+                    text-sm
+
+                    text-gray-400
+                    dark:text-slate-400
                   "
-                  >
-                    AI inventory recommendation
-                  </p>
-                </div>
-              </div>
-
-              {/* CURRENT STOCK */}
-              <div>
-                <p
-                  className="
-                  text-xs
-                  uppercase
-                  text-gray-400
-                  font-semibold
-                "
                 >
-                  Current Stock
+                  AI inventory recommendation
                 </p>
+              </div>
+            </div>
 
-                <h2
-                  className="
-                  text-2xl
-                  font-bold
-                  text-gray-900
+            {/* CURRENT STOCK */}
+
+            <div>
+              <p
+                className="
+                  text-xs
+                  font-semibold
+                  uppercase
+
+                  text-gray-400
+                  dark:text-slate-500
+                "
+              >
+                Current Stock
+              </p>
+
+              <h2
+                className="
                   mt-2
-                "
-                >
-                  {item.current_stock}
-                </h2>
-              </div>
 
-              {/* PREDICTED DEMAND */}
-              <div>
-                <p
-                  className="
-                  text-xs
-                  uppercase
-                  text-gray-400
-                  font-semibold
-                "
-                >
-                  Predicted Demand
-                </p>
-
-                <h2
-                  className="
                   text-2xl
-                  font-bold
+                  font-black
+
                   text-gray-900
-                  mt-2
+                  dark:text-white
                 "
-                >
-                  {item.predicted_demand}
-                </h2>
-              </div>
+              >
+                {item.current_stock}
+              </h2>
+            </div>
 
-              {/* SUGGESTED ORDER */}
-              <div>
-                <p
-                  className="
+            {/* DEMAND */}
+
+            <div>
+              <p
+                className="
                   text-xs
-                  uppercase
-                  text-gray-400
                   font-semibold
-                "
-                >
-                  Suggested Order
-                </p>
+                  uppercase
 
-                <div className="mt-2">
-                  <span
-                    className="
+                  text-gray-400
+                  dark:text-slate-500
+                "
+              >
+                Predicted Demand
+              </p>
+
+              <h2
+                className="
+                  mt-2
+
+                  text-2xl
+                  font-black
+
+                  text-gray-900
+                  dark:text-white
+                "
+              >
+                {item.predicted_demand}
+              </h2>
+            </div>
+
+            {/* SUGGESTED */}
+
+            <div>
+              <p
+                className="
+                  text-xs
+                  font-semibold
+                  uppercase
+
+                  text-gray-400
+                  dark:text-slate-500
+                "
+              >
+                Suggested Order
+              </p>
+
+              <div className="mt-3">
+                <span
+                  className="
+                    rounded-2xl
+
+                    bg-green-100
+                    dark:bg-green-500/10
+
                     px-4
                     py-2
-                    rounded-2xl
-                    bg-green-100
-                    text-green-700
+
                     text-sm
                     font-bold
+
+                    text-green-700
+                    dark:text-green-400
                   "
-                  >
-                    +{item.suggested_restock} units
-                  </span>
-                </div>
-              </div>
-
-              {/* PRIORITY */}
-              <div>
-                <p
-                  className="
-                  text-xs
-                  uppercase
-                  text-gray-400
-                  font-semibold
-                "
                 >
-                  Priority
-                </p>
+                  +{item.suggested_restock} units
+                </span>
+              </div>
+            </div>
 
-                <div className="mt-2">
-                  <span
-                    className={`
-                      px-4
-                      py-2
-                      rounded-2xl
-                      text-sm
-                      font-bold
+            {/* PRIORITY */}
 
-                      ${
-                        item.priority === "High"
-                          ? "bg-red-100 text-red-600"
-                          : item.priority === "Medium"
-                            ? "bg-orange-100 text-orange-600"
-                            : "bg-green-100 text-green-600"
-                      }
-                    `}
-                  >
-                    {item.priority}
-                  </span>
-                </div>
+            <div>
+              <p
+                className="
+                  text-xs
+                  font-semibold
+                  uppercase
+
+                  text-gray-400
+                  dark:text-slate-500
+                "
+              >
+                Priority
+              </p>
+
+              <div className="mt-3">
+                <span
+                  className={`
+                    rounded-2xl
+
+                    px-4
+                    py-2
+
+                    text-sm
+                    font-bold
+
+                    ${
+                      item.priority === "High"
+                        ? `
+                          bg-red-100
+                          dark:bg-red-500/10
+
+                          text-red-600
+                          dark:text-red-400
+                        `
+                        : item.priority === "Medium"
+                          ? `
+                            bg-orange-100
+                            dark:bg-orange-500/10
+
+                            text-orange-600
+                            dark:text-orange-400
+                          `
+                          : `
+                            bg-green-100
+                            dark:bg-green-500/10
+
+                            text-green-600
+                            dark:text-green-400
+                          `
+                    }
+                  `}
+                >
+                  {item.priority}
+                </span>
               </div>
             </div>
           </div>
-        ))}
-      </div>
-    </>
+        </div>
+      ))}
+    </div>
   );
 }

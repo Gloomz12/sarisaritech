@@ -384,6 +384,7 @@ export default function RecordSale() {
                 top-0
                 z-20
                 bg-[#f5f7fb]
+                dark:bg-[#020617]
                 pb-3
               "
             >
@@ -412,6 +413,7 @@ export default function RecordSale() {
                   h-8
                   bg-gradient-to-t
                   from-[#f5f7fb]/80
+                  dark:from-[#0B1120]/90
                   to-transparent
                 "
               />
@@ -421,9 +423,15 @@ export default function RecordSale() {
                   h-full
                   overflow-y-auto
                   overflow-x-hidden
-                  pr-1
+                  hide-scrollbar
+                  
+                
                   pb-6
                 "
+                style={{
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                }}
               >
                 {/* CATEGORY */}
 
@@ -446,40 +454,59 @@ export default function RecordSale() {
                     gap-4
                   "
                 >
-                  {/* ADD PRODUCT CARD */}
-
                   <button
                     onClick={() => setShowAddProduct(true)}
                     className="
-                      bg-white
-                      border-2
-                      border-dashed
-                      border-orange-200
-                      rounded-[22px]
-                      p-4
-                      h-[160px]
-                      flex
-                      flex-col
-                      items-center
-                      justify-center
-                      gap-3
-                      hover:border-orange-400
-                      hover:bg-orange-50
-                      transition-all
-                      duration-300
-                    "
+                        bg-white
+                        dark:bg-[#111827]
+
+                        border-2
+                        border-dashed
+
+                        border-orange-200
+                        dark:border-orange-500/20
+
+                        rounded-[22px]
+
+                        p-4
+
+                        h-[160px]
+
+                        flex
+                        flex-col
+                        items-center
+                        justify-center
+
+                        gap-3
+
+                        hover:border-orange-400
+                        dark:hover:border-orange-500/40
+
+                        hover:bg-orange-50
+                        dark:hover:bg-orange-500/10
+
+                        transition-all
+                        duration-300
+                      "
                   >
                     <div
                       className="
-                        w-14
-                        h-14
-                        rounded-full
-                        border
-                        border-orange-300
-                        flex
-                        items-center
-                        justify-center
-                      "
+                          w-14
+                          h-14
+
+                          rounded-full
+
+                          border
+                          border-orange-300
+                          dark:border-orange-500/20
+
+                          bg-orange-50
+                          dark:bg-orange-500/10
+
+                          flex
+                          items-center
+                          justify-center
+                        "
                     >
                       <FiPlus
                         className="
@@ -492,10 +519,12 @@ export default function RecordSale() {
                     <div>
                       <p
                         className="
-                          text-[15px]
-                          font-black
-                          text-[#071437]
-                        "
+                        text-[15px]
+                        font-black
+
+                        text-[#071437]
+                        dark:text-white
+                      "
                       >
                         Add Product
                       </p>
@@ -503,8 +532,11 @@ export default function RecordSale() {
                       <p
                         className="
                           mt-1
+
                           text-[12px]
+
                           text-gray-400
+                          dark:text-gray-500
                         "
                       >
                         Create inventory item

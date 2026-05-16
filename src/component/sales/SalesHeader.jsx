@@ -13,13 +13,20 @@ export default function SalesHeader() {
         from-white
         to-[#fffaf5]
 
+        dark:from-[#111827]
+        dark:to-[#0F172A]
+
         border
         border-[#f3f4f6]
+        dark:border-[#1F2937]
 
         px-7
         py-5
 
         shadow-sm
+
+        transition-all
+        duration-300
       "
     >
       {/* GLOW */}
@@ -36,6 +43,7 @@ export default function SalesHeader() {
           rounded-full
 
           bg-orange-100/30
+          dark:bg-orange-500/10
 
           blur-3xl
         "
@@ -66,6 +74,7 @@ export default function SalesHeader() {
               font-black
 
               text-[#071437]
+              dark:text-white
             "
           >
             Record Sales
@@ -75,18 +84,20 @@ export default function SalesHeader() {
 
           <p
             className="
-            mt-3
+              mt-3
 
-            max-w-[780px]
+              max-w-[780px]
 
-            text-[16px]
-            leading-relaxed
+              text-[16px]
+              leading-relaxed
 
-            text-gray-500
-            font-medium
+              text-gray-500
+              dark:text-gray-400
 
-            whitespace-nowrap
-          "
+              font-medium
+
+              whitespace-nowrap
+            "
           >
             Process customer purchases, manage checkout, and complete transactions faster.
           </p>
@@ -113,8 +124,12 @@ export default function SalesHeader() {
             from-orange-50
             to-[#fff4e8]
 
+            dark:from-orange-500/10
+            dark:to-orange-500/5
+
             border
             border-orange-100
+            dark:border-orange-500/10
           "
         >
           <div
@@ -127,6 +142,7 @@ export default function SalesHeader() {
 
               border
               border-white/70
+              dark:border-white/5
             "
           />
 

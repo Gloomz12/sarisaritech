@@ -17,12 +17,16 @@ export default function ViewProductModal({ product, onClose }) {
         fixed
         inset-0
         z-50
+
         flex
         items-center
         justify-center
-        bg-black/40
-        p-4
-        backdrop-blur-[2px]
+
+        bg-black/60
+
+        p-5
+
+        backdrop-blur-[4px]
       "
     >
       {/* MODAL */}
@@ -30,11 +34,26 @@ export default function ViewProductModal({ product, onClose }) {
       <div
         className="
           w-full
-          max-w-[720px]
+          max-w-[620px]
+
           overflow-hidden
-          rounded-[26px]
+
+          rounded-[28px]
+
           bg-white
+
+          dark:bg-gradient-to-b
+          dark:from-[#111827]
+          dark:to-[#0F172A]
+
+          border
+          border-gray-100
+          dark:border-[#1F2937]
+
           shadow-[0_20px_70px_rgba(15,23,42,0.12)]
+
+          transition-all
+          duration-300
         "
       >
         {/* HEADER */}
@@ -44,9 +63,12 @@ export default function ViewProductModal({ product, onClose }) {
             flex
             items-start
             justify-between
+
             border-b
             border-[#eef2f7]
-            px-7
+            dark:border-[#1F2937]
+
+            px-6
             py-5
           "
         >
@@ -55,8 +77,11 @@ export default function ViewProductModal({ product, onClose }) {
               className="
                 text-[30px]
                 font-black
+
                 tracking-[-1px]
+
                 text-[#071437]
+                dark:text-white
               "
             >
               Product Details
@@ -65,8 +90,11 @@ export default function ViewProductModal({ product, onClose }) {
             <p
               className="
                 mt-1
+
                 text-[14px]
+
                 text-[#64748b]
+                dark:text-gray-400
               "
             >
               View inventory information
@@ -79,61 +107,68 @@ export default function ViewProductModal({ product, onClose }) {
               flex
               h-10
               w-10
+
               items-center
               justify-center
+
               rounded-full
 
               transition-all
               duration-200
 
               hover:bg-[#f8fafc]
+              dark:hover:bg-white/5
             "
           >
-            <X size={22} className="text-[#64748b]" />
+            <X
+              size={22}
+              className="
+                text-[#64748b]
+                dark:text-gray-400
+              "
+            />
           </button>
         </div>
 
         {/* BODY */}
 
-        <div className="grid grid-cols-2 gap-4 p-7">
+        <div
+          className="
+            grid
+            grid-cols-2
+
+            gap-3
+
+            p-6
+          "
+        >
           <InfoCard icon={<Package size={17} />} label="Product Name" value={product.name} />
 
           <InfoCard icon={<Tag size={17} />} label="Category" value={product.category} />
 
           <InfoCard icon={<Ruler size={17} />} label="Unit" value={product.unit} />
 
-          <InfoCard
-            icon={<Archive size={17} />}
-            label="Current Stock"
-            value={`${product.stock_quantity} ${product.unit}`}
-          />
+          <InfoCard icon={<Archive size={17} />} label="Current Stock" value={`${product.stock_quantity} ${product.unit}`} />
 
-          <InfoCard
-            icon={<PhilippinePeso size={17} />}
-            label="Cost Price"
-            value={`₱${product.cost_price}`}
-          />
+          <InfoCard icon={<PhilippinePeso size={17} />} label="Cost Price" value={`₱${product.cost_price}`} />
 
-          <InfoCard
-            icon={<PhilippinePeso size={17} />}
-            label="Selling Price"
-            value={`₱${product.selling_price}`}
-          />
+          <InfoCard icon={<PhilippinePeso size={17} />} label="Selling Price" value={`₱${product.selling_price}`} />
 
-          <InfoCard
-            icon={<Bell size={17} />}
-            label="Minimum Stock"
-            value={`${product.min_stock_level} ${product.unit}`}
-          />
+          <InfoCard icon={<Bell size={17} />} label="Minimum Stock" value={`${product.min_stock_level} ${product.unit}`} />
 
           {/* STATUS */}
 
           <div
             className="
-              rounded-[20px]
+              rounded-[18px]
+
               border
               border-[#eef2f7]
+              dark:border-[#1F2937]
+
               bg-[#fcfcfd]
+              dark:bg-[#111827]
+
               p-4
             "
           >
@@ -149,10 +184,15 @@ export default function ViewProductModal({ product, onClose }) {
                   flex
                   h-11
                   w-11
+
                   items-center
                   justify-center
+
                   rounded-2xl
+
                   bg-[#fff7ed]
+                  dark:bg-orange-500/10
+
                   text-orange-500
                 "
               >
@@ -164,7 +204,9 @@ export default function ViewProductModal({ product, onClose }) {
                   className="
                     text-[12px]
                     font-medium
+
                     text-[#64748b]
+                    dark:text-gray-400
                   "
                 >
                   Stock Status
@@ -174,9 +216,12 @@ export default function ViewProductModal({ product, onClose }) {
                   <span
                     className={`
                       inline-flex
+
                       rounded-full
+
                       px-3
                       py-1.5
+
                       text-[12px]
                       font-semibold
 
@@ -212,6 +257,8 @@ export default function ViewProductModal({ product, onClose }) {
           className="
             border-t
             border-[#eef2f7]
+            dark:border-[#1F2937]
+
             p-5
           "
         >
@@ -219,22 +266,28 @@ export default function ViewProductModal({ product, onClose }) {
             onClick={onClose}
             className="
               flex
-              h-[54px]
+              h-[52px]
               w-full
+
               items-center
               justify-center
 
               rounded-[16px]
+
               bg-orange-500
 
               text-[15px]
               font-semibold
               text-white
 
+              shadow-lg
+              shadow-orange-500/20
+
               transition-all
               duration-200
 
               hover:bg-orange-600
+              hover:shadow-orange-500/40
             "
           >
             Close
@@ -251,11 +304,19 @@ function InfoCard({ icon, label, value }) {
   return (
     <div
       className="
-        rounded-[20px]
+        rounded-[18px]
+
         border
         border-[#eef2f7]
+        dark:border-[#1F2937]
+
         bg-[#fcfcfd]
+        dark:bg-[#111827]
+
         p-4
+
+        transition-all
+        duration-300
       "
     >
       <div
@@ -272,10 +333,15 @@ function InfoCard({ icon, label, value }) {
             flex
             h-11
             w-11
+
             items-center
             justify-center
+
             rounded-2xl
+
             bg-[#fff7ed]
+            dark:bg-orange-500/10
+
             text-orange-500
           "
         >
@@ -289,7 +355,9 @@ function InfoCard({ icon, label, value }) {
             className="
               text-[12px]
               font-medium
+
               text-[#64748b]
+              dark:text-gray-400
             "
           >
             {label}
@@ -298,9 +366,12 @@ function InfoCard({ icon, label, value }) {
           <h2
             className="
               mt-1
-              text-[17px]
+
+              text-[16px]
               font-bold
+
               text-[#071437]
+              dark:text-white
             "
           >
             {value}

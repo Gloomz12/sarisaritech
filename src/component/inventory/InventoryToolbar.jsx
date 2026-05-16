@@ -63,8 +63,10 @@ export default function InventoryToolbar({
 
             border
             border-[#e2e8f0]
+            dark:border-[#374151]
 
             bg-white
+            dark:bg-[#111827]
 
             px-4
 
@@ -72,6 +74,7 @@ export default function InventoryToolbar({
             duration-200
 
             hover:border-orange-200
+            dark:hover:border-orange-500/20
 
             focus-within:border-orange-300
             focus-within:ring-4
@@ -82,7 +85,9 @@ export default function InventoryToolbar({
             size={17}
             className="
               mr-3
+
               text-[#94a3b8]
+              dark:text-gray-500
             "
           />
 
@@ -98,12 +103,16 @@ export default function InventoryToolbar({
 
               text-[14px]
               font-medium
+
               text-[#0f172a]
+              dark:text-white
 
               outline-none
 
               placeholder:font-normal
+
               placeholder:text-[#94a3b8]
+              dark:placeholder:text-gray-500
             "
           />
         </div>
@@ -118,6 +127,7 @@ export default function InventoryToolbar({
             className={`
               flex
               h-[48px]
+
               items-center
               gap-2.5
 
@@ -126,6 +136,7 @@ export default function InventoryToolbar({
               border
 
               bg-white
+              dark:bg-[#111827]
 
               px-4
 
@@ -141,14 +152,22 @@ export default function InventoryToolbar({
                 openFilter
                   ? `
                     border-orange-300
+
                     bg-orange-50
+                    dark:bg-orange-500/10
+
                     text-orange-500
                   `
                   : `
                     border-[#e2e8f0]
+                    dark:border-[#374151]
+
                     text-[#0f172a]
+                    dark:text-white
 
                     hover:border-orange-200
+                    dark:hover:border-orange-500/20
+
                     hover:text-orange-500
                   `
               }
@@ -189,12 +208,20 @@ export default function InventoryToolbar({
 
                 border
                 border-[#eef2f7]
+                dark:border-[#1F2937]
 
                 bg-white
+
+                dark:bg-gradient-to-b
+                dark:from-[#111827]
+                dark:to-[#0F172A]
 
                 p-4
 
                 shadow-[0_20px_60px_rgba(15,23,42,0.16)]
+
+                transition-all
+                duration-300
               "
             >
               {/* CATEGORIES */}
@@ -218,7 +245,9 @@ export default function InventoryToolbar({
                     className="
                       text-[13px]
                       font-semibold
+
                       text-[#0f172a]
+                      dark:text-white
                     "
                   >
                     Categories
@@ -279,7 +308,9 @@ export default function InventoryToolbar({
                         className="
                             text-[13px]
                             font-medium
+
                             text-[#334155]
+                            dark:text-gray-300
                           "
                       >
                         {category}
@@ -297,6 +328,7 @@ export default function InventoryToolbar({
 
                   border-t
                   border-[#eef2f7]
+                  dark:border-[#1F2937]
                 "
               />
 
@@ -321,7 +353,9 @@ export default function InventoryToolbar({
                     className="
                       text-[13px]
                       font-semibold
+
                       text-[#0f172a]
+                      dark:text-white
                     "
                   >
                     Sort By
@@ -341,14 +375,18 @@ export default function InventoryToolbar({
 
                     border
                     border-[#e2e8f0]
+                    dark:border-[#374151]
 
                     bg-white
+                    dark:bg-[#111827]
 
                     px-4
 
                     text-[13px]
                     font-medium
+
                     text-[#0f172a]
+                    dark:text-white
 
                     outline-none
 
@@ -356,6 +394,7 @@ export default function InventoryToolbar({
                     duration-200
 
                     hover:border-orange-200
+                    dark:hover:border-orange-500/20
 
                     focus:border-orange-300
                   "
@@ -377,6 +416,7 @@ export default function InventoryToolbar({
               <div
                 className="
                   mt-5
+
                   flex
                   gap-3
                 "
@@ -402,17 +442,24 @@ export default function InventoryToolbar({
 
                     border
                     border-[#e2e8f0]
+                    dark:border-[#374151]
+
+                    bg-white
+                    dark:bg-[#111827]
 
                     h-[40px]
 
                     text-[13px]
                     font-semibold
+
                     text-[#475569]
+                    dark:text-gray-300
 
                     transition-all
                     duration-200
 
                     hover:bg-[#f8fafc]
+                    dark:hover:bg-white/5
                   "
                 >
                   Reset

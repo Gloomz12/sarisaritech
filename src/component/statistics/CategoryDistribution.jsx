@@ -1,24 +1,115 @@
 export default function CategoryDistribution({ categories }) {
   return (
-    <div className="bg-white rounded-2xl p-6 border border-gray-100">
-      <div className="mb-6">
-        <h2 className="text-lg font-bold text-gray-900">Sales by Category</h2>
+    <div
+      className="
+        rounded-[26px]
 
-        <p className="text-sm text-gray-500">Distribution of sales by product category</p>
+        border
+        border-gray-100
+        dark:border-[#1F2937]
+
+        bg-white
+        dark:bg-[#111827]
+
+        p-6
+
+        shadow-sm
+
+        transition-all
+        duration-300
+      "
+    >
+      {/* HEADER */}
+
+      <div className="mb-6">
+        <h2
+          className="
+            text-lg
+            font-black
+
+            text-gray-900
+            dark:text-white
+          "
+        >
+          Sales by Category
+        </h2>
+
+        <p
+          className="
+            mt-1
+
+            text-sm
+
+            text-gray-500
+            dark:text-slate-400
+          "
+        >
+          Distribution of sales by product category
+        </p>
       </div>
+
+      {/* CONTENT */}
 
       <div className="space-y-5">
         {categories.map((item, index) => (
           <div key={index}>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">{item.name}</span>
+            <div
+              className="
+                  mb-2
 
-              <span className="text-sm font-bold text-gray-900">{item.percent}%</span>
+                  flex
+                  items-center
+                  justify-between
+                "
+            >
+              <span
+                className="
+                    text-sm
+                    font-medium
+
+                    text-gray-700
+                    dark:text-slate-300
+                  "
+              >
+                {item.name}
+              </span>
+
+              <span
+                className="
+                    text-sm
+                    font-bold
+
+                    text-gray-900
+                    dark:text-white
+                  "
+              >
+                {item.percent}%
+              </span>
             </div>
 
-            <div className="w-full h-3 rounded-full bg-gray-100 overflow-hidden">
+            {/* PROGRESS */}
+
+            <div
+              className="
+                  h-3
+                  w-full
+
+                  overflow-hidden
+
+                  rounded-full
+
+                  bg-gray-100
+                  dark:bg-[#0F172A]
+                "
+            >
               <div
-                className="h-full rounded-full bg-orange-500"
+                className="
+                    h-full
+
+                    rounded-full
+
+                    bg-orange-500
+                  "
                 style={{
                   width: `${item.percent}%`,
                 }}

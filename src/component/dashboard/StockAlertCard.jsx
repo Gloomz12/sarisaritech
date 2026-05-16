@@ -14,7 +14,7 @@ export default function StockAlertCard({ alerts = [] }) {
          min-h-[287px]
 
         bg-white
-        dark:bg-[#0F172A]
+        dark:bg-[#111827]
 
         border
         border-gray-100

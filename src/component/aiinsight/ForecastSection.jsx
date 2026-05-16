@@ -13,71 +13,107 @@ export default function ForecastSection() {
     <section
       id="forecast-section"
       className="
-        bg-white
         rounded-3xl
-        border border-gray-100
+
+        border
+        border-gray-100
+        dark:border-[#1F2937]
+
+        bg-white
+        dark:bg-[#111827]
+
         p-6
+
         shadow-sm
+
+        transition-all
+        duration-300
       "
     >
       {/* HEADER */}
+
       <div
         className="
-        flex items-center
-        justify-between
-        mb-6
-      "
+          mb-6
+
+          flex
+          items-center
+          justify-between
+          gap-4
+
+          flex-wrap
+        "
       >
         {/* TITLE */}
+
         <div>
           <h2
             className="
-            text-2xl
-            font-bold
-            text-gray-900
-          "
+              text-2xl
+              font-bold
+
+              text-gray-900
+              dark:text-white
+            "
           >
             Forecast Analytics
           </h2>
 
           <p
             className="
-            text-sm
-            text-gray-500
-            mt-1
-          "
+              mt-1
+
+              text-sm
+
+              text-gray-500
+              dark:text-slate-400
+            "
           >
             Sales forecasting powered by Prophet AI
           </p>
         </div>
 
         {/* RANGE BUTTONS */}
+
         <div
           className="
-          flex gap-2
-        "
+            flex
+            gap-2
+          "
         >
           {ranges.map((range) => (
             <button
               key={range}
               onClick={() => setSelectedRange(range)}
               className={`
-                px-4 py-2
                 rounded-xl
+
+                px-4
+                py-2
+
                 text-sm
-                font-medium
+                font-semibold
+
                 transition-all
+                duration-300
 
                 ${
                   selectedRange === range
                     ? `
                       bg-purple-600
                       text-white
+                      shadow-lg
+                      shadow-purple-500/20
                     `
                     : `
                       bg-gray-100
+                      dark:bg-[#0F172A]
+
                       text-gray-700
+                      dark:text-slate-300
+
                       hover:bg-gray-200
+                      dark:hover:bg-[#1E293B]
                     `
                 }
               `}
@@ -89,23 +125,28 @@ export default function ForecastSection() {
       </div>
 
       {/* CONTENT */}
+
       <div
         className="
-        grid grid-cols-1
-        xl:grid-cols-4
-        gap-6
-      "
+          grid
+          grid-cols-1
+          gap-6
+
+          xl:grid-cols-4
+        "
       >
         {/* CHART */}
+
         <div
           className="
-          xl:col-span-3
-        "
+            xl:col-span-3
+          "
         >
           <ForecastChart selectedRange={selectedRange} />
         </div>
 
         {/* SUMMARY */}
+
         <ForecastSummary selectedRange={selectedRange} />
       </div>
     </section>

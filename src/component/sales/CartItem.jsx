@@ -11,6 +11,7 @@ export default function CartItem({
       className="
         border
         border-gray-100
+        dark:border-[#1F2937]
 
         rounded-[15px]
 
@@ -18,6 +19,10 @@ export default function CartItem({
         py-2.5
 
         bg-white
+        dark:bg-[#111827]
+
+        transition-all
+        duration-300
       "
     >
       <div
@@ -40,6 +45,7 @@ export default function CartItem({
               font-black
 
               text-[#0F172A]
+              dark:text-white
 
               truncate
             "
@@ -72,6 +78,7 @@ export default function CartItem({
                 text-[11px]
 
                 text-gray-400
+                dark:text-gray-500
               "
             >
               x{item.quantity}
@@ -101,6 +108,13 @@ export default function CartItem({
 
               border
               border-gray-200
+              dark:border-[#374151]
+
+              bg-white
+              dark:bg-[#1F2937]
+
+              text-[#0F172A]
+              dark:text-white
 
               flex
               items-center
@@ -129,6 +143,7 @@ export default function CartItem({
               font-black
 
               text-[#0F172A]
+              dark:text-white
             "
           >
             {item.quantity}
@@ -148,6 +163,9 @@ export default function CartItem({
               border-orange-500
 
               text-orange-500
+
+              bg-orange-50
+              dark:bg-orange-500/10
 
               flex
               items-center
@@ -175,6 +193,7 @@ export default function CartItem({
               font-black
 
               text-[#0F172A]
+              dark:text-white
 
               whitespace-nowrap
             "
@@ -189,6 +208,7 @@ export default function CartItem({
               ml-1
 
               text-gray-400
+              dark:text-gray-500
 
               transition-all
               duration-300

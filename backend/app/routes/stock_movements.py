@@ -56,6 +56,7 @@ def get_stock_movements(
 
             WHERE
                 sm.user_id = %s
+                AND sm.type != 'SALE'
 
             ORDER BY
                 sm.created_at DESC

@@ -25,7 +25,6 @@ export default function GeminiSection() {
     } catch (error) {
       console.error("GEMINI ERROR:", error);
 
-      // KEEP OLD INSIGHTS
       alert("Unable to generate new AI insights right now.");
     } finally {
       setLoading(false);
@@ -36,112 +35,243 @@ export default function GeminiSection() {
     <section
       id="gemini-section"
       className="
-      bg-white
-      rounded-3xl
-      border
-      border-gray-100
-      p-6
-      shadow-sm
-    "
+        rounded-3xl
+
+        border
+        border-gray-100
+        dark:border-[#1F2937]
+
+        bg-white
+        dark:bg-[#111827]
+
+        p-6
+
+        shadow-sm
+
+        transition-all
+        duration-300
+      "
     >
       {/* HEADER */}
+
       <div
         className="
-        flex
-        items-center
-        justify-between
-        gap-4
-      "
+          flex
+          items-center
+          justify-between
+          gap-4
+        "
       >
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">AI Store Consultant</h2>
+          <h2
+            className="
+              text-2xl
+              font-bold
 
-          <p className="text-sm text-gray-500 mt-1">Gemini AI-generated recommendations</p>
+              text-gray-900
+              dark:text-white
+            "
+          >
+            AI Store Consultant
+          </h2>
 
-          {/* REFRESH BUTTON */}
+          <p
+            className="
+              mt-1
+
+              text-sm
+
+              text-gray-500
+              dark:text-slate-400
+            "
+          >
+            Gemini AI-generated recommendations
+          </p>
+
+          {/* BUTTON */}
+
           <button
             onClick={loadInsights}
             disabled={loading}
             className="
-            mt-4
-            px-4
-            py-2
-            rounded-2xl
-            bg-purple-600
-            hover:bg-purple-700
-            disabled:opacity-60
-            disabled:cursor-not-allowed
-            text-white
-            text-sm
-            font-medium
-            transition-all
-            duration-200
-          "
+              mt-4
+
+              rounded-2xl
+
+              bg-purple-600
+              hover:bg-purple-700
+
+              px-5
+              py-2.5
+
+              text-sm
+              font-semibold
+              text-white
+
+              shadow-lg
+              shadow-purple-500/20
+
+              transition-all
+              duration-300
+
+              hover:scale-[1.02]
+
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+            "
           >
             {loading ? "Generating..." : "Refresh Insights"}
           </button>
         </div>
 
+        {/* ICON */}
+
         <div
           className="
-          h-14
-          w-14
-          rounded-3xl
-          bg-purple-100
-          flex
-          items-center
-          justify-center
-          text-2xl
-          shrink-0
-        "
+            flex
+            h-16
+            w-16
+            shrink-0
+            items-center
+            justify-center
+
+            rounded-3xl
+
+            bg-purple-100
+            dark:bg-purple-500/10
+
+            text-3xl
+          "
         >
           🤖
         </div>
       </div>
 
       {/* AI RESPONSE */}
+
       <div
         className="
-        mt-6
-        bg-gradient-to-r
-        from-purple-600
-        to-violet-500
-        rounded-3xl
-        p-6
-        text-white
-      "
-      >
-        <h3 className="text-xl font-semibold">Gemini AI Analysis</h3>
+          mt-6
 
-        <p className="text-purple-100 text-sm mt-1">Generated from forecast and Apriori analytics</p>
+          rounded-3xl
+
+          border
+          border-purple-500/20
+
+          bg-gradient-to-br
+          from-[#5B21B6]
+          via-[#6D28D9]
+          to-[#4C1D95]
+
+          p-6
+
+          text-white
+
+          shadow-xl
+          shadow-purple-900/20
+        "
+      >
+        <h3
+          className="
+            text-xl
+            font-bold
+          "
+        >
+          Gemini AI Analysis
+        </h3>
+
+        <p
+          className="
+            mt-1
+
+            text-sm
+
+            text-purple-100
+          "
+        >
+          Generated from forecast and Apriori analytics
+        </p>
+
+        {/* CONTENT */}
 
         <div
           className="
-          mt-6
-          bg-white/10
-          rounded-2xl
-          p-5
-          backdrop-blur-sm
-          min-h-[120px]
-        "
+            mt-6
+
+            min-h-[140px]
+
+            rounded-2xl
+
+            bg-white/5
+
+            p-5
+
+            backdrop-blur-sm
+          "
         >
           {loading ? (
             <div className="space-y-3">
-              <div className="h-4 rounded-full bg-white/20 animate-pulse" />
+              <div
+                className="
+                  h-4
 
-              <div className="h-4 rounded-full bg-white/20 animate-pulse w-11/12" />
+                  animate-pulse
 
-              <div className="h-4 rounded-full bg-white/20 animate-pulse w-10/12" />
+                  rounded-full
 
-              <div className="h-4 rounded-full bg-white/20 animate-pulse w-8/12" />
+                  bg-white/10
+                "
+              />
+
+              <div
+                className="
+                  h-4
+                  w-11/12
+
+                  animate-pulse
+
+                  rounded-full
+
+                  bg-white/10
+                "
+              />
+
+              <div
+                className="
+                  h-4
+                  w-10/12
+
+                  animate-pulse
+
+                  rounded-full
+
+                  bg-white/10
+                "
+              />
+
+              <div
+                className="
+                  h-4
+                  w-8/12
+
+                  animate-pulse
+
+                  rounded-full
+
+                  bg-white/10
+                "
+              />
             </div>
           ) : (
             <p
               className="
-              text-sm
-              leading-relaxed
-              whitespace-pre-line
-            "
+                whitespace-pre-line
+
+                text-[15px]
+                leading-relaxed
+
+                text-white/90
+              "
             >
               {insights.replace(/\*\*/g, "").replace(/\\n/g, "\n")}
             </p>

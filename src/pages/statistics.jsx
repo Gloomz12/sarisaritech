@@ -12,6 +12,12 @@ import TopProducts from "../component/statistics/TopProducts";
 export default function Statistics() {
   const [range, setRange] = useState("7days");
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const [tempStartDate, setTempStartDate] = useState("");
+  const [tempEndDate, setTempEndDate] = useState("");
+
   const [stats, setStats] = useState(null);
 
   const [salesData, setSalesData] = useState([]);
@@ -22,22 +28,64 @@ export default function Statistics() {
 
   const [loading, setLoading] = useState(true);
 
+  /* FETCH */
+
   useEffect(() => {
+    // CUSTOM RANGE
+
+    if (range === "custom") {
+      if (startDate && endDate) {
+        fetchAnalytics();
+      }
+
+      return;
+    }
+
+    // NORMAL RANGES
+
     fetchAnalytics();
-  }, [range]);
+  }, [range, startDate, endDate]);
+
+  /* QUERY */
+
+  const buildQuery = () => {
+    if (range === "custom" && startDate && endDate) {
+      return `range=custom&start_date=${startDate}&end_date=${endDate}`;
+    }
+
+    return `range=${range}`;
+  };
+
+  /* APPLY CUSTOM */
+
+  const applyCustomRange = () => {
+    if (!tempStartDate || !tempEndDate) return;
+
+    setStartDate(tempStartDate);
+
+    setEndDate(tempEndDate);
+
+    setRange("custom");
+  };
+
+  /* FETCH ANALYTICS */
 
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
 
+      const query = buildQuery();
+
+      console.log("Analytics Query:", query);
+
       const [overviewRes, trendRes, categoryRes, productsRes] = await Promise.all([
-        api.get(`/analytics/overview?range=${range}`),
+        api.get(`/analytics/overview?${query}`),
 
-        api.get(`/analytics/sales-trend?range=${range}`),
+        api.get(`/analytics/sales-trend?${query}`),
 
-        api.get(`/analytics/categories?range=${range}`),
+        api.get(`/analytics/categories?${query}`),
 
-        api.get(`/analytics/top-products?range=${range}`),
+        api.get(`/analytics/top-products?${query}`),
       ]);
 
       setStats(overviewRes.data);
@@ -54,43 +102,238 @@ export default function Statistics() {
     }
   };
 
+  /* LOADING */
+
   if (loading) {
     return (
-      <div className="p-5">
-        <div className="animate-pulse space-y-5">
-          <div className="h-32 rounded-[24px] bg-gray-200" />
+      <div
+        className="
+          min-h-screen
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          bg-[#f5f6fa]
+          dark:bg-[#020817]
+
+          p-5
+        "
+      >
+        <div className="animate-pulse space-y-5">
+          <div
+            className="
+              h-32
+
+              rounded-[28px]
+
+              bg-gray-200
+              dark:bg-[#111827]
+            "
+          />
+
+          <div
+            className="
+              grid
+              grid-cols-1
+              gap-4
+
+              md:grid-cols-2
+              xl:grid-cols-4
+            "
+          >
             {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="h-28 rounded-[20px] bg-gray-200" />
+              <div
+                key={item}
+                className="
+                  h-28
+
+                  rounded-[24px]
+
+                  bg-gray-200
+                  dark:bg-[#111827]
+                "
+              />
             ))}
           </div>
 
-          <div className="h-[220px] rounded-[24px] bg-gray-200" />
+          <div
+            className="
+              h-[220px]
+
+              rounded-[28px]
+
+              bg-gray-200
+              dark:bg-[#111827]
+            "
+          />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-0.5 pb-10 space-y-5 bg-[#f5f6fa] min-h-screen">
+    <div
+      className="
+        min-h-screen
+
+        space-y-5
+
+        bg-[#f5f6fa]
+        dark:bg-[#020817]
+
+        p-0.5
+        pb-10
+
+        transition-all
+        duration-300
+      "
+    >
       {/* HEADER */}
 
-      <div className="bg-[#fff8f1] border border-orange-100 rounded-[24px] p-5 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-black text-[#0f172a]">Statistics</h1>
+      <div
+        className="
+          relative
+          isolate
+          overflow-hidden
 
-          <p className="text-gray-600 mt-1 text-sm">Track sales performance and store growth.</p>
-        </div>
+          rounded-[30px]
 
-        <div className="w-16 h-16 rounded-[20px] bg-white border border-orange-100 flex items-center justify-center shadow-sm">
-          <div className="w-11 h-11 rounded-[14px] bg-[#fff8f1] flex items-center justify-center text-2xl">📊</div>
+          border
+          border-orange-100
+          dark:border-[#1F2937]
+
+          bg-gradient-to-br
+          from-[#fffaf3]
+          to-[#fff7ed]
+
+          dark:from-[#111827]
+          dark:to-[#0F172A]
+
+          p-6
+
+          shadow-sm
+
+          transition-all
+          duration-300
+        "
+      >
+        {/* GLOW */}
+
+        <div
+          className="
+            absolute
+            top-0
+            right-0
+
+            h-[180px]
+            w-[180px]
+
+            rounded-full
+
+            bg-orange-100/20
+            dark:bg-orange-500/10
+
+            blur-3xl
+          "
+        />
+
+        <div
+          className="
+            relative
+            z-10
+
+            flex
+            items-center
+            justify-between
+          "
+        >
+          {/* LEFT */}
+
+          <div>
+            <h1
+              className="
+                text-[42px]
+                leading-[0.95]
+
+                font-black
+
+                tracking-[-2px]
+
+                text-[#071437]
+                dark:text-white
+              "
+            >
+              Statistics
+            </h1>
+
+            <p
+              className="
+                mt-3
+
+                text-[15px]
+
+                text-gray-600
+                dark:text-slate-400
+              "
+            >
+              Track sales performance and store growth.
+            </p>
+          </div>
+
+          {/* RIGHT */}
+
+          <div
+            className="
+              flex
+              h-20
+              w-20
+              items-center
+              justify-center
+
+              rounded-[24px]
+
+              border
+              border-orange-100
+              dark:border-orange-500/20
+
+              bg-white
+              dark:bg-[#111827]
+
+              shadow-sm
+            "
+          >
+            <div
+              className="
+                flex
+                h-14
+                w-14
+                items-center
+                justify-center
+
+                rounded-[18px]
+
+                bg-[#fff7ed]
+                dark:bg-[#0F172A]
+
+                text-[28px]
+              "
+            >
+              📊
+            </div>
+          </div>
         </div>
       </div>
 
       {/* FILTERS */}
 
-      <StatsFilters range={range} setRange={setRange} />
+      <StatsFilters
+        range={range}
+        setRange={setRange}
+        startDate={tempStartDate}
+        setStartDate={setTempStartDate}
+        endDate={tempEndDate}
+        setEndDate={setTempEndDate}
+        appliedStartDate={startDate}
+        appliedEndDate={endDate}
+        onApply={applyCustomRange}
+      />
 
       {/* STATS */}
 
@@ -98,15 +341,23 @@ export default function Statistics() {
 
       {/* CHART */}
 
-      <SalesChart salesData={salesData} />
+      <SalesChart salesData={salesData} range={range} />
 
       {/* SUMMARY */}
 
       <AnalyticsSummary stats={stats} salesData={salesData} />
 
-      {/* BOTTOM GRID */}
+      {/* BOTTOM */}
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+      <div
+        className="
+          grid
+          grid-cols-1
+          gap-5
+
+          xl:grid-cols-2
+        "
+      >
         <CategoryDistribution categories={categories} />
 
         <TopProducts products={topProducts} />

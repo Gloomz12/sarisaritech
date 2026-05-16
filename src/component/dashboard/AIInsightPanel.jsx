@@ -80,37 +80,39 @@ export default function AIInsightPanel({ navigateInsight }) {
   return (
     <div
       className="
-      rounded-[28px]
-      overflow-hidden
+        rounded-[28px]
+        overflow-hidden
 
-      border
-      border-gray-100
+        border
+        border-gray-100
+        dark:border-[#1F2937]
 
-      bg-white
+        bg-white
+        dark:bg-[#111827]
 
-      shadow-sm
-      hover:shadow-xl
-      hover:-translate-y-1
+        shadow-sm
+        hover:shadow-xl
+        hover:-translate-y-1
 
-      transition-all
-      duration-300
-    "
+        transition-all
+        duration-300
+      "
     >
       {/* HEADER */}
 
       <div
         className="
-        bg-gradient-to-r
-        from-purple-600
-        to-blue-500
+          bg-gradient-to-r
+          from-purple-600
+          to-blue-500
 
-        px-5
-        py-4
+          px-5
+          py-4
 
-        flex
-        items-center
-        justify-between
-      "
+          flex
+          items-center
+          justify-between
+        "
       >
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
@@ -118,10 +120,10 @@ export default function AIInsightPanel({ navigateInsight }) {
 
             <h2
               className="
-              text-white
-              text-[20px]
-              font-bold
-            "
+                text-white
+                text-[20px]
+                font-bold
+              "
             >
               AI Store Consultant
             </h2>
@@ -130,20 +132,20 @@ export default function AIInsightPanel({ navigateInsight }) {
           <button
             onClick={() => navigateInsight("gemini")}
             className="
-            bg-white/20
-            hover:bg-white/30
+              bg-white/20
+              hover:bg-white/30
 
-            text-white
-            text-xs
-            font-medium
+              text-white
+              text-xs
+              font-medium
 
-            px-3
-            py-1
+              px-3
+              py-1
 
-            rounded-full
+              rounded-full
 
-            transition-all
-          "
+              transition-all
+            "
           >
             Preview
           </button>
@@ -152,10 +154,10 @@ export default function AIInsightPanel({ navigateInsight }) {
         <button
           onClick={() => navigateInsight("gemini")}
           className="
-          text-white
-          text-sm
-          font-medium
-        "
+            text-white
+            text-sm
+            font-medium
+          "
         >
           View All Insights →
         </button>
@@ -165,16 +167,22 @@ export default function AIInsightPanel({ navigateInsight }) {
 
       <div
         className="
-        grid
-        grid-cols-1
-        xl:grid-cols-3
+          grid
+          grid-cols-1
+          xl:grid-cols-3
 
-        divide-y
-        divide-gray-100
+          divide-y
+          divide-gray-100
+          dark:divide-[#1F2937]
 
-        xl:divide-y-0
-        xl:divide-x
-      "
+          xl:divide-y-0
+          xl:divide-x
+
+          bg-white
+          dark:bg-gradient-to-b
+          dark:from-[#111827]
+          dark:to-[#0F172A]
+        "
       >
         {/* FORECAST */}
 
@@ -182,12 +190,13 @@ export default function AIInsightPanel({ navigateInsight }) {
           <div className="flex justify-between items-start">
             <h3
               className="
-              text-[18px]
-              leading-tight
-              font-bold
+                text-[18px]
+                leading-tight
+                font-bold
 
-              text-gray-800
-            "
+                text-gray-800
+                dark:text-white
+              "
             >
               Demand Forecast
               <br />
@@ -196,16 +205,16 @@ export default function AIInsightPanel({ navigateInsight }) {
 
             <div
               className={`
-              px-4
-              py-2
+                px-4
+                py-2
 
-              rounded-xl
+                rounded-xl
 
-              text-[18px]
-              font-bold
+                text-[18px]
+                font-bold
 
-              ${forecastGrowth.includes("-") ? "bg-red-100 text-red-500" : "bg-green-100 text-green-600"}
-            `}
+                ${forecastGrowth.includes("-") ? "bg-red-100 text-red-500" : "bg-green-100 text-green-600"}
+              `}
             >
               {forecastGrowth}
             </div>
@@ -224,12 +233,19 @@ export default function AIInsightPanel({ navigateInsight }) {
                   }}
                 />
 
-                <Tooltip />
+                <Tooltip
+                  contentStyle={{
+                    borderRadius: "14px",
+                    border: "1px solid #374151",
+                    backgroundColor: "#111827",
+                    color: "#fff",
+                  }}
+                />
 
                 <Line
                   type="monotone"
                   dataKey="sales"
-                  stroke="#2563eb"
+                  stroke="#3B82F6"
                   strokeWidth={3}
                   dot={{
                     r: 4,
@@ -243,19 +259,21 @@ export default function AIInsightPanel({ navigateInsight }) {
 
           <div
             className="
-            mt-4
+              mt-4
 
-            bg-gray-50
+              bg-gray-50
+              dark:bg-[#1F2937]
 
-            rounded-xl
+              rounded-xl
 
-            px-4
-            py-3
+              px-4
+              py-3
 
-            text-gray-500
+              text-gray-500
+              dark:text-gray-300
 
-            text-sm
-          "
+              text-sm
+            "
           >
             ℹ️ {forecastMessage}
           </div>
@@ -263,14 +281,14 @@ export default function AIInsightPanel({ navigateInsight }) {
           <button
             onClick={() => navigateInsight("forecast")}
             className="
-            mt-4
+              mt-4
 
-            text-blue-500
-            text-sm
-            font-semibold
+              text-blue-500
+              text-sm
+              font-semibold
 
-            hover:text-blue-600
-          "
+              hover:text-blue-600
+            "
           >
             View full forecast →
           </button>
@@ -281,12 +299,13 @@ export default function AIInsightPanel({ navigateInsight }) {
         <div className="p-5">
           <h3
             className="
-            text-[18px]
-            leading-tight
-            font-bold
+              text-[18px]
+              leading-tight
+              font-bold
 
-            text-gray-800
-          "
+              text-gray-800
+              dark:text-white
+            "
           >
             Frequently Bought Together
             <br />
@@ -308,14 +327,14 @@ export default function AIInsightPanel({ navigateInsight }) {
           <button
             onClick={() => navigateInsight("apriori")}
             className="
-            mt-6
+              mt-6
 
-            text-blue-500
-            text-sm
-            font-semibold
+              text-blue-500
+              text-sm
+              font-semibold
 
-            hover:text-blue-600
-          "
+              hover:text-blue-600
+            "
           >
             View all associations →
           </button>
@@ -326,11 +345,12 @@ export default function AIInsightPanel({ navigateInsight }) {
         <div className="p-5">
           <h3
             className="
-            text-[18px]
-            font-bold
+              text-[18px]
+              font-bold
 
-            text-gray-800
-          "
+              text-gray-800
+              dark:text-white
+            "
           >
             Restock Recommendations
           </h3>
@@ -356,14 +376,14 @@ export default function AIInsightPanel({ navigateInsight }) {
           <button
             onClick={() => navigateInsight("restock")}
             className="
-            mt-6
+              mt-6
 
-            text-blue-500
-            text-sm
-            font-semibold
+              text-blue-500
+              text-sm
+              font-semibold
 
-            hover:text-blue-600
-          "
+              hover:text-blue-600
+            "
           >
             View all recommendations →
           </button>
@@ -381,20 +401,21 @@ function Association({ color, item1, item2, confidence }) {
       <div className="flex items-center gap-3">
         <div
           className={`
-          w-3
-          h-3
-          rounded-full
-          ${color}
-        `}
+            w-3
+            h-3
+            rounded-full
+            ${color}
+          `}
         />
 
         <p
           className="
-          font-medium
-          text-[17px]
+            font-medium
+            text-[17px]
 
-          text-gray-900
-        "
+            text-gray-900
+            dark:text-white
+          "
         >
           {item1}
           {" + "}
@@ -405,19 +426,19 @@ function Association({ color, item1, item2, confidence }) {
       <div className="text-right">
         <p
           className="
-          text-xs
-          text-gray-400
-        "
+            text-xs
+            text-gray-400
+          "
         >
           Confidence
         </p>
 
         <p
           className="
-          font-bold
-          text-blue-500
-          text-[18px]
-        "
+            font-bold
+            text-blue-500
+            text-[18px]
+          "
         >
           {confidence}
         </p>
@@ -434,22 +455,24 @@ function Recommendation({ level, color, item, suggested }) {
       <div>
         <h4
           className="
-          font-bold
-          text-[17px]
+            font-bold
+            text-[17px]
 
-          text-gray-900
-        "
+            text-gray-900
+            dark:text-white
+          "
         >
           {item}
         </h4>
 
         <p
           className="
-          text-gray-500
+            text-gray-500
+            dark:text-gray-400
 
-          text-sm
-          mt-1
-        "
+            text-sm
+            mt-1
+          "
         >
           Suggested: <span className="text-green-500 font-semibold">{suggested}</span>
         </p>
@@ -457,18 +480,18 @@ function Recommendation({ level, color, item, suggested }) {
 
       <div
         className={`
-        px-3
-        py-1
+          px-3
+          py-1
 
-        rounded-xl
+          rounded-xl
 
-        text-xs
-        font-bold
+          text-xs
+          font-bold
 
-        h-fit
+          h-fit
 
-        ${color}
-      `}
+          ${color}
+        `}
       >
         {level}
       </div>

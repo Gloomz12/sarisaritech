@@ -52,9 +52,13 @@ export default function InventoryTableRow({
       className="
         border-b
         border-[#eef2f7]
+        dark:border-[#1F2937]
+
         transition-all
         duration-200
+
         hover:bg-[#fcfcfd]
+        dark:hover:bg-white/[0.02]
       "
     >
       {/* PRODUCT */}
@@ -65,7 +69,9 @@ export default function InventoryTableRow({
             className="
               text-[16px]
               font-bold
+
               text-[#0f172a]
+              dark:text-white
             "
           >
             {product.name}
@@ -74,9 +80,12 @@ export default function InventoryTableRow({
           <p
             className="
               mt-1
+
               text-[14px]
               font-medium
+
               text-[#64748b]
+              dark:text-gray-400
             "
           >
             {product.category}
@@ -89,17 +98,23 @@ export default function InventoryTableRow({
       <td className="py-7">
         <p
           className={`
-            text-[16px]
-            font-semibold
+      text-[16px]
+      font-semibold
 
-            ${
-              product.stock_quantity === 0
-                ? "text-red-500"
-                : product.stock_quantity <= product.min_stock_level
-                  ? "text-orange-500"
-                  : "text-[#0f172a]"
-            }
-          `}
+      ${
+        product.stock_quantity === 0
+          ? `
+            text-red-500
+          `
+          : product.stock_quantity <= product.min_stock_level
+            ? `
+              text-orange-500
+            `
+            : `
+              text-green-500
+            `
+      }
+    `}
         >
           {product.stock_quantity} {product.unit}
         </p>
@@ -112,7 +127,9 @@ export default function InventoryTableRow({
           className="
             text-[16px]
             font-semibold
+
             text-[#0f172a]
+            dark:text-white
           "
         >
           ₱{product.cost_price}
@@ -126,7 +143,9 @@ export default function InventoryTableRow({
           className="
             text-[16px]
             font-semibold
+
             text-[#0f172a]
+            dark:text-white
           "
         >
           ₱{product.selling_price}
@@ -140,12 +159,17 @@ export default function InventoryTableRow({
           <span
             className={`
               inline-flex
+
               h-[40px]
               min-w-[130px]
+
               items-center
               justify-center
+
               rounded-full
+
               px-4
+
               text-[13px]
               font-semibold
 
@@ -153,17 +177,26 @@ export default function InventoryTableRow({
                 status === "In Stock"
                   ? `
                     bg-green-100
+                    dark:bg-green-500/10
+
                     text-green-700
+                    dark:text-green-400
                   `
                   : status === "Low Stock"
                     ? `
-                    bg-orange-100
-                    text-orange-600
-                  `
+                      bg-orange-100
+                      dark:bg-orange-500/10
+
+                      text-orange-600
+                      dark:text-orange-400
+                    `
                     : `
-                    bg-red-100
-                    text-red-500
-                  `
+                      bg-red-100
+                      dark:bg-red-500/10
+
+                      text-red-500
+                      dark:text-red-400
+                    `
               }
             `}
           >
@@ -178,6 +211,7 @@ export default function InventoryTableRow({
         className="
           relative
           overflow-visible
+
           py-7
         "
       >
@@ -185,6 +219,7 @@ export default function InventoryTableRow({
           ref={dropdownRef}
           className="
             relative
+
             flex
             justify-center
           "
@@ -201,16 +236,23 @@ export default function InventoryTableRow({
               flex
               h-9
               w-9
+
               items-center
               justify-center
+
               rounded-xl
+
               text-[#94a3b8]
+              dark:text-gray-400
 
               transition-all
               duration-200
 
               hover:bg-[#f8fafc]
+              dark:hover:bg-white/5
+
               hover:text-[#0f172a]
+              dark:hover:text-white
             "
           >
             <MoreVertical size={18} />

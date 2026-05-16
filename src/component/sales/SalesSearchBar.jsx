@@ -26,20 +26,32 @@ export default function SalesSearchBar({
         className="
           flex-1
           h-11
+
           rounded-[18px]
+
           border
           border-gray-200
+          dark:border-[#1F2937]
+
           bg-white
+          dark:bg-[#111827]
+
           px-3
+
           flex
           items-center
           gap-2
+
+          transition-all
+          duration-300
         "
       >
         <FiSearch
           className="
             text-[17px]
+
             text-gray-400
+            dark:text-gray-500
           "
         />
 
@@ -52,12 +64,19 @@ export default function SalesSearchBar({
           "
           className="
             flex-1
+
             bg-transparent
+
             outline-none
+
             text-[13px]
             font-medium
 
+            text-[#0F172A]
+            dark:text-white
+
             placeholder:text-gray-400
+            dark:placeholder:text-gray-500
           "
         />
       </div>
@@ -70,18 +89,31 @@ export default function SalesSearchBar({
           className="
             h-11
             px-4
+
             rounded-[18px]
+
             border
             border-gray-200
+            dark:border-[#1F2937]
+
             bg-white
+            dark:bg-[#111827]
+
+            text-[#0F172A]
+            dark:text-white
+
             flex
             items-center
             gap-2
+
             text-[13px]
             font-semibold
+
             transition-all
             duration-300
+
             hover:border-orange-300
+            dark:hover:border-orange-500/40
           "
         >
           <FiFilter className="text-[15px]" />
@@ -93,18 +125,27 @@ export default function SalesSearchBar({
         {showFilter && (
           <div
             className="
-                absolute
-                right-0
-                top-[48px]
-                w-[210px]
-                bg-white
-                border
-                border-gray-200
-                rounded-[16px]
-                shadow-xl
-                p-2
-                z-50
-              "
+              absolute
+              right-0
+              top-[48px]
+
+              w-[210px]
+
+              bg-white
+              dark:bg-[#111827]
+
+              border
+              border-gray-200
+              dark:border-[#1F2937]
+
+              rounded-[16px]
+
+              shadow-xl
+
+              p-2
+
+              z-50
+            "
           >
             {filters.map((item) => (
               <button
@@ -115,21 +156,32 @@ export default function SalesSearchBar({
                   setShowFilter(false);
                 }}
                 className="
-                      w-full
-                      px-3
-                      py-2
-                      rounded-[10px]
-                      flex
-                      items-center
-                      justify-between
-                      text-left
-                      text-[13px]
-                      font-medium
-                      text-[#0F172A]
-                      hover:bg-orange-50
-                      hover:text-orange-500
-                      transition-all
-                    "
+                  w-full
+
+                  px-3
+                  py-2
+
+                  rounded-[10px]
+
+                  flex
+                  items-center
+                  justify-between
+
+                  text-left
+
+                  text-[13px]
+                  font-medium
+
+                  text-[#0F172A]
+                  dark:text-white
+
+                  hover:bg-orange-50
+                  dark:hover:bg-orange-500/10
+
+                  hover:text-orange-500
+
+                  transition-all
+                "
               >
                 {item}
 

@@ -5,30 +5,42 @@ import { getForecast, getApriori, getRestockRecommendations } from "../../servic
 const defaultCards = [
   {
     title: "Forecast Growth",
+
     value: "+0%",
+
     subtitle: "vs last week",
-    color: "bg-purple-500",
+
+    color: "from-purple-500 to-violet-500",
   },
 
   {
     title: "Fast Moving",
+
     value: "0",
+
     subtitle: "Trending products",
-    color: "bg-green-500",
+
+    color: "from-green-500 to-emerald-500",
   },
 
   {
     title: "Associations",
+
     value: "0",
+
     subtitle: "Rules found",
-    color: "bg-blue-500",
+
+    color: "from-blue-500 to-cyan-500",
   },
 
   {
     title: "Stock Alerts",
+
     value: "0",
+
     subtitle: "Need restock",
-    color: "bg-orange-500",
+
+    color: "from-orange-500 to-amber-500",
   },
 ];
 
@@ -85,7 +97,7 @@ export default function Overview() {
 
           subtitle: "vs last week",
 
-          color: "bg-purple-500",
+          color: "from-purple-500 to-violet-500",
         },
 
         {
@@ -95,7 +107,7 @@ export default function Overview() {
 
           subtitle: "Trending products",
 
-          color: "bg-green-500",
+          color: "from-green-500 to-emerald-500",
         },
 
         {
@@ -105,7 +117,7 @@ export default function Overview() {
 
           subtitle: "Rules found",
 
-          color: "bg-blue-500",
+          color: "from-blue-500 to-cyan-500",
         },
 
         {
@@ -115,7 +127,7 @@ export default function Overview() {
 
           subtitle: "Need restock",
 
-          color: "bg-orange-500",
+          color: "from-orange-500 to-amber-500",
         },
       ]);
     } catch (error) {
@@ -126,70 +138,104 @@ export default function Overview() {
   return (
     <div
       className="
-      grid
-      grid-cols-1
-      md:grid-cols-2
-      xl:grid-cols-4
-      gap-4
-    "
+        grid
+        grid-cols-1
+        gap-4
+
+        md:grid-cols-2
+        xl:grid-cols-4
+      "
     >
       {cards.map((card, index) => (
         <div
           key={index}
           className="
-            bg-white
-            rounded-2xl
-            border
-            border-gray-100
-            p-5
-            shadow-sm
-          "
+              rounded-3xl
+
+              border
+              border-gray-100
+              dark:border-[#1F2937]
+
+              bg-white
+              dark:bg-[#111827]
+
+              p-5
+
+              shadow-sm
+
+              transition-all
+              duration-300
+
+              hover:-translate-y-1
+              hover:shadow-lg
+            "
         >
           <div
             className="
-              flex
-              items-start
-              gap-4
-            "
+                flex
+                items-start
+                gap-4
+              "
           >
+            {/* ICON */}
+
             <div
               className={`
-                h-12
-                w-12
-                rounded-2xl
-                ${card.color}
-              `}
+                  flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+
+                  rounded-2xl
+
+                  bg-gradient-to-br
+
+                  ${card.color}
+                `}
             />
+
+            {/* CONTENT */}
 
             <div>
               <p
                 className="
-                  text-xs
-                  uppercase
-                  font-semibold
-                  text-gray-400
-                "
+                    text-xs
+                    font-bold
+                    uppercase
+
+                    tracking-wide
+
+                    text-gray-400
+                    dark:text-slate-500
+                  "
               >
                 {card.title}
               </p>
 
               <h2
                 className="
-                  text-3xl
-                  font-bold
-                  text-gray-900
-                  mt-2
-                "
+                    mt-2
+
+                    text-3xl
+                    font-black
+
+                    text-gray-900
+                    dark:text-white
+                  "
               >
                 {card.value}
               </h2>
 
               <p
                 className="
-                  text-sm
-                  text-gray-500
-                  mt-1
-                "
+                    mt-1
+
+                    text-sm
+
+                    text-gray-500
+                    dark:text-slate-400
+                  "
               >
                 {card.subtitle}
               </p>

@@ -24,17 +24,24 @@ export default function QuickCashButtons({ amountPaid, setAmountPaid }) {
 
             border
             border-gray-200
+            dark:border-[#374151]
 
             bg-white
+            dark:bg-[#111827]
 
             text-[11px]
             font-bold
 
             text-[#0F172A]
+            dark:text-white
 
             hover:bg-orange-50
+            dark:hover:bg-orange-500/10
 
-            transition
+            hover:border-orange-300
+
+            transition-all
+            duration-300
           "
         >
           ₱{amount}
