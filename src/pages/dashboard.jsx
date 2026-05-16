@@ -1,56 +1,127 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
 
-import { IoAdd } from "react-icons/io5";
-import { BsBoxSeam } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { VscHistory } from "react-icons/vsc";
-import { GrAnalytics } from "react-icons/gr";
-import { WiStars } from "react-icons/wi";
+import { useNavigate } from "react-router-dom";
 
-import HeaderDashboard from '../component/headerDashboard.jsx';
-import LargeButton from '../component/largePageButton.jsx';
-import SaleBoard from '../component/saleBoard.jsx';
-import StockAlerts from '../component/stockAlerts.jsx';
+import QuickActions from "../component/dashboard/QuickActions";
 
+import DashboardLayout from "../component/dashboard/DashboardLayout";
+
+import AIInsightPanel from "../component/dashboard/AIInsightPanel";
+
+import StatsCard from "../component/dashboard/StatsCard";
+
+import StockAlertCard from "../component/dashboard/StockAlertCard";
+
+import { getDashboardStats } from "../services/dashboardService";
 
 export default function Dashboard() {
-    return (
-        <div>
-            <HeaderDashboard />
-            <div className="dashboard-contents" style={{ padding: '10px 30px' }}>
-                <div className="dashboard-buttons">
-                    { /* Record Sale button */}
-                    <LargeButton pageIcon={<IoAdd size={30} />} pageName="Record Sale" variant="record-sale-btn" isFullWidth={true} path="/record-sale" />
-                    <div className="page-buttons-row">
-                        { /* Inventory button */}
-                        <LargeButton pageIcon={<BsBoxSeam />} pageName="Inventory" variant="page-btn" isFullWidth={false} path="/inventory" />
-                        { /* Restock button */}
-                        <LargeButton pageIcon={<AiOutlineShoppingCart />} pageName="Restock" variant="page-btn" isFullWidth={false} path="/restock" />
-                    </div>
-                    <div className="page-buttons-row">
-                        { /* History button */}
-                        <LargeButton pageIcon={<VscHistory />} pageName="History" variant="page-btn" isFullWidth={false} path="/history" />
-                        { /* Analytics button */}
-                        <LargeButton pageIcon={<GrAnalytics />} pageName="Analytics" variant="page-btn" isFullWidth={false} path="/analytics" />
-                    </div>
-                    { /* AI Insight button */}
-                    <LargeButton pageIcon={<WiStars size={50} />} pageName="AI Insight" variant="ai-insights-btn" isFullWidth={true} path="/ai-insight" />
-                </div>
+  const navigate = useNavigate();
 
-                {/* Sales Boards */}
-                <div className="current-sale">
-                    {SaleBoard("Today's Sales")}
-                </div>
+  const [stats, setStats] = useState(null);
 
-                <div className="weekly-sale">
-                    {SaleBoard("This Week's Sales")}
-                </div>
+  /* FETCH DASHBOARD */
 
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
 
-                {/* Stock Alerts */}
-                <StockAlerts />
-            </div>
-        </div>
-    );
+  const fetchDashboard = async () => {
+    try {
+      const data = await getDashboardStats();
+
+      setStats(data);
+
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /* AI INSIGHT NAVIGATION */
+
+  const navigateInsight = (tab) => {
+    navigate(`/ai-insight?tab=${tab}`);
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* RECORD SALE */}
+
+      <button
+        onClick={() => navigate("/record-sale")}
+        className="
+          w-full
+          h-14
+
+          rounded-2xl
+
+          bg-orange-500
+          hover:bg-orange-600
+
+          text-white
+          font-semibold
+          text-base
+
+          shadow-sm
+          hover:shadow-lg
+          hover:-translate-y-[2px]
+
+          transition-all
+          duration-300
+        "
+      >
+        + Record Sale
+      </button>
+
+      {/* QUICK ACTIONS */}
+
+      <QuickActions />
+
+      {/* HERO SECTION */}
+
+      <DashboardLayout />
+
+      {/* AI PANEL */}
+
+      <AIInsightPanel navigateInsight={navigateInsight} />
+
+      {/* STATS */}
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          xl:grid-cols-3
+          gap-4
+          items-start
+        "
+      >
+        {/* TODAY SALES */}
+
+        <StatsCard
+          title="Today's Sales"
+          value={`₱${stats?.today?.sales?.toLocaleString() || 0}`}
+          subtitle={`${stats?.today?.transactions || 0} Transactions`}
+          growth={`${stats?.today?.growth || 0}%`}
+          average={`₱${stats?.today?.average_sale || 0}`}
+          top={`Top: ${stats?.today?.top_product || "None"} (${stats?.today?.top_quantity || 0} units)`}
+        />
+
+        {/* WEEK SALES */}
+
+        <StatsCard
+          title="This Week's Sales"
+          value={`₱${stats?.week?.sales?.toLocaleString() || 0}`}
+          subtitle={`${stats?.week?.transactions || 0} Transactions`}
+          growth={`${stats?.week?.growth || 0}%`}
+          average={`₱${stats?.week?.average_sale || 0}`}
+          top={`${stats?.week?.top_product || "None"} (${stats?.week?.top_quantity || 0} units)`}
+        />
+
+        {/* STOCK ALERTS */}
+
+        <StockAlertCard alerts={stats?.stock_alerts || []} />
+      </div>
+    </div>
+  );
 }
