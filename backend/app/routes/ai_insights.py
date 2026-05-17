@@ -109,68 +109,170 @@ def get_forecast(
                 }
             }
 
+        # ====================================
         # DATAFRAME
+        # ====================================
+
         data = pd.DataFrame([
             {
-                "ds": str(row[0]),
+                "ds": pd.to_datetime(row[0]),
                 "y": float(row[1]),
             }
 
             for row in rows
         ])
 
+        # ====================================
+        # MINIMUM DATA CHECK
+        # ====================================
+
+        if len(data) < 3:
+
+            output = []
+
+            for _, row in data.iterrows():
+
+                output.append({
+
+                    "ds":
+                        row["ds"].strftime(
+                            "%Y-%m-%d"
+                        ),
+
+                    "yhat":
+                        round(
+                            float(row["y"]),
+                            2
+                        ),
+
+                    "type":
+                        "actual",
+                })
+
+            return {
+
+                "forecast":
+                    output,
+
+                "metrics": {
+                    "mae": 0,
+                }
+            }
+
+        # ====================================
         # PROPHET MODEL
+        # ====================================
+
         model_prophet = Prophet()
 
         model_prophet.fit(data)
 
+        # ====================================
         # FUTURE DAYS
+        # ====================================
+
         future = model_prophet.make_future_dataframe(
             periods=days
         )
 
+        # ====================================
         # PREDICT
+        # ====================================
+
         forecast = model_prophet.predict(
             future
         )
 
-        # =========================
+        # ====================================
         # MODEL EVALUATION
-        # =========================
+        # ====================================
 
-        # PREDICT TRAINING DATA
         train_forecast = (
             model_prophet.predict(data)
         )
 
-        # MAE
         mae = mean_absolute_error(
             data["y"],
             train_forecast["yhat"]
         )
 
-        # =========================
-        # FUTURE FORECAST OUTPUT
-        # =========================
+        # ====================================
+        # HISTORY + FUTURE FORECAST
+        # ====================================
 
-        result = forecast[
+        actual_days_map = {
+            7: 3,
+            30: 15,
+            90: 45,
+        }
+
+        actual_days = actual_days_map.get(
+            days,
+            3
+        )
+
+        # LAST ACTUAL SALES
+
+        history = data.tail(
+            actual_days
+        ).copy()
+
+        history = history.rename(columns={
+            "y": "yhat"
+        })
+
+        history["type"] = "actual"
+
+        # FUTURE ONLY
+
+        future_only = forecast[
+            forecast["ds"] > data["ds"].max()
+        ].copy()
+
+        future_forecast = future_only[
             ["ds", "yhat"]
-        ].tail(days)
+        ].head(
+            days - actual_days
+        )
+
+        future_forecast["type"] = "predicted"
+
+        # COMBINE
+
+        combined = pd.concat([
+            history,
+            future_forecast
+        ])
+
+        # SORT
+
+        combined = combined.sort_values(
+            by="ds"
+        )
+
+        # ====================================
+        # OUTPUT
+        # ====================================
 
         output = []
 
-        for _, row in result.iterrows():
+        for _, row in combined.iterrows():
 
             output.append({
 
                 "ds":
-                    str(row["ds"]),
+                    row["ds"].strftime(
+                        "%Y-%m-%d"
+                    ),
 
                 "yhat":
                     round(
                         float(row["yhat"]),
                         2
                     ),
+
+                "type":
+                    row["type"],
             })
 
         return {
@@ -187,6 +289,8 @@ def get_forecast(
         }
 
     except Exception as e:
+
+        print("FORECAST ERROR:", e)
 
         raise HTTPException(
             status_code=500,
