@@ -1,4 +1,7 @@
 export default function CategoryDistribution({ categories }) {
+  // SORT HIGHEST TO LOWEST
+  const sortedCategories = [...categories].sort((a, b) => b.percent - a.percent);
+
   return (
     <div
       className="
@@ -51,37 +54,37 @@ export default function CategoryDistribution({ categories }) {
       {/* CONTENT */}
 
       <div className="space-y-5">
-        {categories.map((item, index) => (
+        {sortedCategories.map((item, index) => (
           <div key={index}>
             <div
               className="
-                  mb-2
+                mb-2
 
-                  flex
-                  items-center
-                  justify-between
-                "
+                flex
+                items-center
+                justify-between
+              "
             >
               <span
                 className="
-                    text-sm
-                    font-medium
+                  text-sm
+                  font-medium
 
-                    text-gray-700
-                    dark:text-slate-300
-                  "
+                  text-gray-700
+                  dark:text-slate-300
+                "
               >
                 {item.name}
               </span>
 
               <span
                 className="
-                    text-sm
-                    font-bold
+                  text-sm
+                  font-bold
 
-                    text-gray-900
-                    dark:text-white
-                  "
+                  text-gray-900
+                  dark:text-white
+                "
               >
                 {item.percent}%
               </span>
@@ -91,25 +94,25 @@ export default function CategoryDistribution({ categories }) {
 
             <div
               className="
-                  h-3
-                  w-full
+                h-3
+                w-full
 
-                  overflow-hidden
+                overflow-hidden
 
-                  rounded-full
+                rounded-full
 
-                  bg-gray-100
-                  dark:bg-[#0F172A]
-                "
+                bg-gray-100
+                dark:bg-[#0F172A]
+              "
             >
               <div
                 className="
-                    h-full
+                  h-full
 
-                    rounded-full
+                  rounded-full
 
-                    bg-orange-500
-                  "
+                  bg-orange-500
+                "
                 style={{
                   width: `${item.percent}%`,
                 }}

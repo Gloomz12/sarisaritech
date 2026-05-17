@@ -37,48 +37,96 @@ export default function ForecastChart({ selectedRange }) {
 
       const forecast = response?.forecast || [];
 
+      // EMPTY
+
       if (!forecast.length) {
+        setForecastData([]);
+
+        setStats({
+          growth: 0,
+          revenue: 0,
+          bestDay: "-",
+        });
+
         return;
       }
 
-      const splitIndex = Math.floor(forecast.length / 2);
+      // USE BACKEND TYPES DIRECTLY
 
-      const formatted = forecast.map((item, index) => ({
-        day: new Date(item.ds).toLocaleDateString("en-US", {
-          weekday: "short",
-        }),
-
-        actual: index <= splitIndex ? item.yhat : null,
-
-        predicted: index >= splitIndex ? item.yhat : null,
-
-        sales: item.yhat,
+      const balancedForecast = forecast.map((item) => ({
+        ...item,
       }));
+
+      // FORMAT
+
+      const formatted = balancedForecast.map((item, index) => {
+        const date = new Date(item.ds);
+
+        let label = "";
+
+        // 7 DAYS
+
+        if (selectedRange === "7 Days") {
+          label = date.toLocaleDateString("en-US", {
+            weekday: "short",
+          });
+        }
+
+        // 30 / 90 DAYS
+        else {
+          label = date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          });
+        }
+
+        return {
+          day: label,
+
+          // REAL ACTUAL SALES ONLY
+
+          actual: item.type === "actual" ? item.yhat : null,
+
+          // EXTENDED LINE ONLY
+          // FOR VISUAL CONNECTION
+
+          actualLine:
+            item.type === "actual" || (item.type === "predicted" && balancedForecast[index - 1]?.type === "actual") ? item.yhat : null,
+
+          predicted: item.type === "predicted" ? item.yhat : null,
+
+          sales: item.yhat,
+        };
+      });
 
       setForecastData(formatted);
 
-      /* TOTAL REVENUE */
+      // TOTAL REVENUE
 
-      const totalRevenue = forecast.reduce(
+      const totalRevenue = balancedForecast.reduce(
         (sum, item) => sum + Number(item.yhat || 0),
 
         0
       );
 
-      /* BEST DAY */
+      // BEST DAY
 
-      const best = forecast.reduce((prev, current) => (prev.yhat > current.yhat ? prev : current));
+      const best = balancedForecast.reduce((prev, current) => (prev.yhat > current.yhat ? prev : current));
 
-      /* GROWTH */
+      // GROWTH
 
-      const first = forecast[0]?.yhat || 0;
+      const actualValues = balancedForecast.filter((item) => item.type === "actual").map((item) => Number(item.yhat));
 
-      const last = forecast[forecast.length - 1]?.yhat || 0;
+      const predictedValues = balancedForecast.filter((item) => item.type === "predicted").map((item) => Number(item.yhat));
+
+      const actualAverage = actualValues.length ? actualValues.reduce((a, b) => a + b, 0) / actualValues.length : 0;
+
+      const predictedAverage = predictedValues.length ? predictedValues.reduce((a, b) => a + b, 0) / predictedValues.length : 0;
 
       let growthPercent = 0;
 
-      if (first > 0) {
-        growthPercent = Math.round(((last - first) / first) * 100);
+      if (actualAverage > 0) {
+        growthPercent = Math.round(((predictedAverage - actualAverage) / actualAverage) * 100);
       }
 
       setStats({
@@ -97,7 +145,7 @@ export default function ForecastChart({ selectedRange }) {
     }
   };
 
-  /* LOADING */
+  // LOADING
 
   if (loading) {
     return (
@@ -311,104 +359,163 @@ export default function ForecastChart({ selectedRange }) {
         </div>
       </div>
 
-      {/* CHART */}
+      {/* EMPTY STATE */}
 
-      <div className="h-[420px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            data={forecastData}
-            margin={{
-              top: 10,
-              right: 10,
-              left: -20,
-              bottom: 0,
-            }}
+      {!forecastData.length ? (
+        <div
+          className="
+            flex
+            h-[420px]
+            items-center
+            justify-center
+
+            rounded-2xl
+
+            border
+            border-dashed
+            border-gray-200
+            dark:border-[#1F2937]
+          "
+        >
+          <p
+            className="
+              text-sm
+
+              text-gray-500
+              dark:text-slate-400
+            "
           >
-            {/* GRID */}
-
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#374151" : "#e5e7eb"} />
-
-            {/* X AXIS */}
-
-            <XAxis
-              dataKey="day"
-              tickLine={false}
-              axisLine={false}
-              interval="preserveStartEnd"
-              minTickGap={50}
-              tick={{
-                fontSize: 12,
-
-                fill: darkMode ? "#94A3B8" : "#64748b",
+            No forecast data available
+          </p>
+        </div>
+      ) : (
+        <div className="h-[420px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={forecastData}
+              margin={{
+                top: 10,
+                right: 10,
+                left: -20,
+                bottom: 0,
               }}
-            />
+            >
+              {/* GRID */}
 
-            {/* Y AXIS */}
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#374151" : "#e5e7eb"} />
 
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tick={{
-                fontSize: 12,
+              {/* X AXIS */}
 
-                fill: darkMode ? "#94A3B8" : "#64748b",
-              }}
-            />
+              <XAxis
+                dataKey="day"
+                tickLine={false}
+                axisLine={false}
+                minTickGap={45}
+                interval="preserveStartEnd"
+                tick={{
+                  fontSize: 12,
+                  fill: darkMode ? "#94A3B8" : "#64748b",
+                }}
+              />
 
-            {/* TOOLTIP */}
+              {/* Y AXIS */}
 
-            <Tooltip
-              formatter={(value, name) => [`₱${Number(value).toLocaleString()}`, name]}
-              cursor={{
-                stroke: "#a855f7",
-                strokeWidth: 2,
-                strokeDasharray: "4 4",
-              }}
-              contentStyle={{
-                backgroundColor: darkMode ? "#0f172a" : "#ffffff",
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tick={{
+                  fontSize: 12,
+                  fill: darkMode ? "#94A3B8" : "#64748b",
+                }}
+              />
 
-                borderRadius: "18px",
+              {/* TOOLTIP */}
 
-                border: darkMode ? "1px solid #1F2937" : "1px solid #e5e7eb",
+              <Tooltip
+                formatter={(value, name) => [`₱${Number(value).toLocaleString()}`, name]}
+                cursor={{
+                  stroke: "#a855f7",
+                  strokeWidth: 2,
+                  strokeDasharray: "4 4",
+                }}
+                contentStyle={{
+                  backgroundColor: darkMode ? "#0f172a" : "#ffffff",
 
-                color: darkMode ? "#ffffff" : "#0f172a",
+                  borderRadius: "18px",
 
-                boxShadow: darkMode ? "0 10px 30px rgba(0,0,0,0.4)" : "0 10px 30px rgba(15,23,42,0.08)",
-              }}
-              labelStyle={{
-                color: darkMode ? "#cbd5e1" : "#64748b",
+                  border: darkMode ? "1px solid #1F2937" : "1px solid #e5e7eb",
 
-                fontWeight: 600,
-              }}
-              itemStyle={{
-                color: "#a855f7",
-                fontWeight: 700,
-              }}
-            />
+                  color: darkMode ? "#ffffff" : "#0f172a",
 
-            {/* LEGEND */}
+                  boxShadow: darkMode ? "0 10px 30px rgba(0,0,0,0.4)" : "0 10px 30px rgba(15,23,42,0.08)",
+                }}
+                labelStyle={{
+                  color: darkMode ? "#cbd5e1" : "#64748b",
 
-            <Legend />
+                  fontWeight: 600,
+                }}
+                itemStyle={{
+                  color: "#a855f7",
+                  fontWeight: 700,
+                }}
+              />
 
-            {/* ACTUAL */}
+              {/* LEGEND */}
 
-            <Line type="monotone" dataKey="actual" name="Actual Sales" stroke="#8B5CF6" strokeWidth={3} dot={false} activeDot={false} />
+              <Legend />
 
-            {/* PREDICTED */}
+              {/* REAL ACTUAL TOOLTIP */}
 
-            <Line
-              type="monotone"
-              dataKey="predicted"
-              name="Predicted Sales"
-              stroke="#C084FC"
-              strokeWidth={3}
-              strokeDasharray="8 8"
-              dot={false}
-              activeDot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+              <Line
+                type="monotone"
+                dataKey="actual"
+                stroke="transparent"
+                dot={false}
+                activeDot={{
+                  r: 0,
+                }}
+                legendType="none"
+              />
+
+              {/* ACTUAL */}
+
+              <Line
+                type="monotone"
+                dataKey="actualLine"
+                connectNulls
+                name="Actual Sales"
+                tooltipType="none"
+                stroke="#8B5CF6"
+                strokeWidth={3}
+                dot={false}
+                activeDot={{
+                  r: 6,
+                  fill: "#8B5CF6",
+                  strokeWidth: 0,
+                }}
+              />
+
+              {/* PREDICTED */}
+
+              <Line
+                type="monotone"
+                dataKey="predicted"
+                connectNulls
+                name="Predicted Sales"
+                stroke="#C084FC"
+                strokeWidth={3}
+                strokeDasharray="8 8"
+                dot={false}
+                activeDot={{
+                  r: 6,
+                  fill: "#C084FC",
+                  strokeWidth: 0,
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 }

@@ -67,19 +67,18 @@ export default function Overview() {
 
       let growth = 0;
 
-      if (forecast.length >= 2) {
-        const first = forecast[0]?.yhat || 0;
+      const actualValues = forecast.filter((item) => item.type === "actual").map((item) => Number(item.yhat));
+      const predictedValues = forecast.filter((item) => item.type === "predicted").map((item) => Number(item.yhat));
+      const actualAverage = actualValues.length ? actualValues.reduce((a, b) => a + b, 0) / actualValues.length : 0;
+      const predictedAverage = predictedValues.length ? predictedValues.reduce((a, b) => a + b, 0) / predictedValues.length : 0;
 
-        const last = forecast[forecast.length - 1]?.yhat || 0;
-
-        if (first > 0) {
-          growth = Math.round(((last - first) / first) * 100);
-        }
+      if (actualAverage > 0) {
+        growth = Math.round(((predictedAverage - actualAverage) / actualAverage) * 100);
       }
 
       /* FAST MOVING */
 
-      const fastMoving = restockData.filter((item) => Number(item.predicted_demand || item.demand || 0) > 20).length;
+      const fastMoving = restockData.length;
 
       /* ASSOCIATIONS */
 
