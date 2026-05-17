@@ -44,9 +44,8 @@ model = genai.GenerativeModel(
 )
 
 
-# ====================================
+
 # FORECAST
-# ====================================
 
 from sklearn.metrics import (
     mean_absolute_error,
@@ -109,10 +108,8 @@ def get_forecast(
                 }
             }
 
-        # ====================================
+        
         # DATAFRAME
-        # ====================================
-
         data = pd.DataFrame([
             {
                 "ds": pd.to_datetime(row[0]),
@@ -122,10 +119,8 @@ def get_forecast(
             for row in rows
         ])
 
-        # ====================================
+        
         # MINIMUM DATA CHECK
-        # ====================================
-
         if len(data) < 3:
 
             output = []
@@ -159,33 +154,30 @@ def get_forecast(
                 }
             }
 
-        # ====================================
+      
         # PROPHET MODEL
-        # ====================================
-
+      
         model_prophet = Prophet()
 
         model_prophet.fit(data)
 
-        # ====================================
+     
         # FUTURE DAYS
-        # ====================================
+
 
         future = model_prophet.make_future_dataframe(
             periods=days
         )
 
-        # ====================================
+    
         # PREDICT
-        # ====================================
-
+    
         forecast = model_prophet.predict(
             future
         )
 
-        # ====================================
+    
         # MODEL EVALUATION
-        # ====================================
 
         train_forecast = (
             model_prophet.predict(data)
@@ -196,10 +188,8 @@ def get_forecast(
             train_forecast["yhat"]
         )
 
-        # ====================================
+    
         # HISTORY + FUTURE FORECAST
-        # ====================================
-
         actual_days_map = {
             7: 3,
             30: 15,
@@ -250,9 +240,8 @@ def get_forecast(
             by="ds"
         )
 
-        # ====================================
+        
         # OUTPUT
-        # ====================================
 
         output = []
 
@@ -304,10 +293,8 @@ def get_forecast(
 
         if conn:
             conn.close()
-# ====================================
-# APRIORI
-# ====================================
 
+# APRIORI
 @router.get("/apriori")
 def get_apriori(
     current_user=Depends(

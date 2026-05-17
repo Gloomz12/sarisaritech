@@ -29,47 +29,98 @@ export default function AIInsightPanel({ navigateInsight }) {
 
       /* FORECAST */
 
-      const chartData =
-        forecastResponse?.forecast?.map((item) => ({
-          day: new Date(item.ds).toLocaleDateString("en-US", {
+      const forecast = forecastResponse?.forecast || [];
+
+      /* CHART */
+
+      const chartData = forecast.map((item, index) => {
+        const date = new Date(item.ds);
+
+        return {
+          day: date.toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
           }),
 
-          sales: Math.round(item.yhat),
-        })) || [];
+          // REAL ACTUAL ONLY
 
+          actual: item.type === "actual" ? item.yhat : null,
+
+          // VISUAL CONNECTION
+
+          actualLine: item.type === "actual" || (item.type === "predicted" && forecast[index - 1]?.type === "actual") ? item.yhat : null,
+
+          // PREDICTED ONLY
+
+          predicted: item.type === "predicted" ? item.yhat : null,
+        };
+      });
       setForecastData(chartData);
 
-      if (chartData.length >= 2) {
-        const first = chartData[0]?.sales || 0;
+      /* GROWTH */
 
-        const last = chartData[chartData.length - 1]?.sales || 0;
+      const actualValues = forecast.filter((item) => item.type === "actual").map((item) => Number(item.yhat));
 
-        let growth = 0;
+      const predictedValues = forecast.filter((item) => item.type === "predicted").map((item) => Number(item.yhat));
 
-        if (first > 0) {
-          growth = Math.round(((last - first) / first) * 100);
-        }
+      const actualAverage = actualValues.length ? actualValues.reduce((a, b) => a + b, 0) / actualValues.length : 0;
 
-        setForecastGrowth(`${growth > 0 ? "+" : ""}${growth}%`);
+      const predictedAverage = predictedValues.length ? predictedValues.reduce((a, b) => a + b, 0) / predictedValues.length : 0;
 
-        if (growth >= 0) {
-          setForecastMessage("Demand is expected to increase next week.");
-        } else {
-          setForecastMessage("Demand may slightly decrease next week.");
-        }
+      let growth = 0;
+
+      if (actualAverage > 0) {
+        growth = Math.round(((predictedAverage - actualAverage) / actualAverage) * 100);
       }
 
+      setForecastGrowth(`${growth > 0 ? "+" : ""}${growth}%`);
+
+      /* MESSAGE */
+
+      if (growth >= 15) {
+        setForecastMessage("Sales are expected to increase significantly next week. Consider preparing additional stock.");
+      } else if (growth >= 5) {
+        setForecastMessage("Sales are expected to increase next week.");
+      } else if (growth >= 0) {
+        setForecastMessage("Sales are expected to remain stable next week.");
+      } else if (growth <= -15) {
+        setForecastMessage("Sales may significantly decrease next week.");
+      } else {
+        setForecastMessage("Sales may slightly decrease next week.");
+      }
       /* APRIORI */
 
-      const filteredRules = aprioriResponse?.filter((rule) => rule.products?.length && rule.recommendation?.length)?.slice(0, 3) || [];
+      const uniqueRules = [];
+
+      const seen = new Set();
+
+      aprioriResponse.forEach((rule) => {
+        const products = rule.products.join(",");
+
+        const recommendations = rule.recommendation.join(",");
+
+        const directKey = `${products}->${recommendations}`;
+
+        const reverseKey = `${recommendations}->${products}`;
+
+        if (!seen.has(directKey) && !seen.has(reverseKey)) {
+          seen.add(directKey);
+
+          uniqueRules.push(rule);
+        }
+      });
+
+      const filteredRules = uniqueRules.filter((rule) => rule.products?.length && rule.recommendation?.length).slice(0, 3);
+
+      setAprioriRules(filteredRules);
 
       setAprioriRules(filteredRules);
 
       /* RESTOCK */
 
-      const filteredRestocks = restockResponse?.filter((item) => Number(item.suggested_restock) > 0)?.slice(0, 3) || [];
+      const filteredRestocks = [...(restockResponse || [])]
+        .sort((a, b) => Number(b.suggested_restock || b.suggested_order || 0) - Number(a.suggested_restock || a.suggested_order || 0))
+        .slice(0, 3);
 
       setRestocks(filteredRestocks);
     } catch (error) {
@@ -198,9 +249,7 @@ export default function AIInsightPanel({ navigateInsight }) {
                 dark:text-white
               "
             >
-              Demand Forecast
-              <br />
-              (Next 7 Days)
+              7-Day Sales Forecast
             </h3>
 
             <div
@@ -242,13 +291,52 @@ export default function AIInsightPanel({ navigateInsight }) {
                   }}
                 />
 
+                {/* REAL ACTUAL TOOLTIP */}
+
                 <Line
                   type="monotone"
-                  dataKey="sales"
+                  dataKey="actual"
+                  stroke="transparent"
+                  dot={false}
+                  activeDot={{
+                    r: 0,
+                  }}
+                  legendType="none"
+                />
+
+                {/* ACTUAL */}
+
+                <Line
+                  type="monotone"
+                  dataKey="actualLine"
+                  connectNulls
+                  name="Actual Sales"
+                  tooltipType="none"
                   stroke="#3B82F6"
                   strokeWidth={3}
-                  dot={{
-                    r: 4,
+                  dot={false}
+                  activeDot={{
+                    r: 5,
+                    fill: "#3B82F6",
+                    strokeWidth: 0,
+                  }}
+                />
+
+                {/* PREDICTED */}
+
+                <Line
+                  type="monotone"
+                  dataKey="predicted"
+                  connectNulls
+                  name="Predicted Sales"
+                  stroke="#60A5FA"
+                  strokeWidth={3}
+                  strokeDasharray="6 6"
+                  dot={false}
+                  activeDot={{
+                    r: 5,
+                    fill: "#60A5FA",
+                    strokeWidth: 0,
                   }}
                 />
               </LineChart>
@@ -273,6 +361,7 @@ export default function AIInsightPanel({ navigateInsight }) {
               dark:text-gray-300
 
               text-sm
+              leading-relaxed
             "
           >
             ℹ️ {forecastMessage}
@@ -368,7 +457,7 @@ export default function AIInsightPanel({ navigateInsight }) {
                       : "bg-green-100 text-green-500"
                 }
                 item={item.product_name}
-                suggested={`+${item.suggested_restock} units`}
+                suggested={`+${item.suggested_restock || item.suggested_order || 0} units`}
               />
             ))}
           </div>
@@ -451,7 +540,7 @@ function Association({ color, item1, item2, confidence }) {
 
 function Recommendation({ level, color, item, suggested }) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between gap-3">
       <div>
         <h4
           className="
