@@ -1,219 +1,316 @@
 import os
+import uuid
+import logging
 
 from dotenv import load_dotenv
 
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-from passlib.context import CryptContext
-from jose import jwt
 from datetime import datetime, timedelta
-import uuid
+
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel, EmailStr, Field
+from passlib.context import CryptContext
+from jose import jwt, JWTError
+from fastapi import Request
+from app.core.security import limiter
 
 from app.db.database import get_connection
 
 
+# =========================
 # LOAD ENV
+# =========================
+
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-
-ALGORITHM = os.getenv("ALGORITHM")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
 ACCESS_TOKEN_EXPIRE_HOURS = int(
-    os.getenv("ACCESS_TOKEN_EXPIRE_HOURS")
+    os.getenv("ACCESS_TOKEN_EXPIRE_HOURS", 24)
 )
 
+# VALIDATE ENV
 
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY is missing")
+
+
+# =========================
+# LOGGER
+# =========================
+
+logger = logging.getLogger(__name__)
+
+
+# =========================
 # ROUTER
+# =========================
+
 router = APIRouter()
 
 
+# =========================
 # PASSWORD HASHING
+# =========================
+
 pwd_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
 )
 
 
+# =========================
 # MODELS
+# =========================
+
 class RegisterRequest(BaseModel):
-    store_name: str
-    owner_name: str
-    email: str
-    username: str
-    password: str
+    store_name: str = Field(min_length=2, max_length=100)
+    owner_name: str = Field(min_length=2, max_length=100)
+
+    email: EmailStr
+
+    username: str = Field(
+        min_length=3,
+        max_length=50
+    )
+
+    password: str = Field(
+        min_length=8,
+        max_length=100
+    )
 
 
 class LoginRequest(BaseModel):
-    email: str
-    password: str
+    email: EmailStr
+
+    password: str = Field(
+        min_length=8,
+        max_length=100
+    )
 
 
-
+# =========================
 # REGISTER
+# =========================
+
 @router.post("/register")
-def register(data: RegisterRequest):
+@limiter.limit("3/minute")
+def register(
+    request: Request,
+    data: RegisterRequest
+):
 
-    conn = get_connection()
-    cur = conn.cursor()
+    conn = None
+    cur = None
 
-    # CHECK EMAIL
-    cur.execute(
-        """
-        SELECT *
-        FROM users
-        WHERE email = %s
-        """,
-        (data.email,)
-    )
+    try:
 
-    existing_email = cur.fetchone()
+        conn = get_connection()
+        cur = conn.cursor()
 
-    if existing_email:
+        # CHECK EMAIL
 
-        cur.close()
-        conn.close()
+        cur.execute(
+            """
+            SELECT user_id
+            FROM users
+            WHERE email = %s
+            """,
+            (data.email,)
+        )
+
+        existing_email = cur.fetchone()
+
+        if existing_email:
+
+            raise HTTPException(
+                status_code=400,
+                detail="Email already exists."
+            )
+
+        # HASH PASSWORD
+
+        hashed_password = pwd_context.hash(
+            data.password
+        )
+
+        # INSERT USER
+
+        cur.execute(
+            """
+            INSERT INTO users
+            (
+                user_id,
+                store_name,
+                owner_name,
+                email,
+                username,
+                password_hash
+            )
+            VALUES
+            (
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s
+            )
+            """,
+            (
+                str(uuid.uuid4()),
+                data.store_name,
+                data.owner_name,
+                data.email,
+                data.username,
+                hashed_password
+            )
+        )
+
+        conn.commit()
+
+        return {
+            "message":
+            "Account created successfully."
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+
+        logger.error(f"Register Error: {e}")
 
         raise HTTPException(
-            status_code=400,
-            detail="Email already exists."
+            status_code=500,
+            detail="Internal server error"
         )
 
-    # HASH PASSWORD
+    finally:
 
-    hashed_password = pwd_context.hash(
-        data.password
-    )
+        if cur:
+            cur.close()
 
-    # INSERT USER
-
-    cur.execute(
-        """
-        INSERT INTO users
-        (
-            user_id,
-            store_name,
-            owner_name,
-            email,
-            username,
-            password_hash
-        )
-        VALUES
-        (
-            %s,
-            %s,
-            %s,
-            %s,
-            %s,
-            %s
-        )
-        """,
-        (
-            str(uuid.uuid4()),
-            data.store_name,
-            data.owner_name,
-            data.email,
-            data.username,
-            hashed_password
-        )
-    )
-
-    conn.commit()
-
-    cur.close()
-    conn.close()
-
-    return {
-        "message":
-        "Account created successfully."
-    }
+        if conn:
+            conn.close()
 
 
-
+# =========================
 # LOGIN
+# =========================
+
 @router.post("/login")
-def login(data: LoginRequest):
+@limiter.limit("5/minute")
+def login(
+    request: Request,
+    data: LoginRequest
+):
 
-    conn = get_connection()
-    cur = conn.cursor()
+    conn = None
+    cur = None
 
-    cur.execute(
-        """
-        SELECT
-            user_id,
-            store_name,
-            owner_name,
-            email,
-            username,
-            password_hash
-        FROM users
-        WHERE email = %s
-        """,
-        (data.email,)
-    )
+    try:
 
-    user = cur.fetchone()
+        conn = get_connection()
+        cur = conn.cursor()
 
-    # USER NOT FOUND
-
-    if not user:
-
-        cur.close()
-        conn.close()
-
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password."
+        cur.execute(
+            """
+            SELECT
+                user_id,
+                store_name,
+                owner_name,
+                email,
+                username,
+                password_hash
+            FROM users
+            WHERE email = %s
+            """,
+            (data.email,)
         )
 
-    # VERIFY PASSWORD
+        user = cur.fetchone()
 
-    valid_password = pwd_context.verify(
-        data.password,
-        user[5]
-    )
+        # USER NOT FOUND
 
-    if not valid_password:
+        if not user:
 
-        cur.close()
-        conn.close()
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password."
+            )
 
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password."
+        # VERIFY PASSWORD
+
+        valid_password = pwd_context.verify(
+            data.password,
+            user[5]
         )
 
-    # CREATE JWT TOKEN
+        if not valid_password:
 
-    payload = {
-        "user_id": user[0],
-        "email": user[3],
-        "exp": datetime.utcnow() + timedelta(
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password."
+            )
+
+        # CREATE JWT TOKEN
+
+        expire = datetime.utcnow() + timedelta(
             hours=ACCESS_TOKEN_EXPIRE_HOURS
         )
-    }
 
-    token = jwt.encode(
-        payload,
-        SECRET_KEY,
-        algorithm=ALGORITHM
-    )
+        payload = {
+            "user_id": user[0],
+            "email": user[3],
+            "exp": expire
+        }
 
-    # CLOSE CONNECTION
+        token = jwt.encode(
+            payload,
+            SECRET_KEY,
+            algorithm=ALGORITHM
+        )
 
-    cur.close()
-    conn.close()
+        # RESPONSE
 
-    # RESPONSE
+        return {
+            "token": token,
 
-    return {
-    "token": token,
+            "user": {
+                "id": user[0],
+                "store_name": user[1],
+                "owner_name": user[2],
+                "email": user[3],
+                "username": user[4],
+            }
+        }
 
-    "user": {
-        "id": user[0],
-        "store_name": user[1],
-        "owner_name": user[2],
-        "email": user[3],
-        "username": user[4],
-    }
-}
+    except HTTPException:
+        raise
+
+    except JWTError as e:
+
+        logger.error(f"JWT Error: {e}")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Token generation failed"
+        )
+
+    except Exception as e:
+
+        logger.error(f"Login Error: {e}")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
+
+    finally:
+
+        if cur:
+            cur.close()
+
+        if conn:
+            conn.close()
