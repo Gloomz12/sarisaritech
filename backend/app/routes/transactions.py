@@ -1,9 +1,10 @@
 from fastapi import (
     APIRouter,
-    Request,
     Depends,
-    HTTPException
+    HTTPException,
+    Request,
 )
+from app.core.security import limiter
 
 from app.db.database import (
     get_connection
@@ -13,6 +14,10 @@ from app.utils.auth import (
     get_current_user
 )
 
+from app.schemas.transaction_schema import (
+    TransactionCreate,
+)
+
 import uuid
 
 from datetime import (
@@ -20,13 +25,19 @@ from datetime import (
     timezone
 )
 
+import logging
+
 router = APIRouter()
+
+logger = logging.getLogger(__name__)
 
 
 # CREATE TRANSACTION
 @router.post("/")
+@limiter.limit("30/minute")
 async def create_transaction(
     request: Request,
+    data: TransactionCreate,
     current_user=Depends(get_current_user)
 ):
 
@@ -35,20 +46,18 @@ async def create_transaction(
 
     try:
 
-        data = await request.json()
+        total_amount = data.total_amount
 
-        total_amount = data["total_amount"]
-
-        amount_paid = data["amount_paid"]
+        amount_paid = data.amount_paid
 
         # NORMALIZE PAYMENT METHOD
 
         payment_method = (
             "GCash"
-            if data["payment_method"].lower() == "gcash"
+            if data.payment_method.lower() == "gcash"
             else
             "Paymaya"
-            if data["payment_method"].lower() == "paymaya"
+            if data.payment_method.lower() == "paymaya"
             else
             "Cash"
         )
@@ -119,9 +128,9 @@ async def create_transaction(
 
         # ITEMS + STOCK
 
-        for item in data["items"]:
+        for item in data.items:
 
-            quantity = item["quantity"]
+            quantity = item.quantity
 
             # GET PRODUCT
 
@@ -140,7 +149,7 @@ async def create_transaction(
                     user_id = %s
             """, (
 
-                item["product_id"],
+                item.product_id,
 
                 current_user["user_id"]
 
@@ -192,7 +201,7 @@ async def create_transaction(
 
                 transaction_id,
 
-                item["product_id"],
+                item.product_id,
 
                 quantity,
 
@@ -218,7 +227,7 @@ async def create_transaction(
 
                 quantity,
 
-                item["product_id"],
+                item.product_id,
 
                 current_user["user_id"]
 
@@ -250,7 +259,7 @@ async def create_transaction(
 
                 current_user["user_id"],
 
-                item["product_id"],
+                item.product_id,
 
                 -quantity
             ))
@@ -269,21 +278,23 @@ async def create_transaction(
                 float(change_amount)
         }
 
-    except HTTPException as e:
+    except HTTPException:
 
         if conn:
             conn.rollback()
 
-        raise e
+        raise
 
     except Exception as e:
 
         if conn:
             conn.rollback()
 
+        logger.error(f"Create transaction error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
     finally:
@@ -297,9 +308,14 @@ async def create_transaction(
 
 # GET TRANSACTIONS
 @router.get("/")
+@limiter.limit("30/minute")
 def get_transactions(
+    request: Request,
     current_user=Depends(get_current_user)
 ):
+
+    conn = None
+    cursor = None
 
     try:
 
@@ -409,15 +425,24 @@ def get_transactions(
                 ]
             })
 
-        cursor.close()
-
-        conn.close()
-
         return result
 
     except Exception as e:
 
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Get transactions error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()

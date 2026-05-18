@@ -552,7 +552,7 @@ for _ in range(TOTAL_TRANSACTIONS):
         )
 
         # =================================
-        # STOCK MOVEMENTS
+        # STOCK MOVEMENTS - SALE
         # =================================
 
         cursor.execute("""
@@ -597,6 +597,219 @@ for _ in range(TOTAL_TRANSACTIONS):
 
             new_stock,
         ))
+
+        # =================================
+        # RANDOM RESTOCK EVENTS
+        # =================================
+
+        if random.random() < 0.15:
+
+            restock_qty = random.randint(
+                20,
+                150
+            )
+
+            restock_previous = new_stock
+
+            restock_new = (
+                restock_previous +
+                restock_qty
+            )
+
+            restock_date = (
+                created_at +
+                timedelta(
+                    hours=random.randint(1, 24)
+                )
+            )
+
+            cursor.execute("""
+
+                INSERT INTO stock_movements (
+
+                    product_id,
+                    change_quantity,
+                    type,
+                    created_at,
+                    user_id,
+                    previous_stock,
+                    new_stock
+
+                )
+
+                VALUES (
+
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s
+
+                )
+
+            """, (
+
+                item["product_id"],
+
+                restock_qty,
+
+                "RESTOCK",
+
+                restock_date,
+
+                USER_ID,
+
+                restock_previous,
+
+                restock_new,
+            ))
+
+        # =================================
+        # RANDOM INVENTORY ADJUSTMENTS
+        # =================================
+
+        if random.random() < 0.08:
+
+            adjustment_qty = random.randint(
+                -10,
+                10
+            )
+
+            # AVOID ZERO ADJUSTMENT
+
+            if adjustment_qty == 0:
+
+                adjustment_qty = 1
+
+            adjustment_previous = new_stock
+
+            adjustment_new = (
+                adjustment_previous +
+                adjustment_qty
+            )
+
+            adjustment_date = (
+                created_at +
+                timedelta(
+                    hours=random.randint(1, 12)
+                )
+            )
+
+            cursor.execute("""
+
+                INSERT INTO stock_movements (
+
+                    product_id,
+                    change_quantity,
+                    type,
+                    created_at,
+                    user_id,
+                    previous_stock,
+                    new_stock
+
+                )
+
+                VALUES (
+
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s
+
+                )
+
+            """, (
+
+                item["product_id"],
+
+                adjustment_qty,
+
+                "ADJUSTMENT",
+
+                adjustment_date,
+
+                USER_ID,
+
+                adjustment_previous,
+
+                adjustment_new,
+            ))
+
+        # =================================
+        # RANDOM CRITICAL STOCK EVENTS
+        # =================================
+
+        if random.random() < 0.05:
+
+            critical_previous = random.randint(
+                5,
+                15
+            )
+
+            critical_new = random.randint(
+                0,
+                4
+            )
+
+            critical_change = (
+                critical_new -
+                critical_previous
+            )
+
+            critical_date = (
+                created_at +
+                timedelta(
+                    hours=random.randint(1, 6)
+                )
+            )
+
+            cursor.execute("""
+
+                INSERT INTO stock_movements (
+
+                    product_id,
+                    change_quantity,
+                    type,
+                    created_at,
+                    user_id,
+                    previous_stock,
+                    new_stock
+
+                )
+
+                VALUES (
+
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s,
+                    %s
+
+                )
+
+            """, (
+
+                item["product_id"],
+
+                critical_change,
+
+                "ADJUSTMENT",
+
+                critical_date,
+
+                USER_ID,
+
+                critical_previous,
+
+                critical_new,
+            ))
 
 conn.commit()
 

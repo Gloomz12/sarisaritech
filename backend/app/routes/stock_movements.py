@@ -12,7 +12,9 @@ from app.utils.auth import (
     get_current_user,
 )
 
+import logging
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.get("/")
@@ -100,11 +102,17 @@ def get_stock_movements(
         return result
 
     except Exception as e:
+        
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Stock movements error: {e}")
 
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
+
 
     finally:
 

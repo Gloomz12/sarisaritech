@@ -284,35 +284,6 @@ export default function LoginForm() {
           </div>
         </div>
 
-        {/* OPTIONS */}
-
-        <div
-          className="
-            flex items-center
-            justify-between
-          "
-        >
-          <label
-            className="
-              flex items-center gap-2
-              text-sm text-gray-500
-              cursor-pointer
-            "
-          ></label>
-
-          <button
-            type="button"
-            className="
-              text-sm
-              text-orange-500
-              hover:text-orange-600
-              font-medium
-            "
-          >
-            Forgot password?
-          </button>
-        </div>
-
         {/* LOGIN BUTTON */}
 
         <button

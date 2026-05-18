@@ -2,7 +2,10 @@ from fastapi import (
     APIRouter,
     Depends,
     HTTPException,
+    Request,
 )
+
+from app.core.security import limiter
 
 from prophet import Prophet
 
@@ -29,8 +32,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import logging
 router = APIRouter()
-
+logger = logging.getLogger(__name__)
 
 # GEMINI CONFIG
 genai.configure(
@@ -52,10 +56,10 @@ from sklearn.metrics import (
 )
 
 @router.get("/forecast")
+@limiter.limit("20/minute")
 def get_forecast(
-
+    request: Request,
     days: int = 7,
-
     current_user=Depends(
         get_current_user
     )
@@ -279,11 +283,13 @@ def get_forecast(
 
     except Exception as e:
 
-        print("FORECAST ERROR:", e)
+        if conn:
+            conn.rollback()
 
+        logger.error(f"Forecast error: {e}")
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
     finally:
@@ -296,7 +302,9 @@ def get_forecast(
 
 # APRIORI
 @router.get("/apriori")
+@limiter.limit("20/minute")
 def get_apriori(
+    request: Request,
     current_user=Depends(
         get_current_user
     )
@@ -407,10 +415,14 @@ def get_apriori(
         return output
 
     except Exception as e:
+       if conn:
+        conn.rollback()
 
-        raise HTTPException(
+        logger.error(f"Apriori error: {e}")
+
+       raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
     finally:
@@ -426,7 +438,9 @@ def get_apriori(
 # ====================================
 
 @router.get("/gemini")
+@limiter.limit("10/minute")
 def get_gemini_insights(
+    request: Request,
     current_user=Depends(
         get_current_user
     )
@@ -479,9 +493,11 @@ def get_gemini_insights(
 
     except Exception as e:
 
+        logger.error(f"Gemini insights error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
 # ====================================
@@ -489,7 +505,9 @@ def get_gemini_insights(
 # ====================================
 
 @router.get("/restock")
+@limiter.limit("20/minute")
 def get_restock_recommendations(
+    request: Request,
     current_user=Depends(
         get_current_user
     )
@@ -659,9 +677,11 @@ def get_restock_recommendations(
 
     except Exception as e:
 
+        logger.error(f"Restock recommendations error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
     finally:
