@@ -46,6 +46,7 @@ app.add_middleware(
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://sarisaritech.vercel.app",
 ]
 
 app.add_middleware(
