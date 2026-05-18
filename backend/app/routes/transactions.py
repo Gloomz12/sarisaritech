@@ -24,7 +24,7 @@ router = APIRouter()
 
 
 # CREATE TRANSACTION
-@router.post("/transactions")
+@router.post("/")
 async def create_transaction(
     request: Request,
     current_user=Depends(get_current_user)
@@ -296,7 +296,7 @@ async def create_transaction(
 
 
 # GET TRANSACTIONS
-@router.get("/transactions")
+@router.get("/")
 def get_transactions(
     current_user=Depends(get_current_user)
 ):

@@ -42,31 +42,6 @@ def get_interval(range_value):
     )
 
 
-def build_date_filter(
-    range_value,
-    start_date=None,
-    end_date=None
-):
-
-    if (
-        range_value == "custom"
-        and start_date
-        and end_date
-    ):
-
-        return f"""
-        created_at >= '{start_date} 00:00:00'
-        AND created_at <= '{end_date} 23:59:59'
-        """
-
-    interval = get_interval(range_value)
-
-    return f"""
-        created_at >=
-        NOW() - INTERVAL '{interval}'
-    """
-
-
 # ====================================
 # OVERVIEW
 # ====================================
@@ -74,8 +49,6 @@ def build_date_filter(
 @router.get("/overview")
 def get_overview(
     range: str = "30days",
-    start_date: str = None,
-    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -86,17 +59,13 @@ def get_overview(
 
     try:
 
-        date_filter = build_date_filter(
-            range,
-            start_date,
-            end_date
-        )
+        interval = get_interval(range)
 
         conn = get_connection()
 
         cursor = conn.cursor()
 
-        cursor.execute(f"""
+        cursor.execute("""
 
             SELECT
 
@@ -113,10 +82,12 @@ def get_overview(
                 user_id = %s
 
             AND
-                {date_filter}
+                created_at >=
+                NOW() - INTERVAL %s
 
         """, (
             current_user["user_id"],
+            interval
         ))
 
         sales_data = cursor.fetchone()
@@ -181,7 +152,7 @@ def get_overview(
 
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Failed to load overview"
         )
 
     finally:
@@ -200,8 +171,6 @@ def get_overview(
 @router.get("/sales-trend")
 def get_sales_trend(
     range: str = "30days",
-    start_date: str = None,
-    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -212,11 +181,7 @@ def get_sales_trend(
 
     try:
 
-        date_filter = build_date_filter(
-            range,
-            start_date,
-            end_date
-        )
+        interval = get_interval(range)
 
         conn = get_connection()
 
@@ -228,7 +193,7 @@ def get_sales_trend(
 
         if range == "1year":
 
-            cursor.execute(f"""
+            cursor.execute("""
 
                 SELECT
 
@@ -251,7 +216,8 @@ def get_sales_trend(
                     user_id = %s
 
                 AND
-                    {date_filter}
+                    created_at >=
+                    NOW() - INTERVAL %s
 
                 GROUP BY
                     DATE_TRUNC(
@@ -267,6 +233,7 @@ def get_sales_trend(
 
             """, (
                 current_user["user_id"],
+                interval
             ))
 
             rows = cursor.fetchall()
@@ -292,7 +259,7 @@ def get_sales_trend(
 
         if range == "3months":
 
-            cursor.execute(f"""
+            cursor.execute("""
 
                 SELECT
 
@@ -312,7 +279,8 @@ def get_sales_trend(
                     user_id = %s
 
                 AND
-                    {date_filter}
+                    created_at >=
+                    NOW() - INTERVAL %s
 
                 GROUP BY
                     DATE_TRUNC(
@@ -328,6 +296,7 @@ def get_sales_trend(
 
             """, (
                 current_user["user_id"],
+                interval
             ))
 
             rows = cursor.fetchall()
@@ -348,97 +317,10 @@ def get_sales_trend(
             return result
 
         # ====================================
-        # CUSTOM LONG RANGE = WEEKLY
-        # ====================================
-
-        if (
-            range == "custom"
-            and start_date
-            and end_date
-        ):
-
-            cursor.execute("""
-
-                SELECT
-
-                    DATE(%s) as start_date,
-                    DATE(%s) as end_date
-
-            """, (
-                start_date,
-                end_date,
-            ))
-
-            dates = cursor.fetchone()
-
-            days_diff = (
-                dates[1] - dates[0]
-            ).days
-
-            # MORE THAN 31 DAYS
-
-            if days_diff > 31:
-
-                cursor.execute(f"""
-
-                    SELECT
-
-                        DATE_TRUNC(
-                            'week',
-                            created_at
-                        )::date as week,
-
-                        COALESCE(
-                            SUM(total_amount),
-                            0
-                        )
-
-                    FROM transactions
-
-                    WHERE
-                        user_id = %s
-
-                    AND
-                        {date_filter}
-
-                    GROUP BY
-                        DATE_TRUNC(
-                            'week',
-                            created_at
-                        )
-
-                    ORDER BY
-                        DATE_TRUNC(
-                            'week',
-                            created_at
-                        )
-
-                """, (
-                    current_user["user_id"],
-                ))
-
-                rows = cursor.fetchall()
-
-                result = []
-
-                for row in rows:
-
-                    result.append({
-
-                        "date":
-                            row[0].isoformat(),
-
-                        "sales":
-                            float(row[1]),
-                    })
-
-                return result
-
-        # ====================================
         # DEFAULT = DAILY
         # ====================================
 
-        cursor.execute(f"""
+        cursor.execute("""
 
             SELECT
 
@@ -455,7 +337,8 @@ def get_sales_trend(
                 user_id = %s
 
             AND
-                {date_filter}
+                created_at >=
+                NOW() - INTERVAL %s
 
             GROUP BY
                 DATE(created_at)
@@ -465,6 +348,7 @@ def get_sales_trend(
 
         """, (
             current_user["user_id"],
+            interval
         ))
 
         rows = cursor.fetchall()
@@ -493,7 +377,7 @@ def get_sales_trend(
 
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Failed to load sales trend"
         )
 
     finally:
@@ -512,8 +396,6 @@ def get_sales_trend(
 @router.get("/top-products")
 def get_top_products(
     range: str = "30days",
-    start_date: str = None,
-    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -524,17 +406,13 @@ def get_top_products(
 
     try:
 
-        date_filter = build_date_filter(
-            range,
-            start_date,
-            end_date
-        )
+        interval = get_interval(range)
 
         conn = get_connection()
 
         cursor = conn.cursor()
 
-        cursor.execute(f"""
+        cursor.execute("""
 
             SELECT
 
@@ -570,7 +448,8 @@ def get_top_products(
                 t.user_id = %s
 
             AND
-                {date_filter.replace("created_at", "t.created_at")}
+                t.created_at >=
+                NOW() - INTERVAL %s
 
             GROUP BY
                 p.name,
@@ -583,6 +462,7 @@ def get_top_products(
 
         """, (
             current_user["user_id"],
+            interval
         ))
 
         rows = cursor.fetchall()
@@ -617,7 +497,7 @@ def get_top_products(
 
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Failed to load top products"
         )
 
     finally:
@@ -636,8 +516,6 @@ def get_top_products(
 @router.get("/categories")
 def get_categories(
     range: str = "30days",
-    start_date: str = None,
-    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -648,17 +526,13 @@ def get_categories(
 
     try:
 
-        date_filter = build_date_filter(
-            range,
-            start_date,
-            end_date
-        )
+        interval = get_interval(range)
 
         conn = get_connection()
 
         cursor = conn.cursor()
 
-        cursor.execute(f"""
+        cursor.execute("""
 
             SELECT
 
@@ -687,13 +561,15 @@ def get_categories(
                 t.user_id = %s
 
             AND
-                {date_filter.replace("created_at", "t.created_at")}
+                t.created_at >=
+                NOW() - INTERVAL %s
 
             GROUP BY
                 c.name
 
         """, (
             current_user["user_id"],
+            interval
         ))
 
         rows = cursor.fetchall()
@@ -737,7 +613,7 @@ def get_categories(
 
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Failed to load categories"
         )
 
     finally:

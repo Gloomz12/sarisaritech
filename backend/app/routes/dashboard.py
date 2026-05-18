@@ -4,7 +4,6 @@ from app.db.database import get_connection
 from app.utils.auth import get_current_user
 
 router = APIRouter(
-    prefix="/dashboard",
     tags=["Dashboard"]
 )
 
