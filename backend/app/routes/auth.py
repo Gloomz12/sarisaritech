@@ -183,7 +183,8 @@ def register(
         if conn:
             conn.rollback()
 
-        logger.error(f"Register Error: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
 
         raise HTTPException(
             status_code=500,

@@ -13,3 +13,4 @@ python-jose[cryptography]
 python-multipart
 slowapi
 email-validator
+plotly
