@@ -140,8 +140,3 @@ app.include_router(
     prefix="/api/ai-insights",
     tags=["AI Insights"]
 )
-
-# DEBUG ROUTES
-
-for route in app.routes:
-    print(route.methods, route.path)
