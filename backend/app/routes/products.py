@@ -1,9 +1,11 @@
 import uuid
+from app.core.security import limiter
 
 from fastapi import (
     APIRouter,
     HTTPException,
     Depends,
+    Request,
 )
 
 from app.db.database import (
@@ -14,15 +16,26 @@ from app.utils.auth import (
     get_current_user,
 )
 
+from app.schemas.product_schema import (
+    ProductCreate,
+    ProductUpdate,
+    RestockRequest,
+)
+
+import logging
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 # GET PRODUCTS
 @router.get("/")
+@limiter.limit("30/minute")
 def get_products(
+    request: Request,
     current_user=Depends(get_current_user)
 ):
-
+    conn = None
+    cursor = None
     try:
 
         conn = get_connection()
@@ -88,25 +101,40 @@ def get_products(
                     row[7],
             })
 
-        cursor.close()
-        conn.close()
-
         return result
 
     except Exception as e:
 
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Some error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
 
 
 # ADD PRODUCT
 @router.post("/")
+@limiter.limit("30/minute")
 def add_product(
-    product: dict,
+    request: Request,
+    product: ProductCreate,
     current_user=Depends(get_current_user)
 ):
+
+    conn = None
+    cursor = None
 
     try:
 
@@ -114,12 +142,12 @@ def add_product(
         cursor = conn.cursor()
 
         product_name = (
-            product["name"]
+            product.name
             .strip()
         )
 
         category_name = (
-            product["category"]
+            product.category
             .strip()
         )
 
@@ -197,24 +225,21 @@ def add_product(
                 WHERE id = %s
             """, (
 
-                product["cost_price"],
+                product.cost_price,
 
-                product["selling_price"],
+                product.selling_price,
 
-                product["stock_quantity"],
+                product.stock_quantity,
 
-                product["min_stock_level"],
+                product.min_stock_level,
 
-                product.get("unit", "pc"),
+                product.unit or "pc",
 
                 existing_product_id
 
             ))
 
             conn.commit()
-
-            cursor.close()
-            conn.close()
 
             return {
                 "message": "Product restored successfully"
@@ -312,7 +337,7 @@ def add_product(
             )
         """, (
 
-            product["id"],
+            product.id,
 
             current_user["user_id"],
 
@@ -320,22 +345,19 @@ def add_product(
 
             category_id,
 
-            product["cost_price"],
+            product.cost_price,
 
-            product["selling_price"],
+            product.selling_price,
 
-            product["stock_quantity"],
+            product.stock_quantity,
 
-            product["min_stock_level"],
+            product.min_stock_level,
 
-            product.get("unit", "pc"),
+            product.unit or "pc",
 
         ))
 
         conn.commit()
-
-        cursor.close()
-        conn.close()
 
         return {
             "message":
@@ -348,17 +370,31 @@ def add_product(
 
     except Exception as e:
 
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Some error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
 
 # RESTOCK PRODUCT
 @router.put("/restock/{product_id}")
+@limiter.limit("30/minute")
 def restock_product(
+    request: Request,
     product_id: str,
-    data: dict,
+    data: RestockRequest,
     current_user=Depends(get_current_user)
 ):
 
@@ -370,7 +406,7 @@ def restock_product(
         conn = get_connection()
         cursor = conn.cursor()
 
-        amount = int(data["amount"])
+        amount = int(data.amount)
 
         if amount <= 0:
 
@@ -470,9 +506,11 @@ def restock_product(
         if conn:
             conn.rollback()
 
+        logger.error(f"Some error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
 
     finally:
@@ -486,11 +524,15 @@ def restock_product(
 
 # UPDATE PRODUCT
 @router.put("/{product_id}")
+@limiter.limit("30/minute")
 def update_product(
+    request: Request,
     product_id: str,
-    product: dict,
+    product: ProductUpdate,
     current_user=Depends(get_current_user)
 ):
+    conn = None
+    cursor = None
 
     try:
 
@@ -498,12 +540,12 @@ def update_product(
         cursor = conn.cursor()
 
         product_name = (
-            product["name"]
+            product.name
             .strip()
         )
 
         category_name = (
-            product["category"]
+            product.category
             .strip()
         )
 
@@ -665,15 +707,15 @@ def update_product(
 
             category_id,
 
-            product["cost_price"],
+            product.cost_price,
 
-            product["selling_price"],
+            product.selling_price,
 
-            product["stock_quantity"],
+            product.stock_quantity,
 
-            product["min_stock_level"],
+            product.min_stock_level,
 
-            product.get("unit", "pc"),
+            product.unit or "pc",
 
             product_id,
 
@@ -683,7 +725,7 @@ def update_product(
 
        # STOCK ADJUSTMENT LOG
 
-        new_stock = product["stock_quantity"]
+        new_stock = product.stock_quantity
 
         difference = new_stock - old_stock
 
@@ -729,8 +771,6 @@ def update_product(
 
         conn.commit()
 
-        cursor.close()
-        conn.close()
 
         return {
             "message": "Updated"
@@ -742,18 +782,35 @@ def update_product(
 
     except Exception as e:
 
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Some error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
 
 
 # DELETE PRODUCT
 @router.delete("/{product_id}")
+@limiter.limit("30/minute")
 def delete_product(
+    request: Request,
     product_id: str,
     current_user=Depends(get_current_user)
 ):
+    conn = None
+    cursor = None
 
     try:
 
@@ -782,16 +839,26 @@ def delete_product(
 
         conn.commit()
 
-        cursor.close()
-        conn.close()
-
         return {
             "message": "Removed from inventory"
         }
 
     except Exception as e:
 
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Some error: {e}")
+
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal server error"
         )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()

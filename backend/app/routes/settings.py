@@ -23,7 +23,8 @@ router = APIRouter()
 
 pwd_context = CryptContext(
     schemes=["bcrypt"],
-    deprecated="auto"
+    deprecated="auto",
+    bcrypt__rounds=12
 )
 
 

@@ -55,7 +55,8 @@ router = APIRouter()
 
 pwd_context = CryptContext(
     schemes=["bcrypt"],
-    deprecated="auto"
+    deprecated="auto",
+    bcrypt__rounds=12
 )
 
 
@@ -179,6 +180,9 @@ def register(
 
     except Exception as e:
 
+        if conn:
+            conn.rollback()
+
         logger.error(f"Register Error: {e}")
 
         raise HTTPException(
@@ -299,6 +303,9 @@ def login(
         )
 
     except Exception as e:
+
+        if conn:
+            conn.rollback()
 
         logger.error(f"Login Error: {e}")
 

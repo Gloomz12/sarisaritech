@@ -2,7 +2,10 @@ from fastapi import (
     APIRouter,
     Depends,
     HTTPException,
+    Request,
 )
+
+from app.core.security import limiter
 
 from app.db.database import (
     get_connection,
@@ -12,7 +15,11 @@ from app.utils.auth import (
     get_current_user,
 )
 
+import logging
+
 router = APIRouter()
+
+logger = logging.getLogger(__name__)
 
 
 # ====================================
@@ -47,7 +54,9 @@ def get_interval(range_value):
 # ====================================
 
 @router.get("/overview")
+@limiter.limit("30/minute")
 def get_overview(
+    request: Request,
     range: str = "30days",
     current_user=Depends(
         get_current_user
@@ -145,10 +154,10 @@ def get_overview(
 
     except Exception as e:
 
-        print(
-            "ANALYTICS ERROR:",
-            e
-        )
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Overview analytics error: {e}")
 
         raise HTTPException(
             status_code=500,
@@ -169,7 +178,9 @@ def get_overview(
 # ====================================
 
 @router.get("/sales-trend")
+@limiter.limit("30/minute")
 def get_sales_trend(
+    request: Request,
     range: str = "30days",
     current_user=Depends(
         get_current_user
@@ -370,10 +381,10 @@ def get_sales_trend(
 
     except Exception as e:
 
-        print(
-            "ANALYTICS ERROR:",
-            e
-        )
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Sales trend analytics error: {e}")
 
         raise HTTPException(
             status_code=500,
@@ -394,7 +405,9 @@ def get_sales_trend(
 # ====================================
 
 @router.get("/top-products")
+@limiter.limit("30/minute")
 def get_top_products(
+    request: Request,
     range: str = "30days",
     current_user=Depends(
         get_current_user
@@ -490,10 +503,10 @@ def get_top_products(
 
     except Exception as e:
 
-        print(
-            "ANALYTICS ERROR:",
-            e
-        )
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Top products analytics error: {e}")
 
         raise HTTPException(
             status_code=500,
@@ -514,7 +527,9 @@ def get_top_products(
 # ====================================
 
 @router.get("/categories")
+@limiter.limit("30/minute")
 def get_categories(
+    request: Request,
     range: str = "30days",
     current_user=Depends(
         get_current_user
@@ -606,10 +621,10 @@ def get_categories(
 
     except Exception as e:
 
-        print(
-            "ANALYTICS ERROR:",
-            e
-        )
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Categories analytics error: {e}")
 
         raise HTTPException(
             status_code=500,

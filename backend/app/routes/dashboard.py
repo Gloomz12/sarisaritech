@@ -1,11 +1,24 @@
-from fastapi import APIRouter, Depends
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException
+)
 
-from app.db.database import get_connection
-from app.utils.auth import get_current_user
+from app.db.database import (
+    get_connection
+)
+
+from app.utils.auth import (
+    get_current_user
+)
+
+import logging
 
 router = APIRouter(
     tags=["Dashboard"]
 )
+
+logger = logging.getLogger(__name__)
 
 
 @router.get("/stats")
@@ -13,11 +26,14 @@ def get_dashboard_stats(
     current_user=Depends(get_current_user)
 ):
 
-    conn = get_connection()
-
-    cur = conn.cursor()
+    conn = None
+    cur = None
 
     try:
+
+        conn = get_connection()
+
+        cur = conn.cursor()
 
         # TODAY SALES
 
@@ -277,7 +293,22 @@ def get_dashboard_stats(
             "stock_alerts": alerts
         }
 
+    except Exception as e:
+
+        if conn:
+            conn.rollback()
+
+        logger.error(f"Dashboard stats error: {e}")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to load dashboard stats"
+        )
+
     finally:
 
-        cur.close()
-        conn.close()
+        if cur:
+            cur.close()
+
+        if conn:
+            conn.close()
