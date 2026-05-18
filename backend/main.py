@@ -29,22 +29,20 @@ from app.routes.settings import (
     router as settings_router
 )
 
-
-
 # FASTAPI APP
+
 app = FastAPI()
 
-
-
 # RATE LIMITER
+
 app.state.limiter = limiter
 
 app.add_middleware(
     SlowAPIMiddleware
 )
 
-
 # CORS
+
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -57,14 +55,21 @@ app.add_middleware(
 
     allow_credentials=True,
 
-    allow_methods=["*"],
+    allow_methods=[
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+    ],
 
-    allow_headers=["*"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization"
+    ],
 )
 
-
-
 # HOME
+
 @app.get("/")
 def home():
 
@@ -72,36 +77,32 @@ def home():
         "message": "Backend working"
     }
 
-
-
 # PRODUCTS
+
 app.include_router(
     products.router,
     prefix="/api/products",
     tags=["Products"]
 )
 
-
-
 # TRANSACTIONS
+
 app.include_router(
     transactions.router,
-    prefix="/api",
+    prefix="/api/transactions",
     tags=["Transactions"]
 )
 
-
-
 # STOCK MOVEMENTS
+
 app.include_router(
     stock_movements.router,
     prefix="/api/stock-movements",
     tags=["Stock Movements"]
 )
 
-
-
 # AUTH
+
 app.include_router(
     auth_router,
     prefix="/api/auth",
@@ -109,6 +110,7 @@ app.include_router(
 )
 
 # SETTINGS
+
 app.include_router(
     settings_router,
     prefix="/api/settings",
@@ -116,13 +118,15 @@ app.include_router(
 )
 
 # DASHBOARD
+
 app.include_router(
     dashboard_router,
-    prefix="/api",
+    prefix="/api/dashboard",
     tags=["Dashboard"]
 )
 
 # ANALYTICS
+
 app.include_router(
     analytics_router,
     prefix="/api/analytics",
@@ -130,8 +134,14 @@ app.include_router(
 )
 
 # AI INSIGHTS
+
 app.include_router(
     ai_router,
     prefix="/api/ai-insights",
     tags=["AI Insights"]
 )
+
+# DEBUG ROUTES
+
+for route in app.routes:
+    print(route.methods, route.path)
