@@ -441,54 +441,164 @@ def get_apriori(
 @limiter.limit("10/minute")
 def get_gemini_insights(
     request: Request,
-    current_user=Depends(
-        get_current_user
-    )
+    current_user=Depends(get_current_user)
 ):
+
+    conn = None
+    cursor = None
 
     try:
 
-        prompt = """
+        conn = get_connection()
+        cursor = conn.cursor()
 
-            You are a business assistant for a sari-sari store.
+        # =========================
+        # GET TOP PRODUCTS
+        # =========================
 
-            Analyze the forecast trends and Apriori association rules,
-            then generate short and practical business insights.
+        cursor.execute("""
 
-            Requirements:
-            - Maximum of 5 insights only
-            - One sentence per insight
-            - Use simple and easy English
-            - Avoid deep or technical words
-            - Make the advice clear and practical
-            - Focus on sales, stock, product placement, and promos
-            - Avoid repetition
-            - Avoid generic advice
-            - No headings
-            - No numbering
-            - No markdown symbols
-            - Keep the response short and dashboard-friendly
+            SELECT
+                p.name,
+                SUM(ti.quantity) AS total_qty
 
-            Forecast Insights:
-            - Beverage sales are increasing
-            - Weekend demand is higher
+            FROM transaction_items ti
 
-            Apriori Associations:
-            - Coke is often bought with Chips
-            - Coffee is often bought with Sugar
+            JOIN products p
+            ON ti.product_id = p.id
 
-            Generate short retail recommendations.
+            JOIN transactions t
+            ON ti.transaction_id = t.id
 
-            """
+            WHERE t.user_id = %s
+
+            GROUP BY p.name
+
+            ORDER BY total_qty DESC
+
+            LIMIT 5
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        top_products = cursor.fetchall()
+
+        # =========================
+        # GET APRIORI DATA
+        # =========================
+
+        cursor.execute("""
+
+            SELECT
+                t.id,
+                p.name
+
+            FROM transaction_items ti
+
+            JOIN products p
+            ON ti.product_id = p.id
+
+            JOIN transactions t
+            ON ti.transaction_id = t.id
+
+            WHERE t.user_id = %s
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        rows = cursor.fetchall()
+
+        apriori_text = "No association data available."
+
+        if rows:
+
+            basket = {}
+
+            for transaction_id, product_name in rows:
+
+                if transaction_id not in basket:
+                    basket[transaction_id] = {}
+
+                basket[transaction_id][product_name] = 1
+
+            df = pd.DataFrame(basket).T.fillna(0)
+
+            frequent_items = apriori(
+                df,
+                min_support=0.1,
+                use_colnames=True,
+            )
+
+            rules = association_rules(
+                frequent_items,
+                metric="confidence",
+                min_threshold=0.5,
+            )
+
+            associations = []
+
+            for _, row in rules.iterrows():
+
+                left = ", ".join(list(row["antecedents"]))
+                right = ", ".join(list(row["consequents"]))
+
+                associations.append(
+                    f"{left} is often bought with {right}"
+                )
+
+            if associations:
+                apriori_text = "\n".join(
+                    associations[:5]
+                )
+
+        # =========================
+        # TOP PRODUCTS TEXT
+        # =========================
+
+        top_products_text = "\n".join([
+            f"{name} sold {qty} units"
+            for name, qty in top_products
+        ])
+
+        if not top_products_text:
+            top_products_text = "No sales data available."
+
+        # =========================
+        # GEMINI PROMPT
+        # =========================
+
+        prompt = f"""
+
+        You are a business assistant for a sari-sari store.
+
+        Generate practical business insights.
+
+        Rules:
+        - Maximum 5 insights
+        - One sentence only per insight
+        - Simple English
+        - No numbering
+        - No markdown
+        - Short and practical
+
+        Top Selling Products:
+        {top_products_text}
+
+        Product Associations:
+        {apriori_text}
+
+        Generate useful retail recommendations.
+
+        """
 
         response = model.generate_content(
             prompt
         )
 
         return {
-
-            "insights":
-                response.text
+            "insights": response.text
         }
 
     except Exception as e:
@@ -499,6 +609,14 @@ def get_gemini_insights(
             status_code=500,
             detail="Internal server error"
         )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
 
 # ====================================
 # RESTOCK RECOMMENDATIONS
