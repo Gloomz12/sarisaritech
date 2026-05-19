@@ -52,7 +52,7 @@ export default function History() {
 
       // SALES
 
-      const salesResponse = await fetch("http://localhost:8000/api/transactions", {
+      const salesResponse = await fetch(`${process.env.REACT_APP_API_URL}/transactions`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +62,7 @@ export default function History() {
 
       // RESTOCKS
 
-      const restockResponse = await fetch("http://localhost:8000/api/stock-movements", {
+      const restockResponse = await fetch(`${process.env.REACT_APP_API_URL}/stock-movements`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
