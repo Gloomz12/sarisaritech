@@ -216,6 +216,10 @@ def login(
 
     try:
 
+        print("=== LOGIN ATTEMPT ===")
+        print("EMAIL INPUT:", data.email)
+        print("PASSWORD INPUT:", data.password)
+
         conn = get_connection()
         cur = conn.cursor()
 
@@ -235,6 +239,40 @@ def login(
         )
 
         user = cur.fetchone()
+
+        print("DB USER:", user)
+
+        if not user:
+            print("USER NOT FOUND")
+
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password."
+            )
+
+        print("HASH FROM DB:", user[5])
+
+        valid_password = pwd_context.verify(
+            data.password,
+            user[5]
+        )
+
+        print("VERIFY RESULT:", valid_password)
+
+        if not valid_password:
+
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password."
+            )
+
+        return {
+            "message": "SUCCESS LOGIN"
+        }
+
+    except Exception as e:
+        print("ERROR:", str(e))
+        raise
 
         # USER NOT FOUND
 
