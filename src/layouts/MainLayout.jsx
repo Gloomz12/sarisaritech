@@ -11,12 +11,20 @@ export default function MainLayout() {
   /* LOAD SAVED THEME */
 
   useEffect(() => {
+    const root = document.documentElement;
+
+    /* RESET FIRST */
+
+    root.classList.remove("dark");
+
     const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme === "dark") {
       setDarkMode(true);
 
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
+    } else {
+      setDarkMode(false);
     }
   }, []);
 
