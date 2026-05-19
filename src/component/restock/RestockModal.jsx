@@ -24,7 +24,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
         items-start
         justify-center
 
-        bg-black/60
+        bg-black/50
 
         px-4
         py-8
@@ -46,13 +46,19 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
           rounded-[28px]
 
           border
-          border-[#1F2937]
+          border-gray-200
+          dark:border-[#1F2937]
 
           bg-gradient-to-b
-          from-[#111827]
-          to-[#0F172A]
+          from-white
+          to-gray-50
 
-          shadow-[0_20px_70px_rgba(0,0,0,0.45)]
+          dark:from-[#111827]
+          dark:to-[#0F172A]
+
+          shadow-[0_20px_70px_rgba(0,0,0,0.15)]
+
+          dark:shadow-[0_20px_70px_rgba(0,0,0,0.45)]
 
           transition-all
           duration-300
@@ -67,7 +73,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
             justify-between
 
             border-b
-            border-[#1F2937]
+            border-gray-200
+            dark:border-[#1F2937]
 
             px-6
             py-4
@@ -81,7 +88,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                 tracking-[-1px]
 
-                text-white
+                text-gray-900
+                dark:text-white
               "
             >
               Restock Product
@@ -93,7 +101,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                 text-[13px]
 
-                text-gray-400
+                text-gray-500
+                dark:text-gray-400
               "
             >
               Update inventory quantity
@@ -116,13 +125,15 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               transition-all
               duration-200
 
-              hover:bg-white/5
+              hover:bg-black/5
+              dark:hover:bg-white/5
             "
           >
             <X
               size={24}
               className="
-                text-gray-400
+                text-gray-500
+                dark:text-gray-400
               "
             />
           </button>
@@ -145,9 +156,11 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               rounded-[24px]
 
               border
-              border-[#1F2937]
+              border-gray-200
+              dark:border-[#1F2937]
 
-              bg-[#111827]
+              bg-white
+              dark:bg-[#111827]
 
               p-4
             "
@@ -165,13 +178,15 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                   rounded-[20px]
 
-                  bg-[#1E293B]
+                  bg-orange-50
+                  dark:bg-[#1E293B]
                 "
               >
                 <Package
                   size={28}
                   className="
-                    text-gray-300
+                    text-orange-500
+                    dark:text-gray-300
                   "
                 />
               </div>
@@ -188,7 +203,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     tracking-[-1px]
 
-                    text-white
+                    text-gray-900
+                    dark:text-white
                   "
                 >
                   {product.name}
@@ -200,7 +216,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     text-[13px]
 
-                    text-gray-400
+                    text-gray-500
+                    dark:text-gray-400
                   "
                 >
                   {product.category}
@@ -239,7 +256,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                         font-black
 
-                        text-white
+                        text-gray-900
+                        dark:text-white
                       "
                     >
                       {product.stock}
@@ -268,7 +286,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                         font-black
 
-                        text-white
+                        text-gray-900
+                        dark:text-white
                       "
                     >
                       {product.minLevel}
@@ -307,7 +326,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                             font-bold
                             uppercase
 
-                            text-red-400
+                            text-red-500
                           "
                         >
                           <ShieldAlert size={12} />
@@ -333,7 +352,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                             font-bold
                             uppercase
 
-                            text-yellow-400
+                            text-yellow-500
                           "
                         >
                           <AlertTriangle size={12} />
@@ -359,7 +378,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                             font-bold
                             uppercase
 
-                            text-green-400
+                            text-green-500
                           "
                         >
                           <CheckCircle2 size={12} />
@@ -388,7 +407,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   text-[15px]
                   font-semibold
 
-                  text-white
+                  text-gray-900
+                  dark:text-white
                 "
               >
                 Add Quantity
@@ -402,25 +422,25 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                     key={amount}
                     onClick={() => setQuantity(Number(quantity || 0) + amount)}
                     className="
-                        rounded-[14px]
+                      rounded-[14px]
 
-                        border
-                        border-orange-500/20
+                      border
+                      border-orange-500/20
 
-                        bg-orange-500/10
+                      bg-orange-500/10
 
-                        px-3
-                        py-1.5
+                      px-3
+                      py-1.5
 
-                        text-[11px]
-                        font-bold
+                      text-[11px]
+                      font-bold
 
-                        text-orange-400
+                      text-orange-500
 
-                        transition-all
+                      transition-all
 
-                        hover:bg-orange-500/20
-                      "
+                      hover:bg-orange-500/20
+                    "
                   >
                     +{amount}
                   </button>
@@ -446,7 +466,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 border
                 border-orange-500/20
 
-                bg-[#111827]
+                bg-white
+                dark:bg-[#111827]
 
                 transition-all
 
@@ -471,7 +492,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                 <Package
                   size={18}
                   className="
-                    text-orange-400
+                    text-orange-500
                   "
                 />
               </div>
@@ -499,11 +520,13 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   text-[24px]
                   font-black
 
-                  text-white
+                  text-gray-900
+                  dark:text-white
 
                   outline-none
 
-                  placeholder:text-gray-600
+                  placeholder:text-gray-400
+                  dark:placeholder:text-gray-600
                 "
               />
             </div>
@@ -552,7 +575,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     font-black
 
-                    text-white
+                    text-gray-900
+                    dark:text-white
                   "
                 >
                   {product.stock}
@@ -581,7 +605,7 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     font-black
 
-                    text-green-400
+                    text-green-500
                   "
                 >
                   +{quantity || 0}
@@ -610,7 +634,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
 
                     font-black
 
-                    text-white
+                    text-gray-900
+                    dark:text-white
                   "
                 >
                   {newStock}
@@ -635,7 +660,8 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
                   text-[11px]
                   font-semibold
 
-                  text-green-400
+                  text-green-600
+                  dark:text-green-400
                 "
               >
                 Stock status will become GOOD after restocking.
@@ -653,9 +679,11 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
             gap-3
 
             border-t
-            border-[#1F2937]
+            border-gray-200
+            dark:border-[#1F2937]
 
-            bg-[#0F172A]
+            bg-gray-50
+            dark:bg-[#0F172A]
 
             px-6
             py-4
@@ -671,18 +699,22 @@ export default function RestockModal({ product, quantity, setQuantity, onClose, 
               rounded-[18px]
 
               border
-              border-[#1F2937]
+              border-gray-200
+              dark:border-[#1F2937]
 
-              bg-[#111827]
+              bg-white
+              dark:bg-[#111827]
 
               text-[14px]
               font-semibold
 
-              text-gray-300
+              text-gray-700
+              dark:text-gray-300
 
               transition-all
 
-              hover:bg-white/5
+              hover:bg-gray-100
+              dark:hover:bg-white/5
             "
           >
             Cancel
