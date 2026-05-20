@@ -42,14 +42,19 @@ export default function AIInsightPanel({ navigateInsight }) {
             day: "numeric",
           }),
 
+          // REAL ACTUAL ONLY
+
           actual: item.type === "actual" ? item.yhat : null,
 
+          // VISUAL CONNECTION
+
           actualLine: item.type === "actual" || (item.type === "predicted" && forecast[index - 1]?.type === "actual") ? item.yhat : null,
+
+          // PREDICTED ONLY
 
           predicted: item.type === "predicted" ? item.yhat : null,
         };
       });
-
       setForecastData(chartData);
 
       /* GROWTH */
@@ -83,7 +88,6 @@ export default function AIInsightPanel({ navigateInsight }) {
       } else {
         setForecastMessage("Sales may slightly decrease next week.");
       }
-
       /* APRIORI */
 
       const uniqueRules = [];
@@ -107,6 +111,8 @@ export default function AIInsightPanel({ navigateInsight }) {
       });
 
       const filteredRules = uniqueRules.filter((rule) => rule.products?.length && rule.recommendation?.length).slice(0, 3);
+
+      setAprioriRules(filteredRules);
 
       setAprioriRules(filteredRules);
 
@@ -265,135 +271,101 @@ export default function AIInsightPanel({ navigateInsight }) {
 
           {/* GRAPH */}
 
-          {forecastData.length > 0 ? (
-            <>
-              <div className="h-[150px] mt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={forecastData}>
-                    <XAxis
-                      dataKey="day"
-                      tick={{
-                        fontSize: 11,
-                        fill: "#9CA3AF",
-                      }}
-                    />
+          <div className="h-[150px] mt-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={forecastData}>
+                <XAxis
+                  dataKey="day"
+                  tick={{
+                    fontSize: 11,
+                    fill: "#9CA3AF",
+                  }}
+                />
 
-                    <Tooltip
-                      formatter={(value, name) => [
-                        `${name === "actual" || name === "Actual Sales" ? "Actual Sale" : "Forecast Sale"} : ₱${Number(
-                          value
-                        ).toLocaleString()}`,
-                        "",
-                      ]}
-                      labelFormatter={(label) => `${label}`}
-                      contentStyle={{
-                        borderRadius: "14px",
-                        border: "1px solid #374151",
-                        backgroundColor: "#111827",
-                        color: "#fff",
-                        padding: "14px",
-                      }}
-                      itemStyle={{
-                        color: "#C084FC",
-                        fontWeight: 700,
-                        fontSize: "14px",
-                      }}
-                      labelStyle={{
-                        color: "#fff",
-                        fontWeight: 700,
-                        fontSize: "13px",
-                        marginBottom: "8px",
-                      }}
-                    />
+                <Tooltip
+                  contentStyle={{
+                    borderRadius: "14px",
+                    border: "1px solid #374151",
+                    backgroundColor: "#111827",
+                    color: "#fff",
+                  }}
+                />
 
-                    <Line
-                      type="monotone"
-                      dataKey="actual"
-                      name="actual"
-                      stroke="transparent"
-                      strokeWidth={10}
-                      dot={false}
-                      activeDot={{
-                        r: 0,
-                      }}
-                      legendType="none"
-                    />
+                {/* REAL ACTUAL TOOLTIP */}
 
-                    <Line
-                      type="monotone"
-                      dataKey="actualLine"
-                      connectNulls
-                      name="Actual Sales"
-                      tooltipType="none"
-                      stroke="#3B82F6"
-                      strokeWidth={3}
-                      dot={false}
-                      activeDot={{
-                        r: 5,
-                        fill: "#3B82F6",
-                        strokeWidth: 0,
-                      }}
-                    />
+                <Line
+                  type="monotone"
+                  dataKey="actual"
+                  stroke="transparent"
+                  dot={false}
+                  activeDot={{
+                    r: 0,
+                  }}
+                  legendType="none"
+                />
 
-                    <Line
-                      type="monotone"
-                      dataKey="predicted"
-                      connectNulls
-                      name="Forecast Sale"
-                      stroke="#60A5FA"
-                      strokeWidth={3}
-                      strokeDasharray="6 6"
-                      dot={false}
-                      activeDot={{
-                        r: 5,
-                        fill: "#60A5FA",
-                        strokeWidth: 0,
-                      }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+                {/* ACTUAL */}
 
-              {/* INFO */}
+                <Line
+                  type="monotone"
+                  dataKey="actualLine"
+                  connectNulls
+                  name="Actual Sales"
+                  tooltipType="none"
+                  stroke="#3B82F6"
+                  strokeWidth={3}
+                  dot={false}
+                  activeDot={{
+                    r: 5,
+                    fill: "#3B82F6",
+                    strokeWidth: 0,
+                  }}
+                />
 
-              <div
-                className="
-                  mt-4
+                {/* PREDICTED */}
 
-                  bg-gray-50
-                  dark:bg-[#1F2937]
+                <Line
+                  type="monotone"
+                  dataKey="predicted"
+                  connectNulls
+                  name="Predicted Sales"
+                  stroke="#60A5FA"
+                  strokeWidth={3}
+                  strokeDasharray="6 6"
+                  dot={false}
+                  activeDot={{
+                    r: 5,
+                    fill: "#60A5FA",
+                    strokeWidth: 0,
+                  }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
 
-                  rounded-xl
+          {/* INFO */}
 
-                  px-4
-                  py-3
+          <div
+            className="
+              mt-4
 
-                  text-gray-500
-                  dark:text-gray-300
+              bg-gray-50
+              dark:bg-[#1F2937]
 
-                  text-sm
-                  leading-relaxed
-                "
-              >
-                ℹ️ {forecastMessage}
-              </div>
-            </>
-          ) : (
-            <div
-              className="
-                flex
-                items-center
-                justify-center
+              rounded-xl
 
-                h-[220px]
+              px-4
+              py-3
 
-                text-sm
-                text-slate-500
-              "
-            >
-              No forecast data yet.
-            </div>
-          )}
+              text-gray-500
+              dark:text-gray-300
+
+              text-sm
+              leading-relaxed
+            "
+          >
+            ℹ️ {forecastMessage}
+          </div>
 
           <button
             onClick={() => navigateInsight("forecast")}
@@ -430,32 +402,15 @@ export default function AIInsightPanel({ navigateInsight }) {
           </h3>
 
           <div className="space-y-5 mt-6">
-            {aprioriRules.length > 0 ? (
-              aprioriRules.map((rule, index) => (
-                <Association
-                  key={index}
-                  color="bg-purple-500"
-                  item1={rule.products?.[0]}
-                  item2={rule.recommendation?.[0]}
-                  confidence={`${Math.round(Number(rule.confidence || 0) * 100)}%`}
-                />
-              ))
-            ) : (
-              <div
-                className="
-                  flex
-                  items-center
-                  justify-center
-
-                  h-[220px]
-
-                  text-sm
-                  text-slate-500
-                "
-              >
-                No association rules yet.
-              </div>
-            )}
+            {aprioriRules.map((rule, index) => (
+              <Association
+                key={index}
+                color="bg-purple-500"
+                item1={rule.products?.[0]}
+                item2={rule.recommendation?.[0]}
+                confidence={`${Math.round(Number(rule.confidence || 0) * 100)}%`}
+              />
+            ))}
           </div>
 
           <button
@@ -490,38 +445,21 @@ export default function AIInsightPanel({ navigateInsight }) {
           </h3>
 
           <div className="space-y-5 mt-6">
-            {restocks.length > 0 ? (
-              restocks.map((item, index) => (
-                <Recommendation
-                  key={index}
-                  level={item.priority || "Medium"}
-                  color={
-                    item.priority === "High"
-                      ? "bg-red-100 text-red-500"
-                      : item.priority === "Medium"
-                        ? "bg-orange-100 text-orange-500"
-                        : "bg-green-100 text-green-500"
-                  }
-                  item={item.product_name}
-                  suggested={`+${item.suggested_restock || item.suggested_order || 0} units`}
-                />
-              ))
-            ) : (
-              <div
-                className="
-                  flex
-                  items-center
-                  justify-center
-
-                  h-[220px]
-
-                  text-sm
-                  text-slate-500
-                "
-              >
-                No restock recommendations yet.
-              </div>
-            )}
+            {restocks.map((item, index) => (
+              <Recommendation
+                key={index}
+                level={item.priority || "Medium"}
+                color={
+                  item.priority === "High"
+                    ? "bg-red-100 text-red-500"
+                    : item.priority === "Medium"
+                      ? "bg-orange-100 text-orange-500"
+                      : "bg-green-100 text-green-500"
+                }
+                item={item.product_name}
+                suggested={`+${item.suggested_restock || item.suggested_order || 0} units`}
+              />
+            ))}
           </div>
 
           <button
