@@ -45,7 +45,7 @@ export default function AssociationTable() {
       setRules([]);
 
       setTimeout(() => {
-        setRules(uniqueRules.slice(0, 5));
+        setRules(uniqueRules);
       }, 100);
     } catch (error) {
       console.error("APRIORI ERROR:", error);
