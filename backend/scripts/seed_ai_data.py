@@ -374,10 +374,10 @@ transaction_counter = 0
 
 while current_date <= END_DATE:
 
-    daily_transactions = random.randint(30, 60)
+    daily_transactions = random.randint(8, 20)
 
     if current_date.weekday() >= 5:
-        daily_transactions = random.randint(40, 80)
+        daily_transactions = random.randint(15, 30)
 
     for _ in range(daily_transactions):
 
