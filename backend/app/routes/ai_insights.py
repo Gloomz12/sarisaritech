@@ -403,11 +403,6 @@ def get_apriori(
             metric="confidence",
             min_threshold=0.2,
         )
-        print(frequent_items.head(20))
-        print(frequent_items.shape)
-
-        print(rules.head(20))
-        print(rules.shape)
 
         # EMPTY RULES
         if rules.empty:
@@ -583,6 +578,8 @@ def get_gemini_insights(
                 metric="confidence",
                 min_threshold=0.2,
             )
+            
+            rules = rules.head(5)
 
             associations = []
 
@@ -669,6 +666,8 @@ def get_gemini_insights(
 # RESTOCK RECOMMENDATIONS
 # ====================================
 
+import gc
+
 @router.get("/restock")
 @limiter.limit("20/minute")
 def get_restock_recommendations(
@@ -687,18 +686,41 @@ def get_restock_recommendations(
 
         cursor = conn.cursor()
 
-        # GET PRODUCTS
+        # =========================
+        # GET TOP SELLING PRODUCTS
+        # =========================
+
         cursor.execute("""
 
             SELECT
-                id,
-                name,
-                stock_quantity
+                p.id,
+                p.name,
+                p.stock_quantity,
+                COALESCE(
+                    SUM(ti.quantity),
+                    0
+                ) AS total_sales
 
-            FROM products
+            FROM products p
+
+            LEFT JOIN transaction_items ti
+            ON p.id = ti.product_id
+
+            LEFT JOIN transactions t
+            ON ti.transaction_id = t.id
 
             WHERE
-                user_id = %s
+                p.user_id = %s
+
+            GROUP BY
+                p.id,
+                p.name,
+                p.stock_quantity
+
+            ORDER BY
+                total_sales DESC
+
+            LIMIT 10
 
         """, (
             current_user["user_id"],
@@ -708,6 +730,10 @@ def get_restock_recommendations(
 
         recommendations = []
 
+        # =========================
+        # LOOP PRODUCTS
+        # =========================
+
         for product in products:
 
             product_id = product[0]
@@ -716,7 +742,10 @@ def get_restock_recommendations(
 
             current_stock = product[2]
 
-            # GET SALES HISTORY
+            # =========================
+            # SALES HISTORY
+            # =========================
+
             cursor.execute("""
 
                 SELECT
@@ -751,12 +780,17 @@ def get_restock_recommendations(
 
             sales_rows = cursor.fetchall()
 
-            # SKIP PRODUCTS
-            # WITHOUT SALES
-            if len(sales_rows) < 2:
+            # =========================
+            # SKIP WEAK DATA
+            # =========================
+
+            if len(sales_rows) < 7:
                 continue
 
-            # CREATE DATAFRAME
+            # =========================
+            # DATAFRAME
+            # =========================
+
             data = pd.DataFrame([
                 {
                     "ds": str(row[0]),
@@ -766,12 +800,18 @@ def get_restock_recommendations(
                 for row in sales_rows
             ])
 
+            # =========================
             # PROPHET MODEL
+            # =========================
+
             model_prophet = Prophet()
 
             model_prophet.fit(data)
 
-            # FORECAST NEXT 7 DAYS
+            # =========================
+            # FORECAST
+            # =========================
+
             future = model_prophet.make_future_dataframe(
                 periods=7
             )
@@ -780,7 +820,10 @@ def get_restock_recommendations(
                 future
             )
 
-            # GET PREDICTED DEMAND
+            # =========================
+            # PREDICTED DEMAND
+            # =========================
+
             predicted_demand = round(
 
                 forecast["yhat"]
@@ -789,7 +832,10 @@ def get_restock_recommendations(
 
             )
 
-            # SUGGESTED ORDER
+            # =========================
+            # RESTOCK SUGGESTION
+            # =========================
+
             suggested_order = max(
 
                 predicted_demand
@@ -798,7 +844,10 @@ def get_restock_recommendations(
                 0
             )
 
+            # =========================
             # PRIORITY
+            # =========================
+
             if suggested_order >= 50:
 
                 priority = "High"
@@ -829,7 +878,21 @@ def get_restock_recommendations(
                     priority,
             })
 
-        # SORT HIGHEST FIRST
+            # =========================
+            # MEMORY CLEANUP
+            # =========================
+
+            del data
+            del future
+            del forecast
+            del model_prophet
+
+            gc.collect()
+
+        # =========================
+        # SORT RESULTS
+        # =========================
+
         recommendations.sort(
 
             key=lambda x:
@@ -842,7 +905,9 @@ def get_restock_recommendations(
 
     except Exception as e:
 
-        logger.error(f"Restock recommendations error: {e}")
+        logger.error(
+            f"Restock recommendations error: {e}"
+        )
 
         raise HTTPException(
             status_code=500,
