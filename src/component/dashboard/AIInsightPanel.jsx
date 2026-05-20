@@ -31,8 +31,6 @@ export default function AIInsightPanel({ navigateInsight }) {
 
       const forecast = forecastResponse?.forecast || [];
 
-      /* CHART */
-
       const chartData = forecast.map((item, index) => {
         const date = new Date(item.ds);
 
@@ -42,19 +40,14 @@ export default function AIInsightPanel({ navigateInsight }) {
             day: "numeric",
           }),
 
-          // REAL ACTUAL ONLY
-
           actual: item.type === "actual" ? item.yhat : null,
 
-          // VISUAL CONNECTION
-
           actualLine: item.type === "actual" || (item.type === "predicted" && forecast[index - 1]?.type === "actual") ? item.yhat : null,
-
-          // PREDICTED ONLY
 
           predicted: item.type === "predicted" ? item.yhat : null,
         };
       });
+
       setForecastData(chartData);
 
       /* GROWTH */
@@ -88,6 +81,7 @@ export default function AIInsightPanel({ navigateInsight }) {
       } else {
         setForecastMessage("Sales may slightly decrease next week.");
       }
+
       /* APRIORI */
 
       const uniqueRules = [];
@@ -113,8 +107,6 @@ export default function AIInsightPanel({ navigateInsight }) {
       });
 
       const filteredRules = uniqueRules.filter((rule) => rule.products?.length && rule.recommendation?.length).slice(0, 3);
-
-      setAprioriRules(filteredRules);
 
       setAprioriRules(filteredRules);
 
@@ -273,101 +265,135 @@ export default function AIInsightPanel({ navigateInsight }) {
 
           {/* GRAPH */}
 
-          <div className="h-[150px] mt-4">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={forecastData}>
-                <XAxis
-                  dataKey="day"
-                  tick={{
-                    fontSize: 11,
-                    fill: "#9CA3AF",
-                  }}
-                />
+          {forecastData.length > 0 ? (
+            <>
+              <div className="h-[150px] mt-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={forecastData}>
+                    <XAxis
+                      dataKey="day"
+                      tick={{
+                        fontSize: 11,
+                        fill: "#9CA3AF",
+                      }}
+                    />
 
-                <Tooltip
-                  contentStyle={{
-                    borderRadius: "14px",
-                    border: "1px solid #374151",
-                    backgroundColor: "#111827",
-                    color: "#fff",
-                  }}
-                />
+                    <Tooltip
+                      formatter={(value, name) => [
+                        `${name === "actual" || name === "Actual Sales" ? "Actual Sale" : "Forecast Sale"} : ₱${Number(
+                          value
+                        ).toLocaleString()}`,
+                        "",
+                      ]}
+                      labelFormatter={(label) => `${label}`}
+                      contentStyle={{
+                        borderRadius: "14px",
+                        border: "1px solid #374151",
+                        backgroundColor: "#111827",
+                        color: "#fff",
+                        padding: "14px",
+                      }}
+                      itemStyle={{
+                        color: "#C084FC",
+                        fontWeight: 700,
+                        fontSize: "14px",
+                      }}
+                      labelStyle={{
+                        color: "#fff",
+                        fontWeight: 700,
+                        fontSize: "13px",
+                        marginBottom: "8px",
+                      }}
+                    />
 
-                {/* REAL ACTUAL TOOLTIP */}
+                    <Line
+                      type="monotone"
+                      dataKey="actual"
+                      name="actual"
+                      stroke="transparent"
+                      strokeWidth={10}
+                      dot={false}
+                      activeDot={{
+                        r: 0,
+                      }}
+                      legendType="none"
+                    />
 
-                <Line
-                  type="monotone"
-                  dataKey="actual"
-                  stroke="transparent"
-                  dot={false}
-                  activeDot={{
-                    r: 0,
-                  }}
-                  legendType="none"
-                />
+                    <Line
+                      type="monotone"
+                      dataKey="actualLine"
+                      connectNulls
+                      name="Actual Sales"
+                      tooltipType="none"
+                      stroke="#3B82F6"
+                      strokeWidth={3}
+                      dot={false}
+                      activeDot={{
+                        r: 5,
+                        fill: "#3B82F6",
+                        strokeWidth: 0,
+                      }}
+                    />
 
-                {/* ACTUAL */}
+                    <Line
+                      type="monotone"
+                      dataKey="predicted"
+                      connectNulls
+                      name="Forecast Sale"
+                      stroke="#60A5FA"
+                      strokeWidth={3}
+                      strokeDasharray="6 6"
+                      dot={false}
+                      activeDot={{
+                        r: 5,
+                        fill: "#60A5FA",
+                        strokeWidth: 0,
+                      }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
 
-                <Line
-                  type="monotone"
-                  dataKey="actualLine"
-                  connectNulls
-                  name="Actual Sales"
-                  tooltipType="none"
-                  stroke="#3B82F6"
-                  strokeWidth={3}
-                  dot={false}
-                  activeDot={{
-                    r: 5,
-                    fill: "#3B82F6",
-                    strokeWidth: 0,
-                  }}
-                />
+              {/* INFO */}
 
-                {/* PREDICTED */}
+              <div
+                className="
+                  mt-4
 
-                <Line
-                  type="monotone"
-                  dataKey="predicted"
-                  connectNulls
-                  name="Predicted Sales"
-                  stroke="#60A5FA"
-                  strokeWidth={3}
-                  strokeDasharray="6 6"
-                  dot={false}
-                  activeDot={{
-                    r: 5,
-                    fill: "#60A5FA",
-                    strokeWidth: 0,
-                  }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+                  bg-gray-50
+                  dark:bg-[#1F2937]
 
-          {/* INFO */}
+                  rounded-xl
 
-          <div
-            className="
-              mt-4
+                  px-4
+                  py-3
 
-              bg-gray-50
-              dark:bg-[#1F2937]
+                  text-gray-500
+                  dark:text-gray-300
 
-              rounded-xl
+                  text-sm
+                  leading-relaxed
+                "
+              >
+                ℹ️ {forecastMessage}
+              </div>
+            </>
+          ) : (
+            <div
+              className="
+                flex
+                items-center
+                justify-center
 
-              px-4
-              py-3
+                h-[220px]
 
-              text-gray-500
-              dark:text-gray-300
-
-              text-sm
-              leading-relaxed
-            "
-          >
-            ℹ️ {forecastMessage}
-          </div>
+                text-sm
+                text-slate-500
+              "
+            >
+              No forecast data yet.
+            </div>
+          )}
 
           <button
             onClick={() => navigateInsight("forecast")}
@@ -404,15 +430,32 @@ export default function AIInsightPanel({ navigateInsight }) {
           </h3>
 
           <div className="space-y-5 mt-6">
-            {aprioriRules.map((rule, index) => (
-              <Association
-                key={index}
-                color="bg-purple-500"
-                item1={rule.products?.[0]}
-                item2={rule.recommendation?.[0]}
-                confidence={`${Math.round(Number(rule.confidence || 0) * 100)}%`}
-              />
-            ))}
+            {aprioriRules.length > 0 ? (
+              aprioriRules.map((rule, index) => (
+                <Association
+                  key={index}
+                  color="bg-purple-500"
+                  item1={rule.products?.[0]}
+                  item2={rule.recommendation?.[0]}
+                  confidence={`${Math.round(Number(rule.confidence || 0) * 100)}%`}
+                />
+              ))
+            ) : (
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-center
+
+                  h-[220px]
+
+                  text-sm
+                  text-slate-500
+                "
+              >
+                No association rules yet.
+              </div>
+            )}
           </div>
 
           <button
@@ -447,21 +490,38 @@ export default function AIInsightPanel({ navigateInsight }) {
           </h3>
 
           <div className="space-y-5 mt-6">
-            {restocks.map((item, index) => (
-              <Recommendation
-                key={index}
-                level={item.priority || "Medium"}
-                color={
-                  item.priority === "High"
-                    ? "bg-red-100 text-red-500"
-                    : item.priority === "Medium"
-                      ? "bg-orange-100 text-orange-500"
-                      : "bg-green-100 text-green-500"
-                }
-                item={item.product_name}
-                suggested={`+${item.suggested_restock || item.suggested_order || 0} units`}
-              />
-            ))}
+            {restocks.length > 0 ? (
+              restocks.map((item, index) => (
+                <Recommendation
+                  key={index}
+                  level={item.priority || "Medium"}
+                  color={
+                    item.priority === "High"
+                      ? "bg-red-100 text-red-500"
+                      : item.priority === "Medium"
+                        ? "bg-orange-100 text-orange-500"
+                        : "bg-green-100 text-green-500"
+                  }
+                  item={item.product_name}
+                  suggested={`+${item.suggested_restock || item.suggested_order || 0} units`}
+                />
+              ))
+            ) : (
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-center
+
+                  h-[220px]
+
+                  text-sm
+                  text-slate-500
+                "
+              >
+                No restock recommendations yet.
+              </div>
+            )}
           </div>
 
           <button
