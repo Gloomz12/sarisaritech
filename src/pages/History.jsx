@@ -52,13 +52,15 @@ export default function History() {
 
       // SALES
 
-      const salesResponse = await fetch(`${process.env.REACT_APP_API_URL}/transactions`, {
+      const salesResponse = await fetch(`${process.env.REACT_APP_API_URL}/transactions/?limit=20&offset=0`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const salesData = await salesResponse.json();
+      const salesJson = await salesResponse.json();
+
+      const salesData = salesJson.transactions;
 
       // RESTOCKS
 
