@@ -13,6 +13,8 @@ export default function ForecastCard() {
 
   const [loading, setLoading] = useState(true);
 
+  const [hasData, setHasData] = useState(false);
+
   useEffect(() => {
     loadForecast();
   }, []);
@@ -28,19 +30,20 @@ export default function ForecastCard() {
       // INVALID DATA
 
       if (!Array.isArray(forecast) || forecast.length < 2) {
-        setMessage("Not enough forecast data.");
+        setHasData(false);
+
+        setMessage("No forecast data available.");
 
         return;
       }
 
-      // ====================================
+      setHasData(true);
+
       // FORECAST VALUES
-      // ====================================
 
       const values = forecast.map((item) => Number(item?.yhat || 0));
 
       // CURRENT WEEK AVG
-      // first half
 
       const midpoint = Math.floor(values.length / 2);
 
@@ -52,9 +55,7 @@ export default function ForecastCard() {
 
       const nextAvg = nextWeek.reduce((sum, value) => sum + value, 0) / nextWeek.length;
 
-      // ====================================
       // GROWTH %
-      // ====================================
 
       let growthPercent = 0;
 
@@ -62,15 +63,11 @@ export default function ForecastCard() {
         growthPercent = Math.round(((nextAvg - currentAvg) / currentAvg) * 100);
       }
 
-      // ====================================
       // TOTAL PROJECTED SALES
-      // ====================================
 
       const totalProjected = nextWeek.reduce((sum, value) => sum + value, 0);
 
-      // ====================================
       // STATES
-      // ====================================
 
       setProjectedSales(totalProjected);
 
@@ -78,9 +75,7 @@ export default function ForecastCard() {
 
       setIsPositive(growthPercent >= 0);
 
-      // ====================================
       // DYNAMIC MESSAGE
-      // ====================================
 
       if (growthPercent >= 15) {
         setMessage("Strong sales growth expected next week.");
@@ -94,15 +89,15 @@ export default function ForecastCard() {
     } catch (error) {
       console.error("FORECAST CARD ERROR:", error);
 
+      setHasData(false);
+
       setMessage("Failed to load forecast.");
     } finally {
       setLoading(false);
     }
   };
 
-  // ====================================
   // LOADING
-  // ====================================
 
   if (loading) {
     return (
@@ -293,67 +288,100 @@ export default function ForecastCard() {
 
       {/* PROJECTED SALES */}
 
-      <div className="relative z-10 mt-8">
-        <p
-          className="
-            text-sm
+      {hasData && (
+        <div className="relative z-10 mt-8">
+          <p
+            className="
+              text-sm
 
-            text-gray-500
-            dark:text-slate-400
-          "
-        >
-          Projected Sales
-        </p>
+              text-gray-500
+              dark:text-slate-400
+            "
+          >
+            Projected Sales
+          </p>
 
-        <h2
-          className="
-            mt-2
+          <h2
+            className="
+              mt-2
 
-            text-4xl
-            font-black
+              text-4xl
+              font-black
 
-            tracking-[-1px]
+              tracking-[-1px]
 
-            text-[#0F172A]
-            dark:text-white
-          "
-        >
-          ₱{Math.round(projectedSales).toLocaleString()}
-        </h2>
-      </div>
+              text-[#0F172A]
+              dark:text-white
+            "
+          >
+            ₱{Math.round(projectedSales).toLocaleString()}
+          </h2>
+        </div>
+      )}
 
       {/* MESSAGE */}
 
-      <div
-        className="
-          relative
-          z-10
-
-          mt-6
-
-          rounded-2xl
-
-          bg-[#f8fafc]
-          dark:bg-[#0F172A]
-
-          px-4
-          py-4
-        "
-      >
-        <p
+      {hasData && (
+        <div
           className="
-            text-sm
-            font-medium
+            relative
+            z-10
 
-            leading-relaxed
+            mt-6
 
-            text-gray-600
-            dark:text-slate-300
+            rounded-2xl
+
+            bg-[#f8fafc]
+            dark:bg-[#0F172A]
+
+            px-4
+            py-4
           "
         >
-          {message}
-        </p>
-      </div>
+          <p
+            className="
+              text-sm
+              font-medium
+
+              leading-relaxed
+
+              text-gray-600
+              dark:text-slate-300
+            "
+          >
+            {message}
+          </p>
+        </div>
+      )}
+
+      {/* EMPTY STATE */}
+
+      {!hasData && !loading && (
+        <div
+          className="
+            relative
+            z-10
+
+            mt-10
+
+            rounded-2xl
+
+            border
+            border-dashed
+            border-slate-700
+
+            px-4
+            py-10
+
+            text-center
+            text-sm
+
+            text-slate-400
+          "
+        >
+          No forecast data available yet.
+        </div>
+      )}
     </div>
   );
 }
