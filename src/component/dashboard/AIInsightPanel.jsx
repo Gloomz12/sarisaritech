@@ -94,7 +94,9 @@ export default function AIInsightPanel({ navigateInsight }) {
 
       const seen = new Set();
 
-      aprioriResponse.forEach((rule) => {
+      const aprioriData = aprioriResponse?.rules || [];
+
+      aprioriData.forEach((rule) => {
         const products = rule.products.join(",");
 
         const recommendations = rule.recommendation.join(",");
