@@ -582,6 +582,194 @@ def get_apriori(
         if conn:
             conn.close()
 
+        # ====================================
+        # GEMINI AI INSIGHTS
+        # ====================================
+
+@router.get("/gemini")
+@limiter.limit("10/minute")
+def get_gemini_insights(
+    request: Request,
+    current_user=Depends(get_current_user)
+):
+
+    conn = None
+    cursor = None
+
+    try:
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # =========================
+        # GET TOP PRODUCTS
+        # =========================
+
+        cursor.execute("""
+
+            SELECT
+                p.name,
+                SUM(ti.quantity) AS total_qty
+
+            FROM transaction_items ti
+
+            JOIN products p
+            ON ti.product_id = p.id
+
+            JOIN transactions t
+            ON ti.transaction_id = t.id
+
+            WHERE t.user_id = %s
+
+            GROUP BY p.name
+
+            ORDER BY total_qty DESC
+
+            LIMIT 5
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        top_products = cursor.fetchall()
+
+        # =========================
+        # GET APRIORI DATA
+        # =========================
+
+        cursor.execute("""
+
+            SELECT
+                t.id,
+                p.name
+
+            FROM transaction_items ti
+
+            JOIN products p
+            ON ti.product_id = p.id
+
+            JOIN transactions t
+            ON ti.transaction_id = t.id
+
+            WHERE t.user_id = %s
+
+        """, (
+            current_user["user_id"],
+        ))
+
+        rows = cursor.fetchall()
+
+        apriori_text = "No association data available."
+
+        if rows:
+
+            basket = {}
+
+            for transaction_id, product_name in rows:
+
+                if transaction_id not in basket:
+                    basket[transaction_id] = {}
+
+                basket[transaction_id][product_name] = 1
+
+            df = pd.DataFrame(basket).T.fillna(0)
+
+            frequent_items = apriori(
+                df,
+                min_support=0.01,
+                use_colnames=True,
+            )
+
+            rules = association_rules(
+                frequent_items,
+                metric="confidence",
+                min_threshold=0.2,
+            )
+            
+            rules = rules.head(5)
+
+            associations = []
+
+            for _, row in rules.iterrows():
+
+                left = ", ".join(list(row["antecedents"]))
+                right = ", ".join(list(row["consequents"]))
+
+                associations.append(
+                    f"{left} is often bought with {right}"
+                )
+
+            if associations:
+                apriori_text = "\n".join(
+                    associations[:5]
+                )
+
+        # =========================
+        # TOP PRODUCTS TEXT
+        # =========================
+
+        top_products_text = "\n".join([
+            f"{name} sold {qty} units"
+            for name, qty in top_products
+        ])
+
+        if not top_products_text:
+            top_products_text = "No sales data available."
+
+        # =========================
+        # GEMINI PROMPT
+        # =========================
+
+        prompt = f"""
+
+        You are a business assistant for a sari-sari store.
+
+        Generate practical business insights.
+
+        Rules:
+        - Maximum 5 insights
+        - One sentence only per insight
+        - Simple English
+        - No numbering
+        - No markdown
+        - Short and practical
+
+        Top Selling Products:
+        {top_products_text}
+
+        Product Associations:
+        {apriori_text}
+
+        Generate useful retail recommendations.
+
+        """
+
+        response = model.generate_content(
+            prompt
+        )
+
+        return {
+            "insights": response.text
+        }
+
+    except Exception as e:
+
+        logger.error(f"Gemini insights error: {e}")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+
 # ====================================
 # RESTOCK RECOMMENDATIONS
 # ====================================
