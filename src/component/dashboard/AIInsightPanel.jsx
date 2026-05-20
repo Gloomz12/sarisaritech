@@ -283,42 +283,28 @@ export default function AIInsightPanel({ navigateInsight }) {
                 />
 
                 <Tooltip
+                  formatter={(value, name) => [
+                    `${name === "actualLine" ? "Actual Sale" : "Forecast Sale"} : ₱${Number(value).toLocaleString()}`,
+                    "",
+                  ]}
+                  labelFormatter={(label) => `${label}`}
                   contentStyle={{
                     borderRadius: "14px",
                     border: "1px solid #374151",
                     backgroundColor: "#111827",
                     color: "#fff",
+                    padding: "14px",
                   }}
-                />
-
-                {/* REAL ACTUAL TOOLTIP */}
-
-                <Line
-                  type="monotone"
-                  dataKey="actual"
-                  stroke="transparent"
-                  dot={false}
-                  activeDot={{
-                    r: 0,
+                  itemStyle={{
+                    color: "#C084FC",
+                    fontWeight: 700,
+                    fontSize: "18px",
                   }}
-                  legendType="none"
-                />
-
-                {/* ACTUAL */}
-
-                <Line
-                  type="monotone"
-                  dataKey="actualLine"
-                  connectNulls
-                  name="Actual Sales"
-                  tooltipType="none"
-                  stroke="#3B82F6"
-                  strokeWidth={3}
-                  dot={false}
-                  activeDot={{
-                    r: 5,
-                    fill: "#3B82F6",
-                    strokeWidth: 0,
+                  labelStyle={{
+                    color: "#fff",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    marginBottom: "8px",
                   }}
                 />
 
