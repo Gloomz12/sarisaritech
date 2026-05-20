@@ -60,7 +60,7 @@ export default function History() {
 
       const salesJson = await salesResponse.json();
 
-      const salesData = salesJson.transactions;
+      const salesData = Array.isArray(salesJson) ? salesJson : salesJson.transactions || [];
 
       // RESTOCKS
 
@@ -70,7 +70,9 @@ export default function History() {
         },
       });
 
-      const restockData = await restockResponse.json();
+      const restockJson = await restockResponse.json();
+
+      const restockData = Array.isArray(restockJson) ? restockJson : restockJson.movements || [];
 
       if (!salesResponse.ok) {
         throw new Error(salesData.detail);
