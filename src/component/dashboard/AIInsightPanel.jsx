@@ -270,7 +270,6 @@ export default function AIInsightPanel({ navigateInsight }) {
           </div>
 
           {/* GRAPH */}
-
           <div className="h-[150px] mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={forecastData}>
@@ -284,7 +283,9 @@ export default function AIInsightPanel({ navigateInsight }) {
 
                 <Tooltip
                   formatter={(value, name) => [
-                    `${name === "actual" ? "Actual Sale" : "Forecast Sale"} : ₱${Number(value).toLocaleString()}`,
+                    `${
+                      name === "actual" || name === "Actual Sales" ? "Actual Sale" : "Forecast Sale"
+                    } : ₱${Number(value).toLocaleString()}`,
                     "",
                   ]}
                   labelFormatter={(label) => `${label}`}
@@ -308,8 +309,7 @@ export default function AIInsightPanel({ navigateInsight }) {
                   }}
                 />
 
-                {/* REAL ACTUAL TOOLTIP */}
-
+                {/* HIDDEN ACTUAL TOOLTIP TRIGGER */}
                 <Line
                   type="monotone"
                   dataKey="actual"
@@ -318,16 +318,11 @@ export default function AIInsightPanel({ navigateInsight }) {
                   strokeWidth={10}
                   dot={false}
                   activeDot={{
-                    r: 6,
-                    fill: "#3B82F6",
-                    stroke: "#fff",
-                    strokeWidth: 2,
+                    r: 0,
                   }}
                   legendType="none"
                 />
-
                 {/* ACTUAL */}
-
                 <Line
                   type="monotone"
                   dataKey="actualLine"
