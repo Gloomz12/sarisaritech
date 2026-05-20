@@ -3,6 +3,7 @@ from fastapi import (
     Depends,
     HTTPException,
     Request,
+    Query,
 )
 from app.core.security import limiter
 
@@ -311,7 +312,21 @@ async def create_transaction(
 @limiter.limit("30/minute")
 def get_transactions(
     request: Request,
-    current_user=Depends(get_current_user)
+
+    limit: int = Query(
+        20,
+        ge=1,
+        le=100
+    ),
+
+    offset: int = Query(
+        0,
+        ge=0
+    ),
+
+    current_user=Depends(
+        get_current_user
+    )
 ):
 
     conn = None
@@ -323,7 +338,7 @@ def get_transactions(
 
         cursor = conn.cursor()
 
-        # GET USER TRANSACTIONS
+        # GET LIMITED TRANSACTIONS
 
         cursor.execute("""
             SELECT
@@ -340,9 +355,16 @@ def get_transactions(
             WHERE user_id = %s
 
             ORDER BY created_at DESC
+
+            LIMIT %s
+            OFFSET %s
         """, (
 
             current_user["user_id"],
+
+            limit,
+
+            offset
 
         ))
 
@@ -351,6 +373,8 @@ def get_transactions(
         result = []
 
         for t in transactions:
+
+            # GET ITEMS
 
             cursor.execute("""
                 SELECT
@@ -425,14 +449,29 @@ def get_transactions(
                 ]
             })
 
-        return result
+        return {
+
+            "transactions":
+                result,
+
+            "count":
+                len(result),
+
+            "limit":
+                limit,
+
+            "offset":
+                offset
+        }
 
     except Exception as e:
 
         if conn:
             conn.rollback()
 
-        logger.error(f"Get transactions error: {e}")
+        logger.error(
+            f"Get transactions error: {e}"
+        )
 
         raise HTTPException(
             status_code=500,
