@@ -33,7 +33,7 @@ conn.autocommit = False
 
 cursor = conn.cursor()
 
-USER_ID = "ad3d45ec-54c7-47fe-b638-4a8fa96b8d9d"
+USER_ID = "f1dd41ae-056c-4d7b-b7ab-faca6551762d"
 
 # =========================================
 # CATEGORIES
@@ -399,13 +399,16 @@ while current_date <= END_DATE:
 
         selected = []
 
-        behavior = random.choice([
+        behavior = random.choices(
+        [
             "snack_combo",
             "instant_meal",
             "coffee_break",
             "school_purchase",
             "random",
-        ])
+        ],
+        weights=[50, 25, 15, 5, 5]
+    )[0]
 
         # =================================
         # SNACK + DRINK
@@ -413,13 +416,19 @@ while current_date <= END_DATE:
 
         if behavior == "snack_combo":
 
-            selected.append(
-                random.choice(beverages)
-            )
+            drink = random.choice(beverages)
 
-            selected.append(
-                random.choice(snacks)
-            )
+            snack = random.choice(snacks)
+
+            selected.append(drink)
+            selected.append(snack)
+
+            # EXTRA SNACK
+            if random.random() < 0.50:
+
+                selected.append(
+                    random.choice(snacks)
+                )
 
         # =================================
         # INSTANT FOOD COMBO
@@ -427,14 +436,24 @@ while current_date <= END_DATE:
 
         elif behavior == "instant_meal":
 
-            selected.append(
-                random.choice(instant_foods)
+            noodles = random.choice(
+                instant_foods
             )
 
-            if random.random() < 0.70:
+            selected.append(noodles)
+
+            # DRINK PARTNER
+            if random.random() < 0.80:
 
                 selected.append(
                     random.choice(beverages)
+                )
+
+            # EXTRA SNACK
+            if random.random() < 0.40:
+
+                selected.append(
+                    random.choice(snacks)
                 )
 
         # =================================
@@ -443,11 +462,14 @@ while current_date <= END_DATE:
 
         elif behavior == "coffee_break":
 
-            selected.append(
-                random.choice(coffee_items)
+            coffee = random.choice(
+                coffee_items
             )
 
-            if random.random() < 0.60:
+            selected.append(coffee)
+
+            # BISCUIT / SNACK
+            if random.random() < 0.75:
 
                 selected.append(
                     random.choice(snacks)
@@ -459,15 +481,16 @@ while current_date <= END_DATE:
 
         elif behavior == "school_purchase":
 
-            selected.append(
-                random.choice(school_items)
-            )
+            selected.append("Notebook")
+            selected.append("Ballpen")
 
-            if random.random() < 0.50:
+            if random.random() < 0.70:
 
-                selected.append(
-                    random.choice(school_items)
-                )
+                selected.append("Pencil")
+
+            if random.random() < 0.40:
+
+                selected.append("Eraser")
 
         # =================================
         # PURE RANDOM
