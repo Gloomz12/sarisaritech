@@ -25,7 +25,8 @@ export default function AssociationTable() {
 
       const seen = new Set();
 
-      response.forEach((rule) => {
+      const aprioriData = response?.rules || [];
+      aprioriData.forEach((rule) => {
         const products = rule.products.join(",");
 
         const recommendations = rule.recommendation.join(",");
