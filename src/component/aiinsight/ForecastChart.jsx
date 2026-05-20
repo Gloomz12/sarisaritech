@@ -410,24 +410,8 @@ export default function ForecastChart({ selectedRange }) {
                 dataKey="day"
                 tickLine={false}
                 axisLine={false}
+                minTickGap={45}
                 interval="preserveStartEnd"
-                tickFormatter={(value, index) => {
-                  if (selectedRange === "7 Days") {
-                    return value;
-                  }
-
-                  // 30 DAYS
-                  if (selectedRange === "30 Days") {
-                    return index % 3 === 0 ? value : "";
-                  }
-
-                  // 90 DAYS
-                  if (selectedRange === "90 Days") {
-                    return index % 7 === 0 ? value : "";
-                  }
-
-                  return value;
-                }}
                 tick={{
                   fontSize: 12,
                   fill: darkMode ? "#94A3B8" : "#64748b",
@@ -484,7 +468,7 @@ export default function ForecastChart({ selectedRange }) {
 
               <Line
                 type="monotone"
-                dataKey="actual Sales"
+                dataKey="actual"
                 stroke="transparent"
                 dot={false}
                 activeDot={{
