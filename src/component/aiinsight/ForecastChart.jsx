@@ -411,6 +411,8 @@ export default function ForecastChart({ selectedRange }) {
                 tickLine={false}
                 axisLine={false}
                 interval={0}
+                tickMargin={10}
+                height={50}
                 tickFormatter={(value, index) => {
                   // 7 DAYS
                   if (selectedRange === "7 Days") {
