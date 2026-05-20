@@ -15,8 +15,6 @@ export default function AssociationTable() {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
       const response = await getApriori();
 
       console.log("APRIORI RESPONSE:", response);
@@ -26,6 +24,7 @@ export default function AssociationTable() {
       const seen = new Set();
 
       const aprioriData = response?.rules || [];
+
       aprioriData.forEach((rule) => {
         const products = rule.products.join(",");
 
@@ -42,17 +41,11 @@ export default function AssociationTable() {
         }
       });
 
-      setRules([]);
-
-      setTimeout(() => {
-        setRules(uniqueRules);
-      }, 100);
+      setRules(uniqueRules);
     } catch (error) {
       console.error("APRIORI ERROR:", error);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
+      setLoading(false);
     }
   };
 
@@ -143,32 +136,32 @@ export default function AssociationTable() {
           onClick={loadApriori}
           disabled={loading}
           className="
-          rounded-2xl
+            rounded-2xl
 
-          border
-          border-orange-500/20
+            border
+            border-orange-500/20
 
-          bg-orange-500
-          hover:bg-orange-600
+            bg-orange-500
+            hover:bg-orange-600
 
-          px-6
-          py-3
+            px-6
+            py-3
 
-          text-sm
-          font-bold
+            text-sm
+            font-bold
 
-          text-white
+            text-white
 
-          shadow-lg
-          shadow-orange-500/20
+            shadow-lg
+            shadow-orange-500/20
 
-          transition-all
-          duration-300
+            transition-all
+            duration-300
 
-          hover:scale-[1.02]
+            hover:scale-[1.02]
 
-          disabled:opacity-50
-        "
+            disabled:opacity-50
+          "
         >
           {loading ? "Refreshing..." : "Refresh"}
         </button>
@@ -238,20 +231,20 @@ export default function AssociationTable() {
                     <span
                       key={item}
                       className="
-                          rounded-2xl
+                        rounded-2xl
 
-                          bg-purple-100
-                          dark:bg-purple-500/10
+                        bg-purple-100
+                        dark:bg-purple-500/10
 
-                          px-5
-                          py-3
+                        px-5
+                        py-3
 
-                          text-base
-                          font-semibold
+                        text-base
+                        font-semibold
 
-                          text-purple-700
-                          dark:text-purple-300
-                        "
+                        text-purple-700
+                        dark:text-purple-300
+                      "
                     >
                       {item}
                     </span>
