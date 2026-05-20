@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 
 # CREATE TRANSACTION
-@router.post("/")
+@router.post("")
 @limiter.limit("30/minute")
 async def create_transaction(
     request: Request,
@@ -307,7 +307,7 @@ async def create_transaction(
 
 
 # GET TRANSACTIONS
-@router.get("/")
+@router.get("")
 @limiter.limit("30/minute")
 def get_transactions(
     request: Request,
