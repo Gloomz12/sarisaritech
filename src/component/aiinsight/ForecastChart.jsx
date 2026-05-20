@@ -410,8 +410,8 @@ export default function ForecastChart({ selectedRange }) {
                 dataKey="day"
                 tickLine={false}
                 axisLine={false}
-                minTickGap={45}
-                interval="preserveStartEnd"
+                minTickGap={35}
+                interval={selectedRange === "90 Days" ? 6 : selectedRange === "30 Days" ? 2 : 0}
                 tick={{
                   fontSize: 12,
                   fill: darkMode ? "#94A3B8" : "#64748b",
