@@ -410,14 +410,30 @@ export default function ForecastChart({ selectedRange }) {
                 dataKey="day"
                 tickLine={false}
                 axisLine={false}
-                minTickGap={45}
-                interval="preserveStartEnd"
+                interval={0}
+                tickFormatter={(value, index) => {
+                  // 7 DAYS
+                  if (selectedRange === "7 Days") {
+                    return value;
+                  }
+
+                  // 30 DAYS = EVERY 3 DAYS
+                  if (selectedRange === "30 Days") {
+                    return index % 3 === 0 ? value : "";
+                  }
+
+                  // 90 DAYS = EVERY WEEK
+                  if (selectedRange === "90 Days") {
+                    return index % 7 === 0 ? value : "";
+                  }
+
+                  return value;
+                }}
                 tick={{
                   fontSize: 12,
                   fill: darkMode ? "#94A3B8" : "#64748b",
                 }}
               />
-
               {/* Y AXIS */}
 
               <YAxis
