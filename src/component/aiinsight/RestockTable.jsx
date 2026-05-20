@@ -6,6 +6,7 @@ export default function RestockTable() {
   const [items, setItems] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
     loadRestock();
@@ -97,7 +98,7 @@ export default function RestockTable() {
 
   return (
     <div className="space-y-4">
-      {items.map((item, index) => (
+      {items.slice(0, visibleCount).map((item, index) => (
         <div
           key={index}
           className="
@@ -348,6 +349,44 @@ export default function RestockTable() {
           </div>
         </div>
       ))}
+
+      {/* VIEW MORE */}
+
+      {visibleCount < items.length && (
+        <div className="pt-2">
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 3)}
+            className="
+              w-full
+
+              rounded-2xl
+
+              border
+              border-gray-200
+              dark:border-[#1F2937]
+
+              bg-white
+              dark:bg-[#111827]
+
+              py-3
+
+              text-sm
+              font-semibold
+
+              text-gray-600
+              dark:text-slate-300
+
+              transition-all
+              duration-300
+
+              hover:bg-gray-50
+              dark:hover:bg-[#1E293B]
+            "
+          >
+            View More
+          </button>
+        </div>
+      )}
     </div>
   );
 }

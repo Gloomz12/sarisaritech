@@ -802,7 +802,7 @@ def get_restock_recommendations(
             ORDER BY
                 total_sales DESC
 
-            LIMIT 10
+            LIMIT 50
 
         """, (
             current_user["user_id"],
