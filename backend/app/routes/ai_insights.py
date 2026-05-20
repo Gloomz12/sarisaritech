@@ -336,6 +336,7 @@ def get_apriori(
 
             WHERE
                 t.user_id = %s
+                AND t.type = 'sale'
 
         """, (
             current_user["user_id"],
@@ -343,39 +344,74 @@ def get_apriori(
 
         rows = cursor.fetchall()
 
+        # NO DATA
         if not rows:
 
-            return []
+            return {
+                "success": True,
+                "rules": [],
+                "message": "No transaction data found."
+            }
 
+        # CREATE BASKETS
         basket = {}
 
         for transaction_id, product_name in rows:
 
             if transaction_id not in basket:
 
-                basket[
-                    transaction_id
-                ] = {}
+                basket[transaction_id] = {}
 
-            basket[
-                transaction_id
-            ][product_name] = 1
+            basket[transaction_id][product_name] = 1
 
+        # NEED AT LEAST 2 TRANSACTIONS
+        if len(basket) < 2:
+
+            return {
+                "success": True,
+                "rules": [],
+                "message": "More transactions are needed for Apriori analysis."
+            }
+
+        # DATAFRAME
         df = pd.DataFrame(
             basket
         ).T.fillna(0)
 
+        # BOOLEAN VALUES
+        df = df.astype(bool)
+
+        # APRIORI
         frequent_items = apriori(
             df,
             min_support=0.1,
             use_colnames=True,
         )
 
+        # EMPTY FREQUENT ITEMS
+        if frequent_items.empty:
+
+            return {
+                "success": True,
+                "rules": [],
+                "message": "No frequent itemsets found."
+            }
+
+        # ASSOCIATION RULES
         rules = association_rules(
             frequent_items,
             metric="confidence",
             min_threshold=0.5,
         )
+
+        # EMPTY RULES
+        if rules.empty:
+
+            return {
+                "success": True,
+                "rules": [],
+                "message": "No association rules found."
+            }
 
         output = []
 
@@ -395,34 +431,40 @@ def get_apriori(
 
                 "support":
                     round(
-                        row["support"],
+                        float(row["support"]),
                         2
                     ),
 
                 "confidence":
                     round(
-                        row["confidence"],
+                        float(row["confidence"]),
                         2
                     ),
 
                 "lift":
                     round(
-                        row["lift"],
+                        float(row["lift"]),
                         2
                     ),
             })
 
-        return output
+        return {
+            "success": True,
+            "rules": output
+        }
 
     except Exception as e:
-       if conn:
-        conn.rollback()
+
+        if conn:
+            conn.rollback()
 
         logger.error(f"Apriori error: {e}")
 
-       raise HTTPException(
+        print("APRIORI ERROR:", str(e))
+
+        raise HTTPException(
             status_code=500,
-            detail="Internal server error"
+            detail=str(e)
         )
 
     finally:
