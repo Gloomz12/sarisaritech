@@ -192,6 +192,45 @@ def get_forecast(
             train_forecast["yhat"]
         )
 
+        # =========================
+        # THESIS OUTPUT
+        # =========================
+
+        print("\n========== FORECAST RESULTS ==========")
+
+        actual_values = (
+            data["y"]
+            .tail(7)
+            .tolist()
+        )
+
+        forecast_values = (
+            train_forecast["yhat"]
+            .tail(7)
+            .tolist()
+        )
+
+        for i in range(len(actual_values)):
+
+            actual_sale = round(
+                float(actual_values[i]),
+                2
+            )
+
+            forecast_sale = round(
+                float(forecast_values[i]),
+                2
+            )
+
+            print(
+                f"Actual: {actual_sale} | "
+                f"Forecasted: {forecast_sale}"
+            )
+
+        print(f"\nMAE: {round(mae, 2)}")
+
+        print("=====================================\n")
+
     
         # HISTORY + FUTURE FORECAST
         actual_days_map = {
@@ -412,6 +451,49 @@ def get_apriori(
                 "rules": [],
                 "message": "No association rules found."
             }
+
+        # =========================
+        # THESIS OUTPUT
+        # =========================
+
+        print("\n========== APRIORI RESULTS ==========")
+
+        for _, row in rules.head(10).iterrows():
+
+            left = ", ".join(
+                list(row["antecedents"])
+            )
+
+            right = ", ".join(
+                list(row["consequents"])
+            )
+
+            support = round(
+                float(row["support"]),
+                2
+            )
+
+            confidence = round(
+                float(row["confidence"]),
+                2
+            )
+
+            print(
+                f"{left} + {right}"
+            )
+
+            print(
+                f"Support: {support}"
+            )
+
+            print(
+                f"Confidence: {confidence}"
+            )
+
+            print("----------------------")
+
+        print("=====================================\n")
+                    
 
         output = []
 
