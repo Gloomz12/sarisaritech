@@ -284,7 +284,7 @@ export default function AIInsightPanel({ navigateInsight }) {
 
                 <Tooltip
                   formatter={(value, name) => [
-                    `${name === "actualLine" ? "Actual Sale" : "Forecast Sale"} : ₱${Number(value).toLocaleString()}`,
+                    `${name === "actual" ? "Actual Sale" : "Forecast Sale"} : ₱${Number(value).toLocaleString()}`,
                     "",
                   ]}
                   labelFormatter={(label) => `${label}`}
@@ -298,13 +298,48 @@ export default function AIInsightPanel({ navigateInsight }) {
                   itemStyle={{
                     color: "#C084FC",
                     fontWeight: 700,
-                    fontSize: "18px",
+                    fontSize: "14px",
                   }}
                   labelStyle={{
                     color: "#fff",
                     fontWeight: 700,
-                    fontSize: "16px",
+                    fontSize: "13px",
                     marginBottom: "8px",
+                  }}
+                />
+
+                {/* REAL ACTUAL TOOLTIP */}
+
+                <Line
+                  type="monotone"
+                  dataKey="actual"
+                  name="actual"
+                  stroke="transparent"
+                  strokeWidth={10}
+                  dot={false}
+                  activeDot={{
+                    r: 6,
+                    fill: "#3B82F6",
+                    stroke: "#fff",
+                    strokeWidth: 2,
+                  }}
+                  legendType="none"
+                />
+
+                {/* ACTUAL */}
+
+                <Line
+                  type="monotone"
+                  dataKey="actualLine"
+                  connectNulls
+                  name="Actual Sales"
+                  stroke="#3B82F6"
+                  strokeWidth={3}
+                  dot={false}
+                  activeDot={{
+                    r: 5,
+                    fill: "#3B82F6",
+                    strokeWidth: 0,
                   }}
                 />
 
@@ -314,7 +349,7 @@ export default function AIInsightPanel({ navigateInsight }) {
                   type="monotone"
                   dataKey="predicted"
                   connectNulls
-                  name="Predicted Sales"
+                  name="Forecast Sale"
                   stroke="#60A5FA"
                   strokeWidth={3}
                   strokeDasharray="6 6"
