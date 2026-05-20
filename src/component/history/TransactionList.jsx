@@ -1,9 +1,21 @@
+import { useState } from "react";
+
 import TransactionCard from "./TransactionCard";
 
 export default function TransactionList({ groupedTransactions }) {
+  const entries = Object.entries(groupedTransactions);
+
+  const [visibleCount, setVisibleCount] = useState(1);
+
+  const visibleTransactions = entries.slice(0, visibleCount);
+
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + 1);
+  };
+
   return (
     <div className="space-y-6">
-      {Object.entries(groupedTransactions).map(([date, transactions]) => {
+      {visibleTransactions.map(([date, transactions]) => {
         const total = transactions.reduce((sum, transaction) => sum + (transaction.total || 0), 0);
 
         return (
@@ -48,6 +60,34 @@ export default function TransactionList({ groupedTransactions }) {
           </div>
         );
       })}
+
+      {/* LOAD MORE */}
+
+      {visibleCount < entries.length && (
+        <div className="flex justify-center pt-4">
+          <button
+            onClick={loadMore}
+            className="
+              px-5
+              py-2.5
+
+              rounded-2xl
+
+              bg-blue-500
+              hover:bg-blue-600
+
+              text-white
+              text-sm
+              font-semibold
+
+              transition-all
+              duration-300
+            "
+          >
+            View More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
