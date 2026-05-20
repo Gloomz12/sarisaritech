@@ -384,7 +384,7 @@ def get_apriori(
         # APRIORI
         frequent_items = apriori(
             df,
-            min_support=0.1,
+            min_support=0.01,
             use_colnames=True,
         )
 
@@ -401,7 +401,7 @@ def get_apriori(
         rules = association_rules(
             frequent_items,
             metric="confidence",
-            min_threshold=0.5,
+            min_threshold=0.2,
         )
 
         # EMPTY RULES
@@ -569,14 +569,14 @@ def get_gemini_insights(
 
             frequent_items = apriori(
                 df,
-                min_support=0.1,
+                min_support=0.01,
                 use_colnames=True,
             )
 
             rules = association_rules(
                 frequent_items,
                 metric="confidence",
-                min_threshold=0.5,
+                min_threshold=0.2,
             )
 
             associations = []
