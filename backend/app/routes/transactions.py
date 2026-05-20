@@ -266,6 +266,24 @@ async def create_transaction(
             ))
 
         conn.commit()
+        # ====================================
+        # CLEAR AI CACHE
+        # ====================================
+
+        from app.routes.ai_insights import (
+            forecast_cache,
+            apriori_cache,
+            restock_cache,
+        )
+
+        forecast_cache["data"] = None
+        forecast_cache["last_updated"] = None
+
+        apriori_cache["data"] = None
+        apriori_cache["last_updated"] = None
+
+        restock_cache["data"] = None
+        restock_cache["last_updated"] = None
 
         return {
 
