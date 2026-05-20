@@ -107,7 +107,7 @@ def get_forecast(
         and forecast_cache["last_updated"] is not None
         and datetime.now()
         - forecast_cache["last_updated"]
-        < timedelta(minutes=5)
+        < timedelta(minutes=30)
     ):
         return forecast_cache["data"]
 
