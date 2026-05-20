@@ -15,25 +15,19 @@ export default function RestockTable() {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
       const response = await getRestockRecommendations();
 
       console.log("RESTOCK RESPONSE:", response);
 
-      setItems([]);
-
-      setTimeout(() => {
-        setItems(response);
-      }, 100);
+      setItems(response || []);
     } catch (error) {
       console.error("RESTOCK ERROR:", error);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
+      setLoading(false);
     }
   };
+
+  /* LOADING */
 
   if (loading) {
     return (
@@ -56,6 +50,8 @@ export default function RestockTable() {
       </div>
     );
   }
+
+  /* EMPTY */
 
   if (!items.length) {
     return (
