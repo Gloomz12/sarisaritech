@@ -468,7 +468,7 @@ export default function ForecastChart({ selectedRange }) {
 
               <Line
                 type="monotone"
-                dataKey="actual"
+                dataKey="actual Sales"
                 stroke="transparent"
                 dot={false}
                 activeDot={{

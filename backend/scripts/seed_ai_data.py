@@ -1,13 +1,16 @@
-# backend/scripts/seed_ai_data.py
+# =========================================
+# FAST REALISTIC SARI-SARI STORE SEEDER
+# FULL HISTORY + LIVE PROGRESS
+# OPTIMIZED FOR SUPABASE
+# =========================================
 
 import os
 import sys
 import random
 
-from datetime import (
-    datetime,
-    timedelta,
-)
+from datetime import datetime, timedelta
+
+from psycopg2.extras import execute_batch
 
 sys.path.append(
     os.path.abspath(
@@ -26,38 +29,29 @@ from app.db.database import get_connection
 
 conn = get_connection()
 
+# PERFORMANCE
+conn.autocommit = False
+
 cursor = conn.cursor()
 
-USER_ID = "e4d39f13-317a-4d59-9645-3d4c7e087a0a"
+USER_ID = "ad3d45ec-54c7-47fe-b638-4a8fa96b8d9d"
 
 # =========================================
 # CATEGORIES
 # =========================================
 
 categories = [
-
     "Beverages",
-
     "Snacks",
-
     "Coffee & Milk",
-
     "Bread & Bakery",
-
     "Canned Goods",
-
     "Instant Foods",
-
     "Condiments",
-
     "Frozen Foods",
-
     "Personal Care",
-
     "Household Items",
-
     "School Supplies",
-
     "Rice & Grains",
 ]
 
@@ -68,51 +62,34 @@ print("Creating categories...")
 for category in categories:
 
     cursor.execute("""
-
         INSERT INTO categories (
-
             name,
             user_id
-
         )
-
-        VALUES (
-
-            %s,
-            %s
-
-        )
-
+        VALUES (%s, %s)
         ON CONFLICT (user_id, name)
         DO NOTHING
-
         RETURNING id
-
     """, (
         category,
-        USER_ID,
+        USER_ID
     ))
 
     result = cursor.fetchone()
 
     if result:
-
         category_id = result[0]
 
     else:
 
         cursor.execute("""
-
             SELECT id
-
             FROM categories
-
             WHERE name = %s
             AND user_id = %s
-
         """, (
             category,
-            USER_ID,
+            USER_ID
         ))
 
         category_id = cursor.fetchone()[0]
@@ -128,160 +105,170 @@ conn.commit()
 products = [
 
     # BEVERAGES
-    ("Coke 1.5L", "Beverages", 45, 65),
-    ("Sprite 1.5L", "Beverages", 45, 65),
-    ("Royal 1.5L", "Beverages", 45, 65),
-    ("Mountain Dew", "Beverages", 22, 35),
-    ("Pepsi", "Beverages", 20, 32),
-    ("RC Cola", "Beverages", 18, 28),
-    ("Zesto", "Beverages", 8, 15),
-    ("C2 Green Tea", "Beverages", 18, 28),
-    ("Gatorade", "Beverages", 28, 42),
-    ("Nature Spring", "Beverages", 10, 18),
+    ("Coke Mismo", "Beverages", 16.50, 22),
+    ("Sprite Mismo", "Beverages", 16.50, 22),
+    ("Royal Mismo", "Beverages", 16.50, 22),
+    ("Mountain Dew Mismo", "Beverages", 16.50, 22),
+    ("Pepsi", "Beverages", 14, 18),
+    ("RC Cola", "Beverages", 10, 12),
+    ("Zesto", "Beverages", 9.50, 13),
+    ("C2 Green Tea", "Beverages", 24, 30),
+    ("Gatorade", "Beverages", 42, 50),
+    ("Nature Spring", "Beverages", 11, 15),
+    ("Cobra Energy Drink", "Beverages", 15, 18),
 
     # SNACKS
-    ("Piattos", "Snacks", 15, 25),
-    ("Nova", "Snacks", 15, 25),
-    ("Cheezy", "Snacks", 15, 25),
-    ("Chippy", "Snacks", 12, 20),
-    ("Vcut", "Snacks", 14, 24),
-    ("Crackers", "Snacks", 10, 18),
-    ("Fudgee Bar", "Snacks", 8, 15),
-    ("Hansel", "Snacks", 7, 12),
-    ("Skyflakes", "Snacks", 12, 18),
-    ("Oishi", "Snacks", 10, 18),
+    ("Piattos", "Snacks", 16, 22),
+    ("Nova", "Snacks", 16, 22),
+    ("Cheezy", "Snacks", 10, 15),
+    ("Chippy", "Snacks", 10, 15),
+    ("VCut", "Snacks", 16, 22),
+    ("Crackers", "Snacks", 8, 12),
+    ("Fudgee Bar", "Snacks", 8.50, 12),
+    ("Hansel", "Snacks", 9, 13),
+    ("Skyflakes", "Snacks", 8.50, 12),
+    ("Oishi", "Snacks", 8, 12),
+    ("Roller Coaster", "Snacks", 10, 15),
+    ("Nagaraya", "Snacks", 8.50, 12),
 
     # COFFEE & MILK
-    ("Nescafe Original", "Coffee & Milk", 10, 18),
-    ("Kopiko Brown", "Coffee & Milk", 10, 18),
-    ("Great Taste", "Coffee & Milk", 10, 18),
-    ("Milo Sachet", "Coffee & Milk", 12, 20),
-    ("Bear Brand", "Coffee & Milk", 15, 28),
-    ("Alaska Condensed", "Coffee & Milk", 30, 45),
-    ("Alaska Evap", "Coffee & Milk", 28, 42),
-    ("Coffee Mate", "Coffee & Milk", 18, 30),
+    ("Nescafe Original", "Coffee & Milk", 12.50, 16),
+    ("Kopiko Brown", "Coffee & Milk", 13, 17),
+    ("Great Taste", "Coffee & Milk", 12, 16),
+    ("Milo Sachet", "Coffee & Milk", 11, 15),
+    ("Bear Brand", "Coffee & Milk", 15, 20),
+    ("Alaska Condensed", "Coffee & Milk", 62, 72),
+    ("Alaska Evap", "Coffee & Milk", 43, 50),
+    ("Coffee Mate", "Coffee & Milk", 18, 24),
 
     # BREAD
     ("Pandesal", "Bread & Bakery", 3, 5),
-    ("Pan De Coco", "Bread & Bakery", 10, 18),
-    ("Spanish Bread", "Bread & Bakery", 12, 20),
-    ("Ensaymada", "Bread & Bakery", 15, 25),
-    ("Monay", "Bread & Bakery", 8, 15),
+    ("Pan De Coco", "Bread & Bakery", 8, 10),
+    ("Spanish Bread", "Bread & Bakery", 10, 12),
+    ("Ensaymada", "Bread & Bakery", 12, 15),
+    ("Monay", "Bread & Bakery", 8, 10),
 
     # CANNED GOODS
-    ("555 Sardines", "Canned Goods", 18, 28),
-    ("Mega Sardines", "Canned Goods", 18, 28),
-    ("Century Tuna", "Canned Goods", 30, 45),
-    ("Argentina Corned Beef", "Canned Goods", 35, 55),
-    ("Spam", "Canned Goods", 120, 160),
-    ("Vienna Sausage", "Canned Goods", 25, 38),
+    ("555 Sardines", "Canned Goods", 28, 35),
+    ("Mega Sardines", "Canned Goods", 22.50, 28),
+    ("Century Tuna", "Canned Goods", 41, 48),
+    ("Argentina Corned Beef", "Canned Goods", 42, 50),
+    ("Spam", "Canned Goods", 145, 170),
+    ("Vienna Sausage", "Canned Goods", 28, 35),
+    ("Ligo Sardines", "Canned Goods", 23, 28),
 
     # INSTANT FOODS
-    ("Lucky Me Beef", "Instant Foods", 10, 18),
-    ("Lucky Me Chicken", "Instant Foods", 10, 18),
-    ("Pancit Canton", "Instant Foods", 12, 20),
-    ("Cup Noodles", "Instant Foods", 18, 30),
-    ("Payless", "Instant Foods", 15, 25),
+    ("Lucky Me Beef", "Instant Foods", 10.50, 14),
+    ("Lucky Me Chicken", "Instant Foods", 10.50, 14),
+    ("Pancit Canton", "Instant Foods", 14.50, 18),
+    ("Cup Noodles", "Instant Foods", 21, 26),
+    ("Payless", "Instant Foods", 16, 20),
+    ("Mi Goreng", "Instant Foods", 15, 20),
 
     # CONDIMENTS
-    ("Sugar 1kg", "Condiments", 55, 75),
-    ("Salt", "Condiments", 8, 15),
-    ("Soy Sauce", "Condiments", 18, 30),
-    ("Vinegar", "Condiments", 15, 25),
-    ("Fish Sauce", "Condiments", 12, 20),
+    ("Sugar 1kg", "Condiments", 58, 65),
+    ("Salt", "Condiments", 7, 10),
+    ("Soy Sauce", "Condiments", 12.50, 16),
+    ("Vinegar", "Condiments", 10.50, 14),
+    ("Fish Sauce", "Condiments", 16, 22),
+    ("Banana Ketchup", "Condiments", 20, 26),
 
     # FROZEN
-    ("Hotdog", "Frozen Foods", 60, 90),
-    ("Longganisa", "Frozen Foods", 70, 110),
-    ("Tocino", "Frozen Foods", 65, 100),
+    ("Hotdog", "Frozen Foods", 75, 90),
+    ("Longganisa", "Frozen Foods", 80, 95),
+    ("Tocino", "Frozen Foods", 75, 90),
 
     # PERSONAL CARE
-    ("Palmolive Sachet", "Personal Care", 5, 10),
-    ("Creamsilk Sachet", "Personal Care", 5, 10),
-    ("Safeguard Soap", "Personal Care", 20, 35),
-    ("Colgate", "Personal Care", 35, 55),
-    ("Closeup", "Personal Care", 35, 55),
+    ("Palmolive Sachet", "Personal Care", 7.50, 11),
+    ("Creamsilk Sachet", "Personal Care", 8.50, 12),
+    ("Safeguard Soap", "Personal Care", 22, 28),
+    ("Colgate", "Personal Care", 11, 15),
+    ("Closeup", "Personal Care", 11, 15),
+    ("Bioderm Soap", "Personal Care", 20, 25),
 
     # HOUSEHOLD
-    ("Surf Powder", "Household Items", 25, 40),
-    ("Tide", "Household Items", 30, 45),
-    ("Bleach", "Household Items", 18, 30),
-    ("Joy Dishwashing", "Household Items", 20, 35),
+    ("Surf Powder", "Household Items", 12.50, 17),
+    ("Tide", "Household Items", 12.50, 17),
+    ("Bleach", "Household Items", 18, 24),
+    ("Joy Dishwashing", "Household Items", 12, 16),
+    ("Downy Sachet", "Household Items", 7.50, 11),
 
-    # SCHOOL SUPPLIES
-    ("Notebook", "School Supplies", 20, 35),
-    ("Ballpen", "School Supplies", 8, 15),
-    ("Pencil", "School Supplies", 5, 10),
-    ("Eraser", "School Supplies", 3, 8),
+    # SCHOOL
+    ("Notebook", "School Supplies", 20, 25),
+    ("Ballpen", "School Supplies", 6, 10),
+    ("Pencil", "School Supplies", 4, 6),
+    ("Eraser", "School Supplies", 3, 5),
 
     # RICE
-    ("Rice 1kg", "Rice & Grains", 45, 60),
-    ("Rice 5kg", "Rice & Grains", 240, 300),
+    ("Rice 1kg", "Rice & Grains", 48, 55),
+    ("Rice 5kg", "Rice & Grains", 250, 285),
 ]
 
 print("Creating products...")
+
+product_insert_data = []
 
 for product in products:
 
     name, category, cost, selling = product
 
-    cursor.execute("""
+    stock_quantity = random.randint(5, 25)
 
-        INSERT INTO products (
+    if random.random() < 0.30:
+        stock_quantity = random.randint(1, 4)
 
-            name,
-            category_id,
-            cost_price,
-            selling_price,
-            stock_quantity,
-            min_stock_level,
-            created_at,
-            updated_at,
-            unit,
-            user_id,
-            is_active
+    if random.random() < 0.12:
+        stock_quantity = 0
 
-        )
+    min_stock_level = random.randint(3, 8)
 
-        VALUES (
-
-            %s,
-            %s,
-            %s,
-            %s,
-            %s,
-            %s,
-            NOW(),
-            NOW(),
-            %s,
-            %s,
-            %s
-
-        )
-
-        ON CONFLICT (user_id, name)
-        DO NOTHING
-
-    """, (
-
+    product_insert_data.append((
         name,
-
         category_map[category],
-
         cost,
-
         selling,
-
-        random.randint(500, 2000),
-
-        random.randint(20, 50),
-
+        stock_quantity,
+        min_stock_level,
         "pcs",
-
         USER_ID,
-
-        True,
+        True
     ))
+
+execute_batch(
+    cursor,
+    """
+    INSERT INTO products (
+        name,
+        category_id,
+        cost_price,
+        selling_price,
+        stock_quantity,
+        min_stock_level,
+        created_at,
+        updated_at,
+        unit,
+        user_id,
+        is_active
+    )
+    VALUES (
+        %s,
+        %s,
+        %s,
+        %s,
+        %s,
+        %s,
+        NOW(),
+        NOW(),
+        %s,
+        %s,
+        %s
+    )
+    ON CONFLICT (user_id, name)
+    DO NOTHING
+    """,
+    product_insert_data,
+    page_size=100
+)
 
 conn.commit()
 
@@ -290,16 +277,12 @@ conn.commit()
 # =========================================
 
 cursor.execute("""
-
     SELECT
         id,
         name,
         selling_price
-
     FROM products
-
     WHERE user_id = %s
-
 """, (
     USER_ID,
 ))
@@ -307,258 +290,251 @@ cursor.execute("""
 product_rows = cursor.fetchall()
 
 product_map = {
-
     row[1]: {
-
         "id": row[0],
-
         "price": float(row[2]),
     }
-
     for row in product_rows
 }
 
 # =========================================
-# COMBINATIONS
+# TRANSACTION PATTERNS
 # =========================================
 
-combinations = [
+small_transactions = [
 
-    ["Coke 1.5L", "Piattos"],
-    ["Sprite 1.5L", "Nova"],
-    ["Royal 1.5L", "Hansel"],
-    ["Pandesal", "Kopiko Brown"],
-    ["Pandesal", "Milo Sachet"],
-    ["Lucky Me Beef", "Coke 1.5L"],
-    ["Pancit Canton", "Royal 1.5L"],
-    ["555 Sardines", "Rice 1kg"],
-    ["Century Tuna", "Skyflakes"],
-    ["Argentina Corned Beef", "Rice 1kg"],
-    ["Surf Powder", "Joy Dishwashing"],
-    ["Palmolive Sachet", "Safeguard Soap"],
+    ["Coke Mismo"],
+    ["Sprite Mismo"],
+    ["Royal Mismo"],
+    ["Piattos"],
+    ["Nova"],
+    ["Hansel"],
+    ["Skyflakes"],
+    ["Oishi"],
+    ["Zesto"],
+    ["Kopiko Brown"],
+    ["Milo Sachet"],
+    ["Lucky Me Beef"],
+    ["Lucky Me Chicken"],
+    ["Pancit Canton"],
+    ["Ballpen"],
+    ["Pencil"],
+    ["Nature Spring"],
+
+    ["Coke Mismo", "Piattos"],
+    ["Royal Mismo", "Hansel"],
+    ["Zesto", "Skyflakes"],
+    ["Lucky Me Beef", "Coke Mismo"],
+    ["Kopiko Brown", "Skyflakes"],
     ["Notebook", "Ballpen"],
-    ["Rice 5kg", "Soy Sauce", "Vinegar"],
-    ["Coffee Mate", "Nescafe Original"],
-    ["Milo Sachet", "Bear Brand"],
-    ["Hotdog", "Rice 1kg"],
-    ["Longganisa", "Rice 1kg"],
-
-    [
-        "Coke 1.5L",
-        "Piattos",
-        "Pandesal",
-        "Kopiko Brown",
-    ],
-
-    [
-        "Rice 5kg",
-        "Soy Sauce",
-        "Vinegar",
-        "Fish Sauce",
-    ],
-
-    [
-        "Pancit Canton",
-        "Royal 1.5L",
-        "Hansel",
-    ],
+    ["Pancit Canton", "Royal Mismo"],
 ]
 
-# =========================================
-# PAYMENT METHODS
-# =========================================
-
 PAYMENT_METHODS = (
-    ["Cash"] * 70 +
-    ["GCash"] * 20 +
-    ["Paymaya"] * 10
+    ["Cash"] * 92 +
+    ["GCash"] * 6 +
+    ["Paymaya"] * 2
 )
 
 # =========================================
-# TRANSACTIONS
+# 1 YEAR DATA
 # =========================================
 
-print("Creating transactions...")
+print("Creating realistic transactions...")
 
-TOTAL_TRANSACTIONS = 3000
+START_DATE = datetime.now() - timedelta(days=365)
+END_DATE = datetime.now()
 
-for _ in range(TOTAL_TRANSACTIONS):
+current_date = START_DATE
 
-    random_days = random.randint(0, 365)
+transaction_counter = 0
 
-    random_hours = random.randint(6, 22)
+while current_date <= END_DATE:
 
-    random_minutes = random.randint(0, 59)
+    daily_transactions = random.randint(30, 60)
 
-    created_at = (
-        datetime.now()
-        - timedelta(days=random_days)
-    ).replace(
+    # WEEKEND BOOST
+    if current_date.weekday() >= 5:
+        daily_transactions = random.randint(40, 80)
 
-        hour=random_hours,
-        minute=random_minutes,
-        second=0,
-        microsecond=0,
-    )
+    for _ in range(daily_transactions):
 
-    selected = random.choice(
-        combinations
-    )
-
-    total_amount = 0
-
-    transaction_items = []
-
-    for item in selected:
-
-        if item not in product_map:
-            continue
-
-        quantity = random.randint(1, 5)
-
-        product_price = product_map[item]["price"]
-
-        subtotal = (
-            product_price * quantity
+        created_at = current_date.replace(
+            hour=random.randint(6, 21),
+            minute=random.randint(0, 59),
+            second=0,
+            microsecond=0,
         )
 
-        total_amount += subtotal
+        selected = random.choice(
+            small_transactions
+        )
 
-        transaction_items.append({
+        total_amount = 0
+        transaction_items = []
 
-            "product_id":
-                product_map[item]["id"],
+        for item in selected:
 
-            "quantity":
-                quantity,
+            if item not in product_map:
+                continue
 
-            "price":
-                product_price,
-        })
+            quantity = random.randint(1, 2)
 
-    total_amount = round(
-        total_amount,
-        2
-    )
+            price = product_map[item]["price"]
 
-    amount_paid = (
-        total_amount +
-        random.randint(0, 500)
-    )
+            subtotal = quantity * price
 
-    change_amount = (
-        amount_paid -
-        total_amount
-    )
+            total_amount += subtotal
 
-    payment_method = random.choice(
-        PAYMENT_METHODS
-    )
+            transaction_items.append({
+                "product_id": product_map[item]["id"],
+                "quantity": quantity,
+                "price": price,
+            })
 
-    # =====================================
-    # INSERT TRANSACTION
-    # =====================================
+        total_amount = round(total_amount, 2)
 
-    cursor.execute("""
+        amount_paid = (
+            total_amount +
+            random.choice([0, 5, 10, 20, 50])
+        )
 
-        INSERT INTO transactions (
+        change_amount = (
+            amount_paid -
+            total_amount
+        )
 
+        payment_method = random.choice(
+            PAYMENT_METHODS
+        )
+
+        # =================================
+        # INSERT TRANSACTION
+        # =================================
+
+        cursor.execute("""
+            INSERT INTO transactions (
+                total_amount,
+                payment_method,
+                created_at,
+                amount_paid,
+                change_amount,
+                user_id,
+                updated_at
+            )
+            VALUES (
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                NOW()
+            )
+            RETURNING id
+        """, (
             total_amount,
             payment_method,
             created_at,
             amount_paid,
             change_amount,
-            user_id,
-            updated_at
+            USER_ID,
+        ))
 
-        )
+        transaction_id = cursor.fetchone()[0]
 
-        VALUES (
+        transaction_item_data = []
+        stock_movement_data = []
 
-            %s,
-            %s,
-            %s,
-            %s,
-            %s,
-            %s,
-            NOW()
+        for item in transaction_items:
 
-        )
+            # TRANSACTION ITEMS
+            transaction_item_data.append((
+                transaction_id,
+                item["product_id"],
+                item["quantity"],
+                item["price"],
+            ))
 
-        RETURNING id
+            # STOCK MOVEMENTS
+            previous_stock = random.randint(3, 25)
 
-    """, (
+            new_stock = (
+                previous_stock -
+                item["quantity"]
+            )
 
-        total_amount,
+            stock_movement_data.append((
+                item["product_id"],
+                -item["quantity"],
+                "SALE",
+                created_at,
+                USER_ID,
+                previous_stock,
+                new_stock,
+            ))
 
-        payment_method,
+            # RESTOCKS
+            if random.random() < 0.04:
 
-        created_at,
+                restock_qty = random.randint(3, 12)
 
-        amount_paid,
+                restock_previous = new_stock
 
-        change_amount,
+                restock_new = (
+                    restock_previous +
+                    restock_qty
+                )
 
-        USER_ID,
-    ))
+                restock_date = (
+                    created_at +
+                    timedelta(
+                        hours=random.randint(1, 24)
+                    )
+                )
 
-    transaction_id = cursor.fetchone()[0]
+                stock_movement_data.append((
+                    item["product_id"],
+                    restock_qty,
+                    "RESTOCK",
+                    restock_date,
+                    USER_ID,
+                    restock_previous,
+                    restock_new,
+                ))
 
-    # =====================================
-    # INSERT TRANSACTION ITEMS
-    # =====================================
+        # =================================
+        # INSERT TRANSACTION ITEMS
+        # =================================
 
-    for item in transaction_items:
-
-        cursor.execute("""
-
+        execute_batch(
+            cursor,
+            """
             INSERT INTO transaction_items (
-
                 transaction_id,
                 product_id,
                 quantity,
                 price
-
             )
-
             VALUES (
-
                 %s,
                 %s,
                 %s,
                 %s
-
             )
-
-        """, (
-
-            transaction_id,
-
-            item["product_id"],
-
-            item["quantity"],
-
-            item["price"],
-        ))
-
-        previous_stock = random.randint(
-            500,
-            2000
-        )
-
-        new_stock = (
-            previous_stock -
-            item["quantity"]
+            """,
+            transaction_item_data,
+            page_size=100
         )
 
         # =================================
-        # STOCK MOVEMENTS - SALE
+        # INSERT STOCK MOVEMENTS
         # =================================
 
-        cursor.execute("""
-
+        execute_batch(
+            cursor,
+            """
             INSERT INTO stock_movements (
-
                 product_id,
                 change_quantity,
                 type,
@@ -566,11 +542,8 @@ for _ in range(TOTAL_TRANSACTIONS):
                 user_id,
                 previous_stock,
                 new_stock
-
             )
-
             VALUES (
-
                 %s,
                 %s,
                 %s,
@@ -578,249 +551,52 @@ for _ in range(TOTAL_TRANSACTIONS):
                 %s,
                 %s,
                 %s
-
             )
+            """,
+            stock_movement_data,
+            page_size=100
+        )
 
-        """, (
-
-            item["product_id"],
-
-            -item["quantity"],
-
-            "SALE",
-
-            created_at,
-
-            USER_ID,
-
-            previous_stock,
-
-            new_stock,
-        ))
+        transaction_counter += 1
 
         # =================================
-        # RANDOM RESTOCK EVENTS
+        # LIVE PROGRESS
         # =================================
 
-        if random.random() < 0.15:
+        if transaction_counter % 50 == 0:
 
-            restock_qty = random.randint(
-                20,
-                150
+            print(
+                f"Generated: {transaction_counter}"
             )
-
-            restock_previous = new_stock
-
-            restock_new = (
-                restock_previous +
-                restock_qty
-            )
-
-            restock_date = (
-                created_at +
-                timedelta(
-                    hours=random.randint(1, 24)
-                )
-            )
-
-            cursor.execute("""
-
-                INSERT INTO stock_movements (
-
-                    product_id,
-                    change_quantity,
-                    type,
-                    created_at,
-                    user_id,
-                    previous_stock,
-                    new_stock
-
-                )
-
-                VALUES (
-
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s
-
-                )
-
-            """, (
-
-                item["product_id"],
-
-                restock_qty,
-
-                "RESTOCK",
-
-                restock_date,
-
-                USER_ID,
-
-                restock_previous,
-
-                restock_new,
-            ))
 
         # =================================
-        # RANDOM INVENTORY ADJUSTMENTS
+        # COMMIT EVERY 500
         # =================================
 
-        if random.random() < 0.08:
+        if transaction_counter % 500 == 0:
 
-            adjustment_qty = random.randint(
-                -10,
-                10
+            conn.commit()
+
+            print(
+                f"{transaction_counter} transactions committed..."
             )
 
-            # AVOID ZERO ADJUSTMENT
+    current_date += timedelta(days=1)
 
-            if adjustment_qty == 0:
-
-                adjustment_qty = 1
-
-            adjustment_previous = new_stock
-
-            adjustment_new = (
-                adjustment_previous +
-                adjustment_qty
-            )
-
-            adjustment_date = (
-                created_at +
-                timedelta(
-                    hours=random.randint(1, 12)
-                )
-            )
-
-            cursor.execute("""
-
-                INSERT INTO stock_movements (
-
-                    product_id,
-                    change_quantity,
-                    type,
-                    created_at,
-                    user_id,
-                    previous_stock,
-                    new_stock
-
-                )
-
-                VALUES (
-
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s
-
-                )
-
-            """, (
-
-                item["product_id"],
-
-                adjustment_qty,
-
-                "ADJUSTMENT",
-
-                adjustment_date,
-
-                USER_ID,
-
-                adjustment_previous,
-
-                adjustment_new,
-            ))
-
-        # =================================
-        # RANDOM CRITICAL STOCK EVENTS
-        # =================================
-
-        if random.random() < 0.05:
-
-            critical_previous = random.randint(
-                5,
-                15
-            )
-
-            critical_new = random.randint(
-                0,
-                4
-            )
-
-            critical_change = (
-                critical_new -
-                critical_previous
-            )
-
-            critical_date = (
-                created_at +
-                timedelta(
-                    hours=random.randint(1, 6)
-                )
-            )
-
-            cursor.execute("""
-
-                INSERT INTO stock_movements (
-
-                    product_id,
-                    change_quantity,
-                    type,
-                    created_at,
-                    user_id,
-                    previous_stock,
-                    new_stock
-
-                )
-
-                VALUES (
-
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s,
-                    %s
-
-                )
-
-            """, (
-
-                item["product_id"],
-
-                critical_change,
-
-                "ADJUSTMENT",
-
-                critical_date,
-
-                USER_ID,
-
-                critical_previous,
-
-                critical_new,
-            ))
-
+# FINAL COMMIT
 conn.commit()
 
 cursor.close()
-
 conn.close()
 
 print("===================================")
-print("REALISTIC SARI-SARI STORE SEEDED")
+print("FAST REALISTIC SEED COMPLETE")
 print("===================================")
-print("Categories:", len(categories))
-print("Products:", len(products))
-print("Transactions:", TOTAL_TRANSACTIONS)
+print(f"TOTAL TRANSACTIONS: {transaction_counter}")
+print("1 YEAR DATA GENERATED")
+print("FULL HISTORY ENABLED")
+print("FULL STOCK MOVEMENTS ENABLED")
+print("FORECAST READY")
+print("APRORI READY")
+print("ANALYTICS READY")
 print("===================================")
