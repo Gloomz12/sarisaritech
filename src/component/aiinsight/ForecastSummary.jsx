@@ -58,6 +58,8 @@ export default function ForecastSummary({ selectedRange }) {
 
         bestDay: new Date(best.ds).toLocaleDateString("en-US", {
           weekday: "long",
+          month: "short",
+          day: "numeric",
         }),
 
         bestSales: best.yhat,
