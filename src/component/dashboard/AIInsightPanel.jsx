@@ -328,6 +328,7 @@ export default function AIInsightPanel({ navigateInsight }) {
                   dataKey="actualLine"
                   connectNulls
                   name="Actual Sales"
+                  tooltipType="none"
                   stroke="#3B82F6"
                   strokeWidth={3}
                   dot={false}
