@@ -403,6 +403,11 @@ def get_apriori(
             metric="confidence",
             min_threshold=0.2,
         )
+        print(frequent_items.head(20))
+        print(frequent_items.shape)
+
+        print(rules.head(20))
+        print(rules.shape)
 
         # EMPTY RULES
         if rules.empty:
