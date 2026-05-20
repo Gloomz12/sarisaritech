@@ -29,7 +29,6 @@ from app.db.database import get_connection
 
 conn = get_connection()
 
-# PERFORMANCE
 conn.autocommit = False
 
 cursor = conn.cursor()
@@ -298,37 +297,61 @@ product_map = {
 }
 
 # =========================================
-# TRANSACTION PATTERNS
+# PRODUCT GROUPS
 # =========================================
 
-small_transactions = [
-
-    ["Coke Mismo"],
-    ["Sprite Mismo"],
-    ["Royal Mismo"],
-    ["Piattos"],
-    ["Nova"],
-    ["Hansel"],
-    ["Skyflakes"],
-    ["Oishi"],
-    ["Zesto"],
-    ["Kopiko Brown"],
-    ["Milo Sachet"],
-    ["Lucky Me Beef"],
-    ["Lucky Me Chicken"],
-    ["Pancit Canton"],
-    ["Ballpen"],
-    ["Pencil"],
-    ["Nature Spring"],
-
-    ["Coke Mismo", "Piattos"],
-    ["Royal Mismo", "Hansel"],
-    ["Zesto", "Skyflakes"],
-    ["Lucky Me Beef", "Coke Mismo"],
-    ["Kopiko Brown", "Skyflakes"],
-    ["Notebook", "Ballpen"],
-    ["Pancit Canton", "Royal Mismo"],
+beverages = [
+    "Coke Mismo",
+    "Sprite Mismo",
+    "Royal Mismo",
+    "Mountain Dew Mismo",
+    "Pepsi",
+    "RC Cola",
+    "Zesto",
+    "C2 Green Tea",
+    "Nature Spring",
 ]
+
+snacks = [
+    "Piattos",
+    "Nova",
+    "Cheezy",
+    "Chippy",
+    "VCut",
+    "Crackers",
+    "Fudgee Bar",
+    "Hansel",
+    "Skyflakes",
+    "Oishi",
+    "Roller Coaster",
+    "Nagaraya",
+]
+
+instant_foods = [
+    "Lucky Me Beef",
+    "Lucky Me Chicken",
+    "Pancit Canton",
+    "Cup Noodles",
+    "Payless",
+    "Mi Goreng",
+]
+
+coffee_items = [
+    "Kopiko Brown",
+    "Nescafe Original",
+    "Great Taste",
+    "Milo Sachet",
+    "Bear Brand",
+]
+
+school_items = [
+    "Notebook",
+    "Ballpen",
+    "Pencil",
+    "Eraser",
+]
+
+all_products = list(product_map.keys())
 
 PAYMENT_METHODS = (
     ["Cash"] * 92 +
@@ -353,7 +376,6 @@ while current_date <= END_DATE:
 
     daily_transactions = random.randint(30, 60)
 
-    # WEEKEND BOOST
     if current_date.weekday() >= 5:
         daily_transactions = random.randint(40, 80)
 
@@ -366,9 +388,116 @@ while current_date <= END_DATE:
             microsecond=0,
         )
 
-        selected = random.choice(
-            small_transactions
-        )
+        # =================================
+        # RANDOM BASKET GENERATION
+        # =================================
+
+        basket_size = random.choices(
+            [1, 2, 3, 4],
+            weights=[45, 35, 15, 5]
+        )[0]
+
+        selected = []
+
+        behavior = random.choice([
+            "snack_combo",
+            "instant_meal",
+            "coffee_break",
+            "school_purchase",
+            "random",
+        ])
+
+        # =================================
+        # SNACK + DRINK
+        # =================================
+
+        if behavior == "snack_combo":
+
+            selected.append(
+                random.choice(beverages)
+            )
+
+            selected.append(
+                random.choice(snacks)
+            )
+
+        # =================================
+        # INSTANT FOOD COMBO
+        # =================================
+
+        elif behavior == "instant_meal":
+
+            selected.append(
+                random.choice(instant_foods)
+            )
+
+            if random.random() < 0.70:
+
+                selected.append(
+                    random.choice(beverages)
+                )
+
+        # =================================
+        # COFFEE BREAK
+        # =================================
+
+        elif behavior == "coffee_break":
+
+            selected.append(
+                random.choice(coffee_items)
+            )
+
+            if random.random() < 0.60:
+
+                selected.append(
+                    random.choice(snacks)
+                )
+
+        # =================================
+        # SCHOOL ITEMS
+        # =================================
+
+        elif behavior == "school_purchase":
+
+            selected.append(
+                random.choice(school_items)
+            )
+
+            if random.random() < 0.50:
+
+                selected.append(
+                    random.choice(school_items)
+                )
+
+        # =================================
+        # PURE RANDOM
+        # =================================
+
+        else:
+
+            selected = random.sample(
+                all_products,
+                min(
+                    basket_size,
+                    len(all_products)
+                )
+            )
+
+        # =================================
+        # ADD RANDOM EXTRA ITEMS
+        # =================================
+
+        if random.random() < 0.25:
+
+            extra_item = random.choice(
+                all_products
+            )
+
+            if extra_item not in selected:
+                selected.append(extra_item)
+
+        # REMOVE DUPLICATES
+        selected = list(set(selected))
 
         total_amount = 0
         transaction_items = []
@@ -448,7 +577,6 @@ while current_date <= END_DATE:
 
         for item in transaction_items:
 
-            # TRANSACTION ITEMS
             transaction_item_data.append((
                 transaction_id,
                 item["product_id"],
@@ -456,7 +584,6 @@ while current_date <= END_DATE:
                 item["price"],
             ))
 
-            # STOCK MOVEMENTS
             previous_stock = random.randint(3, 25)
 
             new_stock = (
@@ -474,7 +601,10 @@ while current_date <= END_DATE:
                 new_stock,
             ))
 
-            # RESTOCKS
+            # =================================
+            # RANDOM RESTOCK
+            # =================================
+
             if random.random() < 0.04:
 
                 restock_qty = random.randint(3, 12)
@@ -559,19 +689,11 @@ while current_date <= END_DATE:
 
         transaction_counter += 1
 
-        # =================================
-        # LIVE PROGRESS
-        # =================================
-
         if transaction_counter % 50 == 0:
 
             print(
                 f"Generated: {transaction_counter}"
             )
-
-        # =================================
-        # COMMIT EVERY 500
-        # =================================
 
         if transaction_counter % 500 == 0:
 
@@ -597,6 +719,6 @@ print("1 YEAR DATA GENERATED")
 print("FULL HISTORY ENABLED")
 print("FULL STOCK MOVEMENTS ENABLED")
 print("FORECAST READY")
-print("APRORI READY")
+print("APRIORI READY")
 print("ANALYTICS READY")
 print("===================================")
