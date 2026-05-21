@@ -365,8 +365,17 @@ PAYMENT_METHODS = (
 
 print("Creating realistic transactions...")
 
-START_DATE = datetime.now() - timedelta(days=365)
-END_DATE = datetime.now()
+today = datetime.now()
+
+START_DATE = today - timedelta(days=365)
+
+# hanggang end of TODAY lang
+END_DATE = today.replace(
+    hour=23,
+    minute=59,
+    second=59,
+    microsecond=0
+)
 
 current_date = START_DATE
 
@@ -645,6 +654,10 @@ while current_date <= END_DATE:
                         hours=random.randint(1, 24)
                     )
                 )
+
+                # wag lampas sa current date/time
+                if restock_date > END_DATE:
+                    restock_date = END_DATE
 
                 stock_movement_data.append((
                     item["product_id"],
