@@ -729,25 +729,30 @@ def get_gemini_insights(
 
         prompt = f"""
 
-        You are a business assistant for a sari-sari store.
+        You are an AI business assistant for a sari-sari store inventory and sales system.
 
-        Generate practical business insights.
+        Your task is to generate short and practical business recommendations
+        based ONLY on the provided sales and Apriori association data.
 
-        Rules:
-        - Maximum 5 insights
-        - One sentence only per insight
-        - Simple English
+        STRICT RULES:
+        - Use ONLY the exact product names provided
+        - Do NOT invent products
+        - Do NOT assume information not found in the data
+        - Maximum 5 recommendations only
+        - One sentence per recommendation
+        - Simple and professional English
         - No numbering
         - No markdown
-        - Short and practical
+        - Focus on inventory, bundling, restocking, and sales improvement
+        - Keep each recommendation short and clear
 
-        Top Selling Products:
+        TOP SELLING PRODUCTS:
         {top_products_text}
 
-        Product Associations:
+        PRODUCT ASSOCIATIONS:
         {apriori_text}
 
-        Generate useful retail recommendations.
+        Generate useful recommendations for the store owner.
 
         """
 
