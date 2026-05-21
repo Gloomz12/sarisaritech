@@ -1051,8 +1051,6 @@ def get_restock_recommendations(
             "last_updated": datetime.now(),
         }
 
-        restock_cache["last_updated"] = datetime.now()
-
         return recommendations
 
     except Exception as e:
