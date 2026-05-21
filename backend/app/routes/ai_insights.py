@@ -521,19 +521,37 @@ def get_apriori(
 
         output = []
 
+        seen_pairs = set()
+
         for _, row in rules.iterrows():
+
+            left = sorted(
+                list(row["antecedents"])
+            )
+
+            right = sorted(
+                list(row["consequents"])
+            )
+
+            # normalize pair
+            pair_key = tuple(sorted([
+                tuple(left),
+                tuple(right)
+            ]))
+
+            # skip reverse duplicates
+            if pair_key in seen_pairs:
+                continue
+
+            seen_pairs.add(pair_key)
 
             output.append({
 
                 "products":
-                    list(
-                        row["antecedents"]
-                    ),
+                    left,
 
                 "recommendation":
-                    list(
-                        row["consequents"]
-                    ),
+                    right,
 
                 "support":
                     round(
@@ -553,11 +571,10 @@ def get_apriori(
                         2
                     ),
             })
-
-        result = {
-            "success": True,
-            "rules": output
-        }
+            result = {
+                "success": True,
+                "rules": output
+            }
 
         # ====================================
         # SAVE CACHE
