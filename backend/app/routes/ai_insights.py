@@ -67,10 +67,7 @@ model = genai.GenerativeModel(
 # SIMPLE CACHE
 # ====================================
 
-forecast_cache = {
-    "data": None,
-    "last_updated": None,
-}
+forecast_cache = {}
 
 apriori_cache = {
     "data": None,
@@ -102,14 +99,21 @@ def get_forecast(
     # CACHE REUSE
     # ====================================
 
+    cache_key = f"forecast_{days}"
+
     if (
-        forecast_cache["data"] is not None
-        and forecast_cache["last_updated"] is not None
-        and datetime.now()
-        - forecast_cache["last_updated"]
-        < timedelta(minutes=30)
+        cache_key in forecast_cache
     ):
-        return forecast_cache["data"]
+
+        cached = forecast_cache[cache_key]
+
+        if (
+            datetime.now()
+            - cached["last_updated"]
+            < timedelta(minutes=30)
+        ):
+
+            return cached["data"]
 
     conn = None
     cursor = None
@@ -157,9 +161,10 @@ def get_forecast(
                 }
             }
 
-            forecast_cache["data"] = result
-
-            forecast_cache["last_updated"] = datetime.now()
+            forecast_cache[cache_key] = {
+            "data": result,
+            "last_updated": datetime.now(),
+}
 
             return result
 
@@ -213,9 +218,10 @@ def get_forecast(
                 }
             }
 
-            forecast_cache["data"] = result
-
-            forecast_cache["last_updated"] = datetime.now()
+            forecast_cache[cache_key] = {
+                "data": result,
+                "last_updated": datetime.now(),
+            }
 
             return result
 
@@ -340,9 +346,10 @@ def get_forecast(
         # SAVE CACHE
         # ====================================
 
-        forecast_cache["data"] = result
-
-        forecast_cache["last_updated"] = datetime.now()
+        forecast_cache[cache_key] = {
+            "data": result,
+            "last_updated": datetime.now(),
+        }
 
         return result
 
