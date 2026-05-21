@@ -69,15 +69,9 @@ model = genai.GenerativeModel(
 
 forecast_cache = {}
 
-apriori_cache = {
-    "data": None,
-    "last_updated": None,
-}
+apriori_cache = {}
 
-restock_cache = {
-    "data": None,
-    "last_updated": None,
-}
+restock_cache = {}
 
 # ====================================
 # FORECAST
@@ -99,7 +93,7 @@ def get_forecast(
     # CACHE REUSE
     # ====================================
 
-    cache_key = f"forecast_{days}"
+    cache_key = f"forecast_{current_user['user_id']}_{days}"
 
     if (
         cache_key in forecast_cache
@@ -392,14 +386,20 @@ def get_apriori(
     # CACHE REUSE
     # ====================================
 
+    cache_key = f"apriori_{current_user['user_id']}"
+
     if (
-        apriori_cache["data"] is not None
-        and apriori_cache["last_updated"] is not None
-        and datetime.now()
-        - apriori_cache["last_updated"]
-        < timedelta(minutes=5)
+        cache_key in apriori_cache
     ):
-        return apriori_cache["data"]
+        cached = apriori_cache[cache_key]
+
+        if (
+            datetime.now() - cached["last_updated"]
+            < timedelta(minutes=5)
+        ):
+            return cached["data"]
+        
+        
 
     conn = None
     cursor = None
@@ -443,9 +443,10 @@ def get_apriori(
                 "message": "No transaction data found."
             }
 
-            apriori_cache["data"] = result
-
-            apriori_cache["last_updated"] = datetime.now()
+            apriori_cache[cache_key] = {
+                "data": result,
+                "last_updated": datetime.now(),
+            }
 
             return result
 
@@ -467,9 +468,10 @@ def get_apriori(
                 "message": "More transactions are needed."
             }
 
-            apriori_cache["data"] = result
-
-            apriori_cache["last_updated"] = datetime.now()
+            apriori_cache[cache_key] = {
+                "data": result,
+                "last_updated": datetime.now(),
+            }
 
             return result
 
@@ -493,9 +495,10 @@ def get_apriori(
                 "message": "No frequent itemsets found."
             }
 
-            apriori_cache["data"] = result
-
-            apriori_cache["last_updated"] = datetime.now()
+            apriori_cache[cache_key] = {
+                "data": result,
+                "last_updated": datetime.now(),
+            }
 
             return result
 
@@ -513,9 +516,10 @@ def get_apriori(
                 "message": "No association rules found."
             }
 
-            apriori_cache["data"] = result
-
-            apriori_cache["last_updated"] = datetime.now()
+            apriori_cache[cache_key] = {
+                "data": result,
+                "last_updated": datetime.now(),
+            }
 
             return result
 
@@ -580,9 +584,10 @@ def get_apriori(
         # SAVE CACHE
         # ====================================
 
-        apriori_cache["data"] = result
-
-        apriori_cache["last_updated"] = datetime.now()
+        apriori_cache[cache_key] = {
+            "data": result,
+            "last_updated": datetime.now(),
+        }
 
         return result
 
@@ -846,14 +851,19 @@ def get_restock_recommendations(
     # CACHE REUSE
     # ====================================
 
-    if (
-        restock_cache["data"] is not None
-        and restock_cache["last_updated"] is not None
-        and datetime.now()
-        - restock_cache["last_updated"]
-        < timedelta(minutes=5)
-    ):
-        return restock_cache["data"]
+    cache_key = f"restock_{current_user['user_id']}"
+
+    if cache_key in restock_cache:
+
+        cached = restock_cache[cache_key]
+
+        if (
+            datetime.now()
+            - cached["last_updated"]
+            < timedelta(minutes=5)
+        ):
+
+            return cached["data"]
 
     conn = None
     cursor = None
@@ -1036,7 +1046,10 @@ def get_restock_recommendations(
         # SAVE CACHE
         # ====================================
 
-        restock_cache["data"] = recommendations
+        restock_cache[cache_key] = {
+            "data": recommendations,
+            "last_updated": datetime.now(),
+        }
 
         restock_cache["last_updated"] = datetime.now()
 
