@@ -58,6 +58,8 @@ def get_interval(range_value):
 def get_overview(
     request: Request,
     range: str = "30days",
+    start_date: str = None,
+    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -67,6 +69,11 @@ def get_overview(
     cursor = None
 
     try:
+        is_custom = (
+            range == "custom"
+            and start_date
+            and end_date
+        )
 
         interval = get_interval(range)
 
@@ -74,30 +81,60 @@ def get_overview(
 
         cursor = conn.cursor()
 
-        cursor.execute("""
+        if is_custom:
 
-            SELECT
+            cursor.execute("""
 
-                COALESCE(
-                    SUM(total_amount),
-                    0
-                ),
+                SELECT
 
-                COUNT(*)
+                    COALESCE(
+                        SUM(total_amount),
+                        0
+                    ),
 
-            FROM transactions
+                    COUNT(*)
 
-            WHERE
-                user_id = %s
+                FROM transactions
 
-            AND
-                created_at >=
-                NOW() - INTERVAL %s
+                WHERE
+                    user_id = %s
 
-        """, (
-            current_user["user_id"],
-            interval
-        ))
+                AND
+                    DATE(created_at)
+                    BETWEEN %s AND %s
+
+            """, (
+                current_user["user_id"],
+                start_date,
+                end_date
+            ))
+
+        else:
+
+            cursor.execute("""
+
+                SELECT
+
+                    COALESCE(
+                        SUM(total_amount),
+                        0
+                    ),
+
+                    COUNT(*)
+
+                FROM transactions
+
+                WHERE
+                    user_id = %s
+
+                AND
+                    created_at >=
+                    NOW() - INTERVAL %s
+
+            """, (
+                current_user["user_id"],
+                interval
+            ))
 
         sales_data = cursor.fetchone()
 
@@ -182,6 +219,8 @@ def get_overview(
 def get_sales_trend(
     request: Request,
     range: str = "30days",
+    start_date: str = None,
+    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -191,6 +230,11 @@ def get_sales_trend(
     cursor = None
 
     try:
+        is_custom = (
+            range == "custom"
+            and start_date
+            and end_date
+        )
 
         interval = get_interval(range)
 
@@ -331,36 +375,72 @@ def get_sales_trend(
         # DEFAULT = DAILY
         # ====================================
 
-        cursor.execute("""
+        if is_custom:
 
-            SELECT
+            cursor.execute("""
 
-                DATE(created_at),
+                SELECT
 
-                COALESCE(
-                    SUM(total_amount),
-                    0
-                )
+                    DATE(created_at),
 
-            FROM transactions
+                    COALESCE(
+                        SUM(total_amount),
+                        0
+                    )
 
-            WHERE
-                user_id = %s
+                FROM transactions
 
-            AND
-                created_at >=
-                NOW() - INTERVAL %s
+                WHERE
+                    user_id = %s
 
-            GROUP BY
-                DATE(created_at)
+                AND
+                    DATE(created_at)
+                    BETWEEN %s AND %s
 
-            ORDER BY
-                DATE(created_at)
+                GROUP BY
+                    DATE(created_at)
 
-        """, (
-            current_user["user_id"],
-            interval
-        ))
+                ORDER BY
+                    DATE(created_at)
+
+            """, (
+                current_user["user_id"],
+                start_date,
+                end_date
+            ))
+
+        else:
+
+            cursor.execute("""
+
+                SELECT
+
+                    DATE(created_at),
+
+                    COALESCE(
+                        SUM(total_amount),
+                        0
+                    )
+
+                FROM transactions
+
+                WHERE
+                    user_id = %s
+
+                AND
+                    created_at >=
+                    NOW() - INTERVAL %s
+
+                GROUP BY
+                    DATE(created_at)
+
+                ORDER BY
+                    DATE(created_at)
+
+            """, (
+                current_user["user_id"],
+                interval
+            ))
 
         rows = cursor.fetchall()
 
@@ -409,6 +489,8 @@ def get_sales_trend(
 def get_top_products(
     request: Request,
     range: str = "30days",
+    start_date: str = None,
+    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
@@ -418,6 +500,11 @@ def get_top_products(
     cursor = None
 
     try:
+        is_custom = (
+            range == "custom"
+            and start_date
+            and end_date
+        )
 
         interval = get_interval(range)
 
@@ -425,59 +512,116 @@ def get_top_products(
 
         cursor = conn.cursor()
 
-        cursor.execute("""
+        if is_custom:
 
-            SELECT
+            cursor.execute("""
 
-                p.name,
+                SELECT
 
-                COALESCE(
-                    c.name,
-                    'Uncategorized'
-                ),
+                    p.name,
 
-                COALESCE(
-                    SUM(ti.quantity),
-                    0
-                ) as sold,
+                    COALESCE(
+                        c.name,
+                        'Uncategorized'
+                    ),
 
-                COALESCE(
-                    SUM(ti.subtotal),
-                    0
-                ) as sales
+                    COALESCE(
+                        SUM(ti.quantity),
+                        0
+                    ) as sold,
 
-            FROM transaction_items ti
+                    COALESCE(
+                        SUM(ti.subtotal),
+                        0
+                    ) as sales
 
-            JOIN products p
-            ON ti.product_id = p.id
+                FROM transaction_items ti
 
-            LEFT JOIN categories c
-            ON p.category_id = c.id
+                JOIN products p
+                ON ti.product_id = p.id
 
-            JOIN transactions t
-            ON ti.transaction_id = t.id
+                LEFT JOIN categories c
+                ON p.category_id = c.id
 
-            WHERE
-                t.user_id = %s
+                JOIN transactions t
+                ON ti.transaction_id = t.id
 
-            AND
-                t.created_at >=
-                NOW() - INTERVAL %s
+                WHERE
+                    t.user_id = %s
 
-            GROUP BY
-                p.name,
-                c.name
+                AND
+                    DATE(t.created_at)
+                    BETWEEN %s AND %s
 
-            ORDER BY
-                sales DESC
+                GROUP BY
+                    p.name,
+                    c.name
 
-            LIMIT 5
+                ORDER BY
+                    sales DESC
 
-        """, (
-            current_user["user_id"],
-            interval
-        ))
+                LIMIT 5
 
+            """, (
+                current_user["user_id"],
+                start_date,
+                end_date
+            ))
+
+        else:
+
+            cursor.execute("""
+
+                SELECT
+
+                    p.name,
+
+                    COALESCE(
+                        c.name,
+                        'Uncategorized'
+                    ),
+
+                    COALESCE(
+                        SUM(ti.quantity),
+                        0
+                    ) as sold,
+
+                    COALESCE(
+                        SUM(ti.subtotal),
+                        0
+                    ) as sales
+
+                FROM transaction_items ti
+
+                JOIN products p
+                ON ti.product_id = p.id
+
+                LEFT JOIN categories c
+                ON p.category_id = c.id
+
+                JOIN transactions t
+                ON ti.transaction_id = t.id
+
+                WHERE
+                    t.user_id = %s
+
+                AND
+                    t.created_at >=
+                    NOW() - INTERVAL %s
+
+                GROUP BY
+                    p.name,
+                    c.name
+
+                ORDER BY
+                    sales DESC
+
+                LIMIT 5
+
+            """, (
+                current_user["user_id"],
+                interval
+            ))
         rows = cursor.fetchall()
 
         result = []
@@ -529,17 +673,23 @@ def get_top_products(
 @router.get("/categories")
 @limiter.limit("30/minute")
 def get_categories(
-    request: Request,
+   request: Request,
     range: str = "30days",
+    start_date: str = None,
+    end_date: str = None,
     current_user=Depends(
         get_current_user
     )
 ):
-
     conn = None
     cursor = None
 
     try:
+        is_custom = (
+            range == "custom"
+            and start_date
+            and end_date
+        )
 
         interval = get_interval(range)
 
@@ -547,46 +697,90 @@ def get_categories(
 
         cursor = conn.cursor()
 
-        cursor.execute("""
+        if is_custom:
 
-            SELECT
+            cursor.execute("""
 
-                COALESCE(
-                    c.name,
-                    'Uncategorized'
-                ),
+                SELECT
 
-                COALESCE(
-                    SUM(ti.subtotal),
-                    0
-                ) as sales
+                    COALESCE(
+                        c.name,
+                        'Uncategorized'
+                    ),
 
-            FROM transaction_items ti
+                    COALESCE(
+                        SUM(ti.subtotal),
+                        0
+                    ) as sales
 
-            JOIN products p
-            ON ti.product_id = p.id
+                FROM transaction_items ti
 
-            LEFT JOIN categories c
-            ON p.category_id = c.id
+                JOIN products p
+                ON ti.product_id = p.id
 
-            JOIN transactions t
-            ON ti.transaction_id = t.id
+                LEFT JOIN categories c
+                ON p.category_id = c.id
 
-            WHERE
-                t.user_id = %s
+                JOIN transactions t
+                ON ti.transaction_id = t.id
 
-            AND
-                t.created_at >=
-                NOW() - INTERVAL %s
+                WHERE
+                    t.user_id = %s
 
-            GROUP BY
-                c.name
+                AND
+                    DATE(t.created_at)
+                    BETWEEN %s AND %s
 
-        """, (
-            current_user["user_id"],
-            interval
-        ))
+                GROUP BY
+                    c.name
 
+            """, (
+                current_user["user_id"],
+                start_date,
+                end_date
+            ))
+
+        else:
+
+            cursor.execute("""
+
+                SELECT
+
+                    COALESCE(
+                        c.name,
+                        'Uncategorized'
+                    ),
+
+                    COALESCE(
+                        SUM(ti.subtotal),
+                        0
+                    ) as sales
+
+                FROM transaction_items ti
+
+                JOIN products p
+                ON ti.product_id = p.id
+
+                LEFT JOIN categories c
+                ON p.category_id = c.id
+
+                JOIN transactions t
+                ON ti.transaction_id = t.id
+
+                WHERE
+                    t.user_id = %s
+
+                AND
+                    t.created_at >=
+                    NOW() - INTERVAL %s
+
+                GROUP BY
+                    c.name
+
+            """, (
+                current_user["user_id"],
+                interval
+            ))
         rows = cursor.fetchall()
 
         total = sum(
