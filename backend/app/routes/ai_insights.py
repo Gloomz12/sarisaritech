@@ -959,11 +959,11 @@ def get_restock_recommendations(
                 0
             )
 
-            if suggested_order >= 50:
+            if suggested_order >= 15:
 
                 priority = "High"
 
-            elif suggested_order >= 20:
+            elif suggested_order >= 7:
 
                 priority = "Medium"
 
