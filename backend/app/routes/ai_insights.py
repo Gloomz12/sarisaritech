@@ -774,32 +774,32 @@ def get_gemini_insights(
 
         prompt = f"""
 
-        You are an AI business assistant for a sari-sari store inventory and sales system.
+                You are an AI business assistant for a sari-sari store inventory and sales system.
 
-        Your task is to generate short and practical business recommendations
-        based ONLY on the provided sales and Apriori association data.
+                Your task is to generate short and practical business recommendations
+                based ONLY on the provided sales and Apriori association data.
 
-        STRICT RULES:
-        - Use ONLY the exact product names provided
-        - Do NOT invent products
-        - Do NOT assume information not found in the data
-        - Maximum 5 recommendations only
-        - One sentence per recommendation
-        - Simple and professional English
-        - No numbering
-        - No markdown
-        - Focus on inventory, bundling, restocking, and sales improvement
-        - Keep each recommendation short and clear
+                STRICT RULES:
+                - Use ONLY the exact product names provided
+                - Do NOT invent products
+                - Do NOT assume information not found in the data
+                - Maximum 5 recommendations only
+                - One sentence per recommendation
+                - Simple and professional English
+                - No numbering
+                - No markdown
+                - Focus on inventory management, restocking, product placement, and sales improvement
+                - Do NOT suggest bundles, combo deals, or promotions
+                - Keep each recommendation short and realistic for a sari-sari store
 
-        TOP SELLING PRODUCTS:
-        {top_products_text}
+                TOP SELLING PRODUCTS:
+                {top_products_text}
 
-        PRODUCT ASSOCIATIONS:
-        {apriori_text}
+                PRODUCT ASSOCIATIONS:
+                {apriori_text}
 
-        Generate useful recommendations for the store owner.
-
-        """
+                Generate useful recommendations for the store owner.
+                """
 
         response = model.generate_content(
             prompt
