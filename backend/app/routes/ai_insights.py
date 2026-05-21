@@ -643,7 +643,21 @@ def get_gemini_insights(
             JOIN transactions t
             ON ti.transaction_id = t.id
 
-            WHERE t.user_id = %s
+            WHERE
+                t.user_id = %s
+
+            AND
+                (
+                    t.created_at
+                    AT TIME ZONE 'UTC'
+                    AT TIME ZONE 'Asia/Manila'
+                )
+                >=
+                (
+                    NOW()
+                    AT TIME ZONE 'Asia/Manila'
+                )
+                - INTERVAL '30 days'
 
             GROUP BY p.name
 
@@ -675,7 +689,21 @@ def get_gemini_insights(
             JOIN transactions t
             ON ti.transaction_id = t.id
 
-            WHERE t.user_id = %s
+            WHERE
+                t.user_id = %s
+
+            AND
+                (
+                    t.created_at
+                    AT TIME ZONE 'UTC'
+                    AT TIME ZONE 'Asia/Manila'
+                )
+                >=
+                (
+                    NOW()
+                    AT TIME ZONE 'Asia/Manila'
+                )
+                - INTERVAL '30 days'
 
         """, (
             current_user["user_id"],
