@@ -100,8 +100,12 @@ def get_overview(
                     user_id = %s
 
                 AND
-                    DATE(created_at)
-                    BETWEEN %s AND %s
+                    DATE(
+                    created_at
+                    AT TIME ZONE 'UTC'
+                    AT TIME ZONE 'Asia/Manila'
+                )
+                BETWEEN %s AND %s
 
             """, (
                 current_user["user_id"],
@@ -128,8 +132,17 @@ def get_overview(
                     user_id = %s
 
                 AND
-                    created_at >=
-                    NOW() - INTERVAL %s
+                    (
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
+                    >=
+                    (
+                        NOW()
+                        AT TIME ZONE 'Asia/Manila'
+                    )
+                    - INTERVAL %s
 
             """, (
                 current_user["user_id"],
@@ -371,7 +384,7 @@ def get_sales_trend(
 
             return result
 
-        # ====================================
+       # ====================================
         # DEFAULT = DAILY
         # ====================================
 
@@ -381,7 +394,11 @@ def get_sales_trend(
 
                 SELECT
 
-                    DATE(created_at),
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    ),
 
                     COALESCE(
                         SUM(total_amount),
@@ -394,14 +411,26 @@ def get_sales_trend(
                     user_id = %s
 
                 AND
-                    DATE(created_at)
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
                     BETWEEN %s AND %s
 
                 GROUP BY
-                    DATE(created_at)
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
 
                 ORDER BY
-                    DATE(created_at)
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
 
             """, (
                 current_user["user_id"],
@@ -415,7 +444,11 @@ def get_sales_trend(
 
                 SELECT
 
-                    DATE(created_at),
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    ),
 
                     COALESCE(
                         SUM(total_amount),
@@ -428,20 +461,34 @@ def get_sales_trend(
                     user_id = %s
 
                 AND
-                    created_at >=
-                    NOW() - INTERVAL %s
+                    (
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    ) >=
+                    (
+                        NOW()
+                        AT TIME ZONE 'Asia/Manila'
+                    ) - INTERVAL %s
 
                 GROUP BY
-                    DATE(created_at)
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
 
                 ORDER BY
-                    DATE(created_at)
+                    DATE(
+                        created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
 
             """, (
                 current_user["user_id"],
                 interval
             ))
-
         rows = cursor.fetchall()
 
         result = []
@@ -550,7 +597,11 @@ def get_top_products(
                     t.user_id = %s
 
                 AND
-                    DATE(t.created_at)
+                   DATE(
+                        t.created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
                     BETWEEN %s AND %s
 
                 GROUP BY
@@ -606,8 +657,17 @@ def get_top_products(
                     t.user_id = %s
 
                 AND
-                    t.created_at >=
-                    NOW() - INTERVAL %s
+                    (
+                        t.created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
+                    >=
+                    (
+                        NOW()
+                        AT TIME ZONE 'Asia/Manila'
+                    )
+                    - INTERVAL %s
 
                 GROUP BY
                     p.name,
@@ -728,8 +788,12 @@ def get_categories(
                     t.user_id = %s
 
                 AND
-                    DATE(t.created_at)
-                    BETWEEN %s AND %s
+                  DATE(
+                    t.created_at
+                    AT TIME ZONE 'UTC'
+                    AT TIME ZONE 'Asia/Manila'
+                )
+                BETWEEN %s AND %s
 
                 GROUP BY
                     c.name
@@ -771,8 +835,17 @@ def get_categories(
                     t.user_id = %s
 
                 AND
-                    t.created_at >=
-                    NOW() - INTERVAL %s
+                   (
+                        t.created_at
+                        AT TIME ZONE 'UTC'
+                        AT TIME ZONE 'Asia/Manila'
+                    )
+                    >=
+                    (
+                        NOW()
+                        AT TIME ZONE 'Asia/Manila'
+                    )
+                    - INTERVAL %s
 
                 GROUP BY
                     c.name

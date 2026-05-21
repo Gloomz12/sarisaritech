@@ -216,7 +216,7 @@ for product in products:
     if random.random() < 0.30:
         stock_quantity = random.randint(1, 4)
 
-    if random.random() < 0.12:
+    if random.random() < 0.04:
         stock_quantity = 0
 
     min_stock_level = random.randint(3, 8)
@@ -391,11 +391,13 @@ while current_date <= END_DATE:
     for _ in range(daily_transactions):
 
         created_at = current_date.replace(
-            hour=random.randint(6, 21),
+            hour=random.randint(6, 20),
             minute=random.randint(0, 59),
             second=0,
             microsecond=0,
         )
+        # convert PH time to UTC
+        created_at = created_at - timedelta(hours=8)
 
         # =================================
         # RANDOM BASKET GENERATION
@@ -633,41 +635,41 @@ while current_date <= END_DATE:
                 new_stock,
             ))
 
-            # =================================
             # RANDOM RESTOCK
-            # =================================
+        if random.random() < 0.04:
 
-            if random.random() < 0.04:
+            restock_qty = random.randint(3, 12)
 
-                restock_qty = random.randint(3, 12)
+            restock_previous = new_stock
 
-                restock_previous = new_stock
+            restock_new = (
+                restock_previous +
+                restock_qty
+            )
 
-                restock_new = (
-                    restock_previous +
-                    restock_qty
-                )
+            # restock only during store hours
+            restock_date = created_at.replace(
+                hour=random.randint(6, 20),
+                minute=random.randint(0, 59),
+                second=0,
+                microsecond=0,
+            )
 
-                restock_date = (
-                    created_at +
-                    timedelta(
-                        hours=random.randint(1, 24)
-                    )
-                )
+            # convert PH time to UTC
+            restock_date = (
+                restock_date -
+                timedelta(hours=8)
+            )
 
-                # wag lampas sa current date/time
-                if restock_date > END_DATE:
-                    restock_date = END_DATE
-
-                stock_movement_data.append((
-                    item["product_id"],
-                    restock_qty,
-                    "RESTOCK",
-                    restock_date,
-                    USER_ID,
-                    restock_previous,
-                    restock_new,
-                ))
+            stock_movement_data.append((
+                item["product_id"],
+                restock_qty,
+                "RESTOCK",
+                restock_date,
+                USER_ID,
+                restock_previous,
+                restock_new,
+            ))
 
         # =================================
         # INSERT TRANSACTION ITEMS
