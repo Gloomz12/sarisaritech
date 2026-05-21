@@ -111,7 +111,9 @@ export default function ForecastChart({ selectedRange }) {
 
       // BEST DAY
 
-      const best = balancedForecast.reduce((prev, current) => (prev.yhat > current.yhat ? prev : current));
+      const visibleData = balancedForecast.filter((item) => item.type === "actual" || item.type === "predicted");
+
+      const best = visibleData.reduce((prev, current) => (prev.yhat > current.yhat ? prev : current));
 
       // GROWTH
 
@@ -134,9 +136,15 @@ export default function ForecastChart({ selectedRange }) {
 
         revenue: totalRevenue,
 
-        bestDay: new Date(best.ds).toLocaleDateString("en-US", {
-          weekday: "long",
-        }),
+        bestDay:
+          selectedRange === "7 Days"
+            ? new Date(best.ds).toLocaleDateString("en-US", {
+                weekday: "long",
+              })
+            : new Date(best.ds).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              }),
       });
     } catch (error) {
       console.error("FORECAST ERROR:", error);
