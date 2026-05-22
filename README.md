@@ -1,70 +1,127 @@
-# Getting Started with Create React App
+# Sarisaritech
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern full-stack application built with React and Python, featuring a responsive frontend with real-time data visualization and a robust backend API.
 
-## Available Scripts
+## 📋 Project Structure
 
-In the project directory, you can run:
+- **Frontend**: React 19 application with Tailwind CSS, built with Create React App
+- **Backend**: Python Flask/FastAPI application with modern API architecture
+- **Build**: Production-ready build artifacts
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- **React 19** - UI framework
+- **Tailwind CSS** - Utility-first styling
+- **React Router v7** - Client-side routing
+- **Chart.js & Recharts** - Data visualization
+- **Axios** - HTTP client
+- **Lucide React** - Icon library
+- **React Hot Toast** - Notifications
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- **Python** - Backend runtime
+- **Dependencies**: See `backend/requirements.txt`
 
-### `npm test`
+## 📦 Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+- Node.js 16+ (for frontend)
+- Python 3.8+ (for backend)
 
-### `npm run build`
+### Frontend Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Install dependencies
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Start development server (opens http://localhost:3000)
+npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Build for production
+npm run build
 
-### `npm run eject`
+# Run tests
+npm test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Backend Setup
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+# Navigate to backend directory
+cd backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Install dependencies
+pip install -r requirements.txt
 
-## Learn More
+# Run the server
+python main.py
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🚀 Available Scripts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Frontend
 
-### Code Splitting
+- `npm start` - Run development server with hot reload
+- `npm build` - Create optimized production build
+- `npm test` - Launch test runner in watch mode
+- `npm eject` - Eject from Create React App (one-way operation)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📁 Directory Layout
 
-### Analyzing the Bundle Size
+```
+sarisaritech/
+├── src/                    # Frontend React components
+│   ├── component/         # Reusable UI components
+│   ├── pages/            # Page components
+│   ├── layouts/          # Layout components
+│   ├── services/         # API services
+│   ├── utils/            # Utility functions
+│   ├── styles/           # CSS/styling
+│   └── App.jsx           # Main app component
+├── backend/               # Backend Python application
+│   ├── app/              # Application modules
+│   ├── data/             # Data files
+│   ├── scripts/          # Utility scripts
+│   ├── main.py           # Entry point
+│   ├── requirements.txt   # Python dependencies
+│   └── .env.example      # Environment variables template
+├── public/               # Static files
+├── package.json          # Frontend dependencies
+└── tailwind.config.js    # Tailwind CSS configuration
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔧 Configuration
 
-### Making a Progressive Web App
+- **Tailwind CSS**: Configured in `tailwind.config.js`
+- **PostCSS**: Configured in `postcss.config.js`
+- **Code Formatting**: Prettier configured in `.prettierrc`
+- **Environment Variables**: Copy `.env.example` to `.env` and configure as needed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🧪 Testing
 
-### Advanced Configuration
+Run frontend tests in watch mode:
+```bash
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📝 License
 
-### Deployment
+This project is private. All rights reserved.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🤝 Contributing
 
-### `npm run build` fails to minify
+1. Create a feature branch (`git checkout -b feature/YourFeature`)
+2. Commit your changes (`git commit -m 'Add YourFeature'`)
+3. Push to the branch (`git push origin feature/YourFeature`)
+4. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📚 Learn More
+
+- [React Documentation](https://reactjs.org/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/)
+- [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started)
